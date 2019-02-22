@@ -1,0 +1,879 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="golldatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="calificacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nota" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdEvaluacion" Type="Int64" Nullable="false" />
+    <Property Name="IdMatricula" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="evaluacion" Relationship="Self.calificacion_ibfk_1" FromRole="calificacion" ToRole="evaluacion" />
+    <NavigationProperty Name="matricula" Relationship="Self.calificacion_ibfk_2" FromRole="calificacion" ToRole="matricula" />
+  </EntityType>
+  <EntityType Name="cargo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.contrato_ibfk_1" FromRole="cargo" ToRole="contrato" />
+  </EntityType>
+  <EntityType Name="contrato">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="FhInicio" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FhFin" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCargo" Type="Int64" Nullable="false" />
+    <Property Name="IdEmpleado" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="cargo" Relationship="Self.contrato_ibfk_1" FromRole="contrato" ToRole="cargo" />
+    <NavigationProperty Name="empleado" Relationship="Self.contrato_ibfk_2" FromRole="contrato" ToRole="empleado" />
+    <NavigationProperty Name="curso" Relationship="Self.curso_ibfk_1" FromRole="contrato" ToRole="curso" />
+    <NavigationProperty Name="useremp" Relationship="Self.useremp_ibfk_1" FromRole="contrato" ToRole="useremp" />
+  </EntityType>
+  <EntityType Name="cuota">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Precio" Type="Decimal" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" />
+    <Property Name="IdMatricula" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="matricula" Relationship="Self.cuota_ibfk_1" FromRole="cuota" ToRole="matricula" />
+  </EntityType>
+  <EntityType Name="curso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Seccion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Publico" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Desde" Type="DateTime" Nullable="false" />
+    <Property Name="Hasta" Type="DateTime" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdContrato" Type="Int64" Nullable="false" />
+    <Property Name="IdSucursal" Type="Int64" Nullable="false" />
+    <Property Name="IdYear" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.curso_ibfk_1" FromRole="curso" ToRole="contrato" />
+    <NavigationProperty Name="sucursal" Relationship="Self.curso_ibfk_2" FromRole="curso" ToRole="sucursal" />
+    <NavigationProperty Name="year" Relationship="Self.curso_ibfk_3" FromRole="curso" ToRole="year" />
+    <NavigationProperty Name="detcurso" Relationship="Self.detcurso_ibfk_1" FromRole="curso" ToRole="detcurso" />
+    <NavigationProperty Name="dias" Relationship="Self.dias_ibfk_1" FromRole="curso" ToRole="dias" />
+    <NavigationProperty Name="evaluacion" Relationship="Self.evaluacion_ibfk_1" FromRole="curso" ToRole="evaluacion" />
+    <NavigationProperty Name="matricula" Relationship="Self.matricula_ibfk_1" FromRole="curso" ToRole="matricula" />
+  </EntityType>
+  <EntityType Name="cv">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Archivo" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="IdEmpleado" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="empleado" Relationship="Self.cv_ibfk_1" FromRole="cv" ToRole="empleado" />
+  </EntityType>
+  <EntityType Name="detcurso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="IdLibro" Type="Int64" Nullable="false" />
+    <Property Name="IdCurso" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="curso" Relationship="Self.detcurso_ibfk_1" FromRole="detcurso" ToRole="curso" />
+    <NavigationProperty Name="libro" Relationship="Self.detcurso_ibfk_2" FromRole="detcurso" ToRole="libro" />
+  </EntityType>
+  <EntityType Name="detfactura">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Concepto" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" />
+    <Property Name="Descuento" Type="Decimal" Nullable="false" />
+    <Property Name="IdFactura" Type="Int64" Nullable="false" />
+    <Property Name="IdProducto" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="factura" Relationship="Self.detfactura_ibfk_1" FromRole="detfactura" ToRole="factura" />
+    <NavigationProperty Name="producto" Relationship="Self.detfactura_ibfk_2" FromRole="detfactura" ToRole="producto" />
+  </EntityType>
+  <EntityType Name="detmatricula">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdMatricula" Type="Int64" Nullable="false" />
+    <Property Name="IdEncargado" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="encargado" Relationship="Self.detmatricula_ibfk_1" FromRole="detmatricula" ToRole="encargado" />
+    <NavigationProperty Name="matricula" Relationship="Self.detmatricula_ibfk_2" FromRole="detmatricula" ToRole="matricula" />
+  </EntityType>
+  <EntityType Name="dias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="HEntrada" Type="Time" Nullable="false" />
+    <Property Name="HSalida" Type="Time" Nullable="false" />
+    <Property Name="IdCurso" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="curso" Relationship="Self.dias_ibfk_1" FromRole="dias" ToRole="curso" />
+  </EntityType>
+  <EntityType Name="egreso">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" />
+    <Property Name="IdSucursal" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="sucursal" Relationship="Self.egreso_ibfk_1" FromRole="egreso" ToRole="sucursal" />
+  </EntityType>
+  <EntityType Name="empleado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Correo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="CV" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdPersona" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.contrato_ibfk_2" FromRole="empleado" ToRole="contrato" />
+    <NavigationProperty Name="cv1" Relationship="Self.cv_ibfk_1" FromRole="empleado" ToRole="cv" />
+    <NavigationProperty Name="persona" Relationship="Self.empleado_ibfk_1" FromRole="empleado" ToRole="persona" />
+  </EntityType>
+  <EntityType Name="encargado">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Telefono" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="IdPersona" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="detmatricula" Relationship="Self.detmatricula_ibfk_1" FromRole="encargado" ToRole="detmatricula" />
+    <NavigationProperty Name="persona" Relationship="Self.encargado_ibfk_1" FromRole="encargado" ToRole="persona" />
+  </EntityType>
+  <EntityType Name="estudiante">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Telefono" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Enfermedad" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TelEmergencia" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ParentEmergencia" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdPersona" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="persona" Relationship="Self.estudiante_ibfk_1" FromRole="estudiante" ToRole="persona" />
+    <NavigationProperty Name="matricula" Relationship="Self.matricula_ibfk_2" FromRole="estudiante" ToRole="matricula" />
+    <NavigationProperty Name="userest" Relationship="Self.userest_ibfk_2" FromRole="estudiante" ToRole="userest" />
+  </EntityType>
+  <EntityType Name="evaluacion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Porcentaje" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCurso" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="calificacion" Relationship="Self.calificacion_ibfk_1" FromRole="evaluacion" ToRole="calificacion" />
+    <NavigationProperty Name="curso" Relationship="Self.evaluacion_ibfk_1" FromRole="evaluacion" ToRole="curso" />
+  </EntityType>
+  <EntityType Name="factura">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="NFactura" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Observacion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" />
+    <Property Name="IdPersona" Type="Int64" Nullable="false" />
+    <Property Name="IdMatricula" Type="Int64" Nullable="false" />
+    <Property Name="IdSucursal" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="detfactura" Relationship="Self.detfactura_ibfk_1" FromRole="factura" ToRole="detfactura" />
+    <NavigationProperty Name="sucursal" Relationship="Self.factura_ibfk_1" FromRole="factura" ToRole="sucursal" />
+    <NavigationProperty Name="matricula" Relationship="Self.factura_ibfk_2" FromRole="factura" ToRole="matricula" />
+    <NavigationProperty Name="persona" Relationship="Self.factura_ibfk_3" FromRole="factura" ToRole="persona" />
+  </EntityType>
+  <EntityType Name="libro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Edicion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="NActividades" Type="Int32" Nullable="false" />
+    <Property Name="Nivel" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="detcurso" Relationship="Self.detcurso_ibfk_2" FromRole="libro" ToRole="detcurso" />
+  </EntityType>
+  <EntityType Name="matricula">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Estado" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Becado" Type="Boolean" Nullable="false" />
+    <Property Name="DiaLimite" Type="Int32" Nullable="false" />
+    <Property Name="IdCurso" Type="Int64" Nullable="false" />
+    <Property Name="IdEstudiante" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="calificacion" Relationship="Self.calificacion_ibfk_2" FromRole="matricula" ToRole="calificacion" />
+    <NavigationProperty Name="cuota" Relationship="Self.cuota_ibfk_1" FromRole="matricula" ToRole="cuota" />
+    <NavigationProperty Name="curso" Relationship="Self.matricula_ibfk_1" FromRole="matricula" ToRole="curso" />
+    <NavigationProperty Name="detmatricula" Relationship="Self.detmatricula_ibfk_2" FromRole="matricula" ToRole="detmatricula" />
+    <NavigationProperty Name="estudiante" Relationship="Self.matricula_ibfk_2" FromRole="matricula" ToRole="estudiante" />
+    <NavigationProperty Name="factura" Relationship="Self.factura_ibfk_2" FromRole="matricula" ToRole="factura" />
+  </EntityType>
+  <EntityType Name="persona">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Dui" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="Nit" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNac" Type="DateTime" />
+    <Property Name="Direccion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="empleado" Relationship="Self.empleado_ibfk_1" FromRole="persona" ToRole="empleado" />
+    <NavigationProperty Name="encargado" Relationship="Self.encargado_ibfk_1" FromRole="persona" ToRole="encargado" />
+    <NavigationProperty Name="estudiante" Relationship="Self.estudiante_ibfk_1" FromRole="persona" ToRole="estudiante" />
+    <NavigationProperty Name="factura" Relationship="Self.factura_ibfk_3" FromRole="persona" ToRole="factura" />
+  </EntityType>
+  <EntityType Name="producto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="detfactura" Relationship="Self.detfactura_ibfk_2" FromRole="producto" ToRole="detfactura" />
+  </EntityType>
+  <EntityType Name="regemphist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Detalle" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoRegistro" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Accion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUserEmp" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="useremp" Relationship="Self.regemphist_ibfk_1" FromRole="regemphist" ToRole="useremp" />
+  </EntityType>
+  <EntityType Name="regesthist">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Detalle" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoRegistro" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Accion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUserEst" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="userest" Relationship="Self.regesthist_ibfk_1" FromRole="regesthist" ToRole="userest" />
+  </EntityType>
+  <EntityType Name="sucursal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FhRegistro" Type="DateTime" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Direccion" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="curso" Relationship="Self.curso_ibfk_2" FromRole="sucursal" ToRole="curso" />
+    <NavigationProperty Name="egreso" Relationship="Self.egreso_ibfk_1" FromRole="sucursal" ToRole="egreso" />
+    <NavigationProperty Name="factura" Relationship="Self.factura_ibfk_1" FromRole="sucursal" ToRole="factura" />
+    <NavigationProperty Name="useremp" Relationship="Self.useremp_ibfk_2" FromRole="sucursal" ToRole="useremp" />
+    <NavigationProperty Name="userest" Relationship="Self.userest_ibfk_1" FromRole="sucursal" ToRole="userest" />
+  </EntityType>
+  <EntityType Name="useremp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rol" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdSucursal" Type="Int64" Nullable="false" />
+    <Property Name="IdContrato" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="contrato" Relationship="Self.useremp_ibfk_1" FromRole="useremp" ToRole="contrato" />
+    <NavigationProperty Name="regemphist" Relationship="Self.regemphist_ibfk_1" FromRole="useremp" ToRole="regemphist" />
+    <NavigationProperty Name="sucursal" Relationship="Self.useremp_ibfk_2" FromRole="useremp" ToRole="sucursal" />
+  </EntityType>
+  <EntityType Name="userest">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Login" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Rol" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdSucursal" Type="Int64" Nullable="false" />
+    <Property Name="IdEstudiante" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="estudiante" Relationship="Self.userest_ibfk_2" FromRole="userest" ToRole="estudiante" />
+    <NavigationProperty Name="regesthist" Relationship="Self.regesthist_ibfk_1" FromRole="userest" ToRole="regesthist" />
+    <NavigationProperty Name="sucursal" Relationship="Self.userest_ibfk_1" FromRole="userest" ToRole="sucursal" />
+  </EntityType>
+  <EntityType Name="year">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Desde" Type="DateTime" Nullable="false" />
+    <Property Name="Hasta" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="curso" Relationship="Self.curso_ibfk_3" FromRole="year" ToRole="curso" />
+  </EntityType>
+  <Association Name="calificacion_ibfk_1">
+    <End Role="evaluacion" Type="Self.evaluacion" Multiplicity="1" />
+    <End Role="calificacion" Type="Self.calificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="evaluacion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="calificacion">
+        <PropertyRef Name="IdEvaluacion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="calificacion_ibfk_2">
+    <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+    <End Role="calificacion" Type="Self.calificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="matricula">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="calificacion">
+        <PropertyRef Name="IdMatricula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="contrato_ibfk_1">
+    <End Role="cargo" Type="Self.cargo" Multiplicity="1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cargo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="IdCargo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="contrato_ibfk_2">
+    <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+    <End Role="contrato" Type="Self.contrato" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empleado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="contrato">
+        <PropertyRef Name="IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="curso_ibfk_1">
+    <End Role="contrato" Type="Self.contrato" Multiplicity="1" />
+    <End Role="curso" Type="Self.curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contrato">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="curso">
+        <PropertyRef Name="IdContrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="useremp_ibfk_1">
+    <End Role="contrato" Type="Self.contrato" Multiplicity="1" />
+    <End Role="useremp" Type="Self.useremp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contrato">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="useremp">
+        <PropertyRef Name="IdContrato" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cuota_ibfk_1">
+    <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+    <End Role="cuota" Type="Self.cuota" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="matricula">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="cuota">
+        <PropertyRef Name="IdMatricula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="curso_ibfk_2">
+    <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+    <End Role="curso" Type="Self.curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sucursal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="curso">
+        <PropertyRef Name="IdSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="curso_ibfk_3">
+    <End Role="year" Type="Self.year" Multiplicity="1" />
+    <End Role="curso" Type="Self.curso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="year">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="curso">
+        <PropertyRef Name="IdYear" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detcurso_ibfk_1">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="detcurso" Type="Self.detcurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detcurso">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="dias_ibfk_1">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="dias" Type="Self.dias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="dias">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="evaluacion_ibfk_1">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="evaluacion" Type="Self.evaluacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="evaluacion">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="matricula_ibfk_1">
+    <End Role="curso" Type="Self.curso" Multiplicity="1" />
+    <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="curso">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="matricula">
+        <PropertyRef Name="IdCurso" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cv_ibfk_1">
+    <End Role="empleado" Type="Self.empleado" Multiplicity="1" />
+    <End Role="cv" Type="Self.cv" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="empleado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="cv">
+        <PropertyRef Name="IdEmpleado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detcurso_ibfk_2">
+    <End Role="libro" Type="Self.libro" Multiplicity="1" />
+    <End Role="detcurso" Type="Self.detcurso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="libro">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detcurso">
+        <PropertyRef Name="IdLibro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detfactura_ibfk_1">
+    <End Role="factura" Type="Self.factura" Multiplicity="1" />
+    <End Role="detfactura" Type="Self.detfactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="factura">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detfactura">
+        <PropertyRef Name="IdFactura" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detfactura_ibfk_2">
+    <End Role="producto" Type="Self.producto" Multiplicity="1" />
+    <End Role="detfactura" Type="Self.detfactura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detfactura">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detmatricula_ibfk_1">
+    <End Role="encargado" Type="Self.encargado" Multiplicity="1" />
+    <End Role="detmatricula" Type="Self.detmatricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="encargado">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detmatricula">
+        <PropertyRef Name="IdEncargado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="detmatricula_ibfk_2">
+    <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+    <End Role="detmatricula" Type="Self.detmatricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="matricula">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="detmatricula">
+        <PropertyRef Name="IdMatricula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="egreso_ibfk_1">
+    <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+    <End Role="egreso" Type="Self.egreso" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sucursal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="egreso">
+        <PropertyRef Name="IdSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="empleado_ibfk_1">
+    <End Role="persona" Type="Self.persona" Multiplicity="1" />
+    <End Role="empleado" Type="Self.empleado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="empleado">
+        <PropertyRef Name="IdPersona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="encargado_ibfk_1">
+    <End Role="persona" Type="Self.persona" Multiplicity="1" />
+    <End Role="encargado" Type="Self.encargado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="encargado">
+        <PropertyRef Name="IdPersona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="estudiante_ibfk_1">
+    <End Role="persona" Type="Self.persona" Multiplicity="1" />
+    <End Role="estudiante" Type="Self.estudiante" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="estudiante">
+        <PropertyRef Name="IdPersona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="matricula_ibfk_2">
+    <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+    <End Role="matricula" Type="Self.matricula" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estudiante">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="matricula">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userest_ibfk_2">
+    <End Role="estudiante" Type="Self.estudiante" Multiplicity="1" />
+    <End Role="userest" Type="Self.userest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estudiante">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="userest">
+        <PropertyRef Name="IdEstudiante" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="factura_ibfk_1">
+    <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+    <End Role="factura" Type="Self.factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sucursal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="factura">
+        <PropertyRef Name="IdSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="factura_ibfk_2">
+    <End Role="matricula" Type="Self.matricula" Multiplicity="1" />
+    <End Role="factura" Type="Self.factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="matricula">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="factura">
+        <PropertyRef Name="IdMatricula" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="factura_ibfk_3">
+    <End Role="persona" Type="Self.persona" Multiplicity="1" />
+    <End Role="factura" Type="Self.factura" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="persona">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="factura">
+        <PropertyRef Name="IdPersona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="regemphist_ibfk_1">
+    <End Role="useremp" Type="Self.useremp" Multiplicity="1" />
+    <End Role="regemphist" Type="Self.regemphist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="useremp">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="regemphist">
+        <PropertyRef Name="IdUserEmp" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="regesthist_ibfk_1">
+    <End Role="userest" Type="Self.userest" Multiplicity="1" />
+    <End Role="regesthist" Type="Self.regesthist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="userest">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="regesthist">
+        <PropertyRef Name="IdUserEst" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="useremp_ibfk_2">
+    <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+    <End Role="useremp" Type="Self.useremp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sucursal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="useremp">
+        <PropertyRef Name="IdSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="userest_ibfk_1">
+    <End Role="sucursal" Type="Self.sucursal" Multiplicity="1" />
+    <End Role="userest" Type="Self.userest" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sucursal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="userest">
+        <PropertyRef Name="IdSucursal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="golldatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="calificacion" EntityType="Self.calificacion" />
+    <EntitySet Name="cargo" EntityType="Self.cargo" />
+    <EntitySet Name="contrato" EntityType="Self.contrato" />
+    <EntitySet Name="cuota" EntityType="Self.cuota" />
+    <EntitySet Name="curso" EntityType="Self.curso" />
+    <EntitySet Name="cv" EntityType="Self.cv" />
+    <EntitySet Name="detcurso" EntityType="Self.detcurso" />
+    <EntitySet Name="detfactura" EntityType="Self.detfactura" />
+    <EntitySet Name="detmatricula" EntityType="Self.detmatricula" />
+    <EntitySet Name="dias" EntityType="Self.dias" />
+    <EntitySet Name="egreso" EntityType="Self.egreso" />
+    <EntitySet Name="empleado" EntityType="Self.empleado" />
+    <EntitySet Name="encargado" EntityType="Self.encargado" />
+    <EntitySet Name="estudiante" EntityType="Self.estudiante" />
+    <EntitySet Name="evaluacion" EntityType="Self.evaluacion" />
+    <EntitySet Name="factura" EntityType="Self.factura" />
+    <EntitySet Name="libro" EntityType="Self.libro" />
+    <EntitySet Name="matricula" EntityType="Self.matricula" />
+    <EntitySet Name="persona" EntityType="Self.persona" />
+    <EntitySet Name="producto" EntityType="Self.producto" />
+    <EntitySet Name="regemphist" EntityType="Self.regemphist" />
+    <EntitySet Name="regesthist" EntityType="Self.regesthist" />
+    <EntitySet Name="sucursal" EntityType="Self.sucursal" />
+    <EntitySet Name="useremp" EntityType="Self.useremp" />
+    <EntitySet Name="userest" EntityType="Self.userest" />
+    <EntitySet Name="year" EntityType="Self.year" />
+    <AssociationSet Name="calificacion_ibfk_1" Association="Self.calificacion_ibfk_1">
+      <End Role="evaluacion" EntitySet="evaluacion" />
+      <End Role="calificacion" EntitySet="calificacion" />
+    </AssociationSet>
+    <AssociationSet Name="calificacion_ibfk_2" Association="Self.calificacion_ibfk_2">
+      <End Role="matricula" EntitySet="matricula" />
+      <End Role="calificacion" EntitySet="calificacion" />
+    </AssociationSet>
+    <AssociationSet Name="contrato_ibfk_1" Association="Self.contrato_ibfk_1">
+      <End Role="cargo" EntitySet="cargo" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+    <AssociationSet Name="contrato_ibfk_2" Association="Self.contrato_ibfk_2">
+      <End Role="empleado" EntitySet="empleado" />
+      <End Role="contrato" EntitySet="contrato" />
+    </AssociationSet>
+    <AssociationSet Name="curso_ibfk_1" Association="Self.curso_ibfk_1">
+      <End Role="contrato" EntitySet="contrato" />
+      <End Role="curso" EntitySet="curso" />
+    </AssociationSet>
+    <AssociationSet Name="useremp_ibfk_1" Association="Self.useremp_ibfk_1">
+      <End Role="contrato" EntitySet="contrato" />
+      <End Role="useremp" EntitySet="useremp" />
+    </AssociationSet>
+    <AssociationSet Name="cuota_ibfk_1" Association="Self.cuota_ibfk_1">
+      <End Role="matricula" EntitySet="matricula" />
+      <End Role="cuota" EntitySet="cuota" />
+    </AssociationSet>
+    <AssociationSet Name="curso_ibfk_2" Association="Self.curso_ibfk_2">
+      <End Role="sucursal" EntitySet="sucursal" />
+      <End Role="curso" EntitySet="curso" />
+    </AssociationSet>
+    <AssociationSet Name="curso_ibfk_3" Association="Self.curso_ibfk_3">
+      <End Role="year" EntitySet="year" />
+      <End Role="curso" EntitySet="curso" />
+    </AssociationSet>
+    <AssociationSet Name="detcurso_ibfk_1" Association="Self.detcurso_ibfk_1">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="detcurso" EntitySet="detcurso" />
+    </AssociationSet>
+    <AssociationSet Name="dias_ibfk_1" Association="Self.dias_ibfk_1">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="dias" EntitySet="dias" />
+    </AssociationSet>
+    <AssociationSet Name="evaluacion_ibfk_1" Association="Self.evaluacion_ibfk_1">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="evaluacion" EntitySet="evaluacion" />
+    </AssociationSet>
+    <AssociationSet Name="matricula_ibfk_1" Association="Self.matricula_ibfk_1">
+      <End Role="curso" EntitySet="curso" />
+      <End Role="matricula" EntitySet="matricula" />
+    </AssociationSet>
+    <AssociationSet Name="cv_ibfk_1" Association="Self.cv_ibfk_1">
+      <End Role="empleado" EntitySet="empleado" />
+      <End Role="cv" EntitySet="cv" />
+    </AssociationSet>
+    <AssociationSet Name="detcurso_ibfk_2" Association="Self.detcurso_ibfk_2">
+      <End Role="libro" EntitySet="libro" />
+      <End Role="detcurso" EntitySet="detcurso" />
+    </AssociationSet>
+    <AssociationSet Name="detfactura_ibfk_1" Association="Self.detfactura_ibfk_1">
+      <End Role="factura" EntitySet="factura" />
+      <End Role="detfactura" EntitySet="detfactura" />
+    </AssociationSet>
+    <AssociationSet Name="detfactura_ibfk_2" Association="Self.detfactura_ibfk_2">
+      <End Role="producto" EntitySet="producto" />
+      <End Role="detfactura" EntitySet="detfactura" />
+    </AssociationSet>
+    <AssociationSet Name="detmatricula_ibfk_1" Association="Self.detmatricula_ibfk_1">
+      <End Role="encargado" EntitySet="encargado" />
+      <End Role="detmatricula" EntitySet="detmatricula" />
+    </AssociationSet>
+    <AssociationSet Name="detmatricula_ibfk_2" Association="Self.detmatricula_ibfk_2">
+      <End Role="matricula" EntitySet="matricula" />
+      <End Role="detmatricula" EntitySet="detmatricula" />
+    </AssociationSet>
+    <AssociationSet Name="egreso_ibfk_1" Association="Self.egreso_ibfk_1">
+      <End Role="sucursal" EntitySet="sucursal" />
+      <End Role="egreso" EntitySet="egreso" />
+    </AssociationSet>
+    <AssociationSet Name="empleado_ibfk_1" Association="Self.empleado_ibfk_1">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="empleado" EntitySet="empleado" />
+    </AssociationSet>
+    <AssociationSet Name="encargado_ibfk_1" Association="Self.encargado_ibfk_1">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="encargado" EntitySet="encargado" />
+    </AssociationSet>
+    <AssociationSet Name="estudiante_ibfk_1" Association="Self.estudiante_ibfk_1">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="estudiante" EntitySet="estudiante" />
+    </AssociationSet>
+    <AssociationSet Name="matricula_ibfk_2" Association="Self.matricula_ibfk_2">
+      <End Role="estudiante" EntitySet="estudiante" />
+      <End Role="matricula" EntitySet="matricula" />
+    </AssociationSet>
+    <AssociationSet Name="userest_ibfk_2" Association="Self.userest_ibfk_2">
+      <End Role="estudiante" EntitySet="estudiante" />
+      <End Role="userest" EntitySet="userest" />
+    </AssociationSet>
+    <AssociationSet Name="factura_ibfk_1" Association="Self.factura_ibfk_1">
+      <End Role="sucursal" EntitySet="sucursal" />
+      <End Role="factura" EntitySet="factura" />
+    </AssociationSet>
+    <AssociationSet Name="factura_ibfk_2" Association="Self.factura_ibfk_2">
+      <End Role="matricula" EntitySet="matricula" />
+      <End Role="factura" EntitySet="factura" />
+    </AssociationSet>
+    <AssociationSet Name="factura_ibfk_3" Association="Self.factura_ibfk_3">
+      <End Role="persona" EntitySet="persona" />
+      <End Role="factura" EntitySet="factura" />
+    </AssociationSet>
+    <AssociationSet Name="regemphist_ibfk_1" Association="Self.regemphist_ibfk_1">
+      <End Role="useremp" EntitySet="useremp" />
+      <End Role="regemphist" EntitySet="regemphist" />
+    </AssociationSet>
+    <AssociationSet Name="regesthist_ibfk_1" Association="Self.regesthist_ibfk_1">
+      <End Role="userest" EntitySet="userest" />
+      <End Role="regesthist" EntitySet="regesthist" />
+    </AssociationSet>
+    <AssociationSet Name="useremp_ibfk_2" Association="Self.useremp_ibfk_2">
+      <End Role="sucursal" EntitySet="sucursal" />
+      <End Role="useremp" EntitySet="useremp" />
+    </AssociationSet>
+    <AssociationSet Name="userest_ibfk_1" Association="Self.userest_ibfk_1">
+      <End Role="sucursal" EntitySet="sucursal" />
+      <End Role="userest" EntitySet="userest" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

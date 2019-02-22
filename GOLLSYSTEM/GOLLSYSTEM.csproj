@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9688AE5E-EFE6-46EF-8D26-DDBD3DAA004F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GOLLSYSTEM</RootNamespace>
+    <AssemblyName>GOLLSYSTEM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.13.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.13\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.10.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.Entity.6.10.8\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controles\ControlCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlCursos.Designer.cs">
+      <DependentUpon>ControlCursos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ControlEgresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlEgresos.Designer.cs">
+      <DependentUpon>ControlEgresos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ControlEmpleados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlEmpleados.Designer.cs">
+      <DependentUpon>ControlEmpleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ControlIngresos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlIngresos.Designer.cs">
+      <DependentUpon>ControlIngresos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controles\ControlMatriculas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controles\ControlMatriculas.Designer.cs">
+      <DependentUpon>ControlMatriculas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataAccess\CalificacionDAL.cs" />
+    <Compile Include="DataAccess\CargoDAL.cs" />
+    <Compile Include="DataAccess\Conexion.cs" />
+    <Compile Include="DataAccess\ContratoDAL.cs" />
+    <Compile Include="DataAccess\CuotaDAL.cs" />
+    <Compile Include="DataAccess\CursoDAL.cs" />
+    <Compile Include="DataAccess\CvDAL.cs" />
+    <Compile Include="DataAccess\DetCursoDAL.cs" />
+    <Compile Include="DataAccess\DetFacturaDAL.cs" />
+    <Compile Include="DataAccess\DetMatriculaDAL.cs" />
+    <Compile Include="DataAccess\DiasDAL.cs" />
+    <Compile Include="DataAccess\EgresoDAL.cs" />
+    <Compile Include="DataAccess\EmpleadoDAL.cs" />
+    <Compile Include="DataAccess\EncargadoDAL.cs" />
+    <Compile Include="DataAccess\EstudianteDAL.cs" />
+    <Compile Include="DataAccess\EvaluacionDAL.cs" />
+    <Compile Include="DataAccess\FacturaDAL.cs" />
+    <Compile Include="DataAccess\LibroDAL.cs" />
+    <Compile Include="DataAccess\MatriculaDAL.cs" />
+    <Compile Include="DataAccess\PersonaDAL.cs" />
+    <Compile Include="DataAccess\ProductoDAL.cs" />
+    <Compile Include="DataAccess\RegemphistDAL.cs" />
+    <Compile Include="DataAccess\RegesthistDAL.cs" />
+    <Compile Include="DataAccess\SucursalDAL.cs" />
+    <Compile Include="DataAccess\UserempDAL.cs" />
+    <Compile Include="DataAccess\UserEstDAL.cs" />
+    <Compile Include="DataAccess\YearDAL.cs" />
+    <Compile Include="EntityLayer\Calificacion.cs" />
+    <Compile Include="EntityLayer\Cargo.cs" />
+    <Compile Include="EntityLayer\Contrato.cs" />
+    <Compile Include="EntityLayer\Cuota.cs" />
+    <Compile Include="EntityLayer\Curso.cs" />
+    <Compile Include="EntityLayer\Cv.cs" />
+    <Compile Include="EntityLayer\Detcurso.cs" />
+    <Compile Include="EntityLayer\Detfactura.cs" />
+    <Compile Include="EntityLayer\Detmatricula.cs" />
+    <Compile Include="EntityLayer\Dia.cs" />
+    <Compile Include="EntityLayer\Egreso.cs" />
+    <Compile Include="EntityLayer\Empleado.cs" />
+    <Compile Include="EntityLayer\Encargado.cs" />
+    <Compile Include="EntityLayer\Estudiante.cs" />
+    <Compile Include="EntityLayer\Evaluacion.cs" />
+    <Compile Include="EntityLayer\Factura.cs" />
+    <Compile Include="EntityLayer\Libro.cs" />
+    <Compile Include="EntityLayer\Matricula.cs" />
+    <Compile Include="EntityLayer\Persona.cs" />
+    <Compile Include="EntityLayer\Producto.cs" />
+    <Compile Include="EntityLayer\Regemphist.cs" />
+    <Compile Include="EntityLayer\Regesthist.cs" />
+    <Compile Include="EntityLayer\Sucursal.cs" />
+    <Compile Include="EntityLayer\Useremp.cs" />
+    <Compile Include="EntityLayer\Userest.cs" />
+    <Compile Include="EntityLayer\Year.cs" />
+    <Compile Include="Forms\frmBuscarCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarCurso.Designer.cs">
+      <DependentUpon>frmBuscarCurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEgreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEgreso.Designer.cs">
+      <DependentUpon>frmBuscarEgreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEmpleado.Designer.cs">
+      <DependentUpon>frmBuscarEmpleado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEncargado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEncargado.Designer.cs">
+      <DependentUpon>frmBuscarEncargado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarEstudiante.Designer.cs">
+      <DependentUpon>frmBuscarEstudiante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarFactura.Designer.cs">
+      <DependentUpon>frmBuscarFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarIngreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarIngreso.Designer.cs">
+      <DependentUpon>frmBuscarIngreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarLibro.Designer.cs">
+      <DependentUpon>frmBuscarLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarMatricula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarMatricula.Designer.cs">
+      <DependentUpon>frmBuscarMatricula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmBuscarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarProducto.Designer.cs">
+      <DependentUpon>frmBuscarProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmCurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmCurso.Designer.cs">
+      <DependentUpon>FrmCurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEgreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEgreso.Designer.cs">
+      <DependentUpon>FrmEgreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEmpleado.Designer.cs">
+      <DependentUpon>FrmEmpleado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEncargado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEncargado.Designer.cs">
+      <DependentUpon>FrmEncargado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmEstudiante.Designer.cs">
+      <DependentUpon>FrmEstudiante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmFactura.Designer.cs">
+      <DependentUpon>FrmFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmIngreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmIngreso.Designer.cs">
+      <DependentUpon>FrmIngreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmLibro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmLibro.Designer.cs">
+      <DependentUpon>FrmLibro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmMatricula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMatricula.Designer.cs">
+      <DependentUpon>FrmMatricula.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProducto.Designer.cs">
+      <DependentUpon>FrmProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmWelcome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmWelcome.Designer.cs">
+      <DependentUpon>frmWelcome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TestRegularExpresion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TestRegularExpresion.Designer.cs">
+      <DependentUpon>TestRegularExpresion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inicio.Designer.cs">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Skin\Animation.cs" />
+    <Compile Include="Skin\MoveForm.cs" />
+    <Compile Include="Validation\Validation.cs" />
+    <EmbeddedResource Include="Controles\ControlCursos.resx">
+      <DependentUpon>ControlCursos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ControlEgresos.resx">
+      <DependentUpon>ControlEgresos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ControlEmpleados.resx">
+      <DependentUpon>ControlEmpleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ControlIngresos.resx">
+      <DependentUpon>ControlIngresos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controles\ControlMatriculas.resx">
+      <DependentUpon>ControlMatriculas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarCurso.resx">
+      <DependentUpon>frmBuscarCurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarEgreso.resx">
+      <DependentUpon>frmBuscarEgreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarEmpleado.resx">
+      <DependentUpon>frmBuscarEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarEncargado.resx">
+      <DependentUpon>frmBuscarEncargado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarEstudiante.resx">
+      <DependentUpon>frmBuscarEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarFactura.resx">
+      <DependentUpon>frmBuscarFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarIngreso.resx">
+      <DependentUpon>frmBuscarIngreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarLibro.resx">
+      <DependentUpon>frmBuscarLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarMatricula.resx">
+      <DependentUpon>frmBuscarMatricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarProducto.resx">
+      <DependentUpon>frmBuscarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmCurso.resx">
+      <DependentUpon>FrmCurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEgreso.resx">
+      <DependentUpon>FrmEgreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEmpleado.resx">
+      <DependentUpon>FrmEmpleado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEncargado.resx">
+      <DependentUpon>FrmEncargado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmEstudiante.resx">
+      <DependentUpon>FrmEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmFactura.resx">
+      <DependentUpon>FrmFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmIngreso.resx">
+      <DependentUpon>FrmIngreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmLibro.resx">
+      <DependentUpon>FrmLibro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMatricula.resx">
+      <DependentUpon>FrmMatricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProducto.resx">
+      <DependentUpon>FrmProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmWelcome.resx">
+      <DependentUpon>frmWelcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TestRegularExpresion.resx">
+      <DependentUpon>TestRegularExpresion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configuracion\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ICWRONG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Goll_Logo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\goll_Logo_facebook.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bar-chart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\browser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dollar-symbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\key.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\008-help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search-1.png" />
+    <None Include="Resources\goll_Logo_png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monedas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\money out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\idiomas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\puntuacion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jefe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reanudar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pago.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\llave-de-una-casa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1f44b.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\house.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="golldatabaseModelStoreContainer" CdmEntityContainer="golldatabaseEntities">
+    <EntitySetMapping Name="calificacion">
+      <EntityTypeMapping TypeName="golldatabaseModel.calificacion">
+        <MappingFragment StoreEntitySet="calificacion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nota" ColumnName="Nota" />
+          <ScalarProperty Name="IdEvaluacion" ColumnName="IdEvaluacion" />
+          <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cargo">
+      <EntityTypeMapping TypeName="golldatabaseModel.cargo">
+        <MappingFragment StoreEntitySet="cargo">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contrato">
+      <EntityTypeMapping TypeName="golldatabaseModel.contrato">
+        <MappingFragment StoreEntitySet="contrato">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="FhInicio" ColumnName="FhInicio" />
+          <ScalarProperty Name="FhFin" ColumnName="FhFin" />
+          <ScalarProperty Name="IdCargo" ColumnName="IdCargo" />
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cuota">
+      <EntityTypeMapping TypeName="golldatabaseModel.cuota">
+        <MappingFragment StoreEntitySet="cuota">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="curso">
+      <EntityTypeMapping TypeName="golldatabaseModel.curso">
+        <MappingFragment StoreEntitySet="curso">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Seccion" ColumnName="Seccion" />
+          <ScalarProperty Name="Publico" ColumnName="Publico" />
+          <ScalarProperty Name="Desde" ColumnName="Desde" />
+          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="IdContrato" ColumnName="IdContrato" />
+          <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+          <ScalarProperty Name="IdYear" ColumnName="IdYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cv">
+      <EntityTypeMapping TypeName="golldatabaseModel.cv">
+        <MappingFragment StoreEntitySet="cv">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Archivo" ColumnName="Archivo" />
+          <ScalarProperty Name="IdEmpleado" ColumnName="IdEmpleado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detcurso">
+      <EntityTypeMapping TypeName="golldatabaseModel.detcurso">
+        <MappingFragment StoreEntitySet="detcurso">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+          <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detfactura">
+      <EntityTypeMapping TypeName="golldatabaseModel.detfactura">
+        <MappingFragment StoreEntitySet="detfactura">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Concepto" ColumnName="Concepto" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Descuento" ColumnName="Descuento" />
+          <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="detmatricula">
+      <EntityTypeMapping TypeName="golldatabaseModel.detmatricula">
+        <MappingFragment StoreEntitySet="detmatricula">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+          <ScalarProperty Name="IdEncargado" ColumnName="IdEncargado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dias">
+      <EntityTypeMapping TypeName="golldatabaseModel.dias">
+        <MappingFragment StoreEntitySet="dias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="HEntrada" ColumnName="HEntrada" />
+          <ScalarProperty Name="HSalida" ColumnName="HSalida" />
+          <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="egreso">
+      <EntityTypeMapping TypeName="golldatabaseModel.egreso">
+        <MappingFragment StoreEntitySet="egreso">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="empleado">
+      <EntityTypeMapping TypeName="golldatabaseModel.empleado">
+        <MappingFragment StoreEntitySet="empleado">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="CV" ColumnName="CV" />
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="encargado">
+      <EntityTypeMapping TypeName="golldatabaseModel.encargado">
+        <MappingFragment StoreEntitySet="encargado">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="estudiante">
+      <EntityTypeMapping TypeName="golldatabaseModel.estudiante">
+        <MappingFragment StoreEntitySet="estudiante">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Enfermedad" ColumnName="Enfermedad" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="TelEmergencia" ColumnName="TelEmergencia" />
+          <ScalarProperty Name="ParentEmergencia" ColumnName="ParentEmergencia" />
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="evaluacion">
+      <EntityTypeMapping TypeName="golldatabaseModel.evaluacion">
+        <MappingFragment StoreEntitySet="evaluacion">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+          <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+          <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="factura">
+      <EntityTypeMapping TypeName="golldatabaseModel.factura">
+        <MappingFragment StoreEntitySet="factura">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="NFactura" ColumnName="NFactura" />
+          <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="IdPersona" ColumnName="IdPersona" />
+          <ScalarProperty Name="IdMatricula" ColumnName="IdMatricula" />
+          <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="libro">
+      <EntityTypeMapping TypeName="golldatabaseModel.libro">
+        <MappingFragment StoreEntitySet="libro">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Edicion" ColumnName="Edicion" />
+          <ScalarProperty Name="NActividades" ColumnName="NActividades" />
+          <ScalarProperty Name="Nivel" ColumnName="Nivel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="matricula">
+      <EntityTypeMapping TypeName="golldatabaseModel.matricula">
+        <MappingFragment StoreEntitySet="matricula">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Becado" ColumnName="Becado" />
+          <ScalarProperty Name="DiaLimite" ColumnName="DiaLimite" />
+          <ScalarProperty Name="IdCurso" ColumnName="IdCurso" />
+          <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="persona">
+      <EntityTypeMapping TypeName="golldatabaseModel.persona">
+        <MappingFragment StoreEntitySet="persona">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Dui" ColumnName="Dui" />
+          <ScalarProperty Name="Nit" ColumnName="Nit" />
+          <ScalarProperty Name="FechaNac" ColumnName="FechaNac" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="producto">
+      <EntityTypeMapping TypeName="golldatabaseModel.producto">
+        <MappingFragment StoreEntitySet="producto">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="regemphist">
+      <EntityTypeMapping TypeName="golldatabaseModel.regemphist">
+        <MappingFragment StoreEntitySet="regemphist">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="TipoRegistro" ColumnName="TipoRegistro" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="IdUserEmp" ColumnName="IdUserEmp" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="regesthist">
+      <EntityTypeMapping TypeName="golldatabaseModel.regesthist">
+        <MappingFragment StoreEntitySet="regesthist">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Detalle" ColumnName="Detalle" />
+          <ScalarProperty Name="TipoRegistro" ColumnName="TipoRegistro" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="IdUserEst" ColumnName="IdUserEst" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sucursal">
+      <EntityTypeMapping TypeName="golldatabaseModel.sucursal">
+        <MappingFragment StoreEntitySet="sucursal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FhRegistro" ColumnName="FhRegistro" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="useremp">
+      <EntityTypeMapping TypeName="golldatabaseModel.useremp">
+        <MappingFragment StoreEntitySet="useremp">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+          <ScalarProperty Name="IdContrato" ColumnName="IdContrato" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userest">
+      <EntityTypeMapping TypeName="golldatabaseModel.userest">
+        <MappingFragment StoreEntitySet="userest">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Login" ColumnName="Login" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
+          <ScalarProperty Name="Rol" ColumnName="Rol" />
+          <ScalarProperty Name="IdSucursal" ColumnName="IdSucursal" />
+          <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="year">
+      <EntityTypeMapping TypeName="golldatabaseModel.year">
+        <MappingFragment StoreEntitySet="year">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Desde" ColumnName="Desde" />
+          <ScalarProperty Name="Hasta" ColumnName="Hasta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
