@@ -626,6 +626,7 @@ namespace GOLLSYSTEM.Forms
                             valDui.BackColor = Color.FromArgb(0, 100, 182);
                             EditingObject = EditingObject != null ? EditingObject : new Contrato();
                             EditingObject.Empleado = EditingObject.Empleado != null ? EditingObject.Empleado : new Empleado();
+                            EditingObject.Empleado.Persona = EditingObject.Empleado.Persona != null ? EditingObject.Empleado.Persona : new Persona();
                             EditingObject.Empleado.Persona.Dui = txtDui.Text;
                         }
 

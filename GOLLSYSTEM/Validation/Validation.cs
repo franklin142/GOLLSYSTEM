@@ -38,6 +38,10 @@ namespace GOLLSYSTEM.Validation
         {
             return new Regex(@"^\d+$").IsMatch(text);
         }
+        public static bool Val_LetterFormat(string text)
+        {
+            return new Regex(@"^[a-zA-Z ]*$").IsMatch(text);
+        }
         public static bool Val_NameFormat(string text)
         {
             bool result = true;

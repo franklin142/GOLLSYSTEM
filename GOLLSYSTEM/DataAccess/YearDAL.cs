@@ -44,6 +44,36 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static DateTime getServerDate()
+        {
+            DateTime item = DateTime.Now;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand cmdGetItemById = new MySqlCommand("select Now() as currentServerDate", _con);
+                    MySqlDataReader _reader = cmdGetItemById.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = _reader.GetDateTime(0);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
+        }
+
         public static List<Year> getYears(int pLimit)
         {
             List<Year> lista = new List<Year>();

@@ -25,9 +25,10 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         item = new Detmatricula(
                             _reader.GetInt64(0),
-                            _reader.GetInt64(1),
+                            _reader.GetString(1),
                             _reader.GetInt64(2),
-                            EncargadoDAL.getEncargadoById(_reader.GetInt64(2))
+                            _reader.GetInt64(3),
+                            EncargadoDAL.getEncargadoById(_reader.GetInt64(3))
                             );
 
                     }
@@ -62,9 +63,10 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         Detmatricula item = new Detmatricula(
                             _reader.GetInt64(0),
-                            _reader.GetInt64(1),
+                            _reader.GetString(1),
                             _reader.GetInt64(2),
-                            EncargadoDAL.getEncargadoById(_reader.GetInt64(2))
+                            _reader.GetInt64(3),
+                            EncargadoDAL.getEncargadoById(_reader.GetInt64(3))
                             );
 
                         lista.Add(item);

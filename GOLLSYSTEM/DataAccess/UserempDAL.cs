@@ -79,7 +79,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _con.Close();
                     throw;

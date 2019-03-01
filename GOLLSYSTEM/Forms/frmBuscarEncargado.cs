@@ -14,6 +14,7 @@ namespace GOLLSYSTEM.Forms
 {
     public partial class frmBuscarEncargado : Form
     {
+        public Encargado CurrentObject;
         public frmBuscarEncargado()
         {
             InitializeComponent();
@@ -21,7 +22,23 @@ namespace GOLLSYSTEM.Forms
 
         private void frmBuscarEncargado_Load(object sender, EventArgs e)
         {
+            FillDgv(EncargadoDAL.searchEncargados(txtBuscar.Text, 30));
+        }
+        private void icUpdate_Click(object sender, EventArgs e)
+        {
+            FillDgv(EncargadoDAL.searchEncargados(txtBuscar.Text,30));
+        }
+        private void btnSeleccionar_Click(object sender, EventArgs e)
+        {
+            if (dgvCursos.CurrentRow != null) { CurrentObject = EncargadoDAL.getEncargadoById((Int64)dgvCursos.CurrentRow.Cells[0].Value); this.Close(); }
 
         }
+        private void FillDgv(List<Encargado> lista)
+        {
+            dgvCursos.Rows.Clear();
+            foreach (Encargado obj in lista)dgvCursos.Rows.Add(obj.Id, obj.Persona.Nombre,obj.Telefono,obj.Trabajo,obj.Persona.Direccion);
+            lblNoResults.Visible = dgvCursos.RowCount == 0;
+        }
+
     }
 }

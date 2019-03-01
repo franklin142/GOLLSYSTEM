@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,12 +12,15 @@ namespace GOLLSYSTEM.EntityLayer
 		public string FhRegistro { get; set; }
 		public string Estado { get; set; }
 		public int Becado { get; set; }
-		public int DiaLimite { get; set; }
+		public string DiaLimite { get; set; }
         public Int64 IdCurso { get; set; }
 		public Int64 IdEstudiante { get; set; }
         public Estudiante Estudiante { get; set; }
+        public List<Cuota> Cuotas { get; set; }
+        public List<Detmatricula> Padres { get; set; }
+
         public Matricula(){}
-		public Matricula(Int64 pId, string pFhRegistro, string pEstado, int pBecado, int pDiaLimite, Int64 pIdCurso, Int64 pIdEstudiante,Estudiante pEstudiante)
+		public Matricula(Int64 pId, string pFhRegistro, string pEstado, int pBecado, string pDiaLimite, Int64 pIdCurso, Int64 pIdEstudiante,Estudiante pEstudiante,List<Cuota> pCuotas, List<Detmatricula> pPadres)
 		{
 			Id = pId;
 			FhRegistro = pFhRegistro;
@@ -26,6 +30,9 @@ namespace GOLLSYSTEM.EntityLayer
 			IdCurso = pIdCurso;
 			IdEstudiante = pIdEstudiante;
             Estudiante = pEstudiante;
-		}
-	}
+            Cuotas = pCuotas;
+            Padres = pPadres;
+        }
+        
+    }
 }

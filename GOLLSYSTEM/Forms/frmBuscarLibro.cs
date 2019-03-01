@@ -35,6 +35,8 @@ namespace GOLLSYSTEM.Forms
             {
                 dgvLibro.Rows.Add(obj.Id,obj.Nombre,obj.Edicion,obj.Nivel,obj.NActividades);
             }
+            lblNoResults.Visible = dgvLibro.RowCount == 0;
+
         }
 
         private void btnSeleccionar_Click(object sender, EventArgs e)

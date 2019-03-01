@@ -46,6 +46,7 @@
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
+            this.lblNoResults = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
@@ -217,11 +218,27 @@
             this.lblBuscar.TabIndex = 99;
             this.lblBuscar.Text = "Buscar:";
             // 
+            // lblNoResults
+            // 
+            this.lblNoResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNoResults.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblNoResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoResults.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblNoResults.Location = new System.Drawing.Point(189, 201);
+            this.lblNoResults.Name = "lblNoResults";
+            this.lblNoResults.Size = new System.Drawing.Size(278, 37);
+            this.lblNoResults.TabIndex = 108;
+            this.lblNoResults.Text = "No hay resultados";
+            this.lblNoResults.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmBuscarEmpleado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 336);
+            this.Controls.Add(this.lblNoResults);
             this.Controls.Add(this.dgvCursos);
             this.Controls.Add(this.pblTitulo);
             this.Controls.Add(this.panel1);
@@ -262,5 +279,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dui;
         private System.Windows.Forms.DataGridViewTextBoxColumn nit;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.Label lblNoResults;
     }
 }

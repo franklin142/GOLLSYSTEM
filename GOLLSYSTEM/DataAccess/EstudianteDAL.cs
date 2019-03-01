@@ -27,12 +27,14 @@ namespace GOLLSYSTEM.DataAccess
                             _reader.GetInt64(0),
                             _reader.GetString(1),
                             _reader.GetString(2),
-                             _reader.GetString(3),
+                            _reader.GetString(3),
                             _reader.GetString(4),
-                            _reader.GetString(5),
-                            _reader.GetString(6), 
-                            _reader.GetInt64(7),
-                            PersonaDAL.getPersonaById(_reader.GetInt64(7))
+                             _reader.GetString(5),
+                            _reader.GetString(6),
+                            _reader.GetString(7),
+                            _reader.GetString(8), 
+                            _reader.GetInt64(9),
+                            PersonaDAL.getPersonaById(_reader.GetInt64(9))
                             );
 
                     }

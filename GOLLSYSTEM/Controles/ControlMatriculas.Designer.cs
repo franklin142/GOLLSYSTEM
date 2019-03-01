@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rdbParametros = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
@@ -159,6 +159,7 @@
             this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.icUpdate.TabIndex = 58;
             this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // btnDesertarAlumno
             // 
@@ -184,14 +185,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMatriculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMatriculas.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvMatriculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMatriculas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -255,6 +256,7 @@
             this.btnNuevaMatricula.TabIndex = 88;
             this.btnNuevaMatricula.Text = "Matricular";
             this.btnNuevaMatricula.UseVisualStyleBackColor = false;
+            this.btnNuevaMatricula.Click += new System.EventHandler(this.btnNuevaMatricula_Click);
             // 
             // btnEditarMatricula
             // 
@@ -269,6 +271,7 @@
             this.btnEditarMatricula.TabIndex = 89;
             this.btnEditarMatricula.Text = "Editar";
             this.btnEditarMatricula.UseVisualStyleBackColor = false;
+            this.btnEditarMatricula.Click += new System.EventHandler(this.btnEditarMatricula_Click);
             // 
             // cbxCursos
             // 

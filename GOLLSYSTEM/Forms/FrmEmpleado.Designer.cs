@@ -178,7 +178,7 @@
             this.txtDireccion.Multiline = true;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(316, 90);
-            this.txtDireccion.TabIndex = 38;
+            this.txtDireccion.TabIndex = 8;
             this.txtDireccion.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // btnCancelar
@@ -191,7 +191,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(428, 316);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 32);
-            this.btnCancelar.TabIndex = 28;
+            this.btnCancelar.TabIndex = 10;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -216,7 +216,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(523, 316);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(81, 32);
-            this.btnGuardar.TabIndex = 27;
+            this.btnGuardar.TabIndex = 9;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -247,7 +247,7 @@
             this.cmbCargo.Location = new System.Drawing.Point(271, 201);
             this.cmbCargo.Name = "cmbCargo";
             this.cmbCargo.Size = new System.Drawing.Size(129, 24);
-            this.cmbCargo.TabIndex = 36;
+            this.cmbCargo.TabIndex = 7;
             this.cmbCargo.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // lblTextCorreo
@@ -276,7 +276,7 @@
             this.txtCorreo.Location = new System.Drawing.Point(74, 150);
             this.txtCorreo.Name = "txtCorreo";
             this.txtCorreo.Size = new System.Drawing.Size(324, 20);
-            this.txtCorreo.TabIndex = 33;
+            this.txtCorreo.TabIndex = 5;
             this.txtCorreo.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // lblTextTelefono
@@ -305,7 +305,7 @@
             this.txtTelefono.Location = new System.Drawing.Point(479, 43);
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.Size = new System.Drawing.Size(124, 20);
-            this.txtTelefono.TabIndex = 30;
+            this.txtTelefono.TabIndex = 2;
             this.txtTelefono.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // lblTextNoNit
@@ -334,7 +334,7 @@
             this.txtNit.Location = new System.Drawing.Point(275, 95);
             this.txtNit.Name = "txtNit";
             this.txtNit.Size = new System.Drawing.Size(124, 20);
-            this.txtNit.TabIndex = 27;
+            this.txtNit.TabIndex = 4;
             this.txtNit.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNit_KeyUp);
             this.txtNit.Leave += new System.EventHandler(this.txt_Leave);
             // 
@@ -354,7 +354,7 @@
             this.dtpFechaNac.Location = new System.Drawing.Point(89, 202);
             this.dtpFechaNac.Name = "dtpFechaNac";
             this.dtpFechaNac.Size = new System.Drawing.Size(106, 22);
-            this.dtpFechaNac.TabIndex = 26;
+            this.dtpFechaNac.TabIndex = 6;
             this.dtpFechaNac.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // valDui
@@ -383,7 +383,7 @@
             this.txtDui.Location = new System.Drawing.Point(75, 96);
             this.txtDui.Name = "txtDui";
             this.txtDui.Size = new System.Drawing.Size(120, 20);
-            this.txtDui.TabIndex = 20;
+            this.txtDui.TabIndex = 3;
             this.txtDui.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDui_KeyUp);
             this.txtDui.Leave += new System.EventHandler(this.txt_Leave);
             // 
@@ -423,7 +423,7 @@
             this.txtNombre.Location = new System.Drawing.Point(75, 41);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(323, 20);
-            this.txtNombre.TabIndex = 17;
+            this.txtNombre.TabIndex = 1;
             this.txtNombre.Leave += new System.EventHandler(this.txt_Leave);
             // 
             // errNombre

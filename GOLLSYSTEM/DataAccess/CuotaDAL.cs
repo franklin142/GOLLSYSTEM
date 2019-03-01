@@ -86,6 +86,5 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-
     }
 }

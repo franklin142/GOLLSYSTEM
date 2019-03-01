@@ -82,5 +82,29 @@ namespace GOLLSYSTEM.Properties {
                 this["DBName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public int MaxEstudentsIn {
+            get {
+                return ((int)(this["MaxEstudentsIn"]));
+            }
+            set {
+                this["MaxEstudentsIn"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25.00")]
+        public decimal PrecioCuota {
+            get {
+                return ((decimal)(this["PrecioCuota"]));
+            }
+            set {
+                this["PrecioCuota"] = value;
+            }
+        }
     }
 }

@@ -46,6 +46,7 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.btnAgregarLibro = new System.Windows.Forms.Button();
+            this.lblNoResults = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLibro)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
@@ -221,11 +222,27 @@
             this.btnAgregarLibro.UseVisualStyleBackColor = false;
             this.btnAgregarLibro.Click += new System.EventHandler(this.btnAgregarLibro_Click);
             // 
+            // lblNoResults
+            // 
+            this.lblNoResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNoResults.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblNoResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoResults.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblNoResults.Location = new System.Drawing.Point(189, 197);
+            this.lblNoResults.Name = "lblNoResults";
+            this.lblNoResults.Size = new System.Drawing.Size(278, 37);
+            this.lblNoResults.TabIndex = 107;
+            this.lblNoResults.Text = "No hay resultados";
+            this.lblNoResults.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmBuscarLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 336);
+            this.Controls.Add(this.lblNoResults);
             this.Controls.Add(this.btnAgregarLibro);
             this.Controls.Add(this.dgvLibro);
             this.Controls.Add(this.pblTitulo);
@@ -267,5 +284,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nivel;
         private System.Windows.Forms.DataGridViewTextBoxColumn actividades;
         private System.Windows.Forms.Button btnAgregarLibro;
+        private System.Windows.Forms.Label lblNoResults;
     }
 }

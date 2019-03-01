@@ -8,14 +8,18 @@ namespace GOLLSYSTEM.EntityLayer
 	public class Encargado
 	{
 		public Int64 Id { get; set; }
-		public string Telefono { get; set; }
+        public string LugarTrabajo { get; set; }
+        public string Trabajo { get; set; }
+        public string Telefono { get; set; }
 		public Int64 IdPersona { get; set; }
         public Persona Persona { get; set; }
         public Encargado(){}
-		public Encargado(Int64 pId, string pTelefono, Int64 pIdPersona, Persona pPersona)
+		public Encargado(Int64 pId,string pLugarTrabajo,string pTrabajo, string pTelefono, Int64 pIdPersona, Persona pPersona)
 		{
 			Id = pId;
-			Telefono = pTelefono;
+            LugarTrabajo = pLugarTrabajo;
+            Trabajo = pTrabajo;
+            Telefono = pTelefono;
 			IdPersona = pIdPersona;
             Persona = pPersona;
 		}

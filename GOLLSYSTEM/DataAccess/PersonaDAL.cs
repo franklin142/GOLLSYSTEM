@@ -29,7 +29,7 @@ namespace GOLLSYSTEM.DataAccess
                             _reader.GetString("Dui"),
                             _reader.GetString("Nit"),
                             _reader.GetString("Direccion"),
-                            _reader.GetString("FechaNac")
+                            (_reader.IsDBNull(4))?null:_reader.GetString("FechaNac")
                         );
                     }
                     _reader.Close();
@@ -46,6 +46,5 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-      
     }
 }

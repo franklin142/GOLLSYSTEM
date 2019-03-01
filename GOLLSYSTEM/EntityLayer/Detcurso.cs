@@ -14,7 +14,7 @@ namespace GOLLSYSTEM.EntityLayer
 		public Int64 IdCurso { get; set; }
         public Libro Libro { get; set; }
 		public Detcurso(){}
-		public Detcurso(Int64 pId, string pFhRegistro,string pEstado, Int64 pIdLibro, Int64 pIdCurso,Libro pLibro)
+		public Detcurso(Int64 pId, string pFhRegistro, string pEstado, Int64 pIdLibro, Int64 pIdCurso,Libro pLibro)
 		{
 			Id = pId;
 			FhRegistro = pFhRegistro;

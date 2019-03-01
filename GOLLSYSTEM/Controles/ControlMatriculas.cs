@@ -29,11 +29,11 @@ namespace GOLLSYSTEM.Controles
             cbxYear.Enabled = true;
 
             cbxCursos.Enabled = false;
-            cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id,cbxYear.SelectedItem as Year);
+            cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
             cbxCursos.ValueMember = "Id";
             cbxCursos.DisplayMember = "Nombre";
             cbxCursos.Enabled = true;
-            FillDgv(new List<Matricula>());
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cbxYear.Items.Count==0?0:(Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
 
 
         }
@@ -47,7 +47,7 @@ namespace GOLLSYSTEM.Controles
                 cbxCursos.ValueMember = "Id";
                 cbxCursos.DisplayMember = "Nombre";
                 cbxCursos.Enabled = true;
-                FillDgv(new List<Matricula>());
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
 
             }
         }
@@ -56,15 +56,56 @@ namespace GOLLSYSTEM.Controles
         {
             if (cbxCursos.Enabled)
             {
-                FillDgv(new List<Matricula>());
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
             }
         }
         private void FillDgv(List<Matricula> lista)
         {
             dgvMatriculas.Rows.Clear();
+            DateTime serverDate = YearDAL.getServerDate();
             foreach (Matricula obj in lista)
             {
+                String aldia = "Si";
+                foreach (Cuota cuota in obj.Cuotas.Where(a=> Convert.ToInt32(Convert.ToDateTime(a.FhRegistro).AddMonths(Convert.ToInt32(obj.DiaLimite) <= serverDate.Day ? 0:-1).ToString("MM"))<serverDate.Month))
+                {
+                    if (aldia=="Si"&&cuota.Total<cuota.Precio)
+                    {
+                        aldia = "No";
+                    }
+                }
+                dgvMatriculas.Rows.Add(
+                    obj.Id,
+                    obj.Estudiante.Persona.Nombre,
+                    obj.Estudiante.Telefono,
+                    obj.Becado == 1 ? "Si" : "No",
+                    aldia
+                    );
+            }
+        }
 
+        private void icUpdate_Click(object sender, EventArgs e)
+        {
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+        }
+
+        private void btnNuevaMatricula_Click(object sender, EventArgs e)
+        {
+            FrmMatricula frmmatricula = new FrmMatricula();
+            frmmatricula.opc = "newObject";
+            frmmatricula.ShowDialog();
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+        }
+
+        private void btnEditarMatricula_Click(object sender, EventArgs e)
+        {
+            if (dgvMatriculas.CurrentRow!=null)
+            {
+                FrmMatricula frmmatricula = new FrmMatricula();
+                frmmatricula.opc = "updObject";
+                frmmatricula.CurrentObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
+                frmmatricula.EditingObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
+                frmmatricula.ShowDialog();
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
             }
         }
     }

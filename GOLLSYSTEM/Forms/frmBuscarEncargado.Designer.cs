@@ -31,12 +31,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuscarEncargado));
             this.dgvCursos = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.horario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.publico = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.alumnos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pblTitulo = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.picLogoForm = new System.Windows.Forms.PictureBox();
@@ -46,6 +40,12 @@
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trabajo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.direccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblNoResults = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
@@ -71,10 +71,9 @@
             this.dgvCursos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.nombre,
-            this.horario,
-            this.publico,
-            this.alumnos,
-            this.estado});
+            this.telefono,
+            this.trabajo,
+            this.direccion});
             this.dgvCursos.Location = new System.Drawing.Point(-1, 110);
             this.dgvCursos.MultiSelect = false;
             this.dgvCursos.Name = "dgvCursos";
@@ -83,46 +82,6 @@
             this.dgvCursos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCursos.Size = new System.Drawing.Size(660, 201);
             this.dgvCursos.TabIndex = 101;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Curso";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // horario
-            // 
-            this.horario.HeaderText = "Horario";
-            this.horario.Name = "horario";
-            this.horario.ReadOnly = true;
-            // 
-            // publico
-            // 
-            this.publico.FillWeight = 50F;
-            this.publico.HeaderText = "Publico";
-            this.publico.Name = "publico";
-            this.publico.ReadOnly = true;
-            // 
-            // alumnos
-            // 
-            this.alumnos.FillWeight = 50F;
-            this.alumnos.HeaderText = "Alumnos";
-            this.alumnos.Name = "alumnos";
-            this.alumnos.ReadOnly = true;
-            // 
-            // estado
-            // 
-            this.estado.FillWeight = 50F;
-            this.estado.HeaderText = "Estado";
-            this.estado.Name = "estado";
-            this.estado.ReadOnly = true;
             // 
             // pblTitulo
             // 
@@ -158,9 +117,9 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
-            this.panel1.Location = new System.Drawing.Point(23, 311);
+            this.panel1.Location = new System.Drawing.Point(0, 311);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(610, 2);
+            this.panel1.Size = new System.Drawing.Size(663, 2);
             this.panel1.TabIndex = 104;
             // 
             // valNombre
@@ -184,6 +143,7 @@
             this.btnSeleccionar.TabIndex = 102;
             this.btnSeleccionar.Text = "Seleccionar";
             this.btnSeleccionar.UseVisualStyleBackColor = false;
+            this.btnSeleccionar.Click += new System.EventHandler(this.btnSeleccionar_Click);
             // 
             // icUpdate
             // 
@@ -195,6 +155,7 @@
             this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.icUpdate.TabIndex = 100;
             this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // txtBuscar
             // 
@@ -214,11 +175,59 @@
             this.lblBuscar.TabIndex = 99;
             this.lblBuscar.Text = "Buscar:";
             // 
+            // id
+            // 
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // telefono
+            // 
+            this.telefono.FillWeight = 50F;
+            this.telefono.HeaderText = "Teléfono";
+            this.telefono.Name = "telefono";
+            this.telefono.ReadOnly = true;
+            // 
+            // trabajo
+            // 
+            this.trabajo.HeaderText = "Trabajo u oficio";
+            this.trabajo.Name = "trabajo";
+            this.trabajo.ReadOnly = true;
+            // 
+            // direccion
+            // 
+            this.direccion.HeaderText = "Dirección";
+            this.direccion.Name = "direccion";
+            this.direccion.ReadOnly = true;
+            // 
+            // lblNoResults
+            // 
+            this.lblNoResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNoResults.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.lblNoResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoResults.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.lblNoResults.Location = new System.Drawing.Point(202, 197);
+            this.lblNoResults.Name = "lblNoResults";
+            this.lblNoResults.Size = new System.Drawing.Size(278, 37);
+            this.lblNoResults.TabIndex = 106;
+            this.lblNoResults.Text = "No hay resultados";
+            this.lblNoResults.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmBuscarEncargado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 336);
+            this.Controls.Add(this.lblNoResults);
             this.Controls.Add(this.dgvCursos);
             this.Controls.Add(this.pblTitulo);
             this.Controls.Add(this.panel1);
@@ -228,6 +237,10 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(675, 375);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(675, 375);
             this.Name = "frmBuscarEncargado";
             this.Text = "Buscar Encargado";
             this.Load += new System.EventHandler(this.frmBuscarEncargado_Load);
@@ -244,12 +257,6 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvCursos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn horario;
-        private System.Windows.Forms.DataGridViewTextBoxColumn publico;
-        private System.Windows.Forms.DataGridViewTextBoxColumn alumnos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estado;
         private System.Windows.Forms.Panel pblTitulo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox picLogoForm;
@@ -259,5 +266,11 @@
         private System.Windows.Forms.PictureBox icUpdate;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn trabajo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn direccion;
+        private System.Windows.Forms.Label lblNoResults;
     }
 }

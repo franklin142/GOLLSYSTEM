@@ -143,7 +143,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(488, 437);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(80, 32);
-            this.btnCancelar.TabIndex = 28;
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -157,7 +157,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(583, 437);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(80, 32);
-            this.btnGuardar.TabIndex = 27;
+            this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -194,7 +194,7 @@
             this.txtSeccion.MaxLength = 10;
             this.txtSeccion.Name = "txtSeccion";
             this.txtSeccion.Size = new System.Drawing.Size(124, 20);
-            this.txtSeccion.TabIndex = 30;
+            this.txtSeccion.TabIndex = 4;
             this.txtSeccion.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // errHasta
@@ -236,7 +236,7 @@
             this.dtpDesde.Location = new System.Drawing.Point(305, 41);
             this.dtpDesde.Name = "dtpDesde";
             this.dtpDesde.Size = new System.Drawing.Size(124, 22);
-            this.dtpDesde.TabIndex = 26;
+            this.dtpDesde.TabIndex = 2;
             this.dtpDesde.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // valDesde
@@ -284,7 +284,7 @@
             this.txtNombre.Location = new System.Drawing.Point(74, 35);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.Size = new System.Drawing.Size(134, 20);
-            this.txtNombre.TabIndex = 17;
+            this.txtNombre.TabIndex = 1;
             this.txtNombre.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // errEncargado
@@ -352,7 +352,7 @@
             this.gbxInformacion.Location = new System.Drawing.Point(7, 6);
             this.gbxInformacion.Name = "gbxInformacion";
             this.gbxInformacion.Size = new System.Drawing.Size(660, 190);
-            this.gbxInformacion.TabIndex = 5;
+            this.gbxInformacion.TabIndex = 1;
             this.gbxInformacion.TabStop = false;
             this.gbxInformacion.Text = "Información General";
             // 
@@ -360,13 +360,14 @@
             // 
             this.txtEncargado.BackColor = System.Drawing.SystemColors.Control;
             this.txtEncargado.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtEncargado.Enabled = false;
             this.txtEncargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEncargado.ForeColor = System.Drawing.SystemColors.MenuText;
             this.txtEncargado.Location = new System.Drawing.Point(103, 151);
             this.txtEncargado.Name = "txtEncargado";
             this.txtEncargado.ReadOnly = true;
             this.txtEncargado.Size = new System.Drawing.Size(326, 20);
-            this.txtEncargado.TabIndex = 47;
+            this.txtEncargado.TabIndex = 7;
             this.txtEncargado.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // btnRemoveEncargado
@@ -378,7 +379,7 @@
             this.btnRemoveEncargado.Location = new System.Drawing.Point(444, 146);
             this.btnRemoveEncargado.Name = "btnRemoveEncargado";
             this.btnRemoveEncargado.Size = new System.Drawing.Size(24, 28);
-            this.btnRemoveEncargado.TabIndex = 50;
+            this.btnRemoveEncargado.TabIndex = 8;
             this.btnRemoveEncargado.Text = "⌫";
             this.btnRemoveEncargado.UseVisualStyleBackColor = false;
             this.btnRemoveEncargado.Click += new System.EventHandler(this.btnRemoveEncargado_Click);
@@ -392,7 +393,7 @@
             this.cmbPublico.Location = new System.Drawing.Point(300, 95);
             this.cmbPublico.Name = "cmbPublico";
             this.cmbPublico.Size = new System.Drawing.Size(129, 24);
-            this.cmbPublico.TabIndex = 49;
+            this.cmbPublico.TabIndex = 5;
             this.cmbPublico.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // btnBuscarEmpleado
@@ -405,7 +406,7 @@
             this.btnBuscarEmpleado.Location = new System.Drawing.Point(483, 146);
             this.btnBuscarEmpleado.Name = "btnBuscarEmpleado";
             this.btnBuscarEmpleado.Size = new System.Drawing.Size(167, 28);
-            this.btnBuscarEmpleado.TabIndex = 39;
+            this.btnBuscarEmpleado.TabIndex = 9;
             this.btnBuscarEmpleado.Text = "Buscar docente";
             this.btnBuscarEmpleado.UseVisualStyleBackColor = false;
             this.btnBuscarEmpleado.Click += new System.EventHandler(this.btnBuscarEmpleado_Click);
@@ -445,7 +446,7 @@
             this.chkEstado.Location = new System.Drawing.Point(522, 97);
             this.chkEstado.Name = "chkEstado";
             this.chkEstado.Size = new System.Drawing.Size(127, 20);
-            this.chkEstado.TabIndex = 44;
+            this.chkEstado.TabIndex = 6;
             this.chkEstado.Text = "Curso Habilitado";
             this.chkEstado.UseVisualStyleBackColor = true;
             // 
@@ -456,7 +457,7 @@
             this.dtpHasta.Location = new System.Drawing.Point(522, 40);
             this.dtpHasta.Name = "dtpHasta";
             this.dtpHasta.Size = new System.Drawing.Size(128, 22);
-            this.dtpHasta.TabIndex = 43;
+            this.dtpHasta.TabIndex = 3;
             this.dtpHasta.Leave += new System.EventHandler(this.dtpFechaNac_Leave);
             // 
             // valHasta
@@ -487,7 +488,7 @@
             this.gbxHorario.Location = new System.Drawing.Point(7, 275);
             this.gbxHorario.Name = "gbxHorario";
             this.gbxHorario.Size = new System.Drawing.Size(294, 156);
-            this.gbxHorario.TabIndex = 29;
+            this.gbxHorario.TabIndex = 2;
             this.gbxHorario.TabStop = false;
             this.gbxHorario.Text = "Horario";
             // 
@@ -566,7 +567,7 @@
             this.btnRemoveDia.Location = new System.Drawing.Point(197, 0);
             this.btnRemoveDia.Name = "btnRemoveDia";
             this.btnRemoveDia.Size = new System.Drawing.Size(34, 26);
-            this.btnRemoveDia.TabIndex = 30;
+            this.btnRemoveDia.TabIndex = 2;
             this.btnRemoveDia.Text = "-";
             this.btnRemoveDia.UseVisualStyleBackColor = false;
             this.btnRemoveDia.Click += new System.EventHandler(this.btnRemoveDia_Click);
@@ -580,7 +581,7 @@
             this.btnAddDia.Location = new System.Drawing.Point(229, 0);
             this.btnAddDia.Name = "btnAddDia";
             this.btnAddDia.Size = new System.Drawing.Size(35, 26);
-            this.btnAddDia.TabIndex = 30;
+            this.btnAddDia.TabIndex = 1;
             this.btnAddDia.Text = "+";
             this.btnAddDia.UseVisualStyleBackColor = false;
             this.btnAddDia.Click += new System.EventHandler(this.btnAddDia_Click);
@@ -592,7 +593,7 @@
             this.dtpHEntrada.Location = new System.Drawing.Point(288, 22);
             this.dtpHEntrada.Name = "dtpHEntrada";
             this.dtpHEntrada.Size = new System.Drawing.Size(91, 29);
-            this.dtpHEntrada.TabIndex = 1;
+            this.dtpHEntrada.TabIndex = 2;
             // 
             // lblTextEntrada
             // 
@@ -622,7 +623,7 @@
             this.dtpHSalida.Location = new System.Drawing.Point(458, 21);
             this.dtpHSalida.Name = "dtpHSalida";
             this.dtpHSalida.Size = new System.Drawing.Size(91, 29);
-            this.dtpHSalida.TabIndex = 31;
+            this.dtpHSalida.TabIndex = 3;
             // 
             // lblTextDia
             // 
@@ -651,7 +652,7 @@
             this.cmbDias.Location = new System.Drawing.Point(48, 26);
             this.cmbDias.Name = "cmbDias";
             this.cmbDias.Size = new System.Drawing.Size(121, 24);
-            this.cmbDias.TabIndex = 38;
+            this.cmbDias.TabIndex = 1;
             // 
             // gbxDia
             // 
@@ -671,7 +672,7 @@
             this.gbxDia.Location = new System.Drawing.Point(7, 205);
             this.gbxDia.Name = "gbxDia";
             this.gbxDia.Size = new System.Drawing.Size(661, 64);
-            this.gbxDia.TabIndex = 40;
+            this.gbxDia.TabIndex = 3;
             this.gbxDia.TabStop = false;
             this.gbxDia.Text = "Nuevo Bloque";
             // 
@@ -684,7 +685,7 @@
             this.btnAceptarDia.Location = new System.Drawing.Point(564, 19);
             this.btnAceptarDia.Name = "btnAceptarDia";
             this.btnAceptarDia.Size = new System.Drawing.Size(68, 29);
-            this.btnAceptarDia.TabIndex = 43;
+            this.btnAceptarDia.TabIndex = 4;
             this.btnAceptarDia.Text = "Aceptar";
             this.btnAceptarDia.UseVisualStyleBackColor = false;
             this.btnAceptarDia.Click += new System.EventHandler(this.btnAceptarDia_Click);
@@ -698,7 +699,7 @@
             this.btnCancelarDia.Location = new System.Drawing.Point(631, 19);
             this.btnCancelarDia.Name = "btnCancelarDia";
             this.btnCancelarDia.Size = new System.Drawing.Size(24, 29);
-            this.btnCancelarDia.TabIndex = 42;
+            this.btnCancelarDia.TabIndex = 5;
             this.btnCancelarDia.Text = "X";
             this.btnCancelarDia.UseVisualStyleBackColor = false;
             this.btnCancelarDia.Click += new System.EventHandler(this.btnCancelarDia_Click);
@@ -728,7 +729,7 @@
             this.gbxLibros.Location = new System.Drawing.Point(307, 275);
             this.gbxLibros.Name = "gbxLibros";
             this.gbxLibros.Size = new System.Drawing.Size(360, 156);
-            this.gbxLibros.TabIndex = 41;
+            this.gbxLibros.TabIndex = 4;
             this.gbxLibros.TabStop = false;
             this.gbxLibros.Text = "Libros del curso";
             // 
@@ -827,7 +828,7 @@
             this.btnRemoveLibro.Location = new System.Drawing.Point(271, 1);
             this.btnRemoveLibro.Name = "btnRemoveLibro";
             this.btnRemoveLibro.Size = new System.Drawing.Size(34, 26);
-            this.btnRemoveLibro.TabIndex = 30;
+            this.btnRemoveLibro.TabIndex = 2;
             this.btnRemoveLibro.Text = "-";
             this.btnRemoveLibro.UseVisualStyleBackColor = false;
             this.btnRemoveLibro.Click += new System.EventHandler(this.btnRemoveLibro_Click);
@@ -842,7 +843,7 @@
             this.btnAddLibro.Location = new System.Drawing.Point(303, 1);
             this.btnAddLibro.Name = "btnAddLibro";
             this.btnAddLibro.Size = new System.Drawing.Size(35, 26);
-            this.btnAddLibro.TabIndex = 30;
+            this.btnAddLibro.TabIndex = 1;
             this.btnAddLibro.Text = "+";
             this.btnAddLibro.UseVisualStyleBackColor = false;
             this.btnAddLibro.Click += new System.EventHandler(this.btnAddLibro_Click);
