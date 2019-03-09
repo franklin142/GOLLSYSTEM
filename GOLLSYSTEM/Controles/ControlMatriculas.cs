@@ -33,7 +33,7 @@ namespace GOLLSYSTEM.Controles
             cbxCursos.ValueMember = "Id";
             cbxCursos.DisplayMember = "Nombre";
             cbxCursos.Enabled = true;
-            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cbxYear.Items.Count==0?0:(Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cbxYear.Items.Count == 0 ? 0 : (Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
 
 
         }
@@ -66,20 +66,52 @@ namespace GOLLSYSTEM.Controles
             foreach (Matricula obj in lista)
             {
                 String aldia = "Si";
-                foreach (Cuota cuota in obj.Cuotas.Where(a=> Convert.ToInt32(Convert.ToDateTime(a.FhRegistro).AddMonths(Convert.ToInt32(obj.DiaLimite) <= serverDate.Day ? 0:-1).ToString("MM"))<serverDate.Month))
+                string proxima = "";
+                string pendientes = "";
+                List<Cuota> cuotas = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro).Month <= serverDate.Month).ToList();
+                List<Cuota> cuotaspendientes = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro).Month <= serverDate.Month && a.Total < a.Precio).ToList();
+
+                for (int i = 0; i < cuotas.Count; i++)
                 {
-                    if (aldia=="Si"&&cuota.Total<cuota.Precio)
+
+                    if (aldia == "Si" && cuotas[i].Total < cuotas[i].Precio)
                     {
                         aldia = "No";
                     }
+                    if (1 + i == cuotas.Count)
+                    {
+                        if (cuotas[i].Total == cuotas[i].Precio)
+                        {
+                            proxima = obj.DiaLimite + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("MMMM") + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("yyyy");
+                        }
+                        else
+                        {
+                            proxima = obj.DiaLimite + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).ToString("MMMM") + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("yyyy");
+
+                        }
+                        if (obj.Cuotas.Count == cuotas.Count&& cuotas[i].Total == cuotas[i].Precio)
+                        {
+                            proxima = "";
+                        }
+                    }
+                }
+                for (int i = 0; i < cuotaspendientes.Count; i++)
+                {
+                    pendientes += ""+Convert.ToDateTime(cuotaspendientes[i].FhRegistro).ToString("MMMM") + " ($" + Decimal.Round(cuotaspendientes[i].Precio - cuotaspendientes[i].Total, 2)+") ";
+                }
+                if (obj.Estado=="D")
+                {
+                    pendientes = "Desertado";
+                    proxima = "Desertado";
                 }
                 dgvMatriculas.Rows.Add(
-                    obj.Id,
-                    obj.Estudiante.Persona.Nombre,
-                    obj.Estudiante.Telefono,
-                    obj.Becado == 1 ? "Si" : "No",
-                    aldia
-                    );
+                obj.Id,
+                obj.Estudiante.Persona.Nombre,
+                obj.Estudiante.Telefono,
+                aldia,
+                pendientes,
+                proxima
+                );
             }
         }
 
@@ -98,7 +130,7 @@ namespace GOLLSYSTEM.Controles
 
         private void btnEditarMatricula_Click(object sender, EventArgs e)
         {
-            if (dgvMatriculas.CurrentRow!=null)
+            if (dgvMatriculas.CurrentRow != null)
             {
                 FrmMatricula frmmatricula = new FrmMatricula();
                 frmmatricula.opc = "updObject";
@@ -107,6 +139,24 @@ namespace GOLLSYSTEM.Controles
                 frmmatricula.ShowDialog();
                 FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
             }
+        }
+
+        private void dgvMatriculas_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgvMatriculas.CurrentRow != null)
+            {
+                FrmMatricula frmmatricula = new FrmMatricula();
+                frmmatricula.opc = "updObject";
+                frmmatricula.CurrentObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
+                frmmatricula.EditingObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
+                frmmatricula.ShowDialog();
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+            }
+        }
+
+        private void btnDesertarAlumno_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

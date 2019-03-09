@@ -151,6 +151,7 @@ namespace GOLLSYSTEM.Forms
                     {
                         EditingObject.IdCargo = (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue);
                         EditingObject.Cargo.Id = (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue);
+                        EditingObject.FhInicio = DateTime.Now.ToString("yyyy/MM/dd");
                         if (val_NewObjectContrato())
                         {
                             if (ContratoDAL.InsertContrato(EditingObject, Inicio.CurrentUser))

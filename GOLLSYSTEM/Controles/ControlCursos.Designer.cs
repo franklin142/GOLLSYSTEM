@@ -37,8 +37,6 @@
             this.publico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alumnos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.picHelp = new System.Windows.Forms.PictureBox();
-            this.icUpdate = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.lblTiltulo = new System.Windows.Forms.Label();
@@ -46,6 +44,8 @@
             this.btnNuevoCurso = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.cbxYear = new System.Windows.Forms.ComboBox();
+            this.picHelp = new System.Windows.Forms.PictureBox();
+            this.icUpdate = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
@@ -97,6 +97,7 @@
             this.dgvCursos.Name = "dgvCursos";
             this.dgvCursos.ReadOnly = true;
             this.dgvCursos.RowHeadersVisible = false;
+            this.dgvCursos.RowTemplate.Height = 30;
             this.dgvCursos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCursos.Size = new System.Drawing.Size(677, 308);
             this.dgvCursos.TabIndex = 80;
@@ -140,30 +141,6 @@
             this.estado.HeaderText = "Estado";
             this.estado.Name = "estado";
             this.estado.ReadOnly = true;
-            // 
-            // picHelp
-            // 
-            this.picHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picHelp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picHelp.Image = global::GOLLSYSTEM.Properties.Resources._008_help;
-            this.picHelp.Location = new System.Drawing.Point(672, 13);
-            this.picHelp.Name = "picHelp";
-            this.picHelp.Size = new System.Drawing.Size(28, 28);
-            this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picHelp.TabIndex = 78;
-            this.picHelp.TabStop = false;
-            // 
-            // icUpdate
-            // 
-            this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
-            this.icUpdate.Location = new System.Drawing.Point(292, 68);
-            this.icUpdate.Name = "icUpdate";
-            this.icUpdate.Size = new System.Drawing.Size(30, 23);
-            this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.icUpdate.TabIndex = 72;
-            this.icUpdate.TabStop = false;
-            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // txtBuscar
             // 
@@ -245,6 +222,30 @@
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
             this.cbxYear.TabIndex = 98;
+            // 
+            // picHelp
+            // 
+            this.picHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picHelp.Image = global::GOLLSYSTEM.Properties.Resources._008_help;
+            this.picHelp.Location = new System.Drawing.Point(672, 13);
+            this.picHelp.Name = "picHelp";
+            this.picHelp.Size = new System.Drawing.Size(28, 28);
+            this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picHelp.TabIndex = 78;
+            this.picHelp.TabStop = false;
+            // 
+            // icUpdate
+            // 
+            this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
+            this.icUpdate.Location = new System.Drawing.Point(292, 68);
+            this.icUpdate.Name = "icUpdate";
+            this.icUpdate.Size = new System.Drawing.Size(30, 23);
+            this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.icUpdate.TabIndex = 72;
+            this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // ControlCursos
             // 

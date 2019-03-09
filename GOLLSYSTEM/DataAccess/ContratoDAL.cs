@@ -418,11 +418,10 @@ namespace GOLLSYSTEM.DataAccess
                 MySqlTransaction _trans = _con.BeginTransaction();
                 try
                 {
-                    MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhRegistro,FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhRegistro,@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
-                    cmdInsertContrato.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
+                    MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
                     cmdInsertContrato.Parameters.AddWithValue("@FhInicio", item.FhInicio);
-                    cmdInsertContrato.Parameters.AddWithValue("@FhFin", item.FhFin);
-                    cmdInsertContrato.Parameters.AddWithValue("@Estado", item.Estado);
+                    cmdInsertContrato.Parameters.AddWithValue("@FhFin", null);
+                    cmdInsertContrato.Parameters.AddWithValue("@Estado", "A");
                     cmdInsertContrato.Parameters.AddWithValue("@IdCargo", item.IdCargo);
                     cmdInsertContrato.Parameters.AddWithValue("@IdEmpleado", item.Empleado.Id);
 

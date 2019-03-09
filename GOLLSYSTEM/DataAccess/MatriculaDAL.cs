@@ -51,6 +51,49 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static Matricula verificarMatriculado(Int64 pIdCurso,Int64 IdEstudiante)
+        {
+            Matricula item = null;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand cmdGetItemById = new MySqlCommand("select * from matricula where IdCurso=@pIdCurso and IdEstudiante=@IdEstudiante", _con);
+                    cmdGetItemById.Parameters.AddWithValue("@pIdCurso", pIdCurso);
+                    cmdGetItemById.Parameters.AddWithValue("@IdEstudiante", IdEstudiante);
+
+                    MySqlDataReader _reader = cmdGetItemById.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = new Matricula(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetInt32(3),
+                            _reader.GetString(4),
+                            _reader.GetInt64(5),
+                            _reader.GetInt64(6),
+                            EstudianteDAL.getEstudianteById(_reader.GetInt64(6)),
+                            CuotaDAL.getCuotasByIdMatricula(_reader.GetInt64(0), 50),
+                            DetMatriculaDAL.getDetsmatriculaByIdMatricula(_reader.GetInt64(0), 2)
+                            );
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
+        }
         public static int countMatriculasByCurso(Int64 pId)
         {
             int item = 0;
@@ -59,7 +102,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand cmdBuscarPersona = new MySqlCommand("select count(Id) as MatriculasCount from matricula where IdCurso=@pId", _con);
+                    MySqlCommand cmdBuscarPersona = new MySqlCommand("select count(Id) as MatriculasCount from matricula where IdCurso=@pId and Estado='A'", _con);
                     cmdBuscarPersona.Parameters.AddWithValue("@pId", pId);
                     MySqlDataReader _reader = cmdBuscarPersona.ExecuteReader();
                     while (_reader.Read())
@@ -92,7 +135,7 @@ namespace GOLLSYSTEM.DataAccess
                     MySqlCommand comando = new MySqlCommand("select m.* from matricula as m inner join curso as c on c.Id =m.IdCurso " +
                         "inner join year as y on y.Id=c.IdYear inner join estudiante as e on e.Id=m.IdEstudiante inner join persona as p " +
                         "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
-                        "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() + "%') and m.IdCurso=@pIdCurso and c.IdYear=@pIdYear order by Id asc", _con);
+                        "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() + "%') and m.IdCurso=@pIdCurso and c.IdYear=@pIdYear and m.Estado='A' order by Id asc", _con);
                     comando.Parameters.AddWithValue("@pIdYear", pIdYear);
                     comando.Parameters.AddWithValue("@pIdCurso", pIdCurso);
 
@@ -140,7 +183,8 @@ namespace GOLLSYSTEM.DataAccess
                     MySqlCommand comando = new MySqlCommand("select m.* from matricula as m inner join curso as c on c.Id =m.IdCurso " +
                         "inner join year as y on y.Id=c.IdYear inner join estudiante as e on e.Id=m.IdEstudiante inner join persona as p " +
                         "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
-                        "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() + "%') and (c.IdSucursal=@pIdSucursal) order by Id asc limit @pLimit", _con);
+                        "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() +
+                        "%') and (c.IdSucursal=@pIdSucursal) and m.Estado='A' order by Id asc limit @pLimit", _con);
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
@@ -189,7 +233,7 @@ namespace GOLLSYSTEM.DataAccess
                         "inner join year as y on y.Id=c.IdYear inner join estudiante as e on e.Id=m.IdEstudiante inner join persona as p " +
                         "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
                         "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() + "%') and c.IdSucursal=@pIdSucursal " +
-                        " order by m.Id asc", _con);
+                        " and m.Estado='A' order by m.Id asc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -287,7 +331,7 @@ namespace GOLLSYSTEM.DataAccess
                         cmdInsertMatricula.Parameters.AddWithValue("@Becado", item.Becado);
                         cmdInsertMatricula.Parameters.AddWithValue("@DiaLimite", item.DiaLimite);
                         cmdInsertMatricula.Parameters.AddWithValue("@IdCurso", item.IdCurso);
-                        cmdInsertMatricula.Parameters.AddWithValue("@IdEstudiante", item.IdEstudiante);
+                        cmdInsertMatricula.Parameters.AddWithValue("@IdEstudiante", item.Estudiante.Id);
 
                         if (cmdInsertMatricula.ExecuteNonQuery() <= 0)
                         {
@@ -347,7 +391,7 @@ namespace GOLLSYSTEM.DataAccess
                             }
                             MySqlCommand cmdInsertDetMatricula = new MySqlCommand("Insert into detmatricula (Parentesco,IdMatricula,IdEncargado) values (@Parentesco,@IdMatricula,@IdEncargado)", _con, _trans);
                             cmdInsertDetMatricula.Parameters.AddWithValue("@Parentesco", detMatricula.Parentesco);
-                            cmdInsertDetMatricula.Parameters.AddWithValue("@IdMatricula", detMatricula.IdMatricula);
+                            cmdInsertDetMatricula.Parameters.AddWithValue("@IdMatricula", item.Id);
                             cmdInsertDetMatricula.Parameters.AddWithValue("@IdEncargado", detMatricula.IdEncargado);
 
                             if (cmdInsertDetMatricula.ExecuteNonQuery() <= 0)

@@ -165,7 +165,7 @@
             this.valDireccion.BackColor = System.Drawing.Color.Gray;
             this.valDireccion.Location = new System.Drawing.Point(79, 346);
             this.valDireccion.Name = "valDireccion";
-            this.valDireccion.Size = new System.Drawing.Size(315, 2);
+            this.valDireccion.Size = new System.Drawing.Size(322, 2);
             this.valDireccion.TabIndex = 39;
             // 
             // txtDireccion
@@ -177,7 +177,7 @@
             this.txtDireccion.Location = new System.Drawing.Point(78, 256);
             this.txtDireccion.Multiline = true;
             this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(316, 90);
+            this.txtDireccion.Size = new System.Drawing.Size(323, 90);
             this.txtDireccion.TabIndex = 8;
             this.txtDireccion.Leave += new System.EventHandler(this.txt_Leave);
             // 
@@ -302,9 +302,9 @@
             this.txtTelefono.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtTelefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTelefono.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.txtTelefono.Location = new System.Drawing.Point(479, 43);
+            this.txtTelefono.Location = new System.Drawing.Point(477, 43);
             this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(124, 20);
+            this.txtTelefono.Size = new System.Drawing.Size(128, 20);
             this.txtTelefono.TabIndex = 2;
             this.txtTelefono.Leave += new System.EventHandler(this.txt_Leave);
             // 

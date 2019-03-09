@@ -224,11 +224,23 @@
     <Compile Include="Forms\frmBuscarProducto.Designer.cs">
       <DependentUpon>frmBuscarProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmConfirmarFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmConfirmarFactura.Designer.cs">
+      <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmCurso.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmCurso.Designer.cs">
       <DependentUpon>FrmCurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmDesercion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmDesercion.Designer.cs">
+      <DependentUpon>frmDesercion.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmEgreso.cs">
       <SubType>Form</SubType>
@@ -359,8 +371,14 @@
     <EmbeddedResource Include="Forms\frmBuscarProducto.resx">
       <DependentUpon>frmBuscarProducto.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmConfirmarFactura.resx">
+      <DependentUpon>frmConfirmarFactura.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmCurso.resx">
       <DependentUpon>FrmCurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmDesercion.resx">
+      <DependentUpon>frmDesercion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmEgreso.resx">
       <DependentUpon>FrmEgreso.cs</DependentUpon>
@@ -506,6 +524,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\house.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\aula.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu-4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\smartphone-1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\proyecto-de-ley.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

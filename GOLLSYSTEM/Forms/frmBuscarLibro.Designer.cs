@@ -80,6 +80,7 @@
             this.dgvLibro.Name = "dgvLibro";
             this.dgvLibro.ReadOnly = true;
             this.dgvLibro.RowHeadersVisible = false;
+            this.dgvLibro.RowTemplate.Height = 30;
             this.dgvLibro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLibro.Size = new System.Drawing.Size(660, 201);
             this.dgvLibro.TabIndex = 101;

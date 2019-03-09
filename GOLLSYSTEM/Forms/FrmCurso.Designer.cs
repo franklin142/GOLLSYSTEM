@@ -519,6 +519,7 @@
             this.dgvHorario.Name = "dgvHorario";
             this.dgvHorario.ReadOnly = true;
             this.dgvHorario.RowHeadersVisible = false;
+            this.dgvHorario.RowTemplate.Height = 30;
             this.dgvHorario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvHorario.Size = new System.Drawing.Size(265, 102);
             this.dgvHorario.TabIndex = 0;
@@ -763,6 +764,7 @@
             this.dgvDeCurso.Name = "dgvDeCurso";
             this.dgvDeCurso.ReadOnly = true;
             this.dgvDeCurso.RowHeadersVisible = false;
+            this.dgvDeCurso.RowTemplate.Height = 30;
             this.dgvDeCurso.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDeCurso.Size = new System.Drawing.Size(338, 102);
             this.dgvDeCurso.TabIndex = 40;

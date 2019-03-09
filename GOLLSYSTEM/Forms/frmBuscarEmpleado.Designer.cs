@@ -81,6 +81,7 @@
             this.dgvCursos.Name = "dgvCursos";
             this.dgvCursos.ReadOnly = true;
             this.dgvCursos.RowHeadersVisible = false;
+            this.dgvCursos.RowTemplate.Height = 30;
             this.dgvCursos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCursos.Size = new System.Drawing.Size(660, 195);
             this.dgvCursos.TabIndex = 101;

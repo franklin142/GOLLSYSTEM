@@ -92,3 +92,4 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Inici
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Login.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Properties.Resources.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csproj.GenerateResource.Cache
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmDesercion.resources

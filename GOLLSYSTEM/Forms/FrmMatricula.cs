@@ -211,6 +211,7 @@ namespace GOLLSYSTEM.Forms
             EditingObject = EditingObject != null ? EditingObject : new Matricula();
             EditingObject.Estudiante = EditingObject.Estudiante != null ? EditingObject.Estudiante : new Estudiante();
             EditingObject.Estudiante.Persona = EditingObject.Estudiante.Persona != null ? EditingObject.Estudiante.Persona : new Persona();
+
             EditingObject.Padres = EditingObject.Padres != null ? EditingObject.Padres : new List<Detmatricula>();
             if (EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
                 EditingObject.Padres.Add(new Detmatricula(0, "Padre", EditingObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
@@ -218,9 +219,10 @@ namespace GOLLSYSTEM.Forms
                 EditingObject.Padres.Add(new Detmatricula(0, "Madre", EditingObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
 
             NewObject = NewObject != null ? NewObject : new Matricula();
-            NewObject.Estudiante = NewObject.Estudiante != null ? NewObject.Estudiante : new Estudiante();
+            NewObject.Estudiante = EditingObject.Estudiante != null ? EditingObject.Estudiante : new Estudiante();
             NewObject.Estudiante.Persona = NewObject.Estudiante.Persona != null ? NewObject.Estudiante.Persona : new Persona();
             NewObject.Padres = NewObject.Padres != null ? NewObject.Padres : new List<Detmatricula>();
+
             if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
                 NewObject.Padres.Add(new Detmatricula(0, "Padre", NewObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
             if (NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)

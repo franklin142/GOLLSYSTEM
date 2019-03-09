@@ -581,7 +581,7 @@
             // picOpc4
             // 
             this.picOpc4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picOpc4.Image = global::GOLLSYSTEM.Properties.Resources.idiomas;
+            this.picOpc4.Image = global::GOLLSYSTEM.Properties.Resources.aula;
             this.picOpc4.Location = new System.Drawing.Point(3, 3);
             this.picOpc4.Name = "picOpc4";
             this.picOpc4.Size = new System.Drawing.Size(41, 37);

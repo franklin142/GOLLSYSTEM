@@ -44,8 +44,9 @@
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estudiante = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.telefono = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.becado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.solvente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pendientes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fhproxima = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnNuevaMatricula = new System.Windows.Forms.Button();
             this.btnEditarMatricula = new System.Windows.Forms.Button();
             this.cbxCursos = new System.Windows.Forms.ComboBox();
@@ -174,6 +175,7 @@
             this.btnDesertarAlumno.TabIndex = 68;
             this.btnDesertarAlumno.Text = "Desertar";
             this.btnDesertarAlumno.UseVisualStyleBackColor = false;
+            this.btnDesertarAlumno.Click += new System.EventHandler(this.btnDesertarAlumno_Click);
             // 
             // dgvMatriculas
             // 
@@ -198,16 +200,20 @@
             this.id,
             this.estudiante,
             this.telefono,
-            this.becado,
-            this.solvente});
+            this.solvente,
+            this.pendientes,
+            this.fhproxima});
             this.dgvMatriculas.Location = new System.Drawing.Point(16, 122);
             this.dgvMatriculas.MultiSelect = false;
             this.dgvMatriculas.Name = "dgvMatriculas";
             this.dgvMatriculas.ReadOnly = true;
             this.dgvMatriculas.RowHeadersVisible = false;
+            this.dgvMatriculas.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgvMatriculas.RowTemplate.Height = 30;
             this.dgvMatriculas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvMatriculas.Size = new System.Drawing.Size(677, 291);
             this.dgvMatriculas.TabIndex = 66;
+            this.dgvMatriculas.DoubleClick += new System.EventHandler(this.dgvMatriculas_DoubleClick);
             // 
             // id
             // 
@@ -224,24 +230,31 @@
             // 
             // telefono
             // 
-            this.telefono.FillWeight = 50F;
+            this.telefono.FillWeight = 40F;
             this.telefono.HeaderText = "Telefono";
             this.telefono.Name = "telefono";
             this.telefono.ReadOnly = true;
             // 
-            // becado
-            // 
-            this.becado.FillWeight = 50F;
-            this.becado.HeaderText = "Es Becado";
-            this.becado.Name = "becado";
-            this.becado.ReadOnly = true;
-            // 
             // solvente
             // 
-            this.solvente.FillWeight = 50F;
-            this.solvente.HeaderText = "Al dia con pagos";
+            this.solvente.FillWeight = 30F;
+            this.solvente.HeaderText = "Al dia";
             this.solvente.Name = "solvente";
             this.solvente.ReadOnly = true;
+            // 
+            // pendientes
+            // 
+            this.pendientes.FillWeight = 50F;
+            this.pendientes.HeaderText = "Pendientes";
+            this.pendientes.Name = "pendientes";
+            this.pendientes.ReadOnly = true;
+            // 
+            // fhproxima
+            // 
+            this.fhproxima.FillWeight = 50F;
+            this.fhproxima.HeaderText = "Proximo Pago";
+            this.fhproxima.Name = "fhproxima";
+            this.fhproxima.ReadOnly = true;
             // 
             // btnNuevaMatricula
             // 
@@ -346,14 +359,15 @@
         private System.Windows.Forms.Label lblTiltulo;
         private System.Windows.Forms.Button btnDesertarAlumno;
         private System.Windows.Forms.DataGridView dgvMatriculas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estudiante;
-        private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
-        private System.Windows.Forms.DataGridViewTextBoxColumn becado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn solvente;
         private System.Windows.Forms.Button btnNuevaMatricula;
         private System.Windows.Forms.Button btnEditarMatricula;
         private System.Windows.Forms.ComboBox cbxCursos;
         private System.Windows.Forms.ComboBox cbxYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estudiante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn telefono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn solvente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn pendientes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fhproxima;
     }
 }
