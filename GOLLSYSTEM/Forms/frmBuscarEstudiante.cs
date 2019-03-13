@@ -28,7 +28,7 @@ namespace GOLLSYSTEM.Forms
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(MatriculaDAL.searchMatriculas(txtBuscar.Text,Inicio.CurrentSucursal.Id));
+            FillDgv(MatriculaDAL.searchMatriculas(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id));
         }
         private void FillDgv(List<Matricula>lista)
         {

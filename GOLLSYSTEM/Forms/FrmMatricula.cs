@@ -424,7 +424,7 @@ namespace GOLLSYSTEM.Forms
             NewObject.Estudiante.Persona = NewObject.Estudiante.Persona != null ? EditingObject.Estudiante.Persona : new Persona();
             NewObject.Padres = new List<Detmatricula>();
 
-            
+
 
             bool validation = true;
             NewObject.Id = EditingObject.Id;
@@ -522,7 +522,7 @@ namespace GOLLSYSTEM.Forms
                 {
                     if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
                         NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
-                    
+
                     validation = txtNombrePadre.Text.Length == 0 && !Validation.Validation.Val_NameFormat(txtNombrePadre.Text) ?
                         setErrorMessage("El nombre del padre del estudiante no tiene un formato valido, por favor digite el nombre completo", errNombrePadre, txtNombrePadre, ValNombrePadre, Color.Red) :
                         setErrorMessage(null, errNombrePadre, txtNombrePadre, ValNombrePadre, Color.FromArgb(0, 100, 182));
@@ -623,7 +623,6 @@ namespace GOLLSYSTEM.Forms
             }
             return result;
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             switch (opc)

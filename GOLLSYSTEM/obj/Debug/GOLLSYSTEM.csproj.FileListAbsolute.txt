@@ -93,3 +93,6 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Login
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Properties.Resources.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csproj.GenerateResource.Cache
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmDesercion.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmConfirmarFactura.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmBuscarPersona.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmPersona.resources

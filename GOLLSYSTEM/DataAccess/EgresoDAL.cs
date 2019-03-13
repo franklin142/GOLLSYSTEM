@@ -47,7 +47,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-        public static List<Egreso> searchEgresoByParametro(string pYear,string pMonth, string pText, int pIdSucursal, int pLimit)
+        public static List<Egreso> searchEgresoByParametro(Int64 pYear,string pMonth, string pText, Int64 pIdSucursal, int pLimit)
         {
             List<Egreso> lista = new List<Egreso>();
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -92,7 +92,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-        public static List<Egreso> searchEgresoNoParametro(string pText, int pLimit)
+        public static List<Egreso> searchEgresoNoParametro(string pText,Int64 pIdSucursal, int pLimit)
         {
             List<Egreso> lista = new List<Egreso>();
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -100,7 +100,8 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from egreso where Nombre like '%" + pText + "%' order by Id asc", _con);
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where Nombre like '%" + pText + "%' and IdSucursal=@pIdSucursal order by Id asc", _con);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -132,6 +133,71 @@ namespace GOLLSYSTEM.DataAccess
                 }
             }
             return lista;
+        }
+        public static decimal getTotalEgresoNoParametro(string pText, Int64 pIdSucursal, int pLimit)
+        {
+            decimal item = 0;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where Nombre like '%" + pText + "%' and (IdSucursal=@pIdSucursal) order by Id asc", _con);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = _reader.IsDBNull(0) ? 0 : _reader.GetDecimal(0);
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
+        }
+        public static decimal getTotalEgresoByParametro(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal, int pLimit)
+        {
+            decimal item = 0;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where Nombre like '%" + pText + "%' and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) order by Id asc", _con);
+                    comando.Parameters.AddWithValue("@pYear", pYear);
+                    comando.Parameters.AddWithValue("@pMonth", pMonth);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    comando.Parameters.AddWithValue("@pLimit", pLimit);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = _reader.IsDBNull(0) ? 0 : _reader.GetDecimal(0);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
         }
 
     }

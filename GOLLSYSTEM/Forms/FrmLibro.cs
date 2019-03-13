@@ -25,7 +25,7 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmLibro_Load(object sender, EventArgs e)
         {
-
+            numActividades.Value = 8;
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -40,6 +40,7 @@ namespace GOLLSYSTEM.Forms
                    txtEdicion.Text,
                    (int)numActividades.Value,
                    (int)numNivel.Value);
+
                     if (LibroDAL.InsertLibro(NewObject, Inicio.CurrentUser))
                     {
                         MessageBox.Show("El Libro ha sido registrado exitosamente.", "Registro satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -65,7 +66,28 @@ namespace GOLLSYSTEM.Forms
         private bool val_NewObject()
         {
             bool result = true;
-
+            if (!Validation.Validation.Val_StringsLength(txtNombre.Text,5))
+            {
+                errNombre.SetError(txtNombre, "El nombre ingresado debe tener al menos 5 caracteres.");
+                valNombre.BackColor = Color.Red;
+                result = false;
+            }
+            else
+            {
+                errEdicion.Clear();
+                valEdicion.BackColor = Color.FromArgb(0, 100, 182);
+            }
+            if (!Validation.Validation.Val_StringsLength(txtEdicion.Text, 1))
+            {
+                errEdicion.SetError(txtEdicion, "La edicion del libro es obligatoria para poder registrarlo.");
+                valEdicion.BackColor = Color.Red;
+                result = false;
+            }
+            else
+            {
+                errNombre.Clear();
+                valNombre.BackColor = Color.FromArgb(0, 100, 182);
+            }
             return result;
         }
         private void btnCancelar_Click(object sender, EventArgs e)

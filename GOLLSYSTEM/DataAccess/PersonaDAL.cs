@@ -29,7 +29,7 @@ namespace GOLLSYSTEM.DataAccess
                             _reader.GetString("Dui"),
                             _reader.GetString("Nit"),
                             _reader.GetString("Direccion"),
-                            (_reader.IsDBNull(4))?null:_reader.GetString("FechaNac")
+                            (_reader.IsDBNull(4)) ? null : _reader.GetString("FechaNac")
                         );
                     }
                     _reader.Close();
@@ -46,5 +46,86 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static List<Persona> searchPersonaNoParametro(string pText, int pLimit)
+        {
+            List<Persona> lista = new List<Persona>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select * from persona where Upper(Nombre) like '%" + pText.ToUpper() + "%' order by Id asc", _con);
+                    comando.Parameters.AddWithValue("@pLimit", pLimit);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Persona item = new Persona(
+                            _reader.GetInt64("Id"),
+                            _reader.GetString("Nombre"),
+                            _reader.GetString("Dui"),
+                            _reader.GetString("Nit"),
+                            _reader.GetString("Direccion"),
+                            (_reader.IsDBNull(4)) ? null : _reader.GetString("FechaNac"));
+
+                        lista.Add(item);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+        public static bool insertPersona(Persona item, Useremp pUser)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+
+                    MySqlCommand cmdInsertPersona = new MySqlCommand("Insert into persona (Nombre,Dui,Nit,FechaNac,Direccion) values (@Nombre,@Dui,@Nit,@FechaNac,@Direccion)", _con, _trans);
+                    cmdInsertPersona.Parameters.AddWithValue("@Nombre", item.Nombre);
+                    cmdInsertPersona.Parameters.AddWithValue("@Dui", "");
+                    cmdInsertPersona.Parameters.AddWithValue("@Nit","");
+                    cmdInsertPersona.Parameters.AddWithValue("@FechaNac", DateTime.Today.ToString("yyyy/MM/dd"));
+                    cmdInsertPersona.Parameters.AddWithValue("@Direccion", "");
+                    if (cmdInsertPersona.ExecuteNonQuery() <= 0)
+                    {
+                        result = false;
+                    }
+
+                    if (result)
+                    {
+                        _trans.Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
+
     }
 }

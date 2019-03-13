@@ -129,6 +129,7 @@
     <Compile Include="DataAccess\EvaluacionDAL.cs" />
     <Compile Include="DataAccess\FacturaDAL.cs" />
     <Compile Include="DataAccess\LibroDAL.cs" />
+    <Compile Include="DataAccess\MatricdetfacDAL.cs" />
     <Compile Include="DataAccess\MatriculaDAL.cs" />
     <Compile Include="DataAccess\PersonaDAL.cs" />
     <Compile Include="DataAccess\ProductoDAL.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="EntityLayer\Evaluacion.cs" />
     <Compile Include="EntityLayer\Factura.cs" />
     <Compile Include="EntityLayer\Libro.cs" />
+    <Compile Include="EntityLayer\Matricdetfac.cs" />
     <Compile Include="EntityLayer\Matricula.cs" />
     <Compile Include="EntityLayer\Persona.cs" />
     <Compile Include="EntityLayer\Producto.cs" />
@@ -290,6 +292,18 @@
     <Compile Include="Forms\FrmMatricula.Designer.cs">
       <DependentUpon>FrmMatricula.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmBuscarPersona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuscarPersona.Designer.cs">
+      <DependentUpon>frmBuscarPersona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmPersona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmPersona.Designer.cs">
+      <DependentUpon>frmPersona.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -403,6 +417,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmMatricula.resx">
       <DependentUpon>FrmMatricula.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuscarPersona.resx">
+      <DependentUpon>frmBuscarPersona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmPersona.resx">
+      <DependentUpon>frmPersona.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProducto.resx">
       <DependentUpon>FrmProducto.cs</DependentUpon>
@@ -545,6 +565,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\proyecto-de-ley.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\biblioteca.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

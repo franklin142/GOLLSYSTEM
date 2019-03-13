@@ -23,5 +23,10 @@ namespace GOLLSYSTEM.Forms
         {
 
         }
+
+        private void icUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

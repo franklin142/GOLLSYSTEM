@@ -94,36 +94,36 @@ namespace GOLLSYSTEM.Forms
                         try
                         {
                             NewObject = new Contrato(
-                           0,
-                           DateTime.Now.ToString(),
-                           DateTime.Now.ToString(),
-                           null,
-                           "A",
-                           (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
-                           EditingObject != null ? EditingObject.IdEmpleado : 0,
-                           new Cargo(
-                               (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
-                               null,
-                               null),
-                           new Empleado(
-                               EditingObject != null && EditingObject.Empleado != null ? EditingObject.Empleado.Id : 0,
-                               DateTime.Now.ToString(),
-                               txtTelefono.Text,
-                               txtCorreo.Text,
-                               null,
-                               EditingObject != null && EditingObject.Empleado != null && EditingObject.Empleado.Persona != null ? EditingObject.Empleado.Persona.Id : 0,
-                               new Persona(
-                                   EditingObject != null && EditingObject.Empleado != null && EditingObject.Empleado.Persona != null ? EditingObject.Empleado.Persona.Id : 0,
-                                   txtNombre.Text,
-                                   txtDui.Text,
-                                   txtNit.Text,
-                                   txtDireccion.Text,
-                                   dtpFechaNac.Value.ToString("yyyy-MM-dd")
+                          0,
+                          DateTime.Now.ToString(),
+                          DateTime.Now.ToString(),
+                          null,
+                          "A",
+                          (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
+                          EditingObject != null ? EditingObject.IdEmpleado : 0,
+                          new Cargo(
+                              (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
+                              null,
+                              null),
+                          new Empleado(
+                              EditingObject != null && EditingObject.Empleado != null ? EditingObject.Empleado.Id : 0,
+                              DateTime.Now.ToString(),
+                              txtTelefono.Text,
+                              txtCorreo.Text,
+                              null,
+                              EditingObject != null && EditingObject.Empleado != null && EditingObject.Empleado.Persona != null ? EditingObject.Empleado.Persona.Id : 0,
+                              new Persona(
+                                  EditingObject != null && EditingObject.Empleado != null && EditingObject.Empleado.Persona != null ? EditingObject.Empleado.Persona.Id : 0,
+                                  txtNombre.Text,
+                                  txtDui.Text,
+                                  txtNit.Text,
+                                  txtDireccion.Text,
+                                  dtpFechaNac.Value.ToString("yyyy-MM-dd")
 
-                                   )
-                               )
+                                  )
+                              )
 
-                           );
+                          );
                             if (ContratoDAL.InsertFullContrato(NewObject, Inicio.CurrentUser))
                             {
                                 MessageBox.Show("El Empleado ha sido registrado exitosamente.", "Registro satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -739,7 +739,7 @@ namespace GOLLSYSTEM.Forms
                     valFechaNac.BackColor = Color.FromArgb(0, 100, 182);
                     break;
                 case "cmbCargo":
- 
+
                     EditingObject = EditingObject != null ? EditingObject : new Contrato();
                     EditingObject.Cargo = EditingObject.Cargo != null ? EditingObject.Cargo : new Cargo();
                     EditingObject.IdCargo = (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue);

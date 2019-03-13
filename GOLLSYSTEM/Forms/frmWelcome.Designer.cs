@@ -54,9 +54,9 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel13 = new System.Windows.Forms.Panel();
             this.btnAtras2 = new System.Windows.Forms.Button();
-            this.valNombre = new System.Windows.Forms.Panel();
+            this.valNombreSucursal = new System.Windows.Forms.Panel();
             this.txtNombreSucursal = new System.Windows.Forms.TextBox();
-            this.valDireccion = new System.Windows.Forms.Panel();
+            this.valDireccionSucursal = new System.Windows.Forms.Panel();
             this.txtDireccionSucursal = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnSiguiente2 = new System.Windows.Forms.Button();
@@ -68,26 +68,23 @@
             this.label15 = new System.Windows.Forms.Label();
             this.dtpFechaNac = new System.Windows.Forms.DateTimePicker();
             this.valFechaNac = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
+            this.valNombreUsuario = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
-            this.panel23 = new System.Windows.Forms.Panel();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.txtDireccion = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.panel22 = new System.Windows.Forms.Panel();
+            this.valTelefono = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.txtNombre = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtPass = new System.Windows.Forms.TextBox();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.valNit = new System.Windows.Forms.Panel();
+            this.valPass = new System.Windows.Forms.Panel();
             this.txtNit = new System.Windows.Forms.TextBox();
             this.txtConfirmar = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.valConfirmarPass = new System.Windows.Forms.Panel();
+            this.valDui = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.txtDui = new System.Windows.Forms.TextBox();
             this.panel14 = new System.Windows.Forms.Panel();
@@ -113,6 +110,11 @@
             this.errLogin = new System.Windows.Forms.ErrorProvider(this.components);
             this.errPass = new System.Windows.Forms.ErrorProvider(this.components);
             this.errConfirmar = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errNombreSucursal = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errDireccionSucursal = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errTelefono = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errDui = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errNit = new System.Windows.Forms.ErrorProvider(this.components);
             this.pnlLogo.SuspendLayout();
             this.pnlSteep1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -132,6 +134,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.errLogin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errConfirmar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNombreSucursal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errDireccionSucursal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errTelefono)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errDui)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNit)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -345,9 +352,9 @@
             this.pnlSteep2.Controls.Add(this.panel12);
             this.pnlSteep2.Controls.Add(this.panel13);
             this.pnlSteep2.Controls.Add(this.btnAtras2);
-            this.pnlSteep2.Controls.Add(this.valNombre);
+            this.pnlSteep2.Controls.Add(this.valNombreSucursal);
             this.pnlSteep2.Controls.Add(this.txtNombreSucursal);
-            this.pnlSteep2.Controls.Add(this.valDireccion);
+            this.pnlSteep2.Controls.Add(this.valDireccionSucursal);
             this.pnlSteep2.Controls.Add(this.txtDireccionSucursal);
             this.pnlSteep2.Controls.Add(this.label11);
             this.pnlSteep2.Controls.Add(this.btnSiguiente2);
@@ -407,13 +414,13 @@
             this.btnAtras2.UseVisualStyleBackColor = false;
             this.btnAtras2.Click += new System.EventHandler(this.btnAtras2_Click);
             // 
-            // valNombre
+            // valNombreSucursal
             // 
-            this.valNombre.BackColor = System.Drawing.Color.Gray;
-            this.valNombre.Location = new System.Drawing.Point(132, 130);
-            this.valNombre.Name = "valNombre";
-            this.valNombre.Size = new System.Drawing.Size(311, 2);
-            this.valNombre.TabIndex = 96;
+            this.valNombreSucursal.BackColor = System.Drawing.Color.Gray;
+            this.valNombreSucursal.Location = new System.Drawing.Point(132, 130);
+            this.valNombreSucursal.Name = "valNombreSucursal";
+            this.valNombreSucursal.Size = new System.Drawing.Size(311, 2);
+            this.valNombreSucursal.TabIndex = 96;
             // 
             // txtNombreSucursal
             // 
@@ -427,13 +434,13 @@
             this.txtNombreSucursal.TabIndex = 95;
             this.txtNombreSucursal.Leave += new System.EventHandler(this.txtNombreSucursal_Leave);
             // 
-            // valDireccion
+            // valDireccionSucursal
             // 
-            this.valDireccion.BackColor = System.Drawing.Color.Gray;
-            this.valDireccion.Location = new System.Drawing.Point(130, 307);
-            this.valDireccion.Name = "valDireccion";
-            this.valDireccion.Size = new System.Drawing.Size(315, 2);
-            this.valDireccion.TabIndex = 94;
+            this.valDireccionSucursal.BackColor = System.Drawing.Color.Gray;
+            this.valDireccionSucursal.Location = new System.Drawing.Point(130, 307);
+            this.valDireccionSucursal.Name = "valDireccionSucursal";
+            this.valDireccionSucursal.Size = new System.Drawing.Size(315, 2);
+            this.valDireccionSucursal.TabIndex = 94;
             // 
             // txtDireccionSucursal
             // 
@@ -528,26 +535,23 @@
             this.panel24.Controls.Add(this.label15);
             this.panel24.Controls.Add(this.dtpFechaNac);
             this.panel24.Controls.Add(this.valFechaNac);
-            this.panel24.Controls.Add(this.panel2);
-            this.panel24.Controls.Add(this.label8);
+            this.panel24.Controls.Add(this.valNombreUsuario);
             this.panel24.Controls.Add(this.label14);
-            this.panel24.Controls.Add(this.panel23);
             this.panel24.Controls.Add(this.pictureBox3);
-            this.panel24.Controls.Add(this.txtDireccion);
             this.panel24.Controls.Add(this.label13);
-            this.panel24.Controls.Add(this.panel22);
+            this.panel24.Controls.Add(this.valTelefono);
             this.panel24.Controls.Add(this.label12);
             this.panel24.Controls.Add(this.txtTelefono);
             this.panel24.Controls.Add(this.txtNombre);
             this.panel24.Controls.Add(this.label7);
             this.panel24.Controls.Add(this.txtPass);
-            this.panel24.Controls.Add(this.panel5);
-            this.panel24.Controls.Add(this.panel3);
+            this.panel24.Controls.Add(this.valNit);
+            this.panel24.Controls.Add(this.valPass);
             this.panel24.Controls.Add(this.txtNit);
             this.panel24.Controls.Add(this.txtConfirmar);
             this.panel24.Controls.Add(this.label6);
-            this.panel24.Controls.Add(this.panel4);
-            this.panel24.Controls.Add(this.panel1);
+            this.panel24.Controls.Add(this.valConfirmarPass);
+            this.panel24.Controls.Add(this.valDui);
             this.panel24.Controls.Add(this.label5);
             this.panel24.Controls.Add(this.txtDui);
             this.panel24.Location = new System.Drawing.Point(3, 3);
@@ -583,23 +587,13 @@
             this.valFechaNac.Size = new System.Drawing.Size(107, 2);
             this.valFechaNac.TabIndex = 119;
             // 
-            // panel2
+            // valNombreUsuario
             // 
-            this.panel2.BackColor = System.Drawing.Color.Gray;
-            this.panel2.Location = new System.Drawing.Point(147, 112);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(310, 2);
-            this.panel2.TabIndex = 96;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label8.Location = new System.Drawing.Point(29, 335);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(92, 25);
-            this.label8.TabIndex = 118;
-            this.label8.Text = "Direccion";
+            this.valNombreUsuario.BackColor = System.Drawing.Color.Gray;
+            this.valNombreUsuario.Location = new System.Drawing.Point(147, 112);
+            this.valNombreUsuario.Name = "valNombreUsuario";
+            this.valNombreUsuario.Size = new System.Drawing.Size(310, 2);
+            this.valNombreUsuario.TabIndex = 96;
             // 
             // label14
             // 
@@ -611,14 +605,6 @@
             this.label14.TabIndex = 14;
             this.label14.Text = "Nombre";
             // 
-            // panel23
-            // 
-            this.panel23.BackColor = System.Drawing.Color.Gray;
-            this.panel23.Location = new System.Drawing.Point(146, 399);
-            this.panel23.Name = "panel23";
-            this.panel23.Size = new System.Drawing.Size(315, 2);
-            this.panel23.TabIndex = 117;
-            // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::GOLLSYSTEM.Properties.Resources.user_13;
@@ -628,20 +614,6 @@
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 15;
             this.pictureBox3.TabStop = false;
-            // 
-            // txtDireccion
-            // 
-            this.txtDireccion.BackColor = System.Drawing.Color.White;
-            this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDireccion.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.txtDireccion.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.txtDireccion.Location = new System.Drawing.Point(146, 333);
-            this.txtDireccion.Multiline = true;
-            this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDireccion.Size = new System.Drawing.Size(316, 68);
-            this.txtDireccion.TabIndex = 116;
-            this.txtDireccion.Leave += new System.EventHandler(this.txtNombre_Leave);
             // 
             // label13
             // 
@@ -653,13 +625,13 @@
             this.label13.TabIndex = 13;
             this.label13.Text = "Administrador";
             // 
-            // panel22
+            // valTelefono
             // 
-            this.panel22.BackColor = System.Drawing.Color.Gray;
-            this.panel22.Location = new System.Drawing.Point(147, 232);
-            this.panel22.Name = "panel22";
-            this.panel22.Size = new System.Drawing.Size(107, 2);
-            this.panel22.TabIndex = 115;
+            this.valTelefono.BackColor = System.Drawing.Color.Gray;
+            this.valTelefono.Location = new System.Drawing.Point(147, 232);
+            this.valTelefono.Name = "valTelefono";
+            this.valTelefono.Size = new System.Drawing.Size(107, 2);
+            this.valTelefono.TabIndex = 115;
             // 
             // label12
             // 
@@ -718,21 +690,21 @@
             this.txtPass.TabIndex = 98;
             this.txtPass.Leave += new System.EventHandler(this.txtNombre_Leave);
             // 
-            // panel5
+            // valNit
             // 
-            this.panel5.BackColor = System.Drawing.Color.Gray;
-            this.panel5.Location = new System.Drawing.Point(319, 296);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(138, 2);
-            this.panel5.TabIndex = 112;
+            this.valNit.BackColor = System.Drawing.Color.Gray;
+            this.valNit.Location = new System.Drawing.Point(319, 296);
+            this.valNit.Name = "valNit";
+            this.valNit.Size = new System.Drawing.Size(138, 2);
+            this.valNit.TabIndex = 112;
             // 
-            // panel3
+            // valPass
             // 
-            this.panel3.BackColor = System.Drawing.Color.Gray;
-            this.panel3.Location = new System.Drawing.Point(148, 172);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(149, 2);
-            this.panel3.TabIndex = 99;
+            this.valPass.BackColor = System.Drawing.Color.Gray;
+            this.valPass.Location = new System.Drawing.Point(148, 172);
+            this.valPass.Name = "valPass";
+            this.valPass.Size = new System.Drawing.Size(149, 2);
+            this.valPass.TabIndex = 99;
             // 
             // txtNit
             // 
@@ -769,27 +741,27 @@
             this.label6.TabIndex = 110;
             this.label6.Text = "Nit";
             // 
-            // panel4
+            // valConfirmarPass
             // 
-            this.panel4.BackColor = System.Drawing.Color.Gray;
-            this.panel4.Location = new System.Drawing.Point(318, 172);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(139, 2);
-            this.panel4.TabIndex = 102;
+            this.valConfirmarPass.BackColor = System.Drawing.Color.Gray;
+            this.valConfirmarPass.Location = new System.Drawing.Point(318, 172);
+            this.valConfirmarPass.Name = "valConfirmarPass";
+            this.valConfirmarPass.Size = new System.Drawing.Size(139, 2);
+            this.valConfirmarPass.TabIndex = 102;
             // 
-            // panel1
+            // valDui
             // 
-            this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Location = new System.Drawing.Point(147, 293);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(107, 2);
-            this.panel1.TabIndex = 109;
+            this.valDui.BackColor = System.Drawing.Color.Gray;
+            this.valDui.Location = new System.Drawing.Point(147, 293);
+            this.valDui.Name = "valDui";
+            this.valDui.Size = new System.Drawing.Size(107, 2);
+            this.valDui.TabIndex = 109;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label5.Location = new System.Drawing.Point(29, 269);
+            this.label5.Location = new System.Drawing.Point(34, 269);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(41, 25);
             this.label5.TabIndex = 107;
@@ -1024,6 +996,26 @@
             // 
             this.errConfirmar.ContainerControl = this;
             // 
+            // errNombreSucursal
+            // 
+            this.errNombreSucursal.ContainerControl = this;
+            // 
+            // errDireccionSucursal
+            // 
+            this.errDireccionSucursal.ContainerControl = this;
+            // 
+            // errTelefono
+            // 
+            this.errTelefono.ContainerControl = this;
+            // 
+            // errDui
+            // 
+            this.errDui.ContainerControl = this;
+            // 
+            // errNit
+            // 
+            this.errNit.ContainerControl = this;
+            // 
             // frmWelcome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1066,6 +1058,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.errLogin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errConfirmar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNombreSucursal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errDireccionSucursal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errTelefono)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errDui)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNit)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1094,18 +1091,18 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Panel valDireccion;
+        private System.Windows.Forms.Panel valDireccionSucursal;
         private System.Windows.Forms.TextBox txtDireccionSucursal;
-        private System.Windows.Forms.Panel valNombre;
+        private System.Windows.Forms.Panel valNombreSucursal;
         private System.Windows.Forms.TextBox txtNombreSucursal;
         private System.Windows.Forms.Button btnAtras2;
         private System.Windows.Forms.Panel pnlSteep3;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel valConfirmarPass;
         private System.Windows.Forms.TextBox txtConfirmar;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel valPass;
         private System.Windows.Forms.TextBox txtPass;
         private System.Windows.Forms.Button btnAtras3;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel valNombreUsuario;
         private System.Windows.Forms.TextBox txtNombre;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button btnSiguiente3;
@@ -1135,13 +1132,13 @@
         private System.Windows.Forms.Panel panel20;
         private System.Windows.Forms.Panel panel21;
         private System.Windows.Forms.Button btnAtras4;
-        private System.Windows.Forms.Panel panel22;
+        private System.Windows.Forms.Panel valTelefono;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Panel valNit;
         private System.Windows.Forms.TextBox txtNit;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel valDui;
         private System.Windows.Forms.TextBox txtDui;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ErrorProvider errNombre;
@@ -1149,12 +1146,14 @@
         private System.Windows.Forms.ErrorProvider errLogin;
         private System.Windows.Forms.ErrorProvider errPass;
         private System.Windows.Forms.ErrorProvider errConfirmar;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Panel panel23;
-        private System.Windows.Forms.TextBox txtDireccion;
         private System.Windows.Forms.Panel panel24;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DateTimePicker dtpFechaNac;
         private System.Windows.Forms.Panel valFechaNac;
+        private System.Windows.Forms.ErrorProvider errNombreSucursal;
+        private System.Windows.Forms.ErrorProvider errDireccionSucursal;
+        private System.Windows.Forms.ErrorProvider errTelefono;
+        private System.Windows.Forms.ErrorProvider errDui;
+        private System.Windows.Forms.ErrorProvider errNit;
     }
 }

@@ -26,7 +26,7 @@ namespace GOLLSYSTEM.Forms
         }
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(EncargadoDAL.searchEncargados(txtBuscar.Text,30));
+            FillDgv(EncargadoDAL.searchEncargados(Validation.Validation.Val_Injection(txtBuscar.Text), 30));
         }
         private void btnSeleccionar_Click(object sender, EventArgs e)
         {

@@ -26,7 +26,7 @@ namespace GOLLSYSTEM.Forms
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(LibroDAL.searchLibros(txtBuscar.Text,50));
+            FillDgv(LibroDAL.searchLibros(Validation.Validation.Val_Injection(txtBuscar.Text), 50));
         }
         private void FillDgv(List<Libro>lista)
         {

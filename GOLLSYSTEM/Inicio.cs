@@ -44,6 +44,10 @@ namespace GOLLSYSTEM
         }
         public void OpenForm(Form pFormulario)
         {
+            if (CurrentForm!=null)
+            {
+                CurrentForm.Dispose();
+            }
             CurrentForm = pFormulario;
             pnlContent.Visible = false;
             if (this.pnlContent.Controls.Count > 0)
@@ -96,6 +100,11 @@ namespace GOLLSYSTEM
         {
             OpenForm(new Controles.ControlEgresos());
             selectOpc(opc6);
+        }
+
+        private void tmrGcCollector_Tick(object sender, EventArgs e)
+        {
+            GC.Collect();
         }
     }
 }

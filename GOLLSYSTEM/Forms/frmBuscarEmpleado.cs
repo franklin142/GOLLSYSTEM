@@ -27,7 +27,7 @@ namespace GOLLSYSTEM.Forms
         }
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(ContratoDAL.searchContratosA(txtBuscar.Text, 50));
+            FillDgv(ContratoDAL.searchContratosA(Validation.Validation.Val_Injection(txtBuscar.Text), 50));
         }
         private void FillDgv(List<Contrato> lista)
         {

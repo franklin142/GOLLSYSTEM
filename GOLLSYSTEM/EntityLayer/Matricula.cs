@@ -18,6 +18,7 @@ namespace GOLLSYSTEM.EntityLayer
         public Estudiante Estudiante { get; set; }
         public List<Cuota> Cuotas { get; set; }
         public List<Detmatricula> Padres { get; set; }
+        public string NombreEstudiante { get; set; }
 
         public Matricula(){}
 		public Matricula(Int64 pId, string pFhRegistro, string pEstado, int pBecado, string pDiaLimite, Int64 pIdCurso, Int64 pIdEstudiante,Estudiante pEstudiante,List<Cuota> pCuotas, List<Detmatricula> pPadres)
@@ -33,6 +34,20 @@ namespace GOLLSYSTEM.EntityLayer
             Cuotas = pCuotas;
             Padres = pPadres;
         }
-        
+        public Matricula(Int64 pId, string pFhRegistro, string pEstado, int pBecado, string pDiaLimite, Int64 pIdCurso, Int64 pIdEstudiante, Estudiante pEstudiante, List<Cuota> pCuotas, List<Detmatricula> pPadres,string pNombreEstudiante)
+        {
+            Id = pId;
+            FhRegistro = pFhRegistro;
+            Estado = pEstado;
+            Becado = pBecado;
+            DiaLimite = pDiaLimite;
+            IdCurso = pIdCurso;
+            IdEstudiante = pIdEstudiante;
+            Estudiante = pEstudiante;
+            Cuotas = pCuotas;
+            Padres = pPadres;
+            NombreEstudiante = pNombreEstudiante;
+        }
+
     }
 }

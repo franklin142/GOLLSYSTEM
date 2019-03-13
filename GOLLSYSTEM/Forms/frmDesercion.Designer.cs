@@ -63,7 +63,7 @@
             this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDireccion.ForeColor = System.Drawing.SystemColors.MenuText;
             this.txtDireccion.Location = new System.Drawing.Point(29, 204);
-            this.txtDireccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDireccion.Margin = new System.Windows.Forms.Padding(4);
             this.txtDireccion.Multiline = true;
             this.txtDireccion.Name = "txtDireccion";
             this.txtDireccion.Size = new System.Drawing.Size(402, 83);
@@ -73,7 +73,7 @@
             // 
             this.valDireccion.BackColor = System.Drawing.Color.Gray;
             this.valDireccion.Location = new System.Drawing.Point(30, 286);
-            this.valDireccion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.valDireccion.Margin = new System.Windows.Forms.Padding(4);
             this.valDireccion.Name = "valDireccion";
             this.valDireccion.Size = new System.Drawing.Size(401, 3);
             this.valDireccion.TabIndex = 43;
@@ -196,6 +196,7 @@
             this.btnGuardar.TabIndex = 51;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // frmDesercion
             // 
@@ -215,7 +216,7 @@
             this.Controls.Add(this.lblTextDireccion);
             this.Controls.Add(this.txtDireccion);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmDesercion";
             this.Text = "frmDesercion";
             this.Load += new System.EventHandler(this.frmDesercion_Load);

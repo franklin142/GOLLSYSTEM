@@ -54,7 +54,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from cuota where IdMatricula=@pIdMatricula order by Id desc limit @pLimit", _con);
+                    MySqlCommand comando = new MySqlCommand("select * from cuota where IdMatricula=@pIdMatricula and Total <Precio order by Id asc limit @pLimit", _con);
                     comando.Parameters.AddWithValue("@pIdMatricula", pIdMatricula);
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
 

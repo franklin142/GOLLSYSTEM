@@ -28,9 +28,11 @@ namespace GOLLSYSTEM.DataAccess
                             _reader.GetString(1),
                             _reader.GetDecimal(2),
                             _reader.GetDecimal(3),
-                            _reader.GetInt64(4),
+                            _reader.GetString(4),
                             _reader.GetInt64(5),
-                            ProductoDAL.getProductoById(_reader.GetInt64(5))
+                            _reader.GetInt64(6),
+                            ProductoDAL.getProductoById(_reader.GetInt64(6)),
+                            MatricdetfacDAL.getMatricdetfacByIdDetFactura(_reader.GetInt64(0))
                             );
 
                     }
@@ -67,9 +69,11 @@ namespace GOLLSYSTEM.DataAccess
                             _reader.GetString(1),
                             _reader.GetDecimal(2),
                             _reader.GetDecimal(3),
-                            _reader.GetInt64(4),
+                            _reader.GetString(4),
                             _reader.GetInt64(5),
-                            ProductoDAL.getProductoById(_reader.GetInt64(5))
+                            _reader.GetInt64(6),
+                            ProductoDAL.getProductoById(_reader.GetInt64(6)),
+                            MatricdetfacDAL.getMatricdetfacByIdDetFactura(_reader.GetInt64(0))
                             );
 
                         lista.Add(item);

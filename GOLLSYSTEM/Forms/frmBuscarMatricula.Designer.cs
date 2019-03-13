@@ -196,6 +196,7 @@
             this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.icUpdate.TabIndex = 100;
             this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // txtBuscar
             // 

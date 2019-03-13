@@ -679,7 +679,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     result = false;
                     _trans.Rollback();

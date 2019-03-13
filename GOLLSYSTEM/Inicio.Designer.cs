@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Inicio));
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -95,6 +96,7 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.pnlContent = new System.Windows.Forms.Panel();
+            this.tmrGcCollector = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlMenu.SuspendLayout();
@@ -741,6 +743,12 @@
             this.pnlContent.Size = new System.Drawing.Size(714, 460);
             this.pnlContent.TabIndex = 3;
             // 
+            // tmrGcCollector
+            // 
+            this.tmrGcCollector.Enabled = true;
+            this.tmrGcCollector.Interval = 3600;
+            this.tmrGcCollector.Tick += new System.EventHandler(this.tmrGcCollector_Tick);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -857,5 +865,6 @@
         private System.Windows.Forms.ToolStripMenuItem datosDeAlumnoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem datosDeEncargadoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem horariosDeUnCursoToolStripMenuItem;
+        private System.Windows.Forms.Timer tmrGcCollector;
     }
 }

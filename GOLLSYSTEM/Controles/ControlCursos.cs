@@ -66,7 +66,7 @@ namespace GOLLSYSTEM.Controles
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(CursoDAL.searchCursos(Inicio.CurrentSucursal.Id,txtBuscar.Text, new Year(Convert.ToInt32(cbxYear.SelectedValue), "", "")));
+            FillDgv(CursoDAL.searchCursos(Inicio.CurrentSucursal.Id, Validation.Validation.Val_Injection(txtBuscar.Text), new Year(Convert.ToInt32(cbxYear.SelectedValue), "", "")));
 
         }
 

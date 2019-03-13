@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using GOLLSYSTEM.Skin;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Diagnostics;
 
 namespace GOLLSYSTEM
 {
@@ -72,6 +73,17 @@ namespace GOLLSYSTEM
         private void picHelp_MouseLeave(object sender, EventArgs e)
         {
             picHelp.Size = new Size(25, 25);
+        }
+
+        private void Login_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            foreach (Process proceso in Process.GetProcesses())
+            {
+                if (proceso.ProcessName == "Visual Studio 2015 Remote Debugger")
+                {
+                    proceso.Kill();
+                }
+            }
         }
     }
 }

@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rdbParametros = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
@@ -51,6 +52,7 @@
             this.btnEditarMatricula = new System.Windows.Forms.Button();
             this.cbxCursos = new System.Windows.Forms.ComboBox();
             this.cbxYear = new System.Windows.Forms.ComboBox();
+            this.tmrTaskDgv = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
@@ -154,7 +156,7 @@
             // 
             this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
-            this.icUpdate.Location = new System.Drawing.Point(289, 66);
+            this.icUpdate.Location = new System.Drawing.Point(281, 67);
             this.icUpdate.Name = "icUpdate";
             this.icUpdate.Size = new System.Drawing.Size(30, 23);
             this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -187,14 +189,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMatriculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMatriculas.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvMatriculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMatriculas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -312,6 +314,10 @@
             this.cbxYear.TabIndex = 100;
             this.cbxYear.SelectedIndexChanged += new System.EventHandler(this.cbxYear_SelectedIndexChanged);
             // 
+            // tmrTaskDgv
+            // 
+            this.tmrTaskDgv.Tick += new System.EventHandler(this.tmrTaskDgv_Tick);
+            // 
             // ControlMatriculas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,10 +333,10 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.icUpdate);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.lblTiltulo);
+            this.Controls.Add(this.icUpdate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ControlMatriculas";
             this.Text = "ControlMatriculas";
@@ -369,5 +375,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn solvente;
         private System.Windows.Forms.DataGridViewTextBoxColumn pendientes;
         private System.Windows.Forms.DataGridViewTextBoxColumn fhproxima;
+        private System.Windows.Forms.Timer tmrTaskDgv;
     }
 }

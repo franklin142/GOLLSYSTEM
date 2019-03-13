@@ -33,8 +33,7 @@ namespace GOLLSYSTEM.Controles
             cbxCursos.ValueMember = "Id";
             cbxCursos.DisplayMember = "Nombre";
             cbxCursos.Enabled = true;
-            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cbxYear.Items.Count == 0 ? 0 : (Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
-
+            tmrTaskDgv.Start();
 
         }
 
@@ -47,7 +46,7 @@ namespace GOLLSYSTEM.Controles
                 cbxCursos.ValueMember = "Id";
                 cbxCursos.DisplayMember = "Nombre";
                 cbxCursos.Enabled = true;
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
 
             }
         }
@@ -56,7 +55,7 @@ namespace GOLLSYSTEM.Controles
         {
             if (cbxCursos.Enabled)
             {
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
             }
         }
         private void FillDgv(List<Matricula> lista)
@@ -117,7 +116,7 @@ namespace GOLLSYSTEM.Controles
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
         }
 
         private void btnNuevaMatricula_Click(object sender, EventArgs e)
@@ -125,7 +124,7 @@ namespace GOLLSYSTEM.Controles
             FrmMatricula frmmatricula = new FrmMatricula();
             frmmatricula.opc = "newObject";
             frmmatricula.ShowDialog();
-            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
         }
 
         private void btnEditarMatricula_Click(object sender, EventArgs e)
@@ -137,7 +136,7 @@ namespace GOLLSYSTEM.Controles
                 frmmatricula.CurrentObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
                 frmmatricula.EditingObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
                 frmmatricula.ShowDialog();
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
             }
         }
 
@@ -150,13 +149,19 @@ namespace GOLLSYSTEM.Controles
                 frmmatricula.CurrentObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
                 frmmatricula.EditingObject = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
                 frmmatricula.ShowDialog();
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 100));
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
             }
         }
 
         private void btnDesertarAlumno_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tmrTaskDgv_Tick(object sender, EventArgs e)
+        {
+            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), cbxYear.Items.Count == 0 ? 0 : (Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+            tmrTaskDgv.Stop();
         }
     }
 }

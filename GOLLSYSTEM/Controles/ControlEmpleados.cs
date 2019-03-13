@@ -112,7 +112,7 @@ namespace GOLLSYSTEM.Controles
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            ListaContratos = ContratoDAL.searchContratos(txtBuscar.Text,500);
+            ListaContratos = ContratoDAL.searchContratos(Validation.Validation.Val_Injection(txtBuscar.Text), 500);
             List<Contrato> procesados = new List<Contrato>();
             dgvContratos.Rows.Clear();
             dgvEmpleados.Rows.Clear();
