@@ -191,7 +191,6 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-
         public static List<Contrato> getContratosAByIdEmpleado(Int64 pIdEmpleado)
         {
             List<Contrato> lista = new List<Contrato>();

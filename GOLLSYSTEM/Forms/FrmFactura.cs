@@ -161,13 +161,75 @@ namespace GOLLSYSTEM.Forms
             if (buscarproducto.currentDetFactura != null)
             {
                 EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
-                dgvCursos.Rows.Add(0, buscarproducto.currentDetFactura.Producto.Nombre, "Contado",
+                dgvCursos.Rows.Add(0, buscarproducto.currentDetFactura.Producto.Nombre, buscarproducto.currentDetFactura.Total < buscarproducto.currentDetFactura.Producto.Precio ? "Reservacion" : "Contado",
                     buscarproducto.currentDetFactura.Producto.Precio,
                     buscarproducto.currentDetFactura.Descuento,
                     buscarproducto.currentDetFactura.Total,
                     buscarproducto.currentDetFactura.IdProducto);
                 CalucularTotales();
 
+            }
+        }
+
+        private void btnCancelacion_Click(object sender, EventArgs e)
+        {
+            if (EditingObject.IdPersona > 0)
+            {
+                frmBuscarProducto buscarproducto = new frmBuscarProducto();
+                buscarproducto.opc = "Cancelacion";
+                buscarproducto.IdPersona = EditingObject.IdPersona;
+                buscarproducto.ShowDialog();
+                if (buscarproducto.currentDetFactura != null)
+                {
+                    if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault() != null)
+                    {
+                        if (MessageBox.Show("Ya existe una cancelación para este producto o servicio y no se puede duplicar el detalle. ¿Desea hacer un solo detalle fusionando los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            decimal totaldebe = DetFacturaDAL.getTotalDebeReserva(buscarproducto.currentDetFactura.Id, EditingObject.IdPersona);
+
+                            if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total + buscarproducto.currentDetFactura.Total > totaldebe)
+                            {
+                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total = totaldebe;
+                            }
+                            else
+                            {
+                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total += buscarproducto.currentDetFactura.Total;
+
+                            }
+                            if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento + buscarproducto.currentDetFactura.Descuento > totaldebe)
+                            {
+                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento = totaldebe;
+                            }
+                            else
+                            {
+                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento += buscarproducto.currentDetFactura.Descuento;
+
+                            }
+                            for (int i = 0; i < dgvCursos.Rows.Count; i++)
+                            {
+                                dgvCursos.Rows[i].Cells["descuento"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento.ToString() : dgvCursos.Rows[i].Cells["descuento"].Value.ToString();
+                                dgvCursos.Rows[i].Cells["subtotal"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total.ToString(): dgvCursos.Rows[i].Cells["subtotal"].Value.ToString();
+
+                            }
+                            CalucularTotales();
+                        }
+                    }
+                    else
+                    {
+
+
+                        EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
+
+                        dgvCursos.Rows.Add(
+                            buscarproducto.currentDetFactura.Id, 
+                            buscarproducto.currentDetFactura.Producto.Nombre, "Cancelación",
+                            buscarproducto.currentDetFactura.Producto.Precio,
+                            buscarproducto.currentDetFactura.Descuento,
+                            buscarproducto.currentDetFactura.Total,
+                            buscarproducto.currentDetFactura.IdProducto);
+                        CalucularTotales();
+                    }
+                }
             }
         }
     }

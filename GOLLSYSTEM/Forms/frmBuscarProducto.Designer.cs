@@ -64,6 +64,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.checkBecado = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
@@ -396,6 +397,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.checkBecado);
             this.panel2.Controls.Add(this.txtDescuento);
             this.panel2.Controls.Add(this.label6);
             this.panel2.Controls.Add(this.txtAporte);
@@ -430,6 +432,17 @@
             this.label5.Size = new System.Drawing.Size(16, 18);
             this.label5.TabIndex = 117;
             this.label5.Text = "$";
+            // 
+            // checkBecado
+            // 
+            this.checkBecado.AutoSize = true;
+            this.checkBecado.Enabled = false;
+            this.checkBecado.Location = new System.Drawing.Point(227, 3);
+            this.checkBecado.Name = "checkBecado";
+            this.checkBecado.Size = new System.Drawing.Size(63, 17);
+            this.checkBecado.TabIndex = 119;
+            this.checkBecado.Text = "Becado";
+            this.checkBecado.UseVisualStyleBackColor = true;
             // 
             // frmBuscarProducto
             // 
@@ -501,5 +514,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox checkBecado;
     }
 }

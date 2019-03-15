@@ -46,16 +46,8 @@
             this.gbxAgregar = new System.Windows.Forms.GroupBox();
             this.btnContado = new System.Windows.Forms.Button();
             this.btnCancelacion = new System.Windows.Forms.Button();
-            this.btnReservacion = new System.Windows.Forms.Button();
             this.btnMesualidad = new System.Windows.Forms.Button();
             this.dgvCursos = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idproducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblTotal = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -73,6 +65,13 @@
             this.errDetalles = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnRemoveDetalle = new System.Windows.Forms.Button();
             this.valDetalles = new System.Windows.Forms.Panel();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.producto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idproducto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             this.gbxICliente.SuspendLayout();
@@ -236,7 +235,6 @@
             // 
             this.gbxAgregar.Controls.Add(this.btnContado);
             this.gbxAgregar.Controls.Add(this.btnCancelacion);
-            this.gbxAgregar.Controls.Add(this.btnReservacion);
             this.gbxAgregar.Controls.Add(this.btnMesualidad);
             this.gbxAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxAgregar.Location = new System.Drawing.Point(18, 233);
@@ -254,9 +252,9 @@
             this.btnContado.ForeColor = System.Drawing.Color.Black;
             this.btnContado.Location = new System.Drawing.Point(125, 21);
             this.btnContado.Name = "btnContado";
-            this.btnContado.Size = new System.Drawing.Size(101, 27);
+            this.btnContado.Size = new System.Drawing.Size(134, 27);
             this.btnContado.TabIndex = 24;
-            this.btnContado.Text = "Vta Contado";
+            this.btnContado.Text = "Producto/Servicio";
             this.btnContado.UseVisualStyleBackColor = false;
             this.btnContado.Click += new System.EventHandler(this.btnContado_Click);
             // 
@@ -266,25 +264,13 @@
             this.btnCancelacion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelacion.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelacion.Location = new System.Drawing.Point(339, 21);
+            this.btnCancelacion.Location = new System.Drawing.Point(265, 21);
             this.btnCancelacion.Name = "btnCancelacion";
             this.btnCancelacion.Size = new System.Drawing.Size(101, 27);
             this.btnCancelacion.TabIndex = 23;
             this.btnCancelacion.Text = "Cancelación";
             this.btnCancelacion.UseVisualStyleBackColor = false;
-            // 
-            // btnReservacion
-            // 
-            this.btnReservacion.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnReservacion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnReservacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReservacion.ForeColor = System.Drawing.Color.Black;
-            this.btnReservacion.Location = new System.Drawing.Point(232, 21);
-            this.btnReservacion.Name = "btnReservacion";
-            this.btnReservacion.Size = new System.Drawing.Size(101, 27);
-            this.btnReservacion.TabIndex = 22;
-            this.btnReservacion.Text = "Reservación";
-            this.btnReservacion.UseVisualStyleBackColor = false;
+            this.btnCancelacion.Click += new System.EventHandler(this.btnCancelacion_Click);
             // 
             // btnMesualidad
             // 
@@ -325,54 +311,6 @@
             this.dgvCursos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCursos.Size = new System.Drawing.Size(621, 124);
             this.dgvCursos.TabIndex = 102;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // producto
-            // 
-            this.producto.HeaderText = "Producto/Servicio";
-            this.producto.Name = "producto";
-            this.producto.ReadOnly = true;
-            // 
-            // tipo
-            // 
-            this.tipo.FillWeight = 60F;
-            this.tipo.HeaderText = "Tipo";
-            this.tipo.Name = "tipo";
-            this.tipo.ReadOnly = true;
-            // 
-            // precio
-            // 
-            this.precio.FillWeight = 60F;
-            this.precio.HeaderText = "Precio";
-            this.precio.Name = "precio";
-            this.precio.ReadOnly = true;
-            // 
-            // descuento
-            // 
-            this.descuento.FillWeight = 60F;
-            this.descuento.HeaderText = "Descuento";
-            this.descuento.Name = "descuento";
-            this.descuento.ReadOnly = true;
-            // 
-            // subtotal
-            // 
-            this.subtotal.FillWeight = 60F;
-            this.subtotal.HeaderText = "Sub Total";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            // 
-            // idproducto
-            // 
-            this.idproducto.HeaderText = "IdProducto";
-            this.idproducto.Name = "idproducto";
-            this.idproducto.ReadOnly = true;
-            this.idproducto.Visible = false;
             // 
             // lblTotal
             // 
@@ -527,6 +465,54 @@
             this.valDetalles.Size = new System.Drawing.Size(610, 2);
             this.valDetalles.TabIndex = 113;
             // 
+            // id
+            // 
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // producto
+            // 
+            this.producto.HeaderText = "Producto/Servicio";
+            this.producto.Name = "producto";
+            this.producto.ReadOnly = true;
+            // 
+            // tipo
+            // 
+            this.tipo.FillWeight = 60F;
+            this.tipo.HeaderText = "Tipo";
+            this.tipo.Name = "tipo";
+            this.tipo.ReadOnly = true;
+            // 
+            // precio
+            // 
+            this.precio.FillWeight = 50F;
+            this.precio.HeaderText = "Precio";
+            this.precio.Name = "precio";
+            this.precio.ReadOnly = true;
+            // 
+            // descuento
+            // 
+            this.descuento.FillWeight = 60F;
+            this.descuento.HeaderText = "Descuento";
+            this.descuento.Name = "descuento";
+            this.descuento.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.FillWeight = 60F;
+            this.subtotal.HeaderText = "Subtotal ";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // idproducto
+            // 
+            this.idproducto.HeaderText = "IdProducto";
+            this.idproducto.Name = "idproducto";
+            this.idproducto.ReadOnly = true;
+            this.idproducto.Visible = false;
+            // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -590,7 +576,6 @@
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.GroupBox gbxAgregar;
         private System.Windows.Forms.Button btnCancelacion;
-        private System.Windows.Forms.Button btnReservacion;
         private System.Windows.Forms.Button btnMesualidad;
         private System.Windows.Forms.DataGridView dgvCursos;
         private System.Windows.Forms.Label lblTotal;
@@ -602,13 +587,6 @@
         private System.Windows.Forms.Label lblFHRegistro;
         private System.Windows.Forms.Label lblNFactura;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn producto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn precio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idproducto;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblSubtotal;
         private System.Windows.Forms.Label label8;
@@ -618,5 +596,12 @@
         private System.Windows.Forms.Button btnContado;
         private System.Windows.Forms.Button btnRemoveDetalle;
         private System.Windows.Forms.Panel valDetalles;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn producto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idproducto;
     }
 }

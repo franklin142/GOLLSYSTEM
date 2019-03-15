@@ -29,18 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAnular = new System.Windows.Forms.Button();
             this.dgvIngresos = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nfactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fhregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.persona = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.picHelp = new System.Windows.Forms.PictureBox();
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
@@ -69,6 +62,14 @@
             this.lknBack = new System.Windows.Forms.LinkLabel();
             this.lknNext = new System.Windows.Forms.LinkLabel();
             this.lknFin = new System.Windows.Forms.LinkLabel();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nfactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fhregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.persona = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
@@ -90,6 +91,7 @@
             this.btnAnular.TabIndex = 82;
             this.btnAnular.Text = "Anular";
             this.btnAnular.UseVisualStyleBackColor = false;
+            this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
             // 
             // dgvIngresos
             // 
@@ -101,14 +103,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvIngresos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvIngresos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(233)))), ((int)(((byte)(165)))));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvIngresos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIngresos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -124,73 +126,17 @@
             this.dgvIngresos.Name = "dgvIngresos";
             this.dgvIngresos.ReadOnly = true;
             this.dgvIngresos.RowHeadersVisible = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.DarkSeaGreen;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvIngresos.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.DarkSeaGreen;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvIngresos.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvIngresos.RowTemplate.Height = 30;
             this.dgvIngresos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIngresos.Size = new System.Drawing.Size(677, 262);
             this.dgvIngresos.TabIndex = 80;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // nfactura
-            // 
-            this.nfactura.FillWeight = 47.47208F;
-            this.nfactura.HeaderText = "No. Factura";
-            this.nfactura.Name = "nfactura";
-            this.nfactura.ReadOnly = true;
-            // 
-            // fhregistro
-            // 
-            this.fhregistro.FillWeight = 47.47208F;
-            this.fhregistro.HeaderText = "Fecha";
-            this.fhregistro.Name = "fhregistro";
-            this.fhregistro.ReadOnly = true;
-            // 
-            // persona
-            // 
-            this.persona.FillWeight = 83.07614F;
-            this.persona.HeaderText = "Cliente";
-            this.persona.Name = "persona";
-            this.persona.ReadOnly = true;
-            // 
-            // concepto
-            // 
-            this.concepto.FillWeight = 118.6802F;
-            this.concepto.HeaderText = "Concepto";
-            this.concepto.Name = "concepto";
-            this.concepto.ReadOnly = true;
-            // 
-            // subtotal
-            // 
-            this.subtotal.FillWeight = 35F;
-            this.subtotal.HeaderText = "Sub.";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            // 
-            // descuento
-            // 
-            this.descuento.FillWeight = 35F;
-            this.descuento.HeaderText = "Desc.";
-            this.descuento.Name = "descuento";
-            this.descuento.ReadOnly = true;
-            // 
-            // total
-            // 
-            this.total.FillWeight = 35F;
-            this.total.HeaderText = "Total";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
             // 
             // picHelp
             // 
@@ -527,6 +473,64 @@
             this.lknFin.Text = "Fin";
             this.lknFin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknFin_LinkClicked);
             // 
+            // id
+            // 
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // nfactura
+            // 
+            this.nfactura.FillWeight = 47.47208F;
+            this.nfactura.HeaderText = "No. Factura";
+            this.nfactura.Name = "nfactura";
+            this.nfactura.ReadOnly = true;
+            // 
+            // fhregistro
+            // 
+            this.fhregistro.FillWeight = 47.47208F;
+            this.fhregistro.HeaderText = "Fecha";
+            this.fhregistro.Name = "fhregistro";
+            this.fhregistro.ReadOnly = true;
+            // 
+            // persona
+            // 
+            this.persona.FillWeight = 83.07614F;
+            this.persona.HeaderText = "Cliente";
+            this.persona.Name = "persona";
+            this.persona.ReadOnly = true;
+            // 
+            // concepto
+            // 
+            this.concepto.FillWeight = 118.6802F;
+            this.concepto.HeaderText = "Concepto";
+            this.concepto.Name = "concepto";
+            this.concepto.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.FillWeight = 35F;
+            this.subtotal.HeaderText = "Sub.";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // descuento
+            // 
+            this.descuento.FillWeight = 35F;
+            this.descuento.HeaderText = "Desc.";
+            this.descuento.Name = "descuento";
+            this.descuento.ReadOnly = true;
+            // 
+            // total
+            // 
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.total.DefaultCellStyle = dataGridViewCellStyle5;
+            this.total.FillWeight = 35F;
+            this.total.HeaderText = "Total";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
+            // 
             // ControlIngresos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -589,14 +593,6 @@
         private System.Windows.Forms.Button btnNuevoEgreso;
         private System.Windows.Forms.ComboBox cbxMonth;
         private System.Windows.Forms.ComboBox cbxYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nfactura;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fhregistro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn persona;
-        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.Timer tmrTaskDgv;
         private System.Windows.Forms.Label lblPages;
         private System.Windows.Forms.Panel pnlIndexer;
@@ -605,5 +601,13 @@
         private System.Windows.Forms.LinkLabel lknBack;
         private System.Windows.Forms.LinkLabel lknNext;
         private System.Windows.Forms.LinkLabel lknFin;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nfactura;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fhregistro;
+        private System.Windows.Forms.DataGridViewTextBoxColumn persona;
+        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
     }
 }

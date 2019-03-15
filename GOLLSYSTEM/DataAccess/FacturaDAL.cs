@@ -417,7 +417,6 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-
         public static bool insertFactura(Factura item, Useremp pUser)
         {
             bool result = true;
@@ -428,7 +427,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
 
-                    MySqlCommand cmdCorrelativoNfactura = new MySqlCommand("select CONCAT(DATE_FORMAT(CURRENT_DATE(), '%Y%m'),lpad(coalesce(max(FORMAT(CONVERT(SUBSTRING(NFactura,7),int),'####'))+1,1),4,'0'))from factura where SUBSTRING(NFactura,1,6)=CONVERT(DATE_FORMAT(now(), '%Y%m'),char);", _con, _trans);
+                    MySqlCommand cmdCorrelativoNfactura = new MySqlCommand("select CONCAT(DATE_FORMAT(CURRENT_DATE(), '%Y%m'),lpad(coalesce(max(FORMAT(CONVERT(SUBSTRING(NFactura,7),int),'####')+1),1),4,'0'))from factura where SUBSTRING(NFactura,1,6)=CONVERT(DATE_FORMAT(now(), '%Y%m'),char)", _con, _trans);
                     item.NFactura = Convert.ToString(cmdCorrelativoNfactura.ExecuteScalar());
 
                     MySqlCommand cmdInsertFactura = new MySqlCommand("Insert into factura (Nfactura,Observacion,Total,Estado,IdPersona,IdSucursal) values (@Nfactura,@Observacion,@Total,@Estado,@IdPersona,@IdSucursal)", _con, _trans);
@@ -501,10 +500,54 @@ namespace GOLLSYSTEM.DataAccess
                         if (det.Tipo == "F")
                         {
                             MySqlCommand cmdInsertDetFactura = new MySqlCommand("Insert into detfactura (Concepto,Total,Descuento,Tipo,IdFactura,IdProducto) values (@Concepto,@Total,@Descuento,@Tipo,@IdFactura,@IdProducto)", _con, _trans);
-                            cmdInsertDetFactura.Parameters.AddWithValue("@Concepto", det.Concepto);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Concepto", det.Producto.Nombre);
                             cmdInsertDetFactura.Parameters.AddWithValue("@Total", det.Total);
                             cmdInsertDetFactura.Parameters.AddWithValue("@Descuento", det.Descuento);
                             cmdInsertDetFactura.Parameters.AddWithValue("@Tipo", det.Tipo);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@IdFactura", item.Id);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@IdProducto", det.IdProducto);
+
+                            if (cmdInsertDetFactura.ExecuteNonQuery() <= 0)
+                            {
+                                result = false;
+                            }
+                            else
+                            {
+                                MySqlCommand cmdUltimoId = new MySqlCommand("select last_insert_id() as id;", _con);
+                                cmdUltimoId.Transaction = _trans;
+                                det.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
+                            }
+                        }
+                        if (det.Tipo == "R")
+                        {
+                            MySqlCommand cmdInsertDetFactura = new MySqlCommand("Insert into detfactura (Concepto,Total,Descuento,Tipo,RefNFactura,IdFactura,IdProducto) values (@Concepto,@Total,@Descuento,@Tipo,@RefNFactura,@IdFactura,@IdProducto)", _con, _trans);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Concepto", det.Producto.Nombre);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Total", det.Total);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Descuento", det.Descuento);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Tipo", det.Tipo);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@RefNFactura", item.NFactura);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@IdFactura", item.Id);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@IdProducto", det.IdProducto);
+
+                            if (cmdInsertDetFactura.ExecuteNonQuery() <= 0)
+                            {
+                                result = false;
+                            }
+                            else
+                            {
+                                MySqlCommand cmdUltimoId = new MySqlCommand("select last_insert_id() as id;", _con);
+                                cmdUltimoId.Transaction = _trans;
+                                det.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
+                            }
+                        }
+                        if (det.Tipo == "C")
+                        {
+                            MySqlCommand cmdInsertDetFactura = new MySqlCommand("Insert into detfactura (Concepto,Total,Descuento,Tipo,RefNFactura,IdFactura,IdProducto) values (@Concepto,@Total,@Descuento,@Tipo,@RefNFactura,@IdFactura,@IdProducto)", _con, _trans);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Concepto", det.Producto.Nombre);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Total", det.Total);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Descuento", det.Descuento);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@Tipo", det.Tipo);
+                            cmdInsertDetFactura.Parameters.AddWithValue("@RefNFactura", det.RefNFactura);
                             cmdInsertDetFactura.Parameters.AddWithValue("@IdFactura", item.Id);
                             cmdInsertDetFactura.Parameters.AddWithValue("@IdProducto", det.IdProducto);
 
@@ -540,6 +583,115 @@ namespace GOLLSYSTEM.DataAccess
                 }
             }
             return result;
+        }
+        public static bool anularFactura(Int64 pIdFactura, bool isParent, Useremp pUser)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+                    List<Factura> facturas= new List<Factura>();
+                    MySqlCommand comandoParentReservas = new MySqlCommand("select f.Id from factura as f inner join detfactura as df on df.IdFactura=f.Id where f.Id=@pIdFactura", _con);
+                    if (isParent)
+                    {
+                        comandoParentReservas = new MySqlCommand("select f.Id from factura as f inner join detfactura as df on df.IdFactura=f.Id where df.RefNFactura=(SELECT RefNFactura from detfactura where IdFactura=@pIdFactura)", _con);
+                    }
+                    comandoParentReservas.Parameters.AddWithValue("@pIdFactura", pIdFactura);
+
+                    MySqlDataReader _reader = comandoParentReservas.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Factura item = new Factura(
+                            _reader.GetInt64(0),
+                            null,
+                            null,
+                            null,
+                            0,
+                            null,
+                            0,
+                            0,
+                            null
+                            );
+
+                        facturas.Add(item);
+
+                    }
+                    _reader.Close();
+                    foreach (Factura obj in  facturas)
+                    {
+                        MySqlCommand cmdUpdateContrato = new MySqlCommand("update factura set Estado='A' where Id=@pIdFactura ", _con, _trans);
+                        cmdUpdateContrato.Parameters.AddWithValue("@pIdFactura", obj.Id);
+                        if (cmdUpdateContrato.ExecuteNonQuery() <= 0)
+                        {
+                            result = false;
+                        }
+                    }
+
+                    if (result)
+                    {
+                        MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Anuló la factura con \"Numero de factura " + FacturaDAL.getFacturaById(pIdFactura).NFactura + "\".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Anular Factura");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Factura");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
+                        if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)
+                        {
+                            result = false;
+                        }
+                    }
+
+                    if (result)
+                    {
+                        _trans.Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
+
+        public static bool getIsParentReservas(Int64 pId)
+        {
+            bool item = false;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand cmdGetItemById = new MySqlCommand("select count(f.Id) from factura as f inner join detfactura as df on df.IdFactura=f.Id where df.Tipo='R' and f.Id=@pId", _con);
+                    cmdGetItemById.Parameters.AddWithValue("@pId", pId);
+                    MySqlDataReader _reader = cmdGetItemById.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = _reader.GetInt32(0) > 0;
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
         }
 
     }

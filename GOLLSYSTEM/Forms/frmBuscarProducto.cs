@@ -49,21 +49,19 @@ namespace GOLLSYSTEM.Forms
                     FillDgv_Mensualidades(cuotas);
                     btnRegistrarProducto.Visible = false;
                     btnRegistrarProducto.Enabled = false;
-
                     break;
                 case "Cancelacion":
                     pnlParamMensualidad.Visible = false;
                     pnlParamMensualidad.Enabled = false;
-                    break;
-                case "Reservacion":
-                    pnlParamMensualidad.Visible = false;
-                    pnlParamMensualidad.Enabled = false;
+                    checkBecado.Visible = false;
+                    FillDgv_Reservaciones(DetFacturaDAL.getDetsfacturaByIdPersona(IdPersona));
                     break;
                 case "Contado":
                     pnlParamMensualidad.Visible = false;
                     pnlParamMensualidad.Enabled = false;
+                    checkBecado.Visible = false;
                     FillDgv_Productos(ProductoDAL.getProductos(1000));
-                    if (dgvProductos.CurrentRow!=null)
+                    if (dgvProductos.CurrentRow != null)
                     {
                         Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
                         lblPrecio.Text = "$" + producto.Precio;
@@ -114,6 +112,23 @@ namespace GOLLSYSTEM.Forms
             }
 
         }
+        private void FillDgv_Reservaciones(List<Detfactura> lista)
+        {
+            try
+            {
+                dgvProductos.Rows.Clear();
+                foreach (Detfactura detfactura in lista)
+                {
+                    dgvProductos.Rows.Add(detfactura.Id, "($" + DetFacturaDAL.getTotalDebeReserva(detfactura.Id, IdPersona) + ") " + detfactura.Producto.Nombre);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
         private void dgvProductos_CurrentCellChanged(object sender, EventArgs e)
         {
             if (dgvProductos.CurrentRow != null)
@@ -124,9 +139,10 @@ namespace GOLLSYSTEM.Forms
                         changeDets(ProductoDAL.getProductoMensualidad());
                         break;
                     case "Cancelacion":
+                        changeDets(ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto));
+
                         break;
-                    case "Reservacion":
-                        break;
+
                     case "Contado":
                         changeDets(ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value));
 
@@ -145,8 +161,13 @@ namespace GOLLSYSTEM.Forms
                     txtAporte.Text = (cuota.Precio - cuota.Total).ToString();
                     break;
                 case "Cancelacion":
-                    break;
-                case "Reservacion":
+                    if (dgvProductos.CurrentRow != null)
+                    {
+                        decimal totaldebe = DetFacturaDAL.getTotalDebeReserva((Int64)dgvProductos.CurrentRow.Cells[0].Value, IdPersona);
+                        lblPrecio.Text = "$" + producto.Precio.ToString() + " - Pendiente $" + Decimal.Round(totaldebe, 2);
+                        txtAporte.Text =Decimal.Round( totaldebe,2).ToString();
+                        txtDescuento.Text = "0.00";
+                    }
                     break;
                 case "Contado":
                     lblPrecio.Text = "$" + producto.Precio;
@@ -171,6 +192,7 @@ namespace GOLLSYSTEM.Forms
                                 Convert.ToDecimal(txtAporte.Text),
                                 Convert.ToDecimal(txtDescuento.Text),
                                 "M",
+                                null,
                                 0,
                                 ProductoDAL.getProductoMensualidad().Id,
                                 ProductoDAL.getProductoMensualidad(),
@@ -183,8 +205,22 @@ namespace GOLLSYSTEM.Forms
                         }
                         break;
                     case "Cancelacion":
-                        break;
-                    case "Reservacion":
+                        if (dgvProductos.CurrentRow != null)
+                        {
+                            currentDetFactura = new Detfactura(
+                                (Int64)dgvProductos.CurrentRow.Cells[0].Value,
+                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Nombre,
+                                Convert.ToDecimal(txtAporte.Text),
+                                Convert.ToDecimal(txtDescuento.Text),
+                                "C",
+                                DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).RefNFactura,
+                                0,
+                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Id,
+                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto),
+                                null
+                                );
+                            this.Close();
+                        }
                         break;
                     case "Contado":
                         if (dgvProductos.CurrentRow != null)
@@ -194,7 +230,8 @@ namespace GOLLSYSTEM.Forms
                                 "Al contado",
                                 Convert.ToDecimal(txtAporte.Text),
                                 Convert.ToDecimal(txtDescuento.Text),
-                                "F",
+                                Convert.ToDecimal(txtAporte.Text) < ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Precio ? "R" : "F",
+                                null,
                                 0,
                                 ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Id,
                                 ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value),
@@ -231,19 +268,24 @@ namespace GOLLSYSTEM.Forms
             {
                 errDescuento.Clear();
                 valDescuento.BackColor = Color.FromArgb(0, 100, 182);
-                if (Convert.ToDecimal(txtDescuento.Text) > Convert.ToDecimal(txtAporte.Text))
+                if (Validation.Validation.Val_DecimalFormat(txtAporte.Text))
                 {
-                    errDescuento.SetError(txtDescuento, "El descuento que desea aplicar es mayor\nal aporte de este producto o servicio,\npor favor ingrese una cifra inferior al aporte.");
-                    valDescuento.BackColor = Color.Red;
-                    result = false;
-                }
-                else
-                {
-                    errDescuento.Clear();
-                    valDescuento.BackColor = Color.FromArgb(0, 100, 182);
+
+
+                    if (Convert.ToDecimal(txtDescuento.Text) > Convert.ToDecimal(txtAporte.Text))
+                    {
+                        errDescuento.SetError(txtDescuento, "El descuento que desea aplicar es mayor\nal aporte de este producto o servicio,\npor favor ingrese una cifra inferior al aporte.");
+                        valDescuento.BackColor = Color.Red;
+                        result = false;
+                    }
+                    else
+                    {
+                        errDescuento.Clear();
+                        valDescuento.BackColor = Color.FromArgb(0, 100, 182);
+                    }
                 }
             }
-            
+
             return result;
 
         }
@@ -257,6 +299,8 @@ namespace GOLLSYSTEM.Forms
             {
                 List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                 FillDgv_Mensualidades(cuotas);
+                Matricula matric = MatriculaDAL.getMatriculaById((Int64)cbxEstudiante.SelectedValue);
+                checkBecado.Checked = matric.Becado == 1;
             }
         }
         private void txtAporte_Leave(object sender, EventArgs e)
@@ -282,8 +326,16 @@ namespace GOLLSYSTEM.Forms
                             }
                             break;
                         case "Cancelacion":
-                            break;
-                        case "Reservacion":
+                            decimal totaldebe = DetFacturaDAL.getTotalDebeReserva((Int64)dgvProductos.CurrentRow.Cells[0].Value, IdPersona);
+                            if (Convert.ToDecimal(txtAporte.Text) < 0)
+                            {
+                                txtAporte.Text = "0.00";
+                            }
+
+                            if (Convert.ToDecimal(txtAporte.Text) > totaldebe)
+                            {
+                                txtAporte.Text = Decimal.Round(totaldebe, 2).ToString();
+                            }
                             break;
                         case "Contado":
                             Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
@@ -328,8 +380,6 @@ namespace GOLLSYSTEM.Forms
                             break;
                         case "Cancelacion":
                             break;
-                        case "Reservacion":
-                            break;
                         case "Contado":
                             Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
                             txtDescuento.Text = Convert.ToDecimal(txtDescuento.Text) > producto.Precio ? (producto.Precio).ToString() : txtDescuento.Text; ;
@@ -365,6 +415,7 @@ namespace GOLLSYSTEM.Forms
                 cbxEstudiante.DisplayMember = "NombreEstudiante";
                 cbxEstudiante.ValueMember = "Id";
                 cbxEstudiante.SelectedIndex = 0;
+                checkBecado.Checked = matriculas != null ? matriculas[0].Becado == 1 : checkBecado.Checked;
 
             }
         }
@@ -387,6 +438,8 @@ namespace GOLLSYSTEM.Forms
 
                 List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                 FillDgv_Mensualidades(cuotas);
+                checkBecado.Checked = matriculas != null ? matriculas[0].Becado == 1 : checkBecado.Checked;
+
             }
         }
         private void txtAporte_Enter(object sender, EventArgs e)
