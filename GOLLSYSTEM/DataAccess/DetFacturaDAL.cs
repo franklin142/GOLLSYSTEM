@@ -105,7 +105,7 @@ namespace GOLLSYSTEM.DataAccess
                     _con.Open();
                     MySqlCommand comando = new MySqlCommand("select df.* from detfactura as df inner join factura as f "+
                         "on f.Id=df.IdFactura inner join Producto as p on p.Id = df.IdProducto where f.IdPersona = @pIdPersona " +
-                        " and df.Tipo = 'R' and (SELECT sum(dfs.Total) from detfactura as dfs where dfs.RefNFactura=df.RefNFactura)" +
+                        " and df.Tipo = 'R' and (SELECT sum(dfs.Total) from detfactura as dfs inner join factura fs on fs.Id=dfs.IdFactura where dfs.RefNFactura=df.RefNFactura and fs.Estado='C')" +
                         " < p.Precio and f.Estado='C' order by Id desc", _con);
                     comando.Parameters.AddWithValue("@pIdPersona", pIdPersona);
 

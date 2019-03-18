@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAnularEgreso = new System.Windows.Forms.Button();
             this.dgvEgresos = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,26 +43,35 @@
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
-            this.rdbYearMonth = new System.Windows.Forms.RadioButton();
+            this.rdbMontYear = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblTiltulo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.lblTotalIngresos = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.btnNuevoEgreso = new System.Windows.Forms.Button();
             this.cbxYear = new System.Windows.Forms.ComboBox();
             this.cbxMonth = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblTotalIngresos = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblTotalEgresos = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblTotalGanancia = new System.Windows.Forms.Label();
+            this.lblPages = new System.Windows.Forms.Label();
+            this.pnlIndexer = new System.Windows.Forms.Panel();
+            this.lknInicio = new System.Windows.Forms.LinkLabel();
+            this.txtCurrentIndex = new System.Windows.Forms.TextBox();
+            this.lknBack = new System.Windows.Forms.LinkLabel();
+            this.lknNext = new System.Windows.Forms.LinkLabel();
+            this.lknFin = new System.Windows.Forms.LinkLabel();
+            this.tmrTaskDgv = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEgresos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.pnlIndexer.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAnularEgreso
@@ -77,6 +87,7 @@
             this.btnAnularEgreso.TabIndex = 82;
             this.btnAnularEgreso.Text = "Anular";
             this.btnAnularEgreso.UseVisualStyleBackColor = false;
+            this.btnAnularEgreso.Click += new System.EventHandler(this.btnAnularEgreso_Click);
             // 
             // dgvEgresos
             // 
@@ -88,14 +99,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvEgresos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEgresos.BackgroundColor = System.Drawing.Color.MistyRose;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvEgresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvEgresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvEgresos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEgresos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -108,16 +119,17 @@
             this.dgvEgresos.Name = "dgvEgresos";
             this.dgvEgresos.ReadOnly = true;
             this.dgvEgresos.RowHeadersVisible = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.IndianRed;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgvEgresos.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.IndianRed;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            this.dgvEgresos.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvEgresos.RowTemplate.Height = 30;
             this.dgvEgresos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEgresos.Size = new System.Drawing.Size(677, 291);
+            this.dgvEgresos.Size = new System.Drawing.Size(677, 264);
             this.dgvEgresos.TabIndex = 80;
+            this.dgvEgresos.DoubleClick += new System.EventHandler(this.dgvEgresos_DoubleClick);
             // 
             // id
             // 
@@ -186,6 +198,7 @@
             this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.icUpdate.TabIndex = 72;
             this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
             // txtBuscar
             // 
@@ -205,17 +218,17 @@
             this.lblBuscar.TabIndex = 71;
             this.lblBuscar.Text = "Buscar:";
             // 
-            // rdbYearMonth
+            // rdbMontYear
             // 
-            this.rdbYearMonth.AutoSize = true;
-            this.rdbYearMonth.Checked = true;
-            this.rdbYearMonth.Location = new System.Drawing.Point(157, 3);
-            this.rdbYearMonth.Name = "rdbYearMonth";
-            this.rdbYearMonth.Size = new System.Drawing.Size(134, 17);
-            this.rdbYearMonth.TabIndex = 38;
-            this.rdbYearMonth.TabStop = true;
-            this.rdbYearMonth.Text = "Año y mes selecciondo";
-            this.rdbYearMonth.UseVisualStyleBackColor = true;
+            this.rdbMontYear.AutoSize = true;
+            this.rdbMontYear.Checked = true;
+            this.rdbMontYear.Location = new System.Drawing.Point(157, 3);
+            this.rdbMontYear.Name = "rdbMontYear";
+            this.rdbMontYear.Size = new System.Drawing.Size(134, 17);
+            this.rdbMontYear.TabIndex = 38;
+            this.rdbMontYear.TabStop = true;
+            this.rdbMontYear.Text = "Año y mes selecciondo";
+            this.rdbMontYear.UseVisualStyleBackColor = true;
             // 
             // rdbTodo
             // 
@@ -229,7 +242,7 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.rdbYearMonth);
+            this.panel1.Controls.Add(this.rdbMontYear);
             this.panel1.Controls.Add(this.rdbTodo);
             this.panel1.Location = new System.Drawing.Point(20, 97);
             this.panel1.Name = "panel1";
@@ -257,98 +270,6 @@
             this.label2.TabIndex = 84;
             this.label2.Text = "Mes:";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label3.Location = new System.Drawing.Point(0, 0);
-            this.label3.Margin = new System.Windows.Forms.Padding(0);
-            this.label3.Name = "label3";
-            this.label3.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label3.Size = new System.Drawing.Size(60, 26);
-            this.label3.TabIndex = 85;
-            this.label3.Text = "Ingresos";
-            // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.flowLayoutPanel1.Controls.Add(this.label3);
-            this.flowLayoutPanel1.Controls.Add(this.lblTotalIngresos);
-            this.flowLayoutPanel1.Controls.Add(this.label4);
-            this.flowLayoutPanel1.Controls.Add(this.label5);
-            this.flowLayoutPanel1.Controls.Add(this.label6);
-            this.flowLayoutPanel1.Controls.Add(this.label7);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(23, 421);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(462, 27);
-            this.flowLayoutPanel1.TabIndex = 86;
-            // 
-            // lblTotalIngresos
-            // 
-            this.lblTotalIngresos.AutoSize = true;
-            this.lblTotalIngresos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotalIngresos.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblTotalIngresos.Location = new System.Drawing.Point(60, 0);
-            this.lblTotalIngresos.Margin = new System.Windows.Forms.Padding(0);
-            this.lblTotalIngresos.Name = "lblTotalIngresos";
-            this.lblTotalIngresos.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.lblTotalIngresos.Size = new System.Drawing.Size(53, 26);
-            this.lblTotalIngresos.TabIndex = 86;
-            this.lblTotalIngresos.Text = "+390.50";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label4.Location = new System.Drawing.Point(113, 0);
-            this.label4.Margin = new System.Windows.Forms.Padding(0);
-            this.label4.Name = "label4";
-            this.label4.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label4.Size = new System.Drawing.Size(60, 26);
-            this.label4.TabIndex = 87;
-            this.label4.Text = "Ingresos";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.OrangeRed;
-            this.label5.Location = new System.Drawing.Point(173, 0);
-            this.label5.Margin = new System.Windows.Forms.Padding(0);
-            this.label5.Name = "label5";
-            this.label5.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label5.Size = new System.Drawing.Size(33, 26);
-            this.label5.TabIndex = 88;
-            this.label5.Text = "-230";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label6.Location = new System.Drawing.Point(221, 0);
-            this.label6.Margin = new System.Windows.Forms.Padding(15, 0, 0, 0);
-            this.label6.Name = "label6";
-            this.label6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label6.Size = new System.Drawing.Size(86, 26);
-            this.label6.TabIndex = 89;
-            this.label6.Text = "GANANCIAS";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.DarkGreen;
-            this.label7.Location = new System.Drawing.Point(307, 0);
-            this.label7.Margin = new System.Windows.Forms.Padding(0);
-            this.label7.Name = "label7";
-            this.label7.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
-            this.label7.Size = new System.Drawing.Size(46, 26);
-            this.label7.TabIndex = 90;
-            this.label7.Text = "160.50";
-            // 
             // btnNuevoEgreso
             // 
             this.btnNuevoEgreso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -362,6 +283,7 @@
             this.btnNuevoEgreso.TabIndex = 87;
             this.btnNuevoEgreso.Text = "Nuevo Egreso";
             this.btnNuevoEgreso.UseVisualStyleBackColor = false;
+            this.btnNuevoEgreso.Click += new System.EventHandler(this.btnNuevoEgreso_Click);
             // 
             // cbxYear
             // 
@@ -387,15 +309,208 @@
             this.cbxMonth.Size = new System.Drawing.Size(77, 24);
             this.cbxMonth.TabIndex = 99;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.Controls.Add(this.label3);
+            this.flowLayoutPanel1.Controls.Add(this.lblTotalIngresos);
+            this.flowLayoutPanel1.Controls.Add(this.label4);
+            this.flowLayoutPanel1.Controls.Add(this.lblTotalEgresos);
+            this.flowLayoutPanel1.Controls.Add(this.label6);
+            this.flowLayoutPanel1.Controls.Add(this.lblTotalGanancia);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(19, 422);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(462, 27);
+            this.flowLayoutPanel1.TabIndex = 100;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Navy;
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Margin = new System.Windows.Forms.Padding(0);
+            this.label3.Name = "label3";
+            this.label3.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.label3.Size = new System.Drawing.Size(65, 28);
+            this.label3.TabIndex = 85;
+            this.label3.Text = "Ingresos";
+            // 
+            // lblTotalIngresos
+            // 
+            this.lblTotalIngresos.AutoSize = true;
+            this.lblTotalIngresos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalIngresos.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.lblTotalIngresos.Location = new System.Drawing.Point(65, 0);
+            this.lblTotalIngresos.Margin = new System.Windows.Forms.Padding(0);
+            this.lblTotalIngresos.Name = "lblTotalIngresos";
+            this.lblTotalIngresos.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.lblTotalIngresos.Size = new System.Drawing.Size(61, 28);
+            this.lblTotalIngresos.TabIndex = 86;
+            this.lblTotalIngresos.Text = "+390.50";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Navy;
+            this.label4.Location = new System.Drawing.Point(126, 0);
+            this.label4.Margin = new System.Windows.Forms.Padding(0);
+            this.label4.Name = "label4";
+            this.label4.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.label4.Size = new System.Drawing.Size(64, 28);
+            this.label4.TabIndex = 87;
+            this.label4.Text = "Egresos";
+            // 
+            // lblTotalEgresos
+            // 
+            this.lblTotalEgresos.AutoSize = true;
+            this.lblTotalEgresos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalEgresos.ForeColor = System.Drawing.Color.Sienna;
+            this.lblTotalEgresos.Location = new System.Drawing.Point(190, 0);
+            this.lblTotalEgresos.Margin = new System.Windows.Forms.Padding(0);
+            this.lblTotalEgresos.Name = "lblTotalEgresos";
+            this.lblTotalEgresos.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.lblTotalEgresos.Size = new System.Drawing.Size(37, 28);
+            this.lblTotalEgresos.TabIndex = 88;
+            this.lblTotalEgresos.Text = "-230";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(242, 0);
+            this.label6.Margin = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.label6.Name = "label6";
+            this.label6.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.label6.Size = new System.Drawing.Size(106, 28);
+            this.label6.TabIndex = 89;
+            this.label6.Text = "GANANCIAS =";
+            // 
+            // lblTotalGanancia
+            // 
+            this.lblTotalGanancia.AutoSize = true;
+            this.lblTotalGanancia.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotalGanancia.ForeColor = System.Drawing.Color.DarkGreen;
+            this.lblTotalGanancia.Location = new System.Drawing.Point(348, 0);
+            this.lblTotalGanancia.Margin = new System.Windows.Forms.Padding(0);
+            this.lblTotalGanancia.Name = "lblTotalGanancia";
+            this.lblTotalGanancia.Padding = new System.Windows.Forms.Padding(0, 5, 0, 5);
+            this.lblTotalGanancia.Size = new System.Drawing.Size(52, 28);
+            this.lblTotalGanancia.TabIndex = 90;
+            this.lblTotalGanancia.Text = "160.50";
+            // 
+            // lblPages
+            // 
+            this.lblPages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPages.AutoSize = true;
+            this.lblPages.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            this.lblPages.ForeColor = System.Drawing.Color.Black;
+            this.lblPages.Location = new System.Drawing.Point(20, 395);
+            this.lblPages.Name = "lblPages";
+            this.lblPages.Size = new System.Drawing.Size(17, 18);
+            this.lblPages.TabIndex = 105;
+            this.lblPages.Text = "...";
+            // 
+            // pnlIndexer
+            // 
+            this.pnlIndexer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlIndexer.Controls.Add(this.lknInicio);
+            this.pnlIndexer.Controls.Add(this.txtCurrentIndex);
+            this.pnlIndexer.Controls.Add(this.lknBack);
+            this.pnlIndexer.Controls.Add(this.lknNext);
+            this.pnlIndexer.Controls.Add(this.lknFin);
+            this.pnlIndexer.Location = new System.Drawing.Point(537, 390);
+            this.pnlIndexer.Name = "pnlIndexer";
+            this.pnlIndexer.Size = new System.Drawing.Size(159, 26);
+            this.pnlIndexer.TabIndex = 104;
+            // 
+            // lknInicio
+            // 
+            this.lknInicio.ActiveLinkColor = System.Drawing.Color.Black;
+            this.lknInicio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lknInicio.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold);
+            this.lknInicio.LinkColor = System.Drawing.Color.DimGray;
+            this.lknInicio.Location = new System.Drawing.Point(7, 5);
+            this.lknInicio.Name = "lknInicio";
+            this.lknInicio.Size = new System.Drawing.Size(45, 18);
+            this.lknInicio.TabIndex = 67;
+            this.lknInicio.TabStop = true;
+            this.lknInicio.Text = "Inicio";
+            this.lknInicio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknInicio_LinkClicked);
+            // 
+            // txtCurrentIndex
+            // 
+            this.txtCurrentIndex.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtCurrentIndex.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCurrentIndex.Location = new System.Drawing.Point(70, 3);
+            this.txtCurrentIndex.Name = "txtCurrentIndex";
+            this.txtCurrentIndex.ReadOnly = true;
+            this.txtCurrentIndex.Size = new System.Drawing.Size(33, 20);
+            this.txtCurrentIndex.TabIndex = 69;
+            this.txtCurrentIndex.Text = "1";
+            this.txtCurrentIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCurrentIndex.TextChanged += new System.EventHandler(this.txtCurrentIndex_TextChanged);
+            // 
+            // lknBack
+            // 
+            this.lknBack.ActiveLinkColor = System.Drawing.Color.Black;
+            this.lknBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lknBack.Font = new System.Drawing.Font("Microsoft Tai Le", 12F);
+            this.lknBack.LinkColor = System.Drawing.Color.DimGray;
+            this.lknBack.Location = new System.Drawing.Point(49, 3);
+            this.lknBack.Name = "lknBack";
+            this.lknBack.Size = new System.Drawing.Size(18, 18);
+            this.lknBack.TabIndex = 70;
+            this.lknBack.TabStop = true;
+            this.lknBack.Text = "<";
+            this.lknBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknBack_LinkClicked);
+            // 
+            // lknNext
+            // 
+            this.lknNext.ActiveLinkColor = System.Drawing.Color.Black;
+            this.lknNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lknNext.Font = new System.Drawing.Font("Microsoft Tai Le", 12F);
+            this.lknNext.LinkColor = System.Drawing.Color.DimGray;
+            this.lknNext.Location = new System.Drawing.Point(104, 3);
+            this.lknNext.Name = "lknNext";
+            this.lknNext.Size = new System.Drawing.Size(18, 18);
+            this.lknNext.TabIndex = 69;
+            this.lknNext.TabStop = true;
+            this.lknNext.Text = ">";
+            this.lknNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknNext_LinkClicked);
+            // 
+            // lknFin
+            // 
+            this.lknFin.ActiveLinkColor = System.Drawing.Color.Black;
+            this.lknFin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lknFin.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold);
+            this.lknFin.LinkColor = System.Drawing.Color.DimGray;
+            this.lknFin.Location = new System.Drawing.Point(126, 5);
+            this.lknFin.Name = "lknFin";
+            this.lknFin.Size = new System.Drawing.Size(29, 18);
+            this.lknFin.TabIndex = 68;
+            this.lknFin.TabStop = true;
+            this.lknFin.Text = "Fin";
+            this.lknFin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknFin_LinkClicked);
+            // 
+            // tmrTaskDgv
+            // 
+            this.tmrTaskDgv.Tick += new System.EventHandler(this.tmrTask_Tick);
+            // 
             // ControlEgresos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 460);
+            this.Controls.Add(this.lblPages);
+            this.Controls.Add(this.pnlIndexer);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.cbxMonth);
             this.Controls.Add(this.cbxYear);
             this.Controls.Add(this.btnNuevoEgreso);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnAnularEgreso);
             this.Controls.Add(this.dgvEgresos);
@@ -417,6 +532,8 @@
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.pnlIndexer.ResumeLayout(false);
+            this.pnlIndexer.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -430,18 +547,11 @@
         private System.Windows.Forms.PictureBox icUpdate;
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Label lblBuscar;
-        private System.Windows.Forms.RadioButton rdbYearMonth;
+        private System.Windows.Forms.RadioButton rdbMontYear;
         private System.Windows.Forms.RadioButton rdbTodo;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblTiltulo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private System.Windows.Forms.Label lblTotalIngresos;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
@@ -450,5 +560,20 @@
         private System.Windows.Forms.Button btnNuevoEgreso;
         private System.Windows.Forms.ComboBox cbxYear;
         private System.Windows.Forms.ComboBox cbxMonth;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblTotalIngresos;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblTotalEgresos;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblTotalGanancia;
+        private System.Windows.Forms.Label lblPages;
+        private System.Windows.Forms.Panel pnlIndexer;
+        private System.Windows.Forms.LinkLabel lknInicio;
+        private System.Windows.Forms.TextBox txtCurrentIndex;
+        private System.Windows.Forms.LinkLabel lknBack;
+        private System.Windows.Forms.LinkLabel lknNext;
+        private System.Windows.Forms.LinkLabel lknFin;
+        private System.Windows.Forms.Timer tmrTaskDgv;
     }
 }

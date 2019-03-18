@@ -27,6 +27,7 @@ namespace GOLLSYSTEM.Forms
             switch (opc)
             {
                 case "Mensualidad":
+                    
                     cbxYear.DataSource = YearDAL.getYears(10000);
                     cbxYear.DisplayMember = "Desde";
                     cbxYear.ValueMember = "Id";
@@ -44,7 +45,7 @@ namespace GOLLSYSTEM.Forms
                     cbxEstudiante.DisplayMember = "NombreEstudiante";
                     cbxEstudiante.ValueMember = "Id";
                     cbxEstudiante.SelectedIndex = 0;
-
+                    checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
                     List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                     FillDgv_Mensualidades(cuotas);
                     btnRegistrarProducto.Visible = false;
@@ -156,6 +157,7 @@ namespace GOLLSYSTEM.Forms
             switch (opc)
             {
                 case "Mensualidad":
+
                     lblPrecio.Text = "$" + producto.Precio;
                     Cuota cuota = CuotaDAL.getCuotaById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
                     txtAporte.Text = (cuota.Precio - cuota.Total).ToString();
@@ -300,7 +302,7 @@ namespace GOLLSYSTEM.Forms
                 List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                 FillDgv_Mensualidades(cuotas);
                 Matricula matric = MatriculaDAL.getMatriculaById((Int64)cbxEstudiante.SelectedValue);
-                checkBecado.Checked = matric.Becado == 1;
+                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
             }
         }
         private void txtAporte_Leave(object sender, EventArgs e)

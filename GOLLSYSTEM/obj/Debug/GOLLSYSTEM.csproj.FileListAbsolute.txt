@@ -96,3 +96,11 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmConfirmarFactura.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmBuscarPersona.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmPersona.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\MySqlBackup.dll
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\netstandard.dll
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Backup.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Configuraciones.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.DataBase.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.EdtUsuario.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Restore.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Usuarios.resources

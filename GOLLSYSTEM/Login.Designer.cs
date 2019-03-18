@@ -142,6 +142,7 @@
             this.linkConexiones.TabIndex = 11;
             this.linkConexiones.TabStop = true;
             this.linkConexiones.Text = "Conexiones";
+            this.linkConexiones.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkConexiones_LinkClicked);
             this.linkConexiones.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
             // btnIniciar
@@ -181,7 +182,7 @@
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(200, 20);
             this.txtPass.TabIndex = 17;
-            this.txtPass.Text = "123";
+            this.txtPass.Text = "123123";
             this.txtPass.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
             // panel2

@@ -47,36 +47,34 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-        public static List<Egreso> searchEgresoByParametro(Int64 pYear,string pMonth, string pText, Int64 pIdSucursal, int pLimit)
+        public static List<List<Int64>> getIdsEgresosNoParametro(string pText, Int64 pIdSucursal, int pLimit)
         {
-            List<Egreso> lista = new List<Egreso>();
+            List<List<Int64>> lista = new List<List<Int64>>();
             using (MySqlConnection _con = new Conexion().Conectar())
             {
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from egreso where Nombre like '%"+pText+ "%' and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) order by Id asc", _con);
-                    comando.Parameters.AddWithValue("@pYear", pYear);
-                    comando.Parameters.AddWithValue("@pMonth", pMonth);
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                        "%') and IdSucursal=@pIdSucursal and Estado='C' order by Id desc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
-
-                    comando.Parameters.AddWithValue("@pLimit", pLimit);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
                     while (_reader.Read())
                     {
-                        Egreso item = new Egreso(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                            _reader.GetString(3),
-                            _reader.GetDecimal(4),
-                            _reader.GetString(5),
-                            _reader.GetInt64(6)
-                            );
-
-                        lista.Add(item);
-
+                        if (lista.Count == 0)
+                        {
+                            lista.Add(new List<Int64>());
+                        }
+                        if (lista[lista.Count - 1].Count == pLimit)
+                        {
+                            lista.Add(new List<Int64>());
+                            lista[lista.Count - 1].Add(1);
+                        }
+                        else
+                        {
+                            lista[lista.Count - 1].Add(1);
+                        }
                     }
                     _reader.Close();
                 }
@@ -92,32 +90,38 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-        public static List<Egreso> searchEgresoNoParametro(string pText,Int64 pIdSucursal, int pLimit)
+        public static List<List<Int64>> getIdsEgresosByParametro(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal, int pLimit)
         {
-            List<Egreso> lista = new List<Egreso>();
+            List<List<Int64>> lista = new List<List<Int64>>();
             using (MySqlConnection _con = new Conexion().Conectar())
             {
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from egreso where Nombre like '%" + pText + "%' and IdSucursal=@pIdSucursal order by Id asc", _con);
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                        "%') and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) and Estado='C' order by Id desc", _con);
+                    comando.Parameters.AddWithValue("@pYear", pYear);
+                    comando.Parameters.AddWithValue("@pMonth", pMonth);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
-                    comando.Parameters.AddWithValue("@pLimit", pLimit);
-
                     MySqlDataReader _reader = comando.ExecuteReader();
                     while (_reader.Read())
                     {
-                        Egreso item = new Egreso(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                            _reader.GetString(3),
-                            _reader.GetDecimal(4),
-                            _reader.GetString(5),
-                            _reader.GetInt64(6)
-                            );
-
-                        lista.Add(item);
+                        for (int i = 0; i < _reader.GetInt64(0); i++)
+                        {
+                            if (lista.Count == 0)
+                            {
+                                lista.Add(new List<Int64>());
+                            }
+                            if (lista[lista.Count - 1].Count == pLimit)
+                            {
+                                lista.Add(new List<Int64>());
+                                lista[lista.Count - 1].Add(i);
+                            }
+                            else
+                            {
+                                lista[lista.Count - 1].Add(i);
+                            }
+                        }
 
                     }
                     _reader.Close();
@@ -142,7 +146,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where Nombre like '%" + pText + "%' and (IdSucursal=@pIdSucursal) order by Id asc", _con);
+                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where (IdSucursal=@pIdSucursal and Estado='C') order by Id asc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -172,7 +176,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where Nombre like '%" + pText + "%' and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) order by Id asc", _con);
+                    MySqlCommand comando = new MySqlCommand("select sum(Total) from egreso where (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal and Estado='C') order by Id asc", _con);
                     comando.Parameters.AddWithValue("@pYear", pYear);
                     comando.Parameters.AddWithValue("@pMonth", pMonth);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
@@ -199,6 +203,213 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static List<Egreso> getEgresosIndexerNoParametro(string pText, Int64 pIdSucursal, Int64 pNumber1, Int64 pNumber2)
+        {
+            List<Egreso> lista = new List<Egreso>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                        "%') and IdSucursal=@pIdSucursal and Estado='C' order by Id desc limit @pNumber1,@pNumber2", _con);
+                    comando.Parameters.AddWithValue("@pNumber1", pNumber1);
+                    comando.Parameters.AddWithValue("@pNumber2", pNumber2);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Egreso item = new Egreso(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetDecimal(4),
+                            _reader.GetString(5),
+                            _reader.GetInt64(6)
+                            );
+
+                        lista.Add(item);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+        public static List<Egreso> getEgresosIndexerParametro(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal, Int64 pNumber1, Int64 pNumber2)
+        {
+            List<Egreso> lista = new List<Egreso>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                        "%') and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) and Estado='C' order by Id desc limit @pNumber1,@pNumber2", _con);
+                    comando.Parameters.AddWithValue("@pNumber1", pNumber1 == 0 ? pNumber1 : pNumber1 * pNumber2);
+                    comando.Parameters.AddWithValue("@pNumber2", pNumber2);
+                    comando.Parameters.AddWithValue("@pYear", pYear);
+                    comando.Parameters.AddWithValue("@pMonth", pMonth);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Egreso item = new Egreso(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetDecimal(4),
+                            _reader.GetString(5),
+                            _reader.GetInt64(6)
+                            );
+
+                        lista.Add(item);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception )
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+        public static bool insertEgreso(Egreso item, Useremp pUser)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+                    MySqlCommand cmdInsertEgreso = new MySqlCommand("Insert into egreso (FhRegistro,Tipo,Nombre,Total,Estado,IdSucursal) values (@FhRegistro,@Tipo,@Nombre,@Total,@Estado,@IdSucursal)", _con, _trans);
+                    if (item.Id != 0)
+                    {
+                        cmdInsertEgreso = new MySqlCommand("Update egreso set FhRegistro=@FhRegistro,Tipo=@Tipo,Nombre=@Nombre,Total=@Total where Id=@Id", _con, _trans);
+                        cmdInsertEgreso.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Tipo", item.Tipo);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Nombre", item.Nombre);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Total", item.Total);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Id", item.Id);
+
+                    }
+                    else
+                    {
+                        cmdInsertEgreso.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Tipo", item.Tipo);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Nombre", item.Nombre);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Total", item.Total);
+                        cmdInsertEgreso.Parameters.AddWithValue("@Estado", "C");
+                        cmdInsertEgreso.Parameters.AddWithValue("@IdSucursal", item.IdSucursal);
+                    }
+                    if (cmdInsertEgreso.ExecuteNonQuery() <= 0)
+                    {
+                        result = false;
+                    }
+
+                    if (result)
+                    {
+                        MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Registró el egreso con \"Nombre " +item.Nombre + "\" de \"Tipo " + item.Tipo + "\" y con total de $" + item.Total + ".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Registrar Egreso");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Egreso");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
+                        if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)
+                        {
+                            result = false;
+                        }
+                    }
+
+                    if (result)
+                    {
+                        _trans.Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
+        public static bool anularEgreso(Int64 pIdEgreso, bool isParent, Useremp pUser)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+
+                    MySqlCommand cmdUpdateContrato = new MySqlCommand("update egreso set Estado='A' where Id=@pIdEgreso ", _con, _trans);
+                    cmdUpdateContrato.Parameters.AddWithValue("@pIdEgreso", pIdEgreso);
+                    if (cmdUpdateContrato.ExecuteNonQuery() <= 0)
+                    {
+                        result = false;
+                    }
+
+
+                    if (result)
+                    {
+                        MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Anuló el egreso con \"Nombre " + EgresoDAL.getEgresoById(pIdEgreso).Nombre + "\" con total de $"+ EgresoDAL.getEgresoById(pIdEgreso).Total+ ".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Anular Egreso");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Egreso");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
+                        if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)
+                        {
+                            result = false;
+                        }
+                    }
+
+                    if (result)
+                    {
+                        _trans.Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
     }
 }

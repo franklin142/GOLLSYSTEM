@@ -106,5 +106,29 @@ namespace GOLLSYSTEM.Properties {
                 this["PrecioCuota"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2331-1304")]
+        public string Tel {
+            get {
+                return ((string)(this["Tel"]));
+            }
+            set {
+                this["Tel"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2.5")]
+        public string Mora {
+            get {
+                return ((string)(this["Mora"]));
+            }
+            set {
+                this["Mora"] = value;
+            }
+        }
     }
 }

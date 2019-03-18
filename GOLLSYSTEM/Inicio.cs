@@ -106,5 +106,12 @@ namespace GOLLSYSTEM
         {
             GC.Collect();
         }
+
+        private void configuracionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuraciones.Configuraciones configs= new Configuraciones.Configuraciones();
+            configs.user = Inicio.CurrentUser;
+            configs.ShowDialog();
+        }
     }
 }

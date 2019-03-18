@@ -23,5 +23,11 @@
     <Setting Name="PrecioCuota" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">25.00</Value>
     </Setting>
+    <Setting Name="Tel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2331-1304</Value>
+    </Setting>
+    <Setting Name="Mora" Type="System.String" Scope="User">
+      <Value Profile="(Default)">2.5</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

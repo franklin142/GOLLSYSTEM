@@ -50,105 +50,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-        public static List<Factura> searchFacturasByParametro(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal, int pLimit)
-        {
-            List<Factura> lista = new List<Factura>();
-            using (MySqlConnection _con = new Conexion().Conectar())
-            {
-                try
-                {
-                    _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select distinct f.* from producto as prod right join detfactura as df on df.IdProducto=prod.Id " +
-                        " right join factura as f on f.Id=df.IdFactura right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
-                        "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
-                        "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
-                        ") and (YEAR(f.FhRegistro)=@pYear and MONTH(f.FhRegistro)=@pMonth and f.IdSucursal=@pIdSucursal) and f.Estado='C' order by f.Id asc", _con);
-                    comando.Parameters.AddWithValue("@pYear", pYear);
-                    comando.Parameters.AddWithValue("@pMonth", pMonth);
-                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
-                    comando.Parameters.AddWithValue("@pLimit", pLimit);
-
-                    MySqlDataReader _reader = comando.ExecuteReader();
-                    while (_reader.Read())
-                    {
-                        Factura item = new Factura(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                            _reader.GetString(3),
-                            _reader.GetDecimal(4),
-                            _reader.GetString(5),
-                            _reader.GetInt64(6),
-                            _reader.GetInt64(7),
-                            DetFacturaDAL.getDetsfacturaByIdFactura(_reader.GetInt64(0))
-                            );
-
-                        lista.Add(item);
-
-                    }
-                    _reader.Close();
-                }
-                catch (Exception)
-                {
-                    _con.Close();
-                    throw;
-                }
-                finally
-                {
-                    _con.Close();
-                }
-            }
-            return lista;
-        }
-        public static List<Factura> searchEgresoNoParametro(string pText, Int64 pIdSucursal, int pLimit)
-        {
-            List<Factura> lista = new List<Factura>();
-            using (MySqlConnection _con = new Conexion().Conectar())
-            {
-                try
-                {
-                    _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select distinct f.* from producto as prod right join detfactura as df on df.IdProducto=prod.Id " +
-                        " right join factura as f on f.Id=df.Id right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
-                        "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
-                        "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
-                        ") and f.IdSucursal=@pIdSucursal and f.Estado='C' order by f.Id asc", _con);
-                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
-                    comando.Parameters.AddWithValue("@pLimit", pLimit);
-
-                    MySqlDataReader _reader = comando.ExecuteReader();
-                    while (_reader.Read())
-                    {
-                        Factura item = new Factura(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                            _reader.GetString(3),
-                            _reader.GetDecimal(4),
-                            _reader.GetString(5),
-                            _reader.GetInt64(6),
-                            _reader.GetInt64(7),
-                            DetFacturaDAL.getDetsfacturaByIdFactura(_reader.GetInt64(0))
-                            );
-
-                        lista.Add(item);
-
-                    }
-                    _reader.Close();
-                }
-                catch (Exception)
-                {
-                    _con.Close();
-                    throw;
-                }
-                finally
-                {
-                    _con.Close();
-                }
-            }
-            return lista;
-        }
-        public static List<List<Int64>> getIdsEgresoNoParametro(string pText, Int64 pIdSucursal, int pLimit)
+        public static List<List<Int64>> getIdsFacturasNoParametro(string pText, Int64 pIdSucursal, int pLimit)
         {
             List<List<Int64>> lista = new List<List<Int64>>();
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -254,9 +156,9 @@ namespace GOLLSYSTEM.DataAccess
                 {
                     _con.Open();
                     MySqlCommand comando = new MySqlCommand("select sum(df.Total)-SUM(df.Descuento) from producto as prod right join detfactura as df on df.IdProducto=prod.Id " +
-                        " right join factura as f on f.Id=df.IdFactura right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
-                        "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
-                        "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
+                        " right join factura as f on f.Id=df.IdFactura right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + "" + "%' or " +
+                        "prod.Nombre like '%" + "" + "%' or df.Concepto like '%" + "" + "%' or df.Total like '%" + "" + "%' or " +
+                        "f.Total like '%" + "" + "%' or f.Observacion or f.NFactura like '%" + "" + "%'" +
                         ") and (YEAR(f.FhRegistro)=@pYear and MONTH(f.FhRegistro)=@pMonth and f.IdSucursal=@pIdSucursal) and f.Estado='C' order by f.NFactura desc", _con);
                     comando.Parameters.AddWithValue("@pYear", pYear);
                     comando.Parameters.AddWithValue("@pMonth", pMonth);
@@ -289,9 +191,9 @@ namespace GOLLSYSTEM.DataAccess
                 {
                     _con.Open();
                     MySqlCommand comando = new MySqlCommand("select sum(df.Total)-SUM(df.Descuento) from producto as prod right join detfactura as df on df.IdProducto=prod.Id " +
-                        " right join factura as f on f.Id=df.Id right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
-                        "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
-                        "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
+                        " right join factura as f on f.Id=df.Id right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + "" + "%' or " +
+                        "prod.Nombre like '%" + "" + "%' or df.Concepto like '%" + "" + "%' or df.Total like '%" + "" + "%' or " +
+                        "f.Total like '%" + "" + "%' or f.Observacion or f.NFactura like '%" + "" + "%'" +
                         ") and f.IdSucursal=@pIdSucursal and f.Estado='C' order by f.Id asc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
@@ -316,7 +218,6 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-
         public static List<Factura> getFacturasIndexerNoParametro(string pText, Int64 pIdSucursal, Int64 pNumber1, Int64 pNumber2)
         {
             List<Factura> lista = new List<Factura>();
@@ -354,7 +255,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _con.Close();
                     throw;
@@ -405,7 +306,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                     _con.Close();
                     throw;
@@ -417,7 +318,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-        public static bool insertFactura(Factura item, Useremp pUser)
+        public static Factura insertFactura(Factura item, Useremp pUser)
         {
             bool result = true;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -568,10 +469,17 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         _trans.Commit();
                     }
+                    else
+                    {
+                        item = new Factura();
+                        item.DetsFactura = new List<Detfactura>();
+                    }
 
                 }
                 catch (Exception)
                 {
+                    item = new Factura();
+                    item.DetsFactura = new List<Detfactura>();
                     result = false;
                     _trans.Rollback();
                     _con.Close();
@@ -582,7 +490,7 @@ namespace GOLLSYSTEM.DataAccess
                     _con.Close();
                 }
             }
-            return result;
+            return item;
         }
         public static bool anularFactura(Int64 pIdFactura, bool isParent, Useremp pUser)
         {
@@ -663,7 +571,6 @@ namespace GOLLSYSTEM.DataAccess
             }
             return result;
         }
-
         public static bool getIsParentReservas(Int64 pId)
         {
             bool item = false;

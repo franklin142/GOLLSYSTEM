@@ -18,21 +18,37 @@ namespace GOLLSYSTEM
     public partial class Login : Form
     {
         public static Inicio inicio;
+        public static ProcessStartInfo startInfo = new ProcessStartInfo("C:\\xampp\\mysql_start.bat");
         public Login()
         {
             InitializeComponent();
         }
 
         private void Login_Load(object sender, EventArgs e)
-        { 
+        {
+            try
+            {
+                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                Process.Start(startInfo);
+            }
+            catch (Exception)
+            {
+
+            }
+
             if (UserempDAL.testConexion())
             {
                 if (!UserempDAL.verificarUseremp())
                 {
                     Forms.frmWelcome welcome = new Forms.frmWelcome();
                     welcome.ShowDialog();
-
                 }
+            }
+            else
+            {
+                Configuraciones.Configuraciones configs = new Configuraciones.Configuraciones();
+                configs.currentForm = new Configuraciones.DataBase();
+                configs.ShowDialog();
             }
         }
 
@@ -84,6 +100,13 @@ namespace GOLLSYSTEM
                     proceso.Kill();
                 }
             }
+        }
+
+        private void linkConexiones_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Configuraciones.Configuraciones configs = new Configuraciones.Configuraciones();
+            configs.currentForm = new Configuraciones.DataBase();
+            configs.ShowDialog();
         }
     }
 }

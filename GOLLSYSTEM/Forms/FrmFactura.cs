@@ -27,11 +27,39 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
-            EditingObject = new Factura();
-            EditingObject.DetsFactura = new List<Detfactura>();
-            lblFHRegistro.Text = DateTime.Now.ToShortDateString();
-            lblSucursal.Text = Inicio.CurrentSucursal.Nombre;
-            lblNFactura.Text = "Automático";
+            if (EditingObject != null)
+            {
+                btnBuscarCliente.Enabled = false;
+                btnMesualidad.Enabled = false;
+                btnCancelacion.Enabled = false;
+                btnContado.Enabled = false;
+                btnGuardar.Text = "Imprimir";
+                btnRemoveDetalle.Enabled = false;
+                txtNombre.Text = PersonaDAL.getPersonaById(EditingObject.IdPersona).Nombre;
+                txtTelefono.Text = "No Disponible";
+                lblFHRegistro.Text = Convert.ToDateTime(EditingObject.FhRegistro).ToString("dd/MM/yyyy");
+                lblSucursal.Text = SucursalDAL.getSucursaloById(EditingObject.IdSucursal).Nombre;
+                lblNFactura.Text = EditingObject.NFactura;
+                foreach (Detfactura det in EditingObject.DetsFactura)
+                    dgvCursos.Rows.Add(
+                                det.Id,
+                                det.Producto.Nombre,
+                                det.Tipo == "M" ? "Mensualidad" : det.Tipo == "R" ? "Reservación" : "Cancelación",
+                                det.Producto.Precio,
+                                det.Descuento,
+                                det.Total,
+                                det.IdProducto);
+
+                CalucularTotales();
+            }
+            else
+            {
+                EditingObject = new Factura();
+                EditingObject.DetsFactura = new List<Detfactura>();
+                lblFHRegistro.Text = DateTime.Now.ToShortDateString();
+                lblSucursal.Text = Inicio.CurrentSucursal.Nombre;
+                lblNFactura.Text = "Automático";
+            }
         }
 
         private void btnMesualidad_Click(object sender, EventArgs e)
@@ -101,11 +129,11 @@ namespace GOLLSYSTEM.Forms
             if (Val_NewObject())
             {
                 frmConfirmarFactura confirmar = new frmConfirmarFactura();
-                confirmar.currentFactura = NewObject;
+                confirmar.currentFactura =EditingObject.Id==0? NewObject:EditingObject;
                 confirmar.ShowDialog();
                 if (confirmar.DialogResult == DialogResult.Yes) this.Close();
-
             }
+
 
         }
         private bool Val_NewObject()
@@ -208,7 +236,7 @@ namespace GOLLSYSTEM.Forms
                             for (int i = 0; i < dgvCursos.Rows.Count; i++)
                             {
                                 dgvCursos.Rows[i].Cells["descuento"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento.ToString() : dgvCursos.Rows[i].Cells["descuento"].Value.ToString();
-                                dgvCursos.Rows[i].Cells["subtotal"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total.ToString(): dgvCursos.Rows[i].Cells["subtotal"].Value.ToString();
+                                dgvCursos.Rows[i].Cells["subtotal"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total.ToString() : dgvCursos.Rows[i].Cells["subtotal"].Value.ToString();
 
                             }
                             CalucularTotales();
@@ -221,7 +249,7 @@ namespace GOLLSYSTEM.Forms
                         EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
 
                         dgvCursos.Rows.Add(
-                            buscarproducto.currentDetFactura.Id, 
+                            buscarproducto.currentDetFactura.Id,
                             buscarproducto.currentDetFactura.Producto.Nombre, "Cancelación",
                             buscarproducto.currentDetFactura.Producto.Precio,
                             buscarproducto.currentDetFactura.Descuento,

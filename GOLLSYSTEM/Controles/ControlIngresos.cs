@@ -23,7 +23,6 @@ namespace GOLLSYSTEM.Controles
         public List<List<Int64>> Pages = new List<List<Int64>>();
         public List<Int64> listCurrentPage = new List<Int64>();
 
-        public List<Int64> listComprasByProv = new List<Int64>();
 
         public ControlIngresos()
         {
@@ -52,10 +51,11 @@ namespace GOLLSYSTEM.Controles
 
             cbxMonth.SelectedIndex = DateTime.Now.Month - 1;
             cbxYear.SelectedIndex = 0;
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
             numPages = Pages.Count;
             SetCurrentPage();
             tmrTaskDgv.Start();
+
             cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
             cbxYear.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
             rdbMontYear.CheckedChanged += cbxMonth_SelectedIndexChanged;
@@ -100,7 +100,7 @@ namespace GOLLSYSTEM.Controles
         {
             FrmFactura factura = new FrmFactura();
             factura.ShowDialog();
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
             numPages = Pages.Count;
             SetCurrentPage();
 
@@ -121,7 +121,7 @@ namespace GOLLSYSTEM.Controles
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
             numPages = Pages.Count;
             SetCurrentPage();
             tmrTaskDgv.Start();
@@ -129,7 +129,7 @@ namespace GOLLSYSTEM.Controles
         private void cbxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtCurrentIndex.Text = "1";
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
             numPages = Pages.Count;
             SetCurrentPage();
             tmrTaskDgv.Start();
@@ -150,7 +150,6 @@ namespace GOLLSYSTEM.Controles
             }
             return facturas;
         }
-
         private void SelectPage(int pNum)
         {
             currentPage = pNum;
@@ -212,7 +211,7 @@ namespace GOLLSYSTEM.Controles
                         if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value,true, Inicio.CurrentUser))
                         {
                             MessageBox.Show("La factura ha sido anulada correctamente, los calculos se reiniciarán automaticamente.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
                             numPages = Pages.Count;
                             SetCurrentPage();
                             tmrTaskDgv.Start();
@@ -226,7 +225,7 @@ namespace GOLLSYSTEM.Controles
                         if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value,false, Inicio.CurrentUser))
                         {
                             MessageBox.Show("La factura ha sido anulada correctamente, los calculos se reiniciarán automaticamente.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsEgresoNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
                             numPages = Pages.Count;
                             SetCurrentPage();
                             tmrTaskDgv.Start();
@@ -234,6 +233,16 @@ namespace GOLLSYSTEM.Controles
                     }
                 }
                 
+        }
+
+        private void dgvIngresos_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgvIngresos.CurrentRow != null)
+            {
+                FrmFactura factura = new FrmFactura();
+                factura.EditingObject = FacturaDAL.getFacturaById((Int64)dgvIngresos.CurrentRow.Cells[0].Value);
+                factura.ShowDialog();
+            }
         }
     }
 }
