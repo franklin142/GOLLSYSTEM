@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -25,7 +26,20 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmLibro_Load(object sender, EventArgs e)
         {
-            numActividades.Value = 8;
+            try
+            {
+                numActividades.Value = 8;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -55,7 +69,11 @@ namespace GOLLSYSTEM.Forms
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocurrio un error inesperado al intentar registrar el libro, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    string fileName = "Exeptions_" + Name + ".txt";
+                    Validation.FormManager frmManager = new Validation.FormManager();
+                    frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el libro");
+                    MessageBox.Show("Ocurrio un error inesperado al intentar registrar el libro, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -66,7 +84,7 @@ namespace GOLLSYSTEM.Forms
         private bool val_NewObject()
         {
             bool result = true;
-            if (!Validation.Validation.Val_StringsLength(txtNombre.Text,5))
+            if (!Validation.Validation.Val_StringsLength(txtNombre.Text, 5))
             {
                 errNombre.SetError(txtNombre, "El nombre ingresado debe tener al menos 5 caracteres.");
                 valNombre.BackColor = Color.Red;

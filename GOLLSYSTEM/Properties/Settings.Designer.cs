@@ -109,7 +109,7 @@ namespace GOLLSYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2331-1304")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2301-1304")]
         public string Tel {
             get {
                 return ((string)(this["Tel"]));
@@ -128,6 +128,18 @@ namespace GOLLSYSTEM.Properties {
             }
             set {
                 this["Mora"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("franklingranados2@yahoo.com")]
+        public string developerEmail {
+            get {
+                return ((string)(this["developerEmail"]));
+            }
+            set {
+                this["developerEmail"] = value;
             }
         }
     }

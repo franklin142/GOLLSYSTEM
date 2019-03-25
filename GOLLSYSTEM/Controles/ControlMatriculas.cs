@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -22,19 +23,30 @@ namespace GOLLSYSTEM.Controles
 
         private void ControlMatriculas_Load(object sender, EventArgs e)
         {
-            cbxYear.Enabled = false;
-            cbxYear.DataSource = YearDAL.getYears(500);
-            cbxYear.ValueMember = "Id";
-            cbxYear.DisplayMember = "Desde";
-            cbxYear.Enabled = true;
+            try
+            {
+                cbxYear.Enabled = false;
+                cbxYear.DataSource = YearDAL.getYears(500);
+                cbxYear.ValueMember = "Id";
+                cbxYear.DisplayMember = "Desde";
+                cbxYear.Enabled = true;
 
-            cbxCursos.Enabled = false;
-            cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
-            cbxCursos.ValueMember = "Id";
-            cbxCursos.DisplayMember = "Nombre";
-            cbxCursos.Enabled = true;
-            tmrTaskDgv.Start();
+                cbxCursos.Enabled = false;
+                cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+                cbxCursos.ValueMember = "Id";
+                cbxCursos.DisplayMember = "Nombre";
+                cbxCursos.Enabled = true;
+                tmrTaskDgv.Start();
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
 
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex,"Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void cbxYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -155,6 +167,14 @@ namespace GOLLSYSTEM.Controles
 
         private void btnDesertarAlumno_Click(object sender, EventArgs e)
         {
+            if (dgvMatriculas.CurrentRow!=null)
+            {
+                frmDesercion desersion = new frmDesercion();
+                desersion.CurrentMatricula = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
+                desersion.ShowDialog();
+                tmrTaskDgv.Start();
+
+            }
 
         }
 

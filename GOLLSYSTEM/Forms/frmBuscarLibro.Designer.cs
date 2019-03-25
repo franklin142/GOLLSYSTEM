@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuscarLibro));
-            this.dgvLibro = new System.Windows.Forms.DataGridView();
+            this.dgvBuscar = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.edicion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,19 +47,19 @@
             this.lblBuscar = new System.Windows.Forms.Label();
             this.btnAgregarLibro = new System.Windows.Forms.Button();
             this.lblNoResults = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLibro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvLibro
+            // dgvBuscar
             // 
-            this.dgvLibro.AllowUserToAddRows = false;
-            this.dgvLibro.AllowUserToDeleteRows = false;
-            this.dgvLibro.AllowUserToResizeRows = false;
-            this.dgvLibro.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvLibro.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dgvBuscar.AllowUserToAddRows = false;
+            this.dgvBuscar.AllowUserToDeleteRows = false;
+            this.dgvBuscar.AllowUserToResizeRows = false;
+            this.dgvBuscar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBuscar.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
@@ -67,23 +67,24 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvLibro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvLibro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvLibro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvBuscar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvBuscar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBuscar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.nombre,
             this.edicion,
             this.nivel,
             this.actividades});
-            this.dgvLibro.Location = new System.Drawing.Point(-1, 110);
-            this.dgvLibro.MultiSelect = false;
-            this.dgvLibro.Name = "dgvLibro";
-            this.dgvLibro.ReadOnly = true;
-            this.dgvLibro.RowHeadersVisible = false;
-            this.dgvLibro.RowTemplate.Height = 30;
-            this.dgvLibro.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvLibro.Size = new System.Drawing.Size(660, 201);
-            this.dgvLibro.TabIndex = 101;
+            this.dgvBuscar.Location = new System.Drawing.Point(-1, 110);
+            this.dgvBuscar.MultiSelect = false;
+            this.dgvBuscar.Name = "dgvBuscar";
+            this.dgvBuscar.ReadOnly = true;
+            this.dgvBuscar.RowHeadersVisible = false;
+            this.dgvBuscar.RowTemplate.Height = 30;
+            this.dgvBuscar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBuscar.Size = new System.Drawing.Size(660, 201);
+            this.dgvBuscar.TabIndex = 101;
+            this.dgvBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvBuscar_KeyPress);
             // 
             // id
             // 
@@ -197,6 +198,7 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(309, 24);
             this.txtBuscar.TabIndex = 98;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // lblBuscar
             // 
@@ -245,7 +247,7 @@
             this.ClientSize = new System.Drawing.Size(659, 336);
             this.Controls.Add(this.lblNoResults);
             this.Controls.Add(this.btnAgregarLibro);
-            this.Controls.Add(this.dgvLibro);
+            this.Controls.Add(this.dgvBuscar);
             this.Controls.Add(this.pblTitulo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.valNombre);
@@ -254,10 +256,12 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(675, 375);
+            this.MaximumSize = new System.Drawing.Size(675, 375);
             this.Name = "frmBuscarLibro";
             this.Text = "Buscar Libro";
             this.Load += new System.EventHandler(this.frmBuscarLibro_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvLibro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).EndInit();
             this.pblTitulo.ResumeLayout(false);
             this.pblTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).EndInit();
@@ -269,7 +273,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvLibro;
+        private System.Windows.Forms.DataGridView dgvBuscar;
         private System.Windows.Forms.Panel pblTitulo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox picLogoForm;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -24,60 +25,92 @@ namespace GOLLSYSTEM.Forms
         }
         private void frmBuscarProducto_Load(object sender, EventArgs e)
         {
-            switch (opc)
+            try
             {
-                case "Mensualidad":
-                    
-                    cbxYear.DataSource = YearDAL.getYears(10000);
-                    cbxYear.DisplayMember = "Desde";
-                    cbxYear.ValueMember = "Id";
-                    cbxYear.SelectedIndex = 0;
+                switch (opc)
+                {
+                    case "Mensualidad":
+                       
+                        cbxYear.DataSource = YearDAL.getYears(10000);
+                        cbxYear.DisplayMember = "Desde";
+                        cbxYear.ValueMember = "Id";
+                        cbxYear.SelectedIndex = 0;
 
-                    cbxCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
-                    cbxCurso.DisplayMember = "Nombre";
-                    cbxCurso.ValueMember = "Id";
-                    cbxCurso.SelectedIndex = 0;
+                        cbxCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+                        cbxCurso.DisplayMember = "Nombre";
+                        cbxCurso.ValueMember = "Id";
+                        cbxCurso.SelectedIndex = 0;
 
-                    List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
-                    foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
-                    cbxEstudiante.DataSource = matriculas;
+                        List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, cbxCurso.Items.Count==0?0:(Int64)cbxCurso.SelectedValue);
+                        foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
+                        cbxEstudiante.DataSource = matriculas;
 
-                    cbxEstudiante.DisplayMember = "NombreEstudiante";
-                    cbxEstudiante.ValueMember = "Id";
-                    cbxEstudiante.SelectedIndex = 0;
-                    checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-                    List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                    FillDgv_Mensualidades(cuotas);
-                    btnRegistrarProducto.Visible = false;
-                    btnRegistrarProducto.Enabled = false;
-                    break;
-                case "Cancelacion":
-                    pnlParamMensualidad.Visible = false;
-                    pnlParamMensualidad.Enabled = false;
-                    checkBecado.Visible = false;
-                    FillDgv_Reservaciones(DetFacturaDAL.getDetsfacturaByIdPersona(IdPersona));
-                    break;
-                case "Contado":
-                    pnlParamMensualidad.Visible = false;
-                    pnlParamMensualidad.Enabled = false;
-                    checkBecado.Visible = false;
-                    FillDgv_Productos(ProductoDAL.getProductos(1000));
-                    if (dgvProductos.CurrentRow != null)
-                    {
-                        Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
-                        lblPrecio.Text = "$" + producto.Precio;
-                        txtAporte.Text = (producto.Precio).ToString();
-                    }
-                    break;
-                default: break;
+                        if (matriculas.Count != 0)
+                        {
+                            cbxEstudiante.DisplayMember = "NombreEstudiante";
+                            cbxEstudiante.ValueMember = "Id";
+                            cbxEstudiante.SelectedIndex = 0;
+                            checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
+                            List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
+                            FillDgv_Mensualidades(cuotas);
+                        }
+                        else
+                            FillDgv_Mensualidades(new List<Cuota>());
+                        btnRegistrarProducto.Visible = false;
+                        btnRegistrarProducto.Enabled = false;
+                        break;
+                    case "Cancelacion":
+                        pnlParamMensualidad.Visible = false;
+                        pnlParamMensualidad.Enabled = false;
+                        checkBecado.Visible = false;
+                        FillDgv_Reservaciones(DetFacturaDAL.getDetsfacturaByIdPersona(IdPersona));
+                        break;
+                    case "Contado":
+                        pnlParamMensualidad.Visible = false;
+                        pnlParamMensualidad.Enabled = false;
+                        checkBecado.Visible = false;
+                        FillDgv_Productos(ProductoDAL.getProductos(1000));
+                        if (dgvProductos.CurrentRow != null)
+                        {
+                            Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
+                            lblPrecio.Text = "$" + producto.Precio;
+                            txtAporte.Text = (producto.Precio).ToString();
+                        }
+                        break;
+                    default: break;
+                }
+                ready = true;
             }
-            ready = true;
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         private void btnRegistrarProducto_Click(object sender, EventArgs e)
         {
-            FrmProducto producto = new FrmProducto();
-            producto.ShowDialog();
-            FillDgv_Productos(ProductoDAL.getProductos(1000));
+            try
+            {
+                FrmProducto producto = new FrmProducto();
+                producto.ShowDialog();
+                FillDgv_Productos(ProductoDAL.getProductos(1000));
+
+            }
+            catch(Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         private void FillDgv_Mensualidades(List<Cuota> lista)
         {
@@ -167,7 +200,7 @@ namespace GOLLSYSTEM.Forms
                     {
                         decimal totaldebe = DetFacturaDAL.getTotalDebeReserva((Int64)dgvProductos.CurrentRow.Cells[0].Value, IdPersona);
                         lblPrecio.Text = "$" + producto.Precio.ToString() + " - Pendiente $" + Decimal.Round(totaldebe, 2);
-                        txtAporte.Text =Decimal.Round( totaldebe,2).ToString();
+                        txtAporte.Text = Decimal.Round(totaldebe, 2).ToString();
                         txtDescuento.Text = "0.00";
                     }
                     break;
@@ -181,70 +214,83 @@ namespace GOLLSYSTEM.Forms
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (dgvProductos.CurrentRow != null && Val_NewObject())
+            try
             {
-                switch (opc)
+                if (dgvProductos.CurrentRow != null && Val_NewObject())
                 {
-                    case "Mensualidad":
-                        if (dgvProductos.CurrentRow != null)
-                        {
-                            currentDetFactura = new Detfactura(
-                                0,
-                                "Mensualidad",
-                                Convert.ToDecimal(txtAporte.Text),
-                                Convert.ToDecimal(txtDescuento.Text),
-                                "M",
-                                null,
-                                0,
-                                ProductoDAL.getProductoMensualidad().Id,
-                                ProductoDAL.getProductoMensualidad(),
-                                new Matricdetfac(
+                    switch (opc)
+                    {
+                        case "Mensualidad":
+                            if (dgvProductos.CurrentRow != null)
+                            {
+                                currentDetFactura = new Detfactura(
                                     0,
+                                    "Mensualidad",
+                                    Convert.ToDecimal(txtAporte.Text),
+                                    Convert.ToDecimal(txtDescuento.Text),
+                                    "M",
+                                    null,
                                     0,
-                                    (Int64)dgvProductos.CurrentRow.Cells[0].Value)
-                                );
-                            this.Close();
-                        }
-                        break;
-                    case "Cancelacion":
-                        if (dgvProductos.CurrentRow != null)
-                        {
-                            currentDetFactura = new Detfactura(
-                                (Int64)dgvProductos.CurrentRow.Cells[0].Value,
-                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Nombre,
-                                Convert.ToDecimal(txtAporte.Text),
-                                Convert.ToDecimal(txtDescuento.Text),
-                                "C",
-                                DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).RefNFactura,
-                                0,
-                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Id,
-                                ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto),
-                                null
-                                );
-                            this.Close();
-                        }
-                        break;
-                    case "Contado":
-                        if (dgvProductos.CurrentRow != null)
-                        {
-                            currentDetFactura = new Detfactura(
-                                0,
-                                "Al contado",
-                                Convert.ToDecimal(txtAporte.Text),
-                                Convert.ToDecimal(txtDescuento.Text),
-                                Convert.ToDecimal(txtAporte.Text) < ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Precio ? "R" : "F",
-                                null,
-                                0,
-                                ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Id,
-                                ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value),
-                                null
-                                );
-                            this.Close();
-                        }
-                        break;
-                    default: break;
+                                    ProductoDAL.getProductoMensualidad().Id,
+                                    ProductoDAL.getProductoMensualidad(),
+                                    new Matricdetfac(
+                                        0,
+                                        0,
+                                        (Int64)dgvProductos.CurrentRow.Cells[0].Value)
+                                    );
+                                this.Close();
+                            }
+                            break;
+                        case "Cancelacion":
+                            if (dgvProductos.CurrentRow != null)
+                            {
+                                currentDetFactura = new Detfactura(
+                                    (Int64)dgvProductos.CurrentRow.Cells[0].Value,
+                                    ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Nombre,
+                                    Convert.ToDecimal(txtAporte.Text),
+                                    Convert.ToDecimal(txtDescuento.Text),
+                                    "C",
+                                    DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).RefNFactura,
+                                    0,
+                                    ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto).Id,
+                                    ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto),
+                                    null
+                                    );
+                                this.Close();
+                            }
+                            break;
+                        case "Contado":
+                            if (dgvProductos.CurrentRow != null)
+                            {
+                                currentDetFactura = new Detfactura(
+                                    0,
+                                    "Al contado",
+                                    Convert.ToDecimal(txtAporte.Text),
+                                    Convert.ToDecimal(txtDescuento.Text),
+                                    Convert.ToDecimal(txtAporte.Text) < ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Precio ? "R" : "F",
+                                    null,
+                                    0,
+                                    ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value).Id,
+                                    ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value),
+                                    null
+                                    );
+                                this.Close();
+                            }
+                            break;
+                        default: break;
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar seleccionar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar seleccionar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
         public bool Val_NewObject()
         {
@@ -299,10 +345,10 @@ namespace GOLLSYSTEM.Forms
         {
             if (ready && cbxEstudiante.SelectedValue != null)
             {
-                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
+                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                 FillDgv_Mensualidades(cuotas);
-                Matricula matric = MatriculaDAL.getMatriculaById((Int64)cbxEstudiante.SelectedValue);
-                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
+                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0?(Int64)cbxEstudiante.SelectedValue:0);
+                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
             }
         }
         private void txtAporte_Leave(object sender, EventArgs e)
@@ -408,16 +454,18 @@ namespace GOLLSYSTEM.Forms
         }
         private void cbxCurso_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ready && cbxCurso.SelectedValue != null)
+            if (ready && cbxCurso.Items.Count != 0)
             {
+                ready = false;
                 List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
                 foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
                 cbxEstudiante.DataSource = matriculas;
 
                 cbxEstudiante.DisplayMember = "NombreEstudiante";
                 cbxEstudiante.ValueMember = "Id";
-                cbxEstudiante.SelectedIndex = 0;
                 checkBecado.Checked = matriculas != null ? matriculas[0].Becado == 1 : checkBecado.Checked;
+                ready = true;
+                cbxEstudiante.SelectedIndex = 0;
 
             }
         }

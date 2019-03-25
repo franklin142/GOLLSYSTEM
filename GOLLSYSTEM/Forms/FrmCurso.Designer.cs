@@ -864,8 +864,10 @@
             this.panel6.Controls.Add(this.btnGuardar);
             this.panel6.Controls.Add(this.gbxHorario);
             this.panel6.Location = new System.Drawing.Point(0, 95);
+            this.panel6.MaximumSize = new System.Drawing.Size(693, 478);
+            this.panel6.MinimumSize = new System.Drawing.Size(693, 478);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(693, 398);
+            this.panel6.Size = new System.Drawing.Size(693, 478);
             this.panel6.TabIndex = 42;
             // 
             // panel3
@@ -906,7 +908,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 490);
+            this.ClientSize = new System.Drawing.Size(692, 570);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.pblTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

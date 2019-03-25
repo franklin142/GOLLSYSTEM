@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -26,111 +27,144 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmCurso_Load(object sender, EventArgs e)
         {
-            cmbDias.Items.Add("Lunes");
-            cmbDias.Items.Add("Martes");
-            cmbDias.Items.Add("Miércoles");
-            cmbDias.Items.Add("Jueves");
-            cmbDias.Items.Add("Viernes");
-            cmbDias.Items.Add("Sábado");
-            cmbDias.Items.Add("Domingo");
-            cmbDias.SelectedIndex = 0;
-
-            cmbPublico.Items.Add("Niños");
-            cmbPublico.Items.Add("Adolecentes");
-            cmbPublico.Items.Add("Adultos");
-            cmbPublico.Items.Add("Niños y Adolecentes");
-            cmbPublico.Items.Add("Adolecentes y Adultos");
-            cmbPublico.Items.Add("Todos");
-            cmbPublico.SelectedIndex = 0;
-
-            if (opc == "updObject")
+            try
             {
-                txtNombre.Text = CurrentObject.Nombre;
-                switch (CurrentObject.Publico)
+                cmbDias.Items.Add("Lunes");
+                cmbDias.Items.Add("Martes");
+                cmbDias.Items.Add("Miércoles");
+                cmbDias.Items.Add("Jueves");
+                cmbDias.Items.Add("Viernes");
+                cmbDias.Items.Add("Sábado");
+                cmbDias.Items.Add("Domingo");
+                cmbDias.SelectedIndex = 0;
+
+                cmbPublico.Items.Add("Niños");
+                cmbPublico.Items.Add("Adolecentes");
+                cmbPublico.Items.Add("Adultos");
+                cmbPublico.Items.Add("Niños y Adolecentes");
+                cmbPublico.Items.Add("Adolecentes y Adultos");
+                cmbPublico.Items.Add("Todos");
+                cmbPublico.SelectedIndex = 0;
+
+                if (opc == "updObject")
                 {
-                    case "Niños":
-                        cmbPublico.SelectedIndex = 0;
-                        break;
-                    case "Adolecentes":
-                        cmbPublico.SelectedIndex = 1;
-                        break;
-                    case "Adultos":
-                        cmbPublico.SelectedIndex = 2;
-                        break;
-                    case "Niños y Adolecentes":
-                        cmbPublico.SelectedIndex = 3;
-                        break;
-                    case "Adolecentes y Adultos":
-                        cmbPublico.SelectedIndex = 4;
-                        break;
-                    case "Todos":
-                        cmbPublico.SelectedIndex = 5;
-                        break;
-                    default: break;
+                    txtNombre.Text = CurrentObject.Nombre;
+                    switch (CurrentObject.Publico)
+                    {
+                        case "Niños":
+                            cmbPublico.SelectedIndex = 0;
+                            break;
+                        case "Adolecentes":
+                            cmbPublico.SelectedIndex = 1;
+                            break;
+                        case "Adultos":
+                            cmbPublico.SelectedIndex = 2;
+                            break;
+                        case "Niños y Adolecentes":
+                            cmbPublico.SelectedIndex = 3;
+                            break;
+                        case "Adolecentes y Adultos":
+                            cmbPublico.SelectedIndex = 4;
+                            break;
+                        case "Todos":
+                            cmbPublico.SelectedIndex = 5;
+                            break;
+                        default: break;
+
+                    }
+                    dtpDesde.Value = Convert.ToDateTime(CurrentObject.Desde);
+                    dtpHasta.Value = Convert.ToDateTime(CurrentObject.Hasta);
+                    txtSeccion.Text = CurrentObject.Seccion;
+                    chkEstado.Checked = CurrentObject.Estado == "A";
+                    txtEncargado.Text = CurrentObject.Contrato.Empleado.Persona.Nombre;
+
+                    foreach (Dia dia in CurrentObject.Horario) dgvHorario.Rows.Add(dia.Id, dia.Nombre, dia.HEntrada, dia.HSalida);
+                    foreach (Detcurso libro in CurrentObject.Libros) dgvDeCurso.Rows.Add(libro.Id, libro.Libro.Nombre, libro.Libro.Edicion, libro.Libro.Nivel, libro.Libro.NActividades, libro.Libro.Id);
+
 
                 }
-                dtpDesde.Value= Convert.ToDateTime(CurrentObject.Desde);
-                dtpHasta.Value = Convert.ToDateTime(CurrentObject.Hasta);
-                txtSeccion.Text = CurrentObject.Seccion;
-                chkEstado.Checked = CurrentObject.Estado=="A";
-                txtEncargado.Text = CurrentObject.Contrato.Empleado.Persona.Nombre;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
 
-                foreach (Dia dia in CurrentObject.Horario)dgvHorario.Rows.Add(dia.Id,dia.Nombre,dia.HEntrada,dia.HSalida);
-                foreach (Detcurso libro in CurrentObject.Libros) dgvDeCurso.Rows.Add(libro.Id, libro.Libro.Nombre, libro.Libro.Edicion,libro.Libro.Nivel,libro.Libro.NActividades,libro.Libro.Id);
-                
-
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-        }
-        private void LimpiarDia()
-        {
 
         }
-
         private void btnBuscarEmpleado_Click(object sender, EventArgs e)
         {
-            frmBuscarEmpleado buscarEmpleado = new frmBuscarEmpleado();
-            buscarEmpleado.ShowDialog();
-            if (buscarEmpleado.CurrentObject != null)
+            try
             {
-                EditingObject = EditingObject != null ? EditingObject : new Curso();
-                EditingObject.Contrato = null;
-                EditingObject.Contrato = EditingObject.Contrato != null ? null : buscarEmpleado.CurrentObject;
+                frmBuscarEmpleado buscarEmpleado = new frmBuscarEmpleado();
+                buscarEmpleado.ShowDialog();
+                if (buscarEmpleado.CurrentObject != null)
+                {
+                    EditingObject = EditingObject != null ? EditingObject : new Curso();
+                    EditingObject.Contrato = null;
+                    EditingObject.Contrato = EditingObject.Contrato != null ? null : buscarEmpleado.CurrentObject;
 
-                txtEncargado.Text = buscarEmpleado.CurrentObject.Empleado.Persona.Nombre;
-                errEncargado.Clear();
-                valEncargado.BackColor = Color.FromArgb(0, 100, 182);
+                    txtEncargado.Text = buscarEmpleado.CurrentObject.Empleado.Persona.Nombre;
+                    errEncargado.Clear();
+                    valEncargado.BackColor = Color.FromArgb(0, 100, 182);
+                }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar el docente en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar el docente en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void btnAddLibro_Click(object sender, EventArgs e)
         {
-            frmBuscarLibro buscarLibro = new frmBuscarLibro();
-            buscarLibro.ShowDialog();
-            if (buscarLibro.CurrentObject != null)
+            try
             {
-
-                EditingObject = EditingObject != null ? EditingObject : new Curso();
-                EditingObject.Libros = EditingObject.Libros != null ? EditingObject.Libros : new List<Detcurso>();
-                if (EditingObject.Libros.Where(a => a.Id == buscarLibro.CurrentObject.Id).FirstOrDefault() == null)
+                frmBuscarLibro buscarLibro = new frmBuscarLibro();
+                buscarLibro.ShowDialog();
+                if (buscarLibro.CurrentObject != null)
                 {
-                    EditingObject.Libros.Add(new Detcurso(
-                        0,
-                        "",
-                        "",
-                        buscarLibro.CurrentObject.Id,
-                        0,
-                        buscarLibro.CurrentObject));
-                    dgvDeCurso.Rows.Add(0,
-                        buscarLibro.CurrentObject.Nombre,
-                        buscarLibro.CurrentObject.Edicion,
-                        buscarLibro.CurrentObject.Nivel,
-                        buscarLibro.CurrentObject.NActividades,
-                        buscarLibro.CurrentObject.Id
-                        );
+
+                    EditingObject = EditingObject != null ? EditingObject : new Curso();
+                    EditingObject.Libros = EditingObject.Libros != null ? EditingObject.Libros : new List<Detcurso>();
+                    if (EditingObject.Libros.Where(a => a.Id == buscarLibro.CurrentObject.Id).FirstOrDefault() == null)
+                    {
+                        EditingObject.Libros.Add(new Detcurso(
+                            0,
+                            "",
+                            "",
+                            buscarLibro.CurrentObject.Id,
+                            0,
+                            buscarLibro.CurrentObject));
+                        dgvDeCurso.Rows.Add(0,
+                            buscarLibro.CurrentObject.Nombre,
+                            buscarLibro.CurrentObject.Edicion,
+                            buscarLibro.CurrentObject.Nivel,
+                            buscarLibro.CurrentObject.NActividades,
+                            buscarLibro.CurrentObject.Id
+                            );
+                    }
+                    errDetCurso.Clear();
+                    valDetCurso.BackColor = Color.FromArgb(0, 100, 182);
                 }
-                errDetCurso.Clear();
-                valDetCurso.BackColor = Color.FromArgb(0, 100, 182);
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar el libro en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar el libro en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -480,7 +514,11 @@ namespace GOLLSYSTEM.Forms
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrio un error inesperado al intentar registrar el curso, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                            string fileName = "Exeptions_" + Name + ".txt";
+                            Validation.FormManager frmManager = new Validation.FormManager();
+                            frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el curso");
+                            MessageBox.Show("Ocurrio un error inesperado al intentar registrar el curso, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -508,7 +546,11 @@ namespace GOLLSYSTEM.Forms
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrio un error inesperado al intentar actualizar el curso, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Acualización interrumpida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                            string fileName = "Exeptions_" + Name + ".txt";
+                            Validation.FormManager frmManager = new Validation.FormManager();
+                            frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar actualizar el curso");
+                            MessageBox.Show("Ocurrio un error inesperado al intentar actualizar el curso, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else

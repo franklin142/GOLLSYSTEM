@@ -12,6 +12,7 @@ using GOLLSYSTEM.Skin;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace GOLLSYSTEM
 {
@@ -19,21 +20,24 @@ namespace GOLLSYSTEM
     {
         public static Inicio inicio;
         public static ProcessStartInfo startInfo = new ProcessStartInfo("C:\\xampp\\mysql_start.bat");
+        int processId = 0;
         public Login()
         {
             InitializeComponent();
         }
-
         private void Login_Load(object sender, EventArgs e)
         {
             try
             {
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                Process.Start(startInfo);
+                Process proceso = new Process();
+                proceso.StartInfo = startInfo;
+                proceso.Start();
+                processId = proceso.Id;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
 
             if (UserempDAL.testConexion())
@@ -51,62 +55,109 @@ namespace GOLLSYSTEM
                 configs.ShowDialog();
             }
         }
-
         private void Login_MouseMove(object sender, MouseEventArgs e)
         {
             MoveForm.moverForm(this.Handle, this);
         }
-
         private void lblCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void btnIniciar_Click(object sender, EventArgs e)
         {
-            if (UserempDAL.getUseremp(txtLogin.Text, txtPass.Text) != null)
+            getLogin();
+        }
+        private void getLogin()
+        {
+            try
             {
-                Inicio inicio = new Inicio();
-                Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
-                Inicio.CurrentSucursal = SucursalDAL.getSucursaloById(Inicio.CurrentUser.IdSucursal);
-                Inicio.CurrentYear = YearDAL.getCurrentYear();
-                Inicio.CurrentYear = YearDAL.getCurrentYear();
-                inicio.Show();
-                this.Hide();
+                if (UserempDAL.getUseremp(txtLogin.Text, txtPass.Text) != null)
+                {
+                    Inicio inicio = new Inicio();
+                    //Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
+                    Inicio.CurrentSucursal = SucursalDAL.getSucursaloById(Inicio.CurrentUser.IdSucursal);
+                    Inicio.CurrentYear = YearDAL.getCurrentYear();
+                    Inicio.CurrentYear = YearDAL.getCurrentYear();
+                    inicio.processId = processId;
+                    inicio.Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("El usuario o la contraseña es incorrecto", "Datos de usuario incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("El usuario o la contraseña es incorrecto", "Datos de usuario incorrectos",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
-
         private void picHelp_MouseHover(object sender, EventArgs e)
         {
             picHelp.Size = new Size(28, 28);
         }
-
         private void picHelp_MouseLeave(object sender, EventArgs e)
         {
             picHelp.Size = new Size(25, 25);
         }
-
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
             foreach (Process proceso in Process.GetProcesses())
             {
-                if (proceso.ProcessName == "Visual Studio 2015 Remote Debugger")
+                if (proceso.Id == processId)
                 {
                     proceso.Kill();
+
                 }
             }
         }
-
         private void linkConexiones_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Configuraciones.Configuraciones configs = new Configuraciones.Configuraciones();
             configs.currentForm = new Configuraciones.DataBase();
             configs.ShowDialog();
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.Escape:
+                    Application.Exit();
+                    break;
+                case Keys.Enter:
+
+                    if (txtLogin.Text.Length == 0)
+                    {
+                        txtLogin.Focus();
+                    }
+                    else
+                    {
+                        txtPass.Focus();
+                        if (txtPass.Text.Length != 0)
+                        {
+                            getLogin();
+                        }
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        private void txtLogin_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+
+            }
         }
     }
 }

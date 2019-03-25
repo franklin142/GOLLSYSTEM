@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -40,10 +41,13 @@ namespace GOLLSYSTEM.Forms
                     }
                 }
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrio un error inesperado al intentar registrar el cliente, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional del problema:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el cliente");
+                MessageBox.Show("Ocurrio un error inesperado al intentar registrar el cliente, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private bool Val_NewObject()
@@ -84,6 +88,11 @@ namespace GOLLSYSTEM.Forms
         private void frmPersona_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

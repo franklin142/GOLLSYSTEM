@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
+using System.IO;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -22,11 +24,24 @@ namespace GOLLSYSTEM.Controles
 
         private void ControlCursos_Load(object sender, EventArgs e)
         {
-            cbxYear.DataSource = YearDAL.getYears(500);
-            cbxYear.ValueMember = "Id";
-            cbxYear.DisplayMember = "Desde";
-            FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, new Year((Int64)cbxYear.SelectedValue, "", "")));
-            cbxYear.SelectedIndexChanged += new EventHandler(cbxYear_SelectedIndexChanged);
+            try
+            {
+                cbxYear.DataSource = YearDAL.getYears(500);
+                cbxYear.ValueMember = "Id";
+                cbxYear.DisplayMember = "Desde";
+                FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, new Year((Int64)cbxYear.SelectedValue, "", "")));
+                cbxYear.SelectedIndexChanged += new EventHandler(cbxYear_SelectedIndexChanged);
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal",MessageBoxButtons.OK,MessageBoxIcon.Error);
+            }
+            
         }
         private void FillDgv(List<Curso> lista)
         {

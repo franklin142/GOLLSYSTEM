@@ -353,6 +353,16 @@ namespace GOLLSYSTEM.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_goll_center {
+            get {
+                object obj = ResourceManager.GetObject("Logo_goll_center", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap marca_de_verificacion {
             get {
                 object obj = ResourceManager.GetObject("marca_de_verificacion", resourceCulture);

@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblTextDireccion = new System.Windows.Forms.Label();
-            this.txtDireccion = new System.Windows.Forms.TextBox();
-            this.valDireccion = new System.Windows.Forms.Panel();
+            this.txtNota = new System.Windows.Forms.TextBox();
+            this.valNota = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.pblTitulo = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
@@ -39,11 +40,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpFhRegistro = new System.Windows.Forms.DateTimePicker();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnGuardar = new System.Windows.Forms.Button();
+            this.valFhRegistro = new System.Windows.Forms.Panel();
+            this.errNota = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errFhRegistro = new System.Windows.Forms.ErrorProvider(this.components);
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNota)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFhRegistro)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTextDireccion
@@ -56,27 +62,27 @@
             this.lblTextDireccion.TabIndex = 42;
             this.lblTextDireccion.Text = "Razon o motivo de desersion";
             // 
-            // txtDireccion
+            // txtNota
             // 
-            this.txtDireccion.BackColor = System.Drawing.SystemColors.Control;
-            this.txtDireccion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDireccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDireccion.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.txtDireccion.Location = new System.Drawing.Point(29, 204);
-            this.txtDireccion.Margin = new System.Windows.Forms.Padding(4);
-            this.txtDireccion.Multiline = true;
-            this.txtDireccion.Name = "txtDireccion";
-            this.txtDireccion.Size = new System.Drawing.Size(402, 83);
-            this.txtDireccion.TabIndex = 41;
+            this.txtNota.BackColor = System.Drawing.SystemColors.Control;
+            this.txtNota.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNota.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.txtNota.Location = new System.Drawing.Point(29, 204);
+            this.txtNota.Margin = new System.Windows.Forms.Padding(4);
+            this.txtNota.Multiline = true;
+            this.txtNota.Name = "txtNota";
+            this.txtNota.Size = new System.Drawing.Size(402, 83);
+            this.txtNota.TabIndex = 41;
             // 
-            // valDireccion
+            // valNota
             // 
-            this.valDireccion.BackColor = System.Drawing.Color.Gray;
-            this.valDireccion.Location = new System.Drawing.Point(30, 286);
-            this.valDireccion.Margin = new System.Windows.Forms.Padding(4);
-            this.valDireccion.Name = "valDireccion";
-            this.valDireccion.Size = new System.Drawing.Size(401, 3);
-            this.valDireccion.TabIndex = 43;
+            this.valNota.BackColor = System.Drawing.Color.Gray;
+            this.valNota.Location = new System.Drawing.Point(30, 286);
+            this.valNota.Margin = new System.Windows.Forms.Padding(4);
+            this.valNota.Name = "valNota";
+            this.valNota.Size = new System.Drawing.Size(401, 3);
+            this.valNota.TabIndex = 43;
             // 
             // label1
             // 
@@ -161,13 +167,13 @@
             this.label6.TabIndex = 49;
             this.label6.Text = "Fecha:";
             // 
-            // dateTimePicker1
+            // dtpFhRegistro
             // 
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(333, 153);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(98, 22);
-            this.dateTimePicker1.TabIndex = 50;
+            this.dtpFhRegistro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFhRegistro.Location = new System.Drawing.Point(333, 153);
+            this.dtpFhRegistro.Name = "dtpFhRegistro";
+            this.dtpFhRegistro.Size = new System.Drawing.Size(98, 22);
+            this.dtpFhRegistro.TabIndex = 50;
             // 
             // btnCancelar
             // 
@@ -182,6 +188,7 @@
             this.btnCancelar.TabIndex = 52;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
@@ -198,31 +205,53 @@
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
+            // valFhRegistro
+            // 
+            this.valFhRegistro.BackColor = System.Drawing.Color.Gray;
+            this.valFhRegistro.Location = new System.Drawing.Point(333, 175);
+            this.valFhRegistro.Margin = new System.Windows.Forms.Padding(4);
+            this.valFhRegistro.Name = "valFhRegistro";
+            this.valFhRegistro.Size = new System.Drawing.Size(99, 2);
+            this.valFhRegistro.TabIndex = 44;
+            // 
+            // errNota
+            // 
+            this.errNota.ContainerControl = this;
+            // 
+            // errFhRegistro
+            // 
+            this.errFhRegistro.ContainerControl = this;
+            // 
             // frmDesercion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(460, 342);
+            this.Controls.Add(this.valFhRegistro);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.dtpFhRegistro);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.pblTitulo);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.valDireccion);
+            this.Controls.Add(this.valNota);
             this.Controls.Add(this.lblTextDireccion);
-            this.Controls.Add(this.txtDireccion);
+            this.Controls.Add(this.txtNota);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximumSize = new System.Drawing.Size(476, 381);
+            this.MinimumSize = new System.Drawing.Size(476, 381);
             this.Name = "frmDesercion";
             this.Text = "frmDesercion";
             this.Load += new System.EventHandler(this.frmDesercion_Load);
             this.pblTitulo.ResumeLayout(false);
             this.pblTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errNota)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFhRegistro)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,8 +260,8 @@
         #endregion
 
         private System.Windows.Forms.Label lblTextDireccion;
-        private System.Windows.Forms.TextBox txtDireccion;
-        private System.Windows.Forms.Panel valDireccion;
+        private System.Windows.Forms.TextBox txtNota;
+        private System.Windows.Forms.Panel valNota;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel pblTitulo;
         private System.Windows.Forms.Label lblTitulo;
@@ -241,8 +270,11 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker dtpFhRegistro;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnGuardar;
+        private System.Windows.Forms.Panel valFhRegistro;
+        private System.Windows.Forms.ErrorProvider errNota;
+        private System.Windows.Forms.ErrorProvider errFhRegistro;
     }
 }

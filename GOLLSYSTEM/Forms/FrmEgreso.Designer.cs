@@ -279,6 +279,8 @@
             this.Controls.Add(this.valFecha);
             this.Controls.Add(this.txtTotal);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(343, 399);
+            this.MinimumSize = new System.Drawing.Size(343, 399);
             this.Name = "FrmEgreso";
             this.Text = "Nuevo Egreso";
             this.Load += new System.EventHandler(this.FrmEgreso_Load);

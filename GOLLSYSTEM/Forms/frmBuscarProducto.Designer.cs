@@ -62,9 +62,9 @@
             this.cbxCurso = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBecado = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBecado = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
@@ -413,6 +413,17 @@
             this.panel2.Size = new System.Drawing.Size(293, 114);
             this.panel2.TabIndex = 1;
             // 
+            // checkBecado
+            // 
+            this.checkBecado.AutoSize = true;
+            this.checkBecado.Enabled = false;
+            this.checkBecado.Location = new System.Drawing.Point(227, 3);
+            this.checkBecado.Name = "checkBecado";
+            this.checkBecado.Size = new System.Drawing.Size(63, 17);
+            this.checkBecado.TabIndex = 119;
+            this.checkBecado.Text = "Becado";
+            this.checkBecado.UseVisualStyleBackColor = true;
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -433,17 +444,6 @@
             this.label5.TabIndex = 117;
             this.label5.Text = "$";
             // 
-            // checkBecado
-            // 
-            this.checkBecado.AutoSize = true;
-            this.checkBecado.Enabled = false;
-            this.checkBecado.Location = new System.Drawing.Point(227, 3);
-            this.checkBecado.Name = "checkBecado";
-            this.checkBecado.Size = new System.Drawing.Size(63, 17);
-            this.checkBecado.TabIndex = 119;
-            this.checkBecado.Text = "Becado";
-            this.checkBecado.UseVisualStyleBackColor = true;
-            // 
             // frmBuscarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -458,6 +458,8 @@
             this.Controls.Add(this.valProducto);
             this.Controls.Add(this.btnAceptar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(547, 384);
+            this.MinimumSize = new System.Drawing.Size(547, 384);
             this.Name = "frmBuscarProducto";
             this.Text = "Buscar Producto";
             this.Load += new System.EventHandler(this.frmBuscarProducto_Load);

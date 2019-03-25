@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -29,6 +30,7 @@ namespace GOLLSYSTEM.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+
             try
             {
                 if (Val_NewObject())
@@ -45,10 +47,13 @@ namespace GOLLSYSTEM.Forms
                     }
                 }
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrio un error inesperado al intentar registrar el producto, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional del problema:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el producto o servicio");
+                MessageBox.Show("Ocurrio un error inesperado al intentar registrar el producto o servicio, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -67,7 +72,7 @@ namespace GOLLSYSTEM.Forms
                 valNombre.BackColor = Color.FromArgb(0, 100, 182);
                 errNombre.Clear();
                 NewObject.Nombre = txtNombre.Text;
-                
+
             }
 
             if (!Validation.Validation.Val_StringsLength(txtPrecio.Text, 1))
@@ -95,13 +100,13 @@ namespace GOLLSYSTEM.Forms
                     NewObject.Precio = Convert.ToDecimal(txtPrecio.Text);
                 }
             }
-            
+
             return result;
         }
 
         private void txtPrecio_Leave(object sender, EventArgs e)
         {
-            txtPrecio.Text = txtPrecio.Text==""|| txtPrecio.Text == "."||txtPrecio.Text == "-0" ? "0.00" : txtPrecio.Text;
+            txtPrecio.Text = txtPrecio.Text == "" || txtPrecio.Text == "." || txtPrecio.Text == "-0" ? "0.00" : txtPrecio.Text;
 
             if (!Validation.Validation.Val_DecimalFormat(txtPrecio.Text))
             {
@@ -118,10 +123,15 @@ namespace GOLLSYSTEM.Forms
 
         private void txtPrecio_Enter(object sender, EventArgs e)
         {
-            if (txtPrecio.Text=="0.00")
+            if (txtPrecio.Text == "0.00")
             {
                 txtPrecio.Text = "";
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -32,41 +33,148 @@ namespace GOLLSYSTEM.Forms
 
         private void btnSiguiente1_Click(object sender, EventArgs e)
         {
-            lblSucursal.BackColor = Color.LightSlateGray;
+            try
+            {
+                lblSucursal.BackColor = Color.LightSlateGray;
 
-            pnlSteep1.Visible = false;
-            pnlSteep2.Visible = true;
-            pnlSteep3.Visible = false;
-            pnlSteep4.Visible = false;
+                pnlSteep1.Visible = false;
+                pnlSteep2.Visible = true;
+                pnlSteep3.Visible = false;
+                pnlSteep4.Visible = false;
 
-            pnlSteep1.Enabled = false;
-            pnlSteep2.Enabled = true;
-            pnlSteep3.Enabled = false;
-            pnlSteep4.Enabled = false;
+                pnlSteep1.Enabled = false;
+                pnlSteep2.Enabled = true;
+                pnlSteep3.Enabled = false;
+                pnlSteep4.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al comenzar la configuracion");
+                MessageBox.Show("Ocurrio un error inesperado al comenzar la configuracion, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
         }
 
         private void btnAtras2_Click(object sender, EventArgs e)
         {
+            try
+            {
+                lblSucursal.BackColor = Color.SlateGray;
 
-            lblSucursal.BackColor = Color.SlateGray;
+                pnlSteep1.Visible = true;
+                pnlSteep2.Visible = false;
+                pnlSteep3.Visible = false;
+                pnlSteep4.Visible = false;
 
-            pnlSteep1.Visible = true;
-            pnlSteep2.Visible = false;
-            pnlSteep3.Visible = false;
-            pnlSteep4.Visible = false;
+                pnlSteep1.Enabled = true;
+                pnlSteep2.Enabled = false;
+                pnlSteep3.Enabled = false;
+                pnlSteep4.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado intentar al regresar con la configuracion inicial");
+                MessageBox.Show("Ocurrio un error inesperado intentar al regresar con la configuracion inicial, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            pnlSteep1.Enabled = true;
-            pnlSteep2.Enabled = false;
-            pnlSteep3.Enabled = false;
-            pnlSteep4.Enabled = false;
         }
 
         private void btnSiguiente2_Click(object sender, EventArgs e)
         {
-            if (Val_Sucursal())
+            try
             {
-                lblUsuarioAdministrador.BackColor = Color.LightSlateGray;
+                if (Val_Sucursal())
+                {
+                    lblUsuarioAdministrador.BackColor = Color.LightSlateGray;
+                    pnlSteep1.Visible = false;
+                    pnlSteep2.Visible = false;
+                    pnlSteep3.Visible = true;
+                    pnlSteep4.Visible = false;
+
+                    pnlSteep1.Enabled = false;
+                    pnlSteep2.Enabled = false;
+                    pnlSteep3.Enabled = true;
+                    pnlSteep4.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar acceder a la ventana de configuracion de usuario");
+                MessageBox.Show("Ocurrio un error inesperado al intentar acceder a la ventana de configuracion de usuario, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnAtras3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblUsuarioAdministrador.BackColor = Color.SlateGray;
+                pnlSteep1.Visible = false;
+                pnlSteep2.Visible = true;
+                pnlSteep3.Visible = false;
+                pnlSteep4.Visible = false;
+
+                pnlSteep1.Enabled = false;
+                pnlSteep2.Enabled = true;
+                pnlSteep3.Enabled = false;
+                pnlSteep4.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar regresar a la conficuracion de sucursal");
+                MessageBox.Show("Ocurrio un error inesperado al intentar regresar a la conficuracion de sucursal, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnSiguiente3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Val_Usuario())
+                {
+                    lblFinalizar.BackColor = Color.LightSlateGray;
+                    pnlSteep1.Visible = false;
+                    pnlSteep2.Visible = false;
+                    pnlSteep3.Visible = false;
+                    pnlSteep4.Visible = true;
+
+                    pnlSteep1.Enabled = false;
+                    pnlSteep2.Enabled = false;
+                    pnlSteep3.Enabled = false;
+                    pnlSteep4.Enabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar validar la configuracion de usuario");
+                MessageBox.Show("Ocurrio un error inesperado al intentar validar la configuracion de usuario, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnAtras4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                lblFinalizar.BackColor = Color.SlateGray;
                 pnlSteep1.Visible = false;
                 pnlSteep2.Visible = false;
                 pnlSteep3.Visible = true;
@@ -77,51 +185,16 @@ namespace GOLLSYSTEM.Forms
                 pnlSteep3.Enabled = true;
                 pnlSteep4.Enabled = false;
             }
-        }
-
-        private void btnAtras3_Click(object sender, EventArgs e)
-        {
-            lblUsuarioAdministrador.BackColor = Color.SlateGray;
-            pnlSteep1.Visible = false;
-            pnlSteep2.Visible = true;
-            pnlSteep3.Visible = false;
-            pnlSteep4.Visible = false;
-
-            pnlSteep1.Enabled = false;
-            pnlSteep2.Enabled = true;
-            pnlSteep3.Enabled = false;
-            pnlSteep4.Enabled = false;
-        }
-
-        private void btnSiguiente3_Click(object sender, EventArgs e)
-        {
-            if (Val_Usuario())
+            catch (Exception ex)
             {
-                lblFinalizar.BackColor = Color.LightSlateGray;
-                pnlSteep1.Visible = false;
-                pnlSteep2.Visible = false;
-                pnlSteep3.Visible = false;
-                pnlSteep4.Visible = true;
-
-                pnlSteep1.Enabled = false;
-                pnlSteep2.Enabled = false;
-                pnlSteep3.Enabled = false;
-                pnlSteep4.Enabled = true;
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar regresar a la configuracion de usuario");
+                MessageBox.Show("Ocurrio un error inesperado al intentar regresar a la configuracion de usuario, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
 
-        private void btnAtras4_Click(object sender, EventArgs e)
-        {
-            lblFinalizar.BackColor = Color.SlateGray;
-            pnlSteep1.Visible = false;
-            pnlSteep2.Visible = false;
-            pnlSteep3.Visible = true;
-            pnlSteep4.Visible = false;
 
-            pnlSteep1.Enabled = false;
-            pnlSteep2.Enabled = false;
-            pnlSteep3.Enabled = true;
-            pnlSteep4.Enabled = false;
 
         }
 
@@ -210,7 +283,7 @@ namespace GOLLSYSTEM.Forms
                 valNit.BackColor = Color.FromArgb(0, 100, 182);
             }
 
-            if (!Validation.Validation.Val_PasswordFormat(txtPass.Text)||txtPass.Text.Length<5)
+            if (!Validation.Validation.Val_PasswordFormat(txtPass.Text) || txtPass.Text.Length < 5)
             {
                 errPass.SetError(txtPass, "La contraseña debe tener entre 5 y 30 caracteres\n contando numeros y letras mayusculas o minusculas.");
                 valPass.BackColor = Color.Red;
@@ -236,13 +309,13 @@ namespace GOLLSYSTEM.Forms
                     valConfirmarPass.BackColor = Color.FromArgb(0, 100, 182);
                 }
             }
-            
+
             return result;
         }
 
         private void btnFinalizar_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
                 Useremp usuario = new Useremp(0,
@@ -281,7 +354,7 @@ namespace GOLLSYSTEM.Forms
                       )
                  );
 
-                if (UserempDAL.InsertUserEmpConf(usuario, new Sucursal(0,"",txtNombreSucursal.Text,txtDireccionSucursal.Text,null)))
+                if (UserempDAL.InsertUserEmpConf(usuario, new Sucursal(0, "", txtNombreSucursal.Text, txtDireccionSucursal.Text, null)))
                 {
                     MessageBox.Show("¡Felicidades ya puede comenzar a utilizar el sistema! Las configuariones han sido guardadas exitosamente.", "Registro satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Exit = false;
@@ -295,7 +368,11 @@ namespace GOLLSYSTEM.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrio un error inesperado al intentar registrar las configuraciones, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar ls configuraciones iniciales del sistema");
+                MessageBox.Show("Ocurrio un error inesperado al intentar registrar ls configuraciones iniciales del sistema, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

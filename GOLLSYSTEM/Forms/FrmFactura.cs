@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -27,77 +28,116 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmFactura_Load(object sender, EventArgs e)
         {
-            if (EditingObject != null)
+            try
             {
-                btnBuscarCliente.Enabled = false;
-                btnMesualidad.Enabled = false;
-                btnCancelacion.Enabled = false;
-                btnContado.Enabled = false;
-                btnGuardar.Text = "Imprimir";
-                btnRemoveDetalle.Enabled = false;
-                txtNombre.Text = PersonaDAL.getPersonaById(EditingObject.IdPersona).Nombre;
-                txtTelefono.Text = "No Disponible";
-                lblFHRegistro.Text = Convert.ToDateTime(EditingObject.FhRegistro).ToString("dd/MM/yyyy");
-                lblSucursal.Text = SucursalDAL.getSucursaloById(EditingObject.IdSucursal).Nombre;
-                lblNFactura.Text = EditingObject.NFactura;
-                foreach (Detfactura det in EditingObject.DetsFactura)
-                    dgvCursos.Rows.Add(
-                                det.Id,
-                                det.Producto.Nombre,
-                                det.Tipo == "M" ? "Mensualidad" : det.Tipo == "R" ? "Reservación" : "Cancelación",
-                                det.Producto.Precio,
-                                det.Descuento,
-                                det.Total,
-                                det.IdProducto);
+                if (EditingObject != null)
+                {
+                    btnBuscarCliente.Enabled = false;
+                    btnMesualidad.Enabled = false;
+                    btnCancelacion.Enabled = false;
+                    btnContado.Enabled = false;
+                    btnGuardar.Text = "Imprimir";
+                    btnRemoveDetalle.Enabled = false;
+                    txtNombre.Text = PersonaDAL.getPersonaById(EditingObject.IdPersona).Nombre;
+                    txtTelefono.Text = "No Disponible";
+                    lblFHRegistro.Text = Convert.ToDateTime(EditingObject.FhRegistro).ToString("dd/MM/yyyy");
+                    lblSucursal.Text = SucursalDAL.getSucursaloById(EditingObject.IdSucursal).Nombre;
+                    lblNFactura.Text = EditingObject.NFactura;
+                    foreach (Detfactura det in EditingObject.DetsFactura)
+                        dgvCursos.Rows.Add(
+                                    det.Id,
+                                    det.Producto.Nombre,
+                                    det.Tipo == "M" ? "Mensualidad" : det.Tipo == "R" ? "Reservación" : "Cancelación",
+                                    det.Producto.Precio,
+                                    det.Descuento,
+                                    det.Total,
+                                    det.IdProducto);
 
-                CalucularTotales();
+                    CalucularTotales();
+                }
+                else
+                {
+                    EditingObject = new Factura();
+                    EditingObject.DetsFactura = new List<Detfactura>();
+                    lblFHRegistro.Text = DateTime.Now.ToShortDateString();
+                    lblSucursal.Text = Inicio.CurrentSucursal.Nombre;
+                    lblNFactura.Text = "Automático";
+                }
             }
-            else
+            catch (Exception ex)
             {
-                EditingObject = new Factura();
-                EditingObject.DetsFactura = new List<Detfactura>();
-                lblFHRegistro.Text = DateTime.Now.ToShortDateString();
-                lblSucursal.Text = Inicio.CurrentSucursal.Nombre;
-                lblNFactura.Text = "Automático";
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnMesualidad_Click(object sender, EventArgs e)
         {
-            if (EditingObject.DetsFactura.Where(a => a.Tipo == "M").FirstOrDefault() == null)
+            try
             {
-                frmBuscarProducto buscarproducto = new frmBuscarProducto();
-                buscarproducto.opc = "Mensualidad";
-                buscarproducto.ShowDialog();
-                if (buscarproducto.currentDetFactura != null)
+                if (EditingObject.DetsFactura.Where(a => a.Tipo == "M").FirstOrDefault() == null)
                 {
-                    EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
-                    dgvCursos.Rows.Add(0, "Pago de mensualidad", "Mensualidad",
-                        buscarproducto.currentDetFactura.Producto.Precio,
-                        buscarproducto.currentDetFactura.Descuento,
-                        buscarproducto.currentDetFactura.Total,
-                        buscarproducto.currentDetFactura.IdProducto);
-                    CalucularTotales();
+                    frmBuscarProducto buscarproducto = new frmBuscarProducto();
+                    buscarproducto.opc = "Mensualidad";
+                    buscarproducto.ShowDialog();
+                    if (buscarproducto.currentDetFactura != null)
+                    {
+                        EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
+                        dgvCursos.Rows.Add(0, "Pago de mensualidad", "Mensualidad",
+                            buscarproducto.currentDetFactura.Producto.Precio,
+                            buscarproducto.currentDetFactura.Descuento,
+                            buscarproducto.currentDetFactura.Total,
+                            buscarproducto.currentDetFactura.IdProducto);
+                        CalucularTotales();
 
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ya ha agregado un pago de mensualidad al detalle de esta factura.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Ya ha agregado un pago de mensualidad al detalle de esta factura.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de la cuota en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de la cuota en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
         private void btnBuscarCliente_Click(object sender, EventArgs e)
         {
-            frmBuscarPersona buscarPersona = new frmBuscarPersona();
-            buscarPersona.ShowDialog();
-            if (buscarPersona.currentObject != null)
+            try
             {
-                EditingObject.IdPersona = buscarPersona.currentObject.Id;
-                txtNombre.Text = buscarPersona.currentObject.Nombre;
-                txtTelefono.Text = "No disponible";
-                valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                frmBuscarPersona buscarPersona = new frmBuscarPersona();
+                buscarPersona.ShowDialog();
+                if (buscarPersona.currentObject != null)
+                {
+                    EditingObject.IdPersona = buscarPersona.currentObject.Id;
+                    txtNombre.Text = buscarPersona.currentObject.Nombre;
+                    txtTelefono.Text = "No disponible";
+                    valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información del cliente en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información del cliente en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void btnRemoveDetalle_Click(object sender, EventArgs e)
@@ -125,14 +165,25 @@ namespace GOLLSYSTEM.Forms
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-
-            if (Val_NewObject())
+            try
             {
-                frmConfirmarFactura confirmar = new frmConfirmarFactura();
-                confirmar.currentFactura =EditingObject.Id==0? NewObject:EditingObject;
-                confirmar.ShowDialog();
-                if (confirmar.DialogResult == DialogResult.Yes) this.Close();
+                if (Val_NewObject())
+                {
+                    frmConfirmarFactura confirmar = new frmConfirmarFactura();
+                    confirmar.currentFactura = EditingObject.Id == 0 ? NewObject : EditingObject;
+                    confirmar.ShowDialog();
+                    if (confirmar.DialogResult == DialogResult.Yes) this.Close();
+                }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el ingreso e imprimir la factura");
+                MessageBox.Show("Ocurrio un error inesperado al intentar registrar el ingreso e imprimir la factura, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
 
 
         }
@@ -183,82 +234,110 @@ namespace GOLLSYSTEM.Forms
 
         private void btnContado_Click(object sender, EventArgs e)
         {
-            frmBuscarProducto buscarproducto = new frmBuscarProducto();
-            buscarproducto.opc = "Contado";
-            buscarproducto.ShowDialog();
-            if (buscarproducto.currentDetFactura != null)
+            try
             {
-                EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
-                dgvCursos.Rows.Add(0, buscarproducto.currentDetFactura.Producto.Nombre, buscarproducto.currentDetFactura.Total < buscarproducto.currentDetFactura.Producto.Precio ? "Reservacion" : "Contado",
-                    buscarproducto.currentDetFactura.Producto.Precio,
-                    buscarproducto.currentDetFactura.Descuento,
-                    buscarproducto.currentDetFactura.Total,
-                    buscarproducto.currentDetFactura.IdProducto);
-                CalucularTotales();
+                frmBuscarProducto buscarproducto = new frmBuscarProducto();
+                buscarproducto.opc = "Contado";
+                buscarproducto.ShowDialog();
+                if (buscarproducto.currentDetFactura != null)
+                {
+                    EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
+                    dgvCursos.Rows.Add(0, buscarproducto.currentDetFactura.Producto.Nombre, buscarproducto.currentDetFactura.Total < buscarproducto.currentDetFactura.Producto.Precio ? "Reservacion" : "Contado",
+                        buscarproducto.currentDetFactura.Producto.Precio,
+                        buscarproducto.currentDetFactura.Descuento,
+                        buscarproducto.currentDetFactura.Total,
+                        buscarproducto.currentDetFactura.IdProducto);
+                    CalucularTotales();
 
+                }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información del producto o servicio en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información del producto o servicio en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void btnCancelacion_Click(object sender, EventArgs e)
         {
-            if (EditingObject.IdPersona > 0)
+            try
             {
-                frmBuscarProducto buscarproducto = new frmBuscarProducto();
-                buscarproducto.opc = "Cancelacion";
-                buscarproducto.IdPersona = EditingObject.IdPersona;
-                buscarproducto.ShowDialog();
-                if (buscarproducto.currentDetFactura != null)
+                if (EditingObject.IdPersona > 0)
                 {
-                    if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault() != null)
+                    frmBuscarProducto buscarproducto = new frmBuscarProducto();
+                    buscarproducto.opc = "Cancelacion";
+                    buscarproducto.IdPersona = EditingObject.IdPersona;
+                    buscarproducto.ShowDialog();
+                    if (buscarproducto.currentDetFactura != null)
                     {
-                        if (MessageBox.Show("Ya existe una cancelación para este producto o servicio y no se puede duplicar el detalle. ¿Desea hacer un solo detalle fusionando los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault() != null)
                         {
-                            decimal totaldebe = DetFacturaDAL.getTotalDebeReserva(buscarproducto.currentDetFactura.Id, EditingObject.IdPersona);
+                            if (MessageBox.Show("Ya existe una cancelación para este producto o servicio y no se puede duplicar el detalle. ¿Desea hacer un solo detalle fusionando los datos?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                            {
+                                decimal totaldebe = DetFacturaDAL.getTotalDebeReserva(buscarproducto.currentDetFactura.Id, EditingObject.IdPersona);
 
-                            if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total + buscarproducto.currentDetFactura.Total > totaldebe)
-                            {
-                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total = totaldebe;
-                            }
-                            else
-                            {
-                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total += buscarproducto.currentDetFactura.Total;
+                                if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total + buscarproducto.currentDetFactura.Total > totaldebe)
+                                {
+                                    EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total = totaldebe;
+                                }
+                                else
+                                {
+                                    EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total += buscarproducto.currentDetFactura.Total;
 
-                            }
-                            if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento + buscarproducto.currentDetFactura.Descuento > totaldebe)
-                            {
-                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento = totaldebe;
-                            }
-                            else
-                            {
-                                EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento += buscarproducto.currentDetFactura.Descuento;
+                                }
+                                if (EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento + buscarproducto.currentDetFactura.Descuento > totaldebe)
+                                {
+                                    EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento = totaldebe;
+                                }
+                                else
+                                {
+                                    EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento += buscarproducto.currentDetFactura.Descuento;
 
-                            }
-                            for (int i = 0; i < dgvCursos.Rows.Count; i++)
-                            {
-                                dgvCursos.Rows[i].Cells["descuento"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento.ToString() : dgvCursos.Rows[i].Cells["descuento"].Value.ToString();
-                                dgvCursos.Rows[i].Cells["subtotal"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total.ToString() : dgvCursos.Rows[i].Cells["subtotal"].Value.ToString();
+                                }
+                                for (int i = 0; i < dgvCursos.Rows.Count; i++)
+                                {
+                                    dgvCursos.Rows[i].Cells["descuento"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Descuento.ToString() : dgvCursos.Rows[i].Cells["descuento"].Value.ToString();
+                                    dgvCursos.Rows[i].Cells["subtotal"].Value = (Int64)dgvCursos.Rows[i].Cells[0].Value == EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Id ? EditingObject.DetsFactura.Where(a => a.RefNFactura == buscarproducto.currentDetFactura.RefNFactura).SingleOrDefault().Total.ToString() : dgvCursos.Rows[i].Cells["subtotal"].Value.ToString();
 
+                                }
+                                CalucularTotales();
                             }
+                        }
+                        else
+                        {
+                            EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
+                            dgvCursos.Rows.Add(
+                                buscarproducto.currentDetFactura.Id,
+                                buscarproducto.currentDetFactura.Producto.Nombre, "Cancelación",
+                                buscarproducto.currentDetFactura.Producto.Precio,
+                                buscarproducto.currentDetFactura.Descuento,
+                                buscarproducto.currentDetFactura.Total,
+                                buscarproducto.currentDetFactura.IdProducto);
                             CalucularTotales();
                         }
                     }
-                    else
-                    {
-
-
-                        EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
-
-                        dgvCursos.Rows.Add(
-                            buscarproducto.currentDetFactura.Id,
-                            buscarproducto.currentDetFactura.Producto.Nombre, "Cancelación",
-                            buscarproducto.currentDetFactura.Producto.Precio,
-                            buscarproducto.currentDetFactura.Descuento,
-                            buscarproducto.currentDetFactura.Total,
-                            buscarproducto.currentDetFactura.IdProducto);
-                        CalucularTotales();
-                    }
                 }
             }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de la cuenta pendiente en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de la cuenta pendiente en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

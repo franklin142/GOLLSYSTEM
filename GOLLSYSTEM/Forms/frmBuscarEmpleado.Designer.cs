@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuscarEmpleado));
-            this.dgvCursos = new System.Windows.Forms.DataGridView();
+            this.dgvBuscar = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cargo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,19 +47,19 @@
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.lblNoResults = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).BeginInit();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
             this.SuspendLayout();
             // 
-            // dgvCursos
+            // dgvBuscar
             // 
-            this.dgvCursos.AllowUserToAddRows = false;
-            this.dgvCursos.AllowUserToDeleteRows = false;
-            this.dgvCursos.AllowUserToResizeRows = false;
-            this.dgvCursos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvCursos.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
+            this.dgvBuscar.AllowUserToAddRows = false;
+            this.dgvBuscar.AllowUserToDeleteRows = false;
+            this.dgvBuscar.AllowUserToResizeRows = false;
+            this.dgvBuscar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBuscar.BackgroundColor = System.Drawing.SystemColors.InactiveBorder;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
@@ -67,24 +67,25 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCursos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvCursos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCursos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvBuscar.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvBuscar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBuscar.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.cargo,
             this.nombre,
             this.dui,
             this.nit,
             this.telefono});
-            this.dgvCursos.Location = new System.Drawing.Point(-1, 110);
-            this.dgvCursos.MultiSelect = false;
-            this.dgvCursos.Name = "dgvCursos";
-            this.dgvCursos.ReadOnly = true;
-            this.dgvCursos.RowHeadersVisible = false;
-            this.dgvCursos.RowTemplate.Height = 30;
-            this.dgvCursos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCursos.Size = new System.Drawing.Size(660, 195);
-            this.dgvCursos.TabIndex = 101;
+            this.dgvBuscar.Location = new System.Drawing.Point(-1, 110);
+            this.dgvBuscar.MultiSelect = false;
+            this.dgvBuscar.Name = "dgvBuscar";
+            this.dgvBuscar.ReadOnly = true;
+            this.dgvBuscar.RowHeadersVisible = false;
+            this.dgvBuscar.RowTemplate.Height = 30;
+            this.dgvBuscar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBuscar.Size = new System.Drawing.Size(660, 195);
+            this.dgvBuscar.TabIndex = 101;
+            this.dgvBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvBuscar_KeyPress);
             // 
             // id
             // 
@@ -208,6 +209,7 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(309, 24);
             this.txtBuscar.TabIndex = 98;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // lblBuscar
             // 
@@ -240,7 +242,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 336);
             this.Controls.Add(this.lblNoResults);
-            this.Controls.Add(this.dgvCursos);
+            this.Controls.Add(this.dgvBuscar);
             this.Controls.Add(this.pblTitulo);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.valNombre);
@@ -249,10 +251,12 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(675, 375);
+            this.MinimumSize = new System.Drawing.Size(675, 375);
             this.Name = "frmBuscarEmpleado";
             this.Text = "Buscar Empleado";
             this.Load += new System.EventHandler(this.frmBuscarEmpleado_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvCursos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBuscar)).EndInit();
             this.pblTitulo.ResumeLayout(false);
             this.pblTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).EndInit();
@@ -264,7 +268,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvCursos;
+        private System.Windows.Forms.DataGridView dgvBuscar;
         private System.Windows.Forms.Panel pblTitulo;
         private System.Windows.Forms.Label lblTitulo;
         private System.Windows.Forms.PictureBox picLogoForm;

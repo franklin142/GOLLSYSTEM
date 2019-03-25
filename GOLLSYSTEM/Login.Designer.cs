@@ -181,8 +181,8 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(200, 20);
-            this.txtPass.TabIndex = 17;
-            this.txtPass.Text = "123123";
+            this.txtPass.TabIndex = 2;
+            this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             this.txtPass.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
             // panel2
@@ -205,8 +205,9 @@
             this.txtLogin.Location = new System.Drawing.Point(354, 146);
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(200, 20);
-            this.txtLogin.TabIndex = 15;
+            this.txtLogin.TabIndex = 1;
             this.txtLogin.Text = "Administrador";
+            this.txtLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             this.txtLogin.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
             // lblTitle

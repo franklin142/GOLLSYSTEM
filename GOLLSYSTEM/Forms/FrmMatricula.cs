@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -25,16 +26,147 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmMatricula_Load(object sender, EventArgs e)
         {
-            cmbCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, Inicio.CurrentYear);
-            cmbCurso.DisplayMember = "Nombre";
-            cmbCurso.ValueMember = "Id";
-            cmbCurso.SelectedIndex = 0;
-            numDiaPago.Maximum = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
-            numDiaPago.Value = DateTime.Now.Day;
-
-            switch (opc)
+            try
             {
-                case "updObject":
+                cmbCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, Inicio.CurrentYear);
+                cmbCurso.DisplayMember = "Nombre";
+                cmbCurso.ValueMember = "Id";
+                cmbCurso.SelectedIndex = 0;
+                numDiaPago.Maximum = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+                numDiaPago.Value = DateTime.Now.Day;
+
+                switch (opc)
+                {
+                    case "updObject":
+                        txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
+                        txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
+                        txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
+                        txtEnfermedadEst.Text = EditingObject.Estudiante.Enfermedad;
+                        dtpFechaNacEst.Value = Convert.ToDateTime(EditingObject.Estudiante.Persona.FechaNac);
+                        txtDireccionEst.Text = EditingObject.Estudiante.Persona.Direccion;
+                        txtCorreoEst.Text = EditingObject.Estudiante.Correo;
+                        txtTelEstudiante.Text = EditingObject.Estudiante.Telefono;
+                        txtTelEmergencia.Text = EditingObject.Estudiante.TelEmergencia;
+                        txtParentescoEmergencia.Text = EditingObject.Estudiante.ParentEmergencia;
+
+                        Detmatricula padre = EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault();
+                        txtNombrePadre.Text = padre == null ? "" : padre.encargado.Persona.Nombre;
+                        txtLugarTrabajoPadre.Text = padre == null ? "" : padre.encargado.LugarTrabajo;
+                        txtTelefonoPadre.Text = padre == null ? "" : padre.encargado.Telefono;
+                        txtDireccionPadre.Text = padre == null ? "" : padre.encargado.Persona.Direccion;
+                        txtTrabajoPadre.Text = padre == null ? "" : padre.encargado.Trabajo;
+
+                        Detmatricula madre = EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault();
+                        txtNombreMadre.Text = madre == null ? "" : madre.encargado.Persona.Nombre;
+                        txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.LugarTrabajo;
+                        txtTelefonoMadre.Text = madre == null ? "" : madre.encargado.Telefono;
+                        txtDireccionMadre.Text = madre == null ? "" : madre.encargado.Persona.Direccion;
+                        txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.Trabajo;
+
+                        for (int i = 0; i < cmbCurso.Items.Count; i++) cmbCurso.SelectedIndex = (cmbCurso.Items[i] as Curso).Id == EditingObject.IdCurso ? i : cmbCurso.SelectedIndex;
+                        numDiaPago.Value = Convert.ToInt32(EditingObject.DiaLimite);
+                        checkBecado.Checked = EditingObject.Becado == 1;
+
+                        btnBuscarAlumno.Enabled = false;
+                        btnClearAlumno.Enabled = false;
+                        break;
+
+                    default: break;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void btnBuscarPadre_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmBuscarEncargado encargado = new frmBuscarEncargado();
+                encargado.ShowDialog();
+                if (encargado.CurrentObject != null)
+                {
+                    clearPadre(false);
+
+                    EditingObject = EditingObject == null ? new Matricula() : EditingObject;
+                    EditingObject.Padres = EditingObject.Padres == null ? new List<Detmatricula>() : EditingObject.Padres;
+                    EditingObject.Padres.Remove(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
+                    EditingObject.Padres.Add(new Detmatricula(0, "Padre", EditingObject.Id, encargado.CurrentObject.Id, encargado.CurrentObject));
+
+                    txtNombrePadre.Text = encargado.CurrentObject.Persona.Nombre;
+                    txtLugarTrabajoPadre.Text = encargado.CurrentObject.LugarTrabajo;
+                    txtTelefonoPadre.Text = encargado.CurrentObject.Telefono;
+                    txtDireccionPadre.Text = encargado.CurrentObject.Persona.Direccion;
+                    txtTrabajoPadre.Text = encargado.CurrentObject.Trabajo;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información del padre del estudiante en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información del padre del estudiante en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void txtBuscarMadre_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmBuscarEncargado encargado = new frmBuscarEncargado();
+                encargado.ShowDialog();
+                if (encargado.CurrentObject != null)
+                {
+                    clearMadre(false);
+
+                    EditingObject = EditingObject == null ? new Matricula() : EditingObject;
+                    EditingObject.Padres = EditingObject.Padres == null ? new List<Detmatricula>() : EditingObject.Padres;
+                    EditingObject.Padres.Remove(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
+                    EditingObject.Padres.Add(new Detmatricula(0, "Madre", EditingObject.Id, encargado.CurrentObject.Id, encargado.CurrentObject));
+
+                    txtNombreMadre.Text = encargado.CurrentObject.Persona.Nombre;
+                    txtLugarTrabajoMadre.Text = encargado.CurrentObject.LugarTrabajo;
+                    txtTelefonoMadre.Text = encargado.CurrentObject.Telefono;
+                    txtDireccionMadre.Text = encargado.CurrentObject.Persona.Direccion;
+                    txtTrabajoMadre.Text = encargado.CurrentObject.Trabajo;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información del padre del estudiante en este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información del padre del estudiante en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+        private void btnBuscarAlumno_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                frmBuscarEstudiante estudiante = new frmBuscarEstudiante();
+                estudiante.ShowDialog();
+                if (estudiante.currentObject != null)
+                {
+                    clearPadre(true);
+                    clearMadre(true);
+                    btnClearAlumno.Enabled = true;
+
+                    EditingObject = EditingObject != null ? EditingObject : new Matricula();
+                    EditingObject.Estudiante = estudiante.currentObject.Estudiante;
+                    EditingObject.Padres = estudiante.currentObject.Padres;
+
                     txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
                     txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
                     txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
@@ -60,97 +192,18 @@ namespace GOLLSYSTEM.Forms
                     txtDireccionMadre.Text = madre == null ? "" : madre.encargado.Persona.Direccion;
                     txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.Trabajo;
 
-                    for (int i = 0; i < cmbCurso.Items.Count; i++) cmbCurso.SelectedIndex = (cmbCurso.Items[i] as Curso).Id == EditingObject.IdCurso ? i : cmbCurso.SelectedIndex;
-                    numDiaPago.Value = Convert.ToInt32(EditingObject.DiaLimite);
-                    checkBecado.Checked = EditingObject.Becado == 1;
-
-                    btnBuscarAlumno.Enabled = false;
-                    btnClearAlumno.Enabled = false;
-                    break;
-
-                default: break;
+                }
             }
-        }
-        private void btnBuscarPadre_Click(object sender, EventArgs e)
-        {
-            frmBuscarEncargado encargado = new frmBuscarEncargado();
-            encargado.ShowDialog();
-            if (encargado.CurrentObject != null)
+            catch (Exception ex)
             {
-                clearPadre(false);
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
 
-                EditingObject = EditingObject == null ? new Matricula() : EditingObject;
-                EditingObject.Padres = EditingObject.Padres == null ? new List<Detmatricula>() : EditingObject.Padres;
-                EditingObject.Padres.Remove(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
-                EditingObject.Padres.Add(new Detmatricula(0, "Padre", EditingObject.Id, encargado.CurrentObject.Id, encargado.CurrentObject));
-
-                txtNombrePadre.Text = encargado.CurrentObject.Persona.Nombre;
-                txtLugarTrabajoPadre.Text = encargado.CurrentObject.LugarTrabajo;
-                txtTelefonoPadre.Text = encargado.CurrentObject.Telefono;
-                txtDireccionPadre.Text = encargado.CurrentObject.Persona.Direccion;
-                txtTrabajoPadre.Text = encargado.CurrentObject.Trabajo;
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información del estudiante en este control, por favor comuniquese con el desarrollador al correo");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información del estudiante en este control, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-        private void txtBuscarMadre_Click(object sender, EventArgs e)
-        {
-            frmBuscarEncargado encargado = new frmBuscarEncargado();
-            encargado.ShowDialog();
-            if (encargado.CurrentObject != null)
-            {
-                clearMadre(false);
 
-                EditingObject = EditingObject == null ? new Matricula() : EditingObject;
-                EditingObject.Padres = EditingObject.Padres == null ? new List<Detmatricula>() : EditingObject.Padres;
-                EditingObject.Padres.Remove(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
-                EditingObject.Padres.Add(new Detmatricula(0, "Madre", EditingObject.Id, encargado.CurrentObject.Id, encargado.CurrentObject));
-
-                txtNombreMadre.Text = encargado.CurrentObject.Persona.Nombre;
-                txtLugarTrabajoMadre.Text = encargado.CurrentObject.LugarTrabajo;
-                txtTelefonoMadre.Text = encargado.CurrentObject.Telefono;
-                txtDireccionMadre.Text = encargado.CurrentObject.Persona.Direccion;
-                txtTrabajoMadre.Text = encargado.CurrentObject.Trabajo;
-            }
-        }
-        private void btnBuscarAlumno_Click(object sender, EventArgs e)
-        {
-            frmBuscarEstudiante estudiante = new frmBuscarEstudiante();
-            estudiante.ShowDialog();
-            if (estudiante.currentObject != null)
-            {
-                clearPadre(true);
-                clearMadre(true);
-                btnClearAlumno.Enabled = true;
-
-                EditingObject = EditingObject != null ? EditingObject : new Matricula();
-                EditingObject.Estudiante =  estudiante.currentObject.Estudiante;
-                EditingObject.Padres = estudiante.currentObject.Padres;
-
-                txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
-                txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
-                txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
-                txtEnfermedadEst.Text = EditingObject.Estudiante.Enfermedad;
-                dtpFechaNacEst.Value = Convert.ToDateTime(EditingObject.Estudiante.Persona.FechaNac);
-                txtDireccionEst.Text = EditingObject.Estudiante.Persona.Direccion;
-                txtCorreoEst.Text = EditingObject.Estudiante.Correo;
-                txtTelEstudiante.Text = EditingObject.Estudiante.Telefono;
-                txtTelEmergencia.Text = EditingObject.Estudiante.TelEmergencia;
-                txtParentescoEmergencia.Text = EditingObject.Estudiante.ParentEmergencia;
-
-                Detmatricula padre = EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault();
-                txtNombrePadre.Text = padre == null ? "" : padre.encargado.Persona.Nombre;
-                txtLugarTrabajoPadre.Text = padre == null ? "" : padre.encargado.LugarTrabajo;
-                txtTelefonoPadre.Text = padre == null ? "" : padre.encargado.Telefono;
-                txtDireccionPadre.Text = padre == null ? "" : padre.encargado.Persona.Direccion;
-                txtTrabajoPadre.Text = padre == null ? "" : padre.encargado.Trabajo;
-
-                Detmatricula madre = EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault();
-                txtNombreMadre.Text = madre == null ? "" : madre.encargado.Persona.Nombre;
-                txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.LugarTrabajo;
-                txtTelefonoMadre.Text = madre == null ? "" : madre.encargado.Telefono;
-                txtDireccionMadre.Text = madre == null ? "" : madre.encargado.Persona.Direccion;
-                txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.Trabajo;
-
-            }
         }
         private void clearPadre(bool opcChange)
         {
@@ -331,7 +384,7 @@ namespace GOLLSYSTEM.Forms
                     NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Telefono = txtTelefonoPadre.Text;
                     result = validation == false ? false : result;
 
-                    validation = txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 10) ?
+                    validation = txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 5) ?
                         setErrorMessage("El trabaja u oficio del padre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, Color.Red) :
                         setErrorMessage(null, errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, Color.FromArgb(0, 100, 182));
                     NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Trabajo = txtTrabajoPadre.Text;
@@ -380,7 +433,7 @@ namespace GOLLSYSTEM.Forms
                     NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Telefono = txtTelefonoMadre.Text;
                     result = validation == false ? false : result;
 
-                    validation = txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 10) ?
+                    validation = txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 5) ?
                         setErrorMessage("El trabaja u oficio de la madre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, Color.Red) :
                         setErrorMessage(null, errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, Color.FromArgb(0, 100, 182));
                     NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Trabajo = txtTrabajoMadre.Text;
@@ -543,7 +596,7 @@ namespace GOLLSYSTEM.Forms
                     NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Telefono = txtTelefonoPadre.Text;
                     result = validation == false ? false : result;
 
-                    validation = txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 10) ?
+                    validation = txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 5) ?
                         setErrorMessage("El trabaja u oficio del padre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, Color.Red) :
                         setErrorMessage(null, errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, Color.FromArgb(0, 100, 182));
                     NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Trabajo = txtTrabajoPadre.Text;
@@ -597,7 +650,7 @@ namespace GOLLSYSTEM.Forms
                     NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Telefono = txtTelefonoMadre.Text;
                     result = validation == false ? false : result;
 
-                    validation = txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 10) ?
+                    validation = txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 5) ?
                         setErrorMessage("El trabaja u oficio de la madre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, Color.Red) :
                         setErrorMessage(null, errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, Color.FromArgb(0, 100, 182));
                     NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Trabajo = txtTrabajoMadre.Text;
@@ -649,7 +702,11 @@ namespace GOLLSYSTEM.Forms
                             }
                             catch (Exception ex)
                             {
-                                MessageBox.Show("Ocurrio un error inesperado al intentar inscribir el estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                                string fileName = "Exeptions_" + Name + ".txt";
+                                Validation.FormManager frmManager = new Validation.FormManager();
+                                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar inscribir al estudiante");
+                                MessageBox.Show("Ocurrio un error inesperado al intentar inscribir al estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
                     }
@@ -678,7 +735,11 @@ namespace GOLLSYSTEM.Forms
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Ocurrio un error inesperado al intentar actualizar la inscripcion del estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.\nInfo adicional:\n\n\n " + ex.ToString(), "Acualización interrumpida", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                            string fileName = "Exeptions_" + Name + ".txt";
+                            Validation.FormManager frmManager = new Validation.FormManager();
+                            frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar actualizar la inscripcion del estudiante");
+                            MessageBox.Show("Ocurrio un error inesperado al intentar actualizar la inscripcion del estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                     else
@@ -791,7 +852,7 @@ namespace GOLLSYSTEM.Forms
                setErrorMessage(null, errTelefonoPadre, txtTelefonoPadre, valTelefonoPadre, txtTelefonoPadre.Text.Length > 0 ? Color.FromArgb(0, 100, 182) : Color.Gray) : true;
             EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Telefono = validation && name == "txtTelefonoPadre" ? txtTelefonoPadre.Text : EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Telefono;
 
-            validation = name == "txtTrabajoPadre" ? txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 10) ?
+            validation = name == "txtTrabajoPadre" ? txtTrabajoPadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoPadre.Text, 5) ?
                 setErrorMessage("El trabaja u oficio del padre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, Color.Red) :
                 setErrorMessage(null, errTrabajoPadre, txtTrabajoPadre, valTrabajoPadre, txtLugarTrabajoPadre.Text.Length > 0 ? Color.FromArgb(0, 100, 182) : Color.Gray) : true;
             EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Trabajo = validation && name == "txtTrabajoPadre" ? txtTrabajoPadre.Text : EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Trabajo;
@@ -819,7 +880,7 @@ namespace GOLLSYSTEM.Forms
                setErrorMessage(null, errTelefonoMadre, txtTelefonoMadre, valTelefonoMadre, txtTelefonoMadre.Text.Length > 0 ? Color.FromArgb(0, 100, 182) : Color.Gray) : true;
             EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Telefono = validation && name == "txtTelefonoMadre" ? txtTelefonoMadre.Text : EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Telefono;
 
-            validation = name == "txtTrabajoMadre" ? txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 10) ?
+            validation = name == "txtTrabajoMadre" ? txtTrabajoMadre.Text.Length > 0 && !Validation.Validation.Val_StringsLength(txtTrabajoMadre.Text, 5) ?
                 setErrorMessage("El trabaja u oficio de la madre del estudiante no tiene un \nformato valido, por favor especifique el lugar en un minimo de 5 caracteres", errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, Color.Red) :
                 setErrorMessage(null, errTrabajoMadre, txtTrabajoMadre, valTrabajoMadre, txtTrabajoMadre.Text.Length > 0 ? Color.FromArgb(0, 100, 182) : Color.Gray) : true;
             EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Trabajo = validation && name == "txtTrabajoMadre" ? txtTrabajoMadre.Text : EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Trabajo;
@@ -848,7 +909,7 @@ namespace GOLLSYSTEM.Forms
 
         private void FrmMatricula_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (opc== "updObject")
+            if (opc == "updObject")
             {
                 if (!CurrentObject.Equals(EditingObject))
                 {

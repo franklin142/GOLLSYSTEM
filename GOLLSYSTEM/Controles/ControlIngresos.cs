@@ -11,6 +11,7 @@ using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
 using System.Threading;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -31,35 +32,40 @@ namespace GOLLSYSTEM.Controles
 
         private void ControlIngresos_Load(object sender, EventArgs e)
         {
+            try
+            {
+                cbxYear.DataSource = YearDAL.getYears(10000);
+                cbxYear.DisplayMember = "Desde";
+                cbxYear.ValueMember = "Id";
+                DateTime date = DateTime.Today.AddMonths(-(DateTime.Today.Month - 1));
+                for (int i = 0; i < 12; i++)
+                {
+                    cbxMonth.Items.Add(date.AddMonths(i).ToString("MMMM"));
+                }
 
-            cbxYear.DataSource = YearDAL.getYears(10000);
-            cbxYear.DisplayMember = "Desde";
-            cbxYear.ValueMember = "Id";
 
-            cbxMonth.Items.Add(Convert.ToDateTime("20-01-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-02-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-03-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-04-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-05-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-06-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-07-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-08-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-09-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-10-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-11-2012").ToString("MMMM"));
-            cbxMonth.Items.Add(Convert.ToDateTime("20-12-2012").ToString("MMMM"));
+                cbxMonth.SelectedIndex = DateTime.Now.Month - 1;
+                cbxYear.SelectedIndex = 0;
+                Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                numPages = Pages.Count;
+                SetCurrentPage();
+                tmrTaskDgv.Start();
 
-            cbxMonth.SelectedIndex = DateTime.Now.Month - 1;
-            cbxYear.SelectedIndex = 0;
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
-            numPages = Pages.Count;
-            SetCurrentPage();
-            tmrTaskDgv.Start();
+                cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
+                cbxYear.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
+                rdbMontYear.CheckedChanged += cbxMonth_SelectedIndexChanged;
 
-            cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
-            cbxYear.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
-            rdbMontYear.CheckedChanged += cbxMonth_SelectedIndexChanged;
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
 
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
         private void FillDgv(List<Factura> lista)
         {

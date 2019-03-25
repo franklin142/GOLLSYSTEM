@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
+using System.Reflection;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -23,21 +24,36 @@ namespace GOLLSYSTEM.Controles
 
         private void ControlEmpleados_Load(object sender, EventArgs e)
         {
-            ListaContratos = ContratoDAL.getContratos(500);
-            List<Contrato> procesados = new List<Contrato>();
-            cbxEstadoContratos.Items.Add("Todos");
-            cbxEstadoContratos.SelectedIndex = 0;
-            foreach (Contrato obj in ListaContratos)
+            try
             {
-                if (procesados.Where(a => a.IdEmpleado == obj.IdEmpleado).FirstOrDefault() == null)
+                ListaContratos = ContratoDAL.getContratos(500);
+                List<Contrato> procesados = new List<Contrato>();
+                cbxEstadoContratos.Items.Add("Todos");
+                cbxEstadoContratos.SelectedIndex = 0;
+                foreach (Contrato obj in ListaContratos)
                 {
-                    procesados.Add(obj);
-                    dgvEmpleados.Rows.Add(obj.Id
-                        , obj.Empleado.Persona.Nombre,
-                        obj.Empleado.Telefono,
-                        ListaContratos.Where(a => a.IdEmpleado == obj.IdEmpleado&&a.Estado=="A").ToList().Count);
+                    if (procesados.Where(a => a.IdEmpleado == obj.IdEmpleado).FirstOrDefault() == null)
+                    {
+                        procesados.Add(obj);
+                        dgvEmpleados.Rows.Add(obj.Id
+                            , obj.Empleado.Persona.Nombre,
+                            obj.Empleado.Telefono,
+                            ListaContratos.Where(a => a.IdEmpleado == obj.IdEmpleado && a.Estado == "A").ToList().Count);
+                        dgvContratos.Rows.Clear();
+                        foreach (Contrato objInContratos in ListaContratos.Where(a => a.IdEmpleado == obj.IdEmpleado).ToList())
+                        {
+                            dgvContratos.Rows.Add(objInContratos.Id,
+                            Convert.ToDateTime(objInContratos.FhInicio).ToString("dd-MM-yyyy"),
+                            objInContratos.Cargo.Nombre,
+                            (objInContratos.FhFin == null ? "Activo" : "Finalizado"));
+                        }
+                    }
+                }
+                if (dgvEmpleados.CurrentRow != null)
+                {
                     dgvContratos.Rows.Clear();
-                    foreach (Contrato objInContratos in ListaContratos.Where(a => a.IdEmpleado == obj.IdEmpleado).ToList())
+                    foreach (Contrato objInContratos in ListaContratos.Where(a => a.IdEmpleado ==
+                                           ListaContratos.Where(ae => ae.Id == (Int64)dgvEmpleados.CurrentRow.Cells[0].Value).FirstOrDefault().IdEmpleado).ToList())
                     {
                         dgvContratos.Rows.Add(objInContratos.Id,
                         Convert.ToDateTime(objInContratos.FhInicio).ToString("dd-MM-yyyy"),
@@ -46,18 +62,16 @@ namespace GOLLSYSTEM.Controles
                     }
                 }
             }
-            if (dgvEmpleados.CurrentRow != null)
+            catch (Exception ex)
             {
-                dgvContratos.Rows.Clear();
-                foreach (Contrato objInContratos in ListaContratos.Where(a => a.IdEmpleado ==
-                                       ListaContratos.Where(ae => ae.Id == (Int64)dgvEmpleados.CurrentRow.Cells[0].Value).FirstOrDefault().IdEmpleado).ToList())
-                {
-                    dgvContratos.Rows.Add(objInContratos.Id,
-                    Convert.ToDateTime(objInContratos.FhInicio).ToString("dd-MM-yyyy"),
-                    objInContratos.Cargo.Nombre,
-                    (objInContratos.FhFin == null ? "Activo" : "Finalizado"));
-                }
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            
         }
 
         private void btnNuevoEmpleado_Click(object sender, EventArgs e)

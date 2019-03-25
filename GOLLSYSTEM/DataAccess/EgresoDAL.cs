@@ -98,7 +98,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                    MySqlCommand comando = new MySqlCommand("select count(Id) from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
                         "%') and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) and Estado='C' order by Id desc", _con);
                     comando.Parameters.AddWithValue("@pYear", pYear);
                     comando.Parameters.AddWithValue("@pMonth", pMonth);
@@ -281,7 +281,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception )
+                catch (Exception)
                 {
                     _con.Close();
                     throw;
@@ -302,6 +302,7 @@ namespace GOLLSYSTEM.DataAccess
                 MySqlTransaction _trans = _con.BeginTransaction();
                 try
                 {
+
                     MySqlCommand cmdInsertEgreso = new MySqlCommand("Insert into egreso (FhRegistro,Tipo,Nombre,Total,Estado,IdSucursal) values (@FhRegistro,@Tipo,@Nombre,@Total,@Estado,@IdSucursal)", _con, _trans);
                     if (item.Id != 0)
                     {
@@ -322,6 +323,7 @@ namespace GOLLSYSTEM.DataAccess
                         cmdInsertEgreso.Parameters.AddWithValue("@Estado", "C");
                         cmdInsertEgreso.Parameters.AddWithValue("@IdSucursal", item.IdSucursal);
                     }
+
                     if (cmdInsertEgreso.ExecuteNonQuery() <= 0)
                     {
                         result = false;
@@ -330,7 +332,7 @@ namespace GOLLSYSTEM.DataAccess
                     if (result)
                     {
                         MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Registró el egreso con \"Nombre " +item.Nombre + "\" de \"Tipo " + item.Tipo + "\" y con total de $" + item.Total + ".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Registró el egreso con \"Nombre " + item.Nombre + "\" de \"Tipo " + item.Tipo + "\" y con total de $" + item.Total + ".");
                         cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Registrar Egreso");
                         cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Egreso");
                         cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
@@ -381,7 +383,7 @@ namespace GOLLSYSTEM.DataAccess
                     if (result)
                     {
                         MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Anuló el egreso con \"Nombre " + EgresoDAL.getEgresoById(pIdEgreso).Nombre + "\" con total de $"+ EgresoDAL.getEgresoById(pIdEgreso).Total+ ".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Anuló el egreso con \"Nombre " + EgresoDAL.getEgresoById(pIdEgreso).Nombre + "\" con total de $" + EgresoDAL.getEgresoById(pIdEgreso).Total + ".");
                         cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Anular Egreso");
                         cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Egreso");
                         cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);

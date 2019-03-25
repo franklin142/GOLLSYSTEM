@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
 [assembly: AssemblyTitle("GOLLSYSTEM")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Sistema de gestión de cursos,  matriculas, empleados, ingresos y egresos.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("GOLLSYSTEM")]

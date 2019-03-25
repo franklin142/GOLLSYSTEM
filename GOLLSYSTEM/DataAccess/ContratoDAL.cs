@@ -282,8 +282,7 @@ namespace GOLLSYSTEM.DataAccess
                             item.Empleado.Persona.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
                         }
 
-                        MySqlCommand cmdInsertEmpleado = new MySqlCommand("Insert into empleado (FhRegistro,Telefono,Correo,IdPersona) values (@FhRegistro,@Telefono,@Correo,@IdPersona)", _con, _trans);
-                        cmdInsertEmpleado.Parameters.AddWithValue("@FhRegistro", item.Empleado.FhRegistro);
+                        MySqlCommand cmdInsertEmpleado = new MySqlCommand("Insert into empleado (Telefono,Correo,IdPersona) values (@Telefono,@Correo,@IdPersona)", _con, _trans);
                         cmdInsertEmpleado.Parameters.AddWithValue("@Telefono", item.Empleado.Telefono);
                         cmdInsertEmpleado.Parameters.AddWithValue("@Correo", item.Empleado.Correo);
                         cmdInsertEmpleado.Parameters.AddWithValue("@IdPersona", item.Empleado.Persona.Id);
@@ -299,8 +298,7 @@ namespace GOLLSYSTEM.DataAccess
                             item.Empleado.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
                         }
                         
-                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhRegistro,FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhRegistro,@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
-                        cmdInsertContrato.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
+                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
                         cmdInsertContrato.Parameters.AddWithValue("@FhInicio", DateTime.Now.ToString("yyyy-MM-dd"));
                         cmdInsertContrato.Parameters.AddWithValue("@FhFin", item.FhFin);
                         cmdInsertContrato.Parameters.AddWithValue("@Estado", "A");

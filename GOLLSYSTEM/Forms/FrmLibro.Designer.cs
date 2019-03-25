@@ -50,8 +50,8 @@
             this.picLogoForm = new System.Windows.Forms.PictureBox();
             this.lblTextNoDui = new System.Windows.Forms.Label();
             this.gbxInformacion = new System.Windows.Forms.GroupBox();
-            this.numActividades = new System.Windows.Forms.NumericUpDown();
             this.numNivel = new System.Windows.Forms.NumericUpDown();
+            this.numActividades = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.errNombre)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errNivel)).BeginInit();
@@ -59,8 +59,8 @@
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             this.gbxInformacion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numActividades)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNivel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numActividades)).BeginInit();
             this.SuspendLayout();
             // 
             // errNombre
@@ -259,28 +259,6 @@
             this.gbxInformacion.TabStop = false;
             this.gbxInformacion.Text = "Información General";
             // 
-            // numActividades
-            // 
-            this.numActividades.Location = new System.Drawing.Point(184, 109);
-            this.numActividades.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.numActividades.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numActividades.Name = "numActividades";
-            this.numActividades.Size = new System.Drawing.Size(120, 22);
-            this.numActividades.TabIndex = 33;
-            this.numActividades.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // numNivel
             // 
             this.numNivel.Location = new System.Drawing.Point(374, 109);
@@ -303,6 +281,28 @@
             0,
             0});
             // 
+            // numActividades
+            // 
+            this.numActividades.Location = new System.Drawing.Point(184, 109);
+            this.numActividades.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.numActividades.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numActividades.Name = "numActividades";
+            this.numActividades.Size = new System.Drawing.Size(120, 22);
+            this.numActividades.TabIndex = 33;
+            this.numActividades.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // FrmLibro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -313,6 +313,8 @@
             this.Controls.Add(this.gbxInformacion);
             this.Controls.Add(this.btnGuardar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(497, 424);
+            this.MinimumSize = new System.Drawing.Size(497, 424);
             this.Name = "FrmLibro";
             this.Text = "Registro de Libro";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmLibro_FormClosing);
@@ -326,8 +328,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).EndInit();
             this.gbxInformacion.ResumeLayout(false);
             this.gbxInformacion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numActividades)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numNivel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numActividades)).EndInit();
             this.ResumeLayout(false);
 
         }

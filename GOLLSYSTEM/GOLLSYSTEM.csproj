@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>goll_Logo_png.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -162,6 +165,7 @@
     <Compile Include="DataAccess\CuotaDAL.cs" />
     <Compile Include="DataAccess\CursoDAL.cs" />
     <Compile Include="DataAccess\CvDAL.cs" />
+    <Compile Include="DataAccess\DesersionDAL.cs" />
     <Compile Include="DataAccess\DetCursoDAL.cs" />
     <Compile Include="DataAccess\DetFacturaDAL.cs" />
     <Compile Include="DataAccess\DetMatriculaDAL.cs" />
@@ -189,6 +193,7 @@
     <Compile Include="EntityLayer\Cuota.cs" />
     <Compile Include="EntityLayer\Curso.cs" />
     <Compile Include="EntityLayer\Cv.cs" />
+    <Compile Include="EntityLayer\Desersion.cs" />
     <Compile Include="EntityLayer\Detcurso.cs" />
     <Compile Include="EntityLayer\Detfactura.cs" />
     <Compile Include="EntityLayer\Detmatricula.cs" />
@@ -210,18 +215,6 @@
     <Compile Include="EntityLayer\Useremp.cs" />
     <Compile Include="EntityLayer\Userest.cs" />
     <Compile Include="EntityLayer\Year.cs" />
-    <Compile Include="Forms\frmBuscarCurso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBuscarCurso.Designer.cs">
-      <DependentUpon>frmBuscarCurso.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmBuscarEgreso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBuscarEgreso.Designer.cs">
-      <DependentUpon>frmBuscarEgreso.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmBuscarEmpleado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,29 +233,11 @@
     <Compile Include="Forms\frmBuscarEstudiante.Designer.cs">
       <DependentUpon>frmBuscarEstudiante.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmBuscarFactura.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBuscarFactura.Designer.cs">
-      <DependentUpon>frmBuscarFactura.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmBuscarIngreso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBuscarIngreso.Designer.cs">
-      <DependentUpon>frmBuscarIngreso.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\frmBuscarLibro.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\frmBuscarLibro.Designer.cs">
       <DependentUpon>frmBuscarLibro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\frmBuscarMatricula.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\frmBuscarMatricula.Designer.cs">
-      <DependentUpon>frmBuscarMatricula.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmBuscarProducto.cs">
       <SubType>Form</SubType>
@@ -300,29 +275,11 @@
     <Compile Include="Forms\FrmEmpleado.Designer.cs">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmEncargado.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmEncargado.Designer.cs">
-      <DependentUpon>FrmEncargado.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmEstudiante.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmEstudiante.Designer.cs">
-      <DependentUpon>FrmEstudiante.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\FrmFactura.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmFactura.Designer.cs">
       <DependentUpon>FrmFactura.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmIngreso.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmIngreso.Designer.cs">
-      <DependentUpon>FrmIngreso.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmLibro.cs">
       <SubType>Form</SubType>
@@ -359,12 +316,6 @@
     </Compile>
     <Compile Include="Forms\frmWelcome.Designer.cs">
       <DependentUpon>frmWelcome.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\TestRegularExpresion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\TestRegularExpresion.Designer.cs">
-      <DependentUpon>TestRegularExpresion.cs</DependentUpon>
     </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
@@ -421,12 +372,6 @@
     <EmbeddedResource Include="Controles\ControlMatriculas.resx">
       <DependentUpon>ControlMatriculas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBuscarCurso.resx">
-      <DependentUpon>frmBuscarCurso.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBuscarEgreso.resx">
-      <DependentUpon>frmBuscarEgreso.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBuscarEmpleado.resx">
       <DependentUpon>frmBuscarEmpleado.cs</DependentUpon>
     </EmbeddedResource>
@@ -436,17 +381,8 @@
     <EmbeddedResource Include="Forms\frmBuscarEstudiante.resx">
       <DependentUpon>frmBuscarEstudiante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBuscarFactura.resx">
-      <DependentUpon>frmBuscarFactura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBuscarIngreso.resx">
-      <DependentUpon>frmBuscarIngreso.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBuscarLibro.resx">
       <DependentUpon>frmBuscarLibro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frmBuscarMatricula.resx">
-      <DependentUpon>frmBuscarMatricula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBuscarProducto.resx">
       <DependentUpon>frmBuscarProducto.cs</DependentUpon>
@@ -466,17 +402,8 @@
     <EmbeddedResource Include="Forms\FrmEmpleado.resx">
       <DependentUpon>FrmEmpleado.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmEncargado.resx">
-      <DependentUpon>FrmEncargado.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmEstudiante.resx">
-      <DependentUpon>FrmEstudiante.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmFactura.resx">
       <DependentUpon>FrmFactura.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmIngreso.resx">
-      <DependentUpon>FrmIngreso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmLibro.resx">
       <DependentUpon>FrmLibro.cs</DependentUpon>
@@ -495,9 +422,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWelcome.resx">
       <DependentUpon>frmWelcome.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\TestRegularExpresion.resx">
-      <DependentUpon>TestRegularExpresion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>
@@ -684,6 +608,8 @@
   <ItemGroup>
     <Content Include="DLL\MySqlBackup.dll" />
     <Content Include="DLL\netstandard.dll" />
+    <Content Include="goll_Logo_png.ico" />
+    <None Include="Resources\Logo_goll_center.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

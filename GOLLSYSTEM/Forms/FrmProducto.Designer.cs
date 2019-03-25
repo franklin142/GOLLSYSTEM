@@ -154,6 +154,7 @@
             this.btnCancelar.TabIndex = 124;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnGuardar
             // 
@@ -203,6 +204,8 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pblTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(487, 295);
+            this.MinimumSize = new System.Drawing.Size(487, 295);
             this.Name = "FrmProducto";
             this.Text = "Producto";
             this.Load += new System.EventHandler(this.FrmProducto_Load);

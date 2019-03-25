@@ -474,6 +474,8 @@
             this.Controls.Add(this.gbxInformacion);
             this.Controls.Add(this.pblTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(667, 529);
+            this.MinimumSize = new System.Drawing.Size(667, 529);
             this.Name = "FrmEmpleado";
             this.Text = "Empleado";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmEmpleado_FormClosing);
