@@ -34,8 +34,14 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAnular = new System.Windows.Forms.Button();
             this.dgvIngresos = new System.Windows.Forms.DataGridView();
-            this.picHelp = new System.Windows.Forms.PictureBox();
-            this.icUpdate = new System.Windows.Forms.PictureBox();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nfactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fhregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.persona = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lblBuscar = new System.Windows.Forms.Label();
             this.rdbMontYear = new System.Windows.Forms.RadioButton();
@@ -62,20 +68,16 @@
             this.lknBack = new System.Windows.Forms.LinkLabel();
             this.lknNext = new System.Windows.Forms.LinkLabel();
             this.lknFin = new System.Windows.Forms.LinkLabel();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nfactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fhregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.persona = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descuento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.picHelp = new System.Windows.Forms.PictureBox();
+            this.icUpdate = new System.Windows.Forms.PictureBox();
+            this.picExcel = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlIndexer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picExcel)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAnular
@@ -88,7 +90,7 @@
             this.btnAnular.Location = new System.Drawing.Point(491, 421);
             this.btnAnular.Name = "btnAnular";
             this.btnAnular.Size = new System.Drawing.Size(83, 26);
-            this.btnAnular.TabIndex = 82;
+            this.btnAnular.TabIndex = 7;
             this.btnAnular.Text = "Anular";
             this.btnAnular.UseVisualStyleBackColor = false;
             this.btnAnular.Click += new System.EventHandler(this.btnAnular_Click);
@@ -136,32 +138,66 @@
             this.dgvIngresos.RowTemplate.Height = 30;
             this.dgvIngresos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIngresos.Size = new System.Drawing.Size(677, 262);
-            this.dgvIngresos.TabIndex = 80;
+            this.dgvIngresos.TabIndex = 8;
             this.dgvIngresos.DoubleClick += new System.EventHandler(this.dgvIngresos_DoubleClick);
             // 
-            // picHelp
+            // id
             // 
-            this.picHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picHelp.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picHelp.Image = global::GOLLSYSTEM.Properties.Resources._008_help;
-            this.picHelp.Location = new System.Drawing.Point(672, 13);
-            this.picHelp.Name = "picHelp";
-            this.picHelp.Size = new System.Drawing.Size(28, 28);
-            this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picHelp.TabIndex = 78;
-            this.picHelp.TabStop = false;
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
             // 
-            // icUpdate
+            // nfactura
             // 
-            this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
-            this.icUpdate.Location = new System.Drawing.Point(284, 68);
-            this.icUpdate.Name = "icUpdate";
-            this.icUpdate.Size = new System.Drawing.Size(30, 23);
-            this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.icUpdate.TabIndex = 72;
-            this.icUpdate.TabStop = false;
-            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
+            this.nfactura.FillWeight = 58F;
+            this.nfactura.HeaderText = "No. Factura";
+            this.nfactura.Name = "nfactura";
+            this.nfactura.ReadOnly = true;
+            // 
+            // fhregistro
+            // 
+            this.fhregistro.FillWeight = 47.47208F;
+            this.fhregistro.HeaderText = "Fecha";
+            this.fhregistro.Name = "fhregistro";
+            this.fhregistro.ReadOnly = true;
+            // 
+            // persona
+            // 
+            this.persona.FillWeight = 83.07614F;
+            this.persona.HeaderText = "Cliente";
+            this.persona.Name = "persona";
+            this.persona.ReadOnly = true;
+            // 
+            // concepto
+            // 
+            this.concepto.FillWeight = 118.6802F;
+            this.concepto.HeaderText = "Concepto";
+            this.concepto.Name = "concepto";
+            this.concepto.ReadOnly = true;
+            // 
+            // subtotal
+            // 
+            this.subtotal.FillWeight = 35F;
+            this.subtotal.HeaderText = "Sub.";
+            this.subtotal.Name = "subtotal";
+            this.subtotal.ReadOnly = true;
+            // 
+            // descuento
+            // 
+            this.descuento.FillWeight = 35F;
+            this.descuento.HeaderText = "Desc.";
+            this.descuento.Name = "descuento";
+            this.descuento.ReadOnly = true;
+            // 
+            // total
+            // 
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.total.DefaultCellStyle = dataGridViewCellStyle2;
+            this.total.FillWeight = 35F;
+            this.total.HeaderText = "Total";
+            this.total.Name = "total";
+            this.total.ReadOnly = true;
             // 
             // txtBuscar
             // 
@@ -169,7 +205,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(67, 68);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(217, 24);
-            this.txtBuscar.TabIndex = 70;
+            this.txtBuscar.TabIndex = 1;
             // 
             // lblBuscar
             // 
@@ -188,7 +224,7 @@
             this.rdbMontYear.Location = new System.Drawing.Point(157, 3);
             this.rdbMontYear.Name = "rdbMontYear";
             this.rdbMontYear.Size = new System.Drawing.Size(134, 17);
-            this.rdbMontYear.TabIndex = 38;
+            this.rdbMontYear.TabIndex = 2;
             this.rdbMontYear.TabStop = true;
             this.rdbMontYear.Text = "Año y mes selecciondo";
             this.rdbMontYear.UseVisualStyleBackColor = true;
@@ -199,7 +235,7 @@
             this.rdbTodo.Location = new System.Drawing.Point(3, 3);
             this.rdbTodo.Name = "rdbTodo";
             this.rdbTodo.Size = new System.Drawing.Size(117, 17);
-            this.rdbTodo.TabIndex = 37;
+            this.rdbTodo.TabIndex = 1;
             this.rdbTodo.Text = "Todo los resultados";
             this.rdbTodo.UseVisualStyleBackColor = true;
             // 
@@ -210,7 +246,7 @@
             this.panel1.Location = new System.Drawing.Point(20, 97);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(294, 21);
-            this.panel1.TabIndex = 77;
+            this.panel1.TabIndex = 4;
             // 
             // lblTiltulo
             // 
@@ -347,7 +383,7 @@
             this.btnNuevoEgreso.Location = new System.Drawing.Point(580, 421);
             this.btnNuevoEgreso.Name = "btnNuevoEgreso";
             this.btnNuevoEgreso.Size = new System.Drawing.Size(116, 27);
-            this.btnNuevoEgreso.TabIndex = 90;
+            this.btnNuevoEgreso.TabIndex = 6;
             this.btnNuevoEgreso.Text = "Nuevo Ingreso";
             this.btnNuevoEgreso.UseVisualStyleBackColor = false;
             this.btnNuevoEgreso.Click += new System.EventHandler(this.btnNuevoEgreso_Click);
@@ -362,7 +398,7 @@
             this.cbxMonth.Location = new System.Drawing.Point(619, 68);
             this.cbxMonth.Name = "cbxMonth";
             this.cbxMonth.Size = new System.Drawing.Size(77, 24);
-            this.cbxMonth.TabIndex = 101;
+            this.cbxMonth.TabIndex = 3;
             // 
             // cbxYear
             // 
@@ -374,7 +410,7 @@
             this.cbxYear.Location = new System.Drawing.Point(467, 67);
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
-            this.cbxYear.TabIndex = 100;
+            this.cbxYear.TabIndex = 2;
             // 
             // tmrTaskDgv
             // 
@@ -403,7 +439,7 @@
             this.pnlIndexer.Location = new System.Drawing.Point(537, 389);
             this.pnlIndexer.Name = "pnlIndexer";
             this.pnlIndexer.Size = new System.Drawing.Size(159, 26);
-            this.pnlIndexer.TabIndex = 102;
+            this.pnlIndexer.TabIndex = 5;
             // 
             // lknInicio
             // 
@@ -414,7 +450,7 @@
             this.lknInicio.Location = new System.Drawing.Point(7, 5);
             this.lknInicio.Name = "lknInicio";
             this.lknInicio.Size = new System.Drawing.Size(45, 18);
-            this.lknInicio.TabIndex = 67;
+            this.lknInicio.TabIndex = 4;
             this.lknInicio.TabStop = true;
             this.lknInicio.Text = "Inicio";
             this.lknInicio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknInicio_LinkClicked);
@@ -441,7 +477,7 @@
             this.lknBack.Location = new System.Drawing.Point(49, 3);
             this.lknBack.Name = "lknBack";
             this.lknBack.Size = new System.Drawing.Size(18, 18);
-            this.lknBack.TabIndex = 70;
+            this.lknBack.TabIndex = 3;
             this.lknBack.TabStop = true;
             this.lknBack.Text = "<";
             this.lknBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknBack_LinkClicked);
@@ -455,7 +491,7 @@
             this.lknNext.Location = new System.Drawing.Point(104, 3);
             this.lknNext.Name = "lknNext";
             this.lknNext.Size = new System.Drawing.Size(18, 18);
-            this.lknNext.TabIndex = 69;
+            this.lknNext.TabIndex = 1;
             this.lknNext.TabStop = true;
             this.lknNext.Text = ">";
             this.lknNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknNext_LinkClicked);
@@ -469,74 +505,54 @@
             this.lknFin.Location = new System.Drawing.Point(126, 5);
             this.lknFin.Name = "lknFin";
             this.lknFin.Size = new System.Drawing.Size(29, 18);
-            this.lknFin.TabIndex = 68;
+            this.lknFin.TabIndex = 2;
             this.lknFin.TabStop = true;
             this.lknFin.Text = "Fin";
             this.lknFin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknFin_LinkClicked);
             // 
-            // id
+            // picHelp
             // 
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
+            this.picHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picHelp.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picHelp.Image = global::GOLLSYSTEM.Properties.Resources._008_help;
+            this.picHelp.Location = new System.Drawing.Point(672, 13);
+            this.picHelp.Name = "picHelp";
+            this.picHelp.Size = new System.Drawing.Size(28, 28);
+            this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picHelp.TabIndex = 78;
+            this.picHelp.TabStop = false;
             // 
-            // nfactura
+            // icUpdate
             // 
-            this.nfactura.FillWeight = 58F;
-            this.nfactura.HeaderText = "No. Factura";
-            this.nfactura.Name = "nfactura";
-            this.nfactura.ReadOnly = true;
+            this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
+            this.icUpdate.Location = new System.Drawing.Point(284, 68);
+            this.icUpdate.Name = "icUpdate";
+            this.icUpdate.Size = new System.Drawing.Size(30, 23);
+            this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.icUpdate.TabIndex = 72;
+            this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
             // 
-            // fhregistro
+            // picExcel
             // 
-            this.fhregistro.FillWeight = 47.47208F;
-            this.fhregistro.HeaderText = "Fecha";
-            this.fhregistro.Name = "fhregistro";
-            this.fhregistro.ReadOnly = true;
-            // 
-            // persona
-            // 
-            this.persona.FillWeight = 83.07614F;
-            this.persona.HeaderText = "Cliente";
-            this.persona.Name = "persona";
-            this.persona.ReadOnly = true;
-            // 
-            // concepto
-            // 
-            this.concepto.FillWeight = 118.6802F;
-            this.concepto.HeaderText = "Concepto";
-            this.concepto.Name = "concepto";
-            this.concepto.ReadOnly = true;
-            // 
-            // subtotal
-            // 
-            this.subtotal.FillWeight = 35F;
-            this.subtotal.HeaderText = "Sub.";
-            this.subtotal.Name = "subtotal";
-            this.subtotal.ReadOnly = true;
-            // 
-            // descuento
-            // 
-            this.descuento.FillWeight = 35F;
-            this.descuento.HeaderText = "Desc.";
-            this.descuento.Name = "descuento";
-            this.descuento.ReadOnly = true;
-            // 
-            // total
-            // 
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.total.DefaultCellStyle = dataGridViewCellStyle2;
-            this.total.FillWeight = 35F;
-            this.total.HeaderText = "Total";
-            this.total.Name = "total";
-            this.total.ReadOnly = true;
+            this.picExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.picExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picExcel.Image = global::GOLLSYSTEM.Properties.Resources.microsoft_excel_48;
+            this.picExcel.Location = new System.Drawing.Point(629, 7);
+            this.picExcel.Name = "picExcel";
+            this.picExcel.Size = new System.Drawing.Size(38, 38);
+            this.picExcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picExcel.TabIndex = 104;
+            this.picExcel.TabStop = false;
+            this.picExcel.Click += new System.EventHandler(this.picExcel_Click);
             // 
             // ControlIngresos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 460);
+            this.Controls.Add(this.picExcel);
             this.Controls.Add(this.lblPages);
             this.Controls.Add(this.pnlIndexer);
             this.Controls.Add(this.cbxMonth);
@@ -558,14 +574,15 @@
             this.Text = "ControlIngresos";
             this.Load += new System.EventHandler(this.ControlIngresos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picHelp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.pnlIndexer.ResumeLayout(false);
             this.pnlIndexer.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picHelp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picExcel)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -610,5 +627,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.PictureBox picExcel;
     }
 }

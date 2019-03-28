@@ -52,6 +52,7 @@
             this.errConcepto = new System.Windows.Forms.ErrorProvider(this.components);
             this.errFecha = new System.Windows.Forms.ErrorProvider(this.components);
             this.errNombre = new System.Windows.Forms.ErrorProvider(this.components);
+            this.checkValidar = new System.Windows.Forms.CheckBox();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errTotal)).BeginInit();
@@ -68,7 +69,7 @@
             this.pblTitulo.Controls.Add(this.picLogoForm);
             this.pblTitulo.Location = new System.Drawing.Point(1, 1);
             this.pblTitulo.Name = "pblTitulo";
-            this.pblTitulo.Size = new System.Drawing.Size(532, 60);
+            this.pblTitulo.Size = new System.Drawing.Size(332, 60);
             this.pblTitulo.TabIndex = 107;
             // 
             // lblTitulo
@@ -102,7 +103,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(207, 316);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(81, 32);
-            this.btnGuardar.TabIndex = 9;
+            this.btnGuardar.TabIndex = 5;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -113,9 +114,9 @@
             this.lblTextNoNit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTextNoNit.Location = new System.Drawing.Point(32, 274);
             this.lblTextNoNit.Name = "lblTextNoNit";
-            this.lblTextNoNit.Size = new System.Drawing.Size(43, 20);
+            this.lblTextNoNit.Size = new System.Drawing.Size(72, 20);
             this.lblTextNoNit.TabIndex = 29;
-            this.lblTextNoNit.Text = "Tipo:";
+            this.lblTextNoNit.Text = "Persona:";
             // 
             // valTipo
             // 
@@ -153,7 +154,7 @@
             this.dtpFHRegistro.Location = new System.Drawing.Point(121, 159);
             this.dtpFHRegistro.Name = "dtpFHRegistro";
             this.dtpFHRegistro.Size = new System.Drawing.Size(165, 26);
-            this.dtpFHRegistro.TabIndex = 6;
+            this.dtpFHRegistro.TabIndex = 2;
             // 
             // valTotal
             // 
@@ -233,7 +234,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(120, 316);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 32);
-            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.TabIndex = 6;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -258,11 +259,24 @@
             // 
             this.errNombre.ContainerControl = this;
             // 
+            // checkValidar
+            // 
+            this.checkValidar.AutoSize = true;
+            this.checkValidar.Checked = true;
+            this.checkValidar.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkValidar.Location = new System.Drawing.Point(12, 67);
+            this.checkValidar.Name = "checkValidar";
+            this.checkValidar.Size = new System.Drawing.Size(114, 17);
+            this.checkValidar.TabIndex = 7;
+            this.checkValidar.Text = "Filtro de validacion";
+            this.checkValidar.UseVisualStyleBackColor = true;
+            // 
             // FrmEgreso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(327, 360);
+            this.Controls.Add(this.checkValidar);
             this.Controls.Add(this.lblTextNoNit);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.valTipo);
@@ -321,5 +335,6 @@
         private System.Windows.Forms.ErrorProvider errConcepto;
         private System.Windows.Forms.ErrorProvider errFecha;
         private System.Windows.Forms.ErrorProvider errNombre;
+        private System.Windows.Forms.CheckBox checkValidar;
     }
 }

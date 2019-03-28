@@ -52,7 +52,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand cmdGetItemMensualidad = new MySqlCommand("select * from producto where Nombre='Mensualidad'", _con);
+                    MySqlCommand cmdGetItemMensualidad = new MySqlCommand("select * from producto where Nombre='Mensualidad' and Borrado='N'", _con);
                     MySqlDataReader _reader = cmdGetItemMensualidad.ExecuteReader();
                     while (_reader.Read())
                     {
@@ -85,7 +85,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from producto where Nombre!='Mensualidad' order by Id asc limit @pLimit", _con);
+                    MySqlCommand comando = new MySqlCommand("select * from producto where Nombre!='Mensualidad' and Borrado='N' order by Id asc limit @pLimit", _con);
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
                     MySqlDataReader _reader = comando.ExecuteReader();
                     while (_reader.Read())
@@ -153,7 +153,6 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-
         public static bool insertProducto(Producto item, Useremp pUser)
         {
             bool result = true;

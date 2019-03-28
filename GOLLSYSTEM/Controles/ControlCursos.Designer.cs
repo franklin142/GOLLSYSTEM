@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAnularCurso = new System.Windows.Forms.Button();
             this.dgvCursos = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,7 +61,7 @@
             this.btnAnularCurso.Location = new System.Drawing.Point(19, 421);
             this.btnAnularCurso.Name = "btnAnularCurso";
             this.btnAnularCurso.Size = new System.Drawing.Size(101, 26);
-            this.btnAnularCurso.TabIndex = 82;
+            this.btnAnularCurso.TabIndex = 5;
             this.btnAnularCurso.Text = "Anular Curso";
             this.btnAnularCurso.UseVisualStyleBackColor = false;
             this.btnAnularCurso.Click += new System.EventHandler(this.btnAnularCurso_Click);
@@ -76,14 +76,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCursos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCursos.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCursos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCursos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCursos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCursos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -148,7 +148,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(67, 68);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(217, 24);
-            this.txtBuscar.TabIndex = 70;
+            this.txtBuscar.TabIndex = 1;
             // 
             // lblBuscar
             // 
@@ -180,7 +180,7 @@
             this.btnEditarCurso.Location = new System.Drawing.Point(478, 419);
             this.btnEditarCurso.Name = "btnEditarCurso";
             this.btnEditarCurso.Size = new System.Drawing.Size(81, 27);
-            this.btnEditarCurso.TabIndex = 91;
+            this.btnEditarCurso.TabIndex = 4;
             this.btnEditarCurso.Text = "Editar";
             this.btnEditarCurso.UseVisualStyleBackColor = false;
             this.btnEditarCurso.Click += new System.EventHandler(this.btnEditarCurso_Click);
@@ -195,7 +195,7 @@
             this.btnNuevoCurso.Location = new System.Drawing.Point(565, 419);
             this.btnNuevoCurso.Name = "btnNuevoCurso";
             this.btnNuevoCurso.Size = new System.Drawing.Size(131, 27);
-            this.btnNuevoCurso.TabIndex = 90;
+            this.btnNuevoCurso.TabIndex = 3;
             this.btnNuevoCurso.Text = "Nuevo Curso";
             this.btnNuevoCurso.UseVisualStyleBackColor = false;
             this.btnNuevoCurso.Click += new System.EventHandler(this.btnNuevoCurso_Click);
@@ -221,7 +221,7 @@
             this.cbxYear.Location = new System.Drawing.Point(619, 68);
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
-            this.cbxYear.TabIndex = 98;
+            this.cbxYear.TabIndex = 2;
             // 
             // picHelp
             // 

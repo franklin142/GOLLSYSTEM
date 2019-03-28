@@ -44,9 +44,9 @@ namespace GOLLSYSTEM.Controles
                 cbxMonth.SelectedIndex = DateTime.Now.Month - 1;
                 cbxYear.SelectedIndex = 0;
 
-                Pages = rdbMontYear.Checked ? EgresoDAL.getIdsEgresosByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : EgresoDAL.getIdsEgresosNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
-                numPages = Pages.Count;
-                SetCurrentPage();
+                //Pages = rdbMontYear.Checked ? EgresoDAL.getIdsEgresosByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : EgresoDAL.getIdsEgresosNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                //numPages = Pages.Count;
+                //SetCurrentPage();
                 tmrTaskDgv.Start();
 
                 cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
@@ -95,7 +95,9 @@ namespace GOLLSYSTEM.Controles
 
         private void tmrTask_Tick(object sender, EventArgs e)
         {
-
+            Pages = rdbMontYear.Checked ? EgresoDAL.getIdsEgresosByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : EgresoDAL.getIdsEgresosNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            numPages = Pages.Count;
+            SetCurrentPage();
             FillDgv(GetListEgresos(listCurrentPage));
             tmrTaskDgv.Stop();
         }

@@ -29,6 +29,14 @@ namespace GOLLSYSTEM.Forms
             {
                 if (EditingObject != null)
                 {
+                    List<string> EgresosName = EgresoDAL.getNameEgresos(Inicio.CurrentSucursal.Id);
+                    AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+                    foreach (string name in EgresosName)
+                        collection.Add(name);
+                    txtNombre.AutoCompleteCustomSource = collection;
+                    txtNombre.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
                     txtNombre.Text = EditingObject.Nombre;
                     txtTipo.Text = EditingObject.Tipo;
                     txtTotal.Text = EditingObject.Total.ToString();
@@ -38,6 +46,14 @@ namespace GOLLSYSTEM.Forms
                 else
                 {
                     EditingObject = new Egreso();
+
+                    List<string> EgresosName = EgresoDAL.getNameEgresos(Inicio.CurrentSucursal.Id);
+                    AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
+                    foreach (string name in EgresosName)
+                        collection.Add(name);
+                    txtNombre.AutoCompleteCustomSource = collection;
+                    txtNombre.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    txtNombre.AutoCompleteSource = AutoCompleteSource.CustomSource;
                 }
             }
             catch (Exception ex)
@@ -90,32 +106,42 @@ namespace GOLLSYSTEM.Forms
             bool result = true;
             NewObject = new Egreso();
             txtTotal.Text = txtTotal.Text == "" || txtTotal.Text == "." || txtTotal.Text == "-0" ? "0.00" : txtTotal.Text;
-            if (!Validation.Validation.Val_StringsLength(txtNombre.Text, 5))
+            if (checkValidar.Checked)
             {
-                errNombre.SetError(txtNombre, "El nombre del egreso no tiene un formato adecuado,\npor favor ingrese un nombre con un minimo de 5 caracteres.");
-                valNombre.BackColor = Color.Red;
-                result = false;
+
+
+                if (!Validation.Validation.Val_StringsLength(txtNombre.Text, 3))
+                {
+                    errNombre.SetError(txtNombre, "El nombre del egreso no tiene un formato adecuado,\npor favor ingrese un nombre con un minimo de 3 caracteres.");
+                    valNombre.BackColor = Color.Red;
+                    result = false;
+                }
+                else
+                {
+                    valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                    errNombre.Clear();
+                    NewObject.Nombre = txtNombre.Text;
+
+                }
+
+                if (!Validation.Validation.Val_StringsLength(txtTipo.Text, 3))
+                {
+                    errTipo.SetError(txtTipo, "El tipo de egreso no tiene un formato adecuado,\npor favor ingrese una descripción con un minimo de 3 caracteres.");
+                    valTipo.BackColor = Color.Red;
+                    result = false;
+                }
+                else
+                {
+                    valTipo.BackColor = Color.FromArgb(0, 100, 182);
+                    errTipo.Clear();
+                    NewObject.Tipo = txtTipo.Text;
+
+                }
             }
             else
             {
-                valNombre.BackColor = Color.FromArgb(0, 100, 182);
-                errNombre.Clear();
                 NewObject.Nombre = txtNombre.Text;
-
-            }
-
-            if (!Validation.Validation.Val_StringsLength(txtTipo.Text, 5))
-            {
-                errTipo.SetError(txtTipo, "El tipo de egreso no tiene un formato adecuado,\npor favor ingrese una descripción con un minimo de 5 caracteres.");
-                valTipo.BackColor = Color.Red;
-                result = false;
-            }
-            else
-            {
-                valTipo.BackColor = Color.FromArgb(0, 100, 182);
-                errTipo.Clear();
                 NewObject.Tipo = txtTipo.Text;
-
             }
             if (Validation.Validation.Val_DecimalFormat(txtTotal.Text))
             {

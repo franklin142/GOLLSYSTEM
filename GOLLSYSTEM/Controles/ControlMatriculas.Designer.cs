@@ -66,7 +66,7 @@
             this.panel1.Location = new System.Drawing.Point(17, 95);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(294, 21);
-            this.panel1.TabIndex = 63;
+            this.panel1.TabIndex = 4;
             // 
             // rdbParametros
             // 
@@ -75,7 +75,7 @@
             this.rdbParametros.Location = new System.Drawing.Point(157, 3);
             this.rdbParametros.Name = "rdbParametros";
             this.rdbParametros.Size = new System.Drawing.Size(141, 17);
-            this.rdbParametros.TabIndex = 38;
+            this.rdbParametros.TabIndex = 2;
             this.rdbParametros.TabStop = true;
             this.rdbParametros.Text = "Curso y año selecciondo";
             this.rdbParametros.UseVisualStyleBackColor = true;
@@ -86,7 +86,7 @@
             this.rdbTodo.Location = new System.Drawing.Point(3, 3);
             this.rdbTodo.Name = "rdbTodo";
             this.rdbTodo.Size = new System.Drawing.Size(117, 17);
-            this.rdbTodo.TabIndex = 37;
+            this.rdbTodo.TabIndex = 1;
             this.rdbTodo.Text = "Todo los resultados";
             this.rdbTodo.UseVisualStyleBackColor = true;
             // 
@@ -118,7 +118,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(64, 66);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(217, 24);
-            this.txtBuscar.TabIndex = 56;
+            this.txtBuscar.TabIndex = 1;
             // 
             // lblBuscar
             // 
@@ -174,7 +174,7 @@
             this.btnDesertarAlumno.Location = new System.Drawing.Point(16, 419);
             this.btnDesertarAlumno.Name = "btnDesertarAlumno";
             this.btnDesertarAlumno.Size = new System.Drawing.Size(83, 26);
-            this.btnDesertarAlumno.TabIndex = 68;
+            this.btnDesertarAlumno.TabIndex = 7;
             this.btnDesertarAlumno.Text = "Desertar";
             this.btnDesertarAlumno.UseVisualStyleBackColor = false;
             this.btnDesertarAlumno.Click += new System.EventHandler(this.btnDesertarAlumno_Click);
@@ -268,7 +268,7 @@
             this.btnNuevaMatricula.Location = new System.Drawing.Point(577, 419);
             this.btnNuevaMatricula.Name = "btnNuevaMatricula";
             this.btnNuevaMatricula.Size = new System.Drawing.Size(116, 27);
-            this.btnNuevaMatricula.TabIndex = 88;
+            this.btnNuevaMatricula.TabIndex = 5;
             this.btnNuevaMatricula.Text = "Matricular";
             this.btnNuevaMatricula.UseVisualStyleBackColor = false;
             this.btnNuevaMatricula.Click += new System.EventHandler(this.btnNuevaMatricula_Click);
@@ -283,7 +283,7 @@
             this.btnEditarMatricula.Location = new System.Drawing.Point(490, 419);
             this.btnEditarMatricula.Name = "btnEditarMatricula";
             this.btnEditarMatricula.Size = new System.Drawing.Size(81, 26);
-            this.btnEditarMatricula.TabIndex = 89;
+            this.btnEditarMatricula.TabIndex = 6;
             this.btnEditarMatricula.Text = "Editar";
             this.btnEditarMatricula.UseVisualStyleBackColor = false;
             this.btnEditarMatricula.Click += new System.EventHandler(this.btnEditarMatricula_Click);
@@ -298,7 +298,7 @@
             this.cbxCursos.Location = new System.Drawing.Point(429, 66);
             this.cbxCursos.Name = "cbxCursos";
             this.cbxCursos.Size = new System.Drawing.Size(128, 24);
-            this.cbxCursos.TabIndex = 101;
+            this.cbxCursos.TabIndex = 2;
             this.cbxCursos.SelectedIndexChanged += new System.EventHandler(this.cbxCursos_SelectedIndexChanged);
             // 
             // cbxYear
@@ -311,7 +311,7 @@
             this.cbxYear.Location = new System.Drawing.Point(616, 66);
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
-            this.cbxYear.TabIndex = 100;
+            this.cbxYear.TabIndex = 3;
             this.cbxYear.SelectedIndexChanged += new System.EventHandler(this.cbxYear_SelectedIndexChanged);
             // 
             // tmrTaskDgv

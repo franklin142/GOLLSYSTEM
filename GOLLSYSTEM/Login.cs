@@ -34,6 +34,11 @@ namespace GOLLSYSTEM
                 proceso.StartInfo = startInfo;
                 proceso.Start();
                 processId = proceso.Id;
+                
+                proceso.Kill();
+
+                    
+                
             }
             catch (Exception ex)
             {
@@ -74,7 +79,7 @@ namespace GOLLSYSTEM
                 if (UserempDAL.getUseremp(txtLogin.Text, txtPass.Text) != null)
                 {
                     Inicio inicio = new Inicio();
-                    //Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
+                    Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
                     Inicio.CurrentSucursal = SucursalDAL.getSucursaloById(Inicio.CurrentUser.IdSucursal);
                     Inicio.CurrentYear = YearDAL.getCurrentYear();
                     Inicio.CurrentYear = YearDAL.getCurrentYear();

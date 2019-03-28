@@ -84,14 +84,7 @@ namespace GOLLSYSTEM
         private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
-            foreach (Process proceso in Process.GetProcesses())
-            {
-                if (proceso.Id == processId)
-                {
-                    proceso.Kill();
-
-                }
-            }
+            
         }
 
         private void lblOpc1_Click(object sender, EventArgs e)

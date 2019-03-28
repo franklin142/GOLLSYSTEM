@@ -49,6 +49,9 @@ namespace GOLLSYSTEM.Forms
                 if (opc == "updObject")
                 {
                     txtNombre.Text = CurrentObject.Nombre;
+                    btnAddLibro.Enabled = false;
+                    btnRemoveLibro.Enabled = false;
+
                     switch (CurrentObject.Publico)
                     {
                         case "Niños":

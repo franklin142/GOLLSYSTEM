@@ -128,7 +128,7 @@
             this.gbxICliente.Location = new System.Drawing.Point(18, 161);
             this.gbxICliente.Name = "gbxICliente";
             this.gbxICliente.Size = new System.Drawing.Size(621, 61);
-            this.gbxICliente.TabIndex = 4;
+            this.gbxICliente.TabIndex = 1;
             this.gbxICliente.TabStop = false;
             this.gbxICliente.Text = "Cliente";
             // 
@@ -159,7 +159,7 @@
             this.txtTelefono.Name = "txtTelefono";
             this.txtTelefono.ReadOnly = true;
             this.txtTelefono.Size = new System.Drawing.Size(99, 20);
-            this.txtTelefono.TabIndex = 33;
+            this.txtTelefono.TabIndex = 1;
             // 
             // btnBuscarCliente
             // 
@@ -170,7 +170,7 @@
             this.btnBuscarCliente.Location = new System.Drawing.Point(526, 21);
             this.btnBuscarCliente.Name = "btnBuscarCliente";
             this.btnBuscarCliente.Size = new System.Drawing.Size(85, 27);
-            this.btnBuscarCliente.TabIndex = 20;
+            this.btnBuscarCliente.TabIndex = 2;
             this.btnBuscarCliente.Text = "Buscar";
             this.btnBuscarCliente.UseVisualStyleBackColor = false;
             this.btnBuscarCliente.Click += new System.EventHandler(this.btnBuscarCliente_Click);
@@ -196,13 +196,14 @@
             // 
             this.txtNombre.BackColor = System.Drawing.SystemColors.Control;
             this.txtNombre.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtNombre.Enabled = false;
             this.txtNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNombre.ForeColor = System.Drawing.SystemColors.MenuText;
             this.txtNombre.Location = new System.Drawing.Point(78, 22);
             this.txtNombre.Name = "txtNombre";
             this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(236, 20);
-            this.txtNombre.TabIndex = 1;
+            this.txtNombre.TabIndex = 3;
             // 
             // btnCancelar
             // 
@@ -213,7 +214,7 @@
             this.btnCancelar.Location = new System.Drawing.Point(463, 469);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 29);
-            this.btnCancelar.TabIndex = 10;
+            this.btnCancelar.TabIndex = 4;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
@@ -227,7 +228,7 @@
             this.btnGuardar.Location = new System.Drawing.Point(558, 469);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(81, 29);
-            this.btnGuardar.TabIndex = 9;
+            this.btnGuardar.TabIndex = 3;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
@@ -241,7 +242,7 @@
             this.gbxAgregar.Location = new System.Drawing.Point(18, 233);
             this.gbxAgregar.Name = "gbxAgregar";
             this.gbxAgregar.Size = new System.Drawing.Size(621, 61);
-            this.gbxAgregar.TabIndex = 36;
+            this.gbxAgregar.TabIndex = 2;
             this.gbxAgregar.TabStop = false;
             this.gbxAgregar.Text = "Agregar";
             // 
@@ -254,7 +255,7 @@
             this.btnContado.Location = new System.Drawing.Point(125, 21);
             this.btnContado.Name = "btnContado";
             this.btnContado.Size = new System.Drawing.Size(134, 27);
-            this.btnContado.TabIndex = 24;
+            this.btnContado.TabIndex = 2;
             this.btnContado.Text = "Producto/Servicio";
             this.btnContado.UseVisualStyleBackColor = false;
             this.btnContado.Click += new System.EventHandler(this.btnContado_Click);
@@ -268,7 +269,7 @@
             this.btnCancelacion.Location = new System.Drawing.Point(265, 21);
             this.btnCancelacion.Name = "btnCancelacion";
             this.btnCancelacion.Size = new System.Drawing.Size(101, 27);
-            this.btnCancelacion.TabIndex = 23;
+            this.btnCancelacion.TabIndex = 3;
             this.btnCancelacion.Text = "Cancelación";
             this.btnCancelacion.UseVisualStyleBackColor = false;
             this.btnCancelacion.Click += new System.EventHandler(this.btnCancelacion_Click);
@@ -282,7 +283,7 @@
             this.btnMesualidad.Location = new System.Drawing.Point(18, 21);
             this.btnMesualidad.Name = "btnMesualidad";
             this.btnMesualidad.Size = new System.Drawing.Size(101, 27);
-            this.btnMesualidad.TabIndex = 21;
+            this.btnMesualidad.TabIndex = 1;
             this.btnMesualidad.Text = "Mensualidad";
             this.btnMesualidad.UseVisualStyleBackColor = false;
             this.btnMesualidad.Click += new System.EventHandler(this.btnMesualidad_Click);

@@ -12,6 +12,7 @@ using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
 using System.Threading;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -65,7 +66,7 @@ namespace GOLLSYSTEM.Controles
                 frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
                 MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-           
+
         }
         private void FillDgv(List<Factura> lista)
         {
@@ -134,11 +135,24 @@ namespace GOLLSYSTEM.Controles
         }
         private void cbxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtCurrentIndex.Text = "1";
-            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
-            numPages = Pages.Count;
-            SetCurrentPage();
-            tmrTaskDgv.Start();
+            try
+            {
+                txtCurrentIndex.Text = "1";
+                Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                numPages = Pages.Count;
+                SetCurrentPage();
+                tmrTaskDgv.Start();
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de ingresos sin parametros");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de ingresos sin parametros, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void tmrTask_Tick(object sender, EventArgs e)
@@ -214,7 +228,7 @@ namespace GOLLSYSTEM.Controles
                 {
                     if (MessageBox.Show("¿Esta seguro que desea anular esta factura? si lo hace, tambien se anularan los pagos que se le allan cobrado al cliente. Este ingreso ya no aparecerá en los resgistros.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value,true, Inicio.CurrentUser))
+                        if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value, true, Inicio.CurrentUser))
                         {
                             MessageBox.Show("La factura ha sido anulada correctamente, los calculos se reiniciarán automaticamente.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
@@ -228,7 +242,7 @@ namespace GOLLSYSTEM.Controles
                 {
                     if (MessageBox.Show("¿Esta seguro que desea anular esta factura? si lo hace, este ingreso ya no aparecerá en los resgistros.", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value,false, Inicio.CurrentUser))
+                        if (FacturaDAL.anularFactura((Int64)dgvIngresos.CurrentRow.Cells[0].Value, false, Inicio.CurrentUser))
                         {
                             MessageBox.Show("La factura ha sido anulada correctamente, los calculos se reiniciarán automaticamente.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
@@ -238,7 +252,7 @@ namespace GOLLSYSTEM.Controles
                         }
                     }
                 }
-                
+
         }
 
         private void dgvIngresos_DoubleClick(object sender, EventArgs e)
@@ -249,6 +263,40 @@ namespace GOLLSYSTEM.Controles
                 factura.EditingObject = FacturaDAL.getFacturaById((Int64)dgvIngresos.CurrentRow.Cells[0].Value);
                 factura.ShowDialog();
             }
+        }
+
+        private void picExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll";
+                string fileName = (cbxYear.SelectedItem as Year).Desde + "_" + cbxMonth.SelectedItem.ToString() + ".xlsx";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                if (frmManager.generateExcel(FacturaDAL.getFacturasSemanas(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id)
+                    , EgresoDAL.getEgresosSemanas(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id),
+                    folderName, fileName,
+                    Convert.ToInt32((cbxYear.SelectedItem as Year).Desde),
+                    Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2019").Month))
+                {
+                    MessageBox.Show("La hoja de calculo ha sido generada en la carpeta " + "\"Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll\"" + " en Documentos.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Cursor = Cursors.Arrow;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "El archivo de excel del mes de " + Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2019").ToString("MMMM", new CultureInfo("es-ES")) + " esta siendo usado por otro programa.");
+                MessageBox.Show("El archivo de excel del mes de " + Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2019").ToString("MMMM", new CultureInfo("es-ES")) + " esta siendo usado por otro programa.", "Error al generar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor = Cursors.Arrow;
+
+            }
+
         }
     }
 }

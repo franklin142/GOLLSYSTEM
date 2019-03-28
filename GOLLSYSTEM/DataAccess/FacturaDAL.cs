@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GOLLSYSTEM.EntityLayer;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace GOLLSYSTEM.DataAccess
 {
@@ -230,7 +231,7 @@ namespace GOLLSYSTEM.DataAccess
                         " right join factura as f on f.Id=df.IdFactura right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
                         "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
                         "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
-                        ") and ( and f.IdSucursal=@pIdSucursal) and f.Estado='C' order by f.NFactura desc limit @pNumber1,@pNumber2", _con);
+                        ") and (f.IdSucursal=@pIdSucursal) and f.Estado='C' order by f.NFactura desc limit @pNumber1,@pNumber2", _con);
                     comando.Parameters.AddWithValue("@pNumber1", pNumber1);
                     comando.Parameters.AddWithValue("@pNumber2", pNumber2);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
@@ -318,6 +319,101 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
+        public static List<List<List<Factura>>> getFacturasSemanas(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal)
+        {
+            List<Factura> lista = new List<Factura>();
+            List<List<List<Factura>>> semanasList = new List<List<List<Factura>>>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select distinct f.* from producto as prod right join detfactura as df on df.IdProducto=prod.Id " +
+                        " right join factura as f on f.Id=df.IdFactura right join persona as per on per.Id=f.IdPersona where (per.Nombre like '%" + pText + "%' or " +
+                        "prod.Nombre like '%" + pText + "%' or df.Concepto like '%" + pText + "%' or df.Total like '%" + pText + "%' or " +
+                        "f.Total like '%" + pText + "%' or f.Observacion or f.NFactura like '%" + pText + "%'" +
+                        ") and (YEAR(f.FhRegistro)=@pYear and MONTH(f.FhRegistro)=@pMonth and f.IdSucursal=@pIdSucursal) and f.Estado='C' order by f.NFactura desc", _con);
+                    comando.Parameters.AddWithValue("@pYear", pYear);
+                    comando.Parameters.AddWithValue("@pMonth", pMonth);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+
+
+                    while (_reader.Read())
+                    {
+                        Factura item = new Factura(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetDecimal(4),
+                            _reader.GetString(5),
+                            _reader.GetInt64(6),
+                            _reader.GetInt64(7),
+                            DetFacturaDAL.getDetsfacturaByIdFactura(_reader.GetInt64(0))
+                            );
+
+                        lista.Add(item);
+
+                    }
+
+                    DateTime date1 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth), 1);
+                    DateTime date2 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth) + 1, 1).AddDays(-1);
+                    List<List<int>> semanasArray = new List<List<int>>();
+                    semanasArray.Add(new List<int>());
+                    int currentWeek = 0;
+                    for (int i =0;i<date2.Day;i++)
+                    {
+                        if (new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth), date1.Day+i).ToString("dddd",new CultureInfo("es-ES")).ToLower()=="domingo")
+                        {
+                            semanasArray[currentWeek].Add(i+1);
+                            semanasArray.Add(new List<int>());
+                            currentWeek++;
+                        }
+                        else
+                        {
+                            semanasArray[currentWeek].Add(i + 1);
+                        }
+                    }
+                    if (semanasArray.Last().Count==0)
+                    {
+                        semanasArray.Remove(semanasArray.Last());
+                    }
+
+                    int daymonth = 1;
+
+                    for (int s =0;s<semanasArray.Count;s++)
+                    {
+                        semanasList.Add(new List<List<Factura>>());
+                        for (int d=0;d<semanasArray[s].Count; d++)
+                        {
+                            semanasList[s].Add(new List<Factura>());
+                            foreach (Factura fact in lista.Where(a => Convert.ToDateTime(a.FhRegistro).Day == daymonth))
+                            {
+                                semanasList[s][d].Add(fact);
+                            }
+                            daymonth++;
+
+                        }
+
+                    }
+
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+             return semanasList;
+        }
+
         public static Factura insertFactura(Factura item, Useremp pUser)
         {
             bool result = true;
@@ -540,7 +636,7 @@ namespace GOLLSYSTEM.DataAccess
                             if (det.Tipo == "M")
                             {
                                 MySqlCommand cmdUpdateCuota = new MySqlCommand("update cuota set Total=(Total-@pTotal) where Id=@pId ", _con, _trans);
-                                cmdUpdateCuota.Parameters.AddWithValue("@pTotal", det.Total-det.Descuento);
+                                cmdUpdateCuota.Parameters.AddWithValue("@pTotal", det.Total - det.Descuento);
                                 cmdUpdateCuota.Parameters.AddWithValue("@pId", det.Matricdetfac.IdCuota);
 
                                 if (cmdUpdateCuota.ExecuteNonQuery() <= 0)

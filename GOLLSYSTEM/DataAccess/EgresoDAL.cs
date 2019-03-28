@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GOLLSYSTEM.EntityLayer;
 using MySql.Data.MySqlClient;
+using System.Globalization;
 
 namespace GOLLSYSTEM.DataAccess
 {
@@ -247,6 +248,36 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
+        public static List<string> getNameEgresos(Int64 pIdSucursal)
+        {
+            List<string> lista = new List<string>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select distinct Nombre from egreso where IdSucursal=@pIdSucursal order by Nombre desc ", _con);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        lista.Add(_reader.GetString(0));
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+
         public static List<Egreso> getEgresosIndexerParametro(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal, Int64 pNumber1, Int64 pNumber2)
         {
             List<Egreso> lista = new List<Egreso>();
@@ -293,6 +324,109 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
+        public static List<List<List<Egreso>>> getEgresosSemanas(Int64 pYear, string pMonth, string pText, Int64 pIdSucursal)
+        {
+            List<Egreso> lista = new List<Egreso>();
+            List<List<List<Egreso>>> semanasList = new List<List<List<Egreso>>>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select * from egreso where (Upper(Nombre) like '%" + pText.ToUpper() + "%' or Upper(Tipo) like '%" + pText.ToUpper() +
+                        "%') and (YEAR(FhRegistro)=@pYear and MONTH(FhRegistro)=@pMonth and IdSucursal=@pIdSucursal) and Estado='C' order by Id desc", _con);
+                    comando.Parameters.AddWithValue("@pYear", pYear);
+                    comando.Parameters.AddWithValue("@pMonth", pMonth);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+
+
+                    while (_reader.Read())
+                    {
+                        Egreso item = new Egreso(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetDecimal(4),
+                            _reader.GetString(5),
+                            _reader.GetInt64(6)
+                            );
+
+                        lista.Add(item);
+
+                    }
+
+                    DateTime date1 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth), 1);
+                    DateTime date2 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth) + 1, 1).AddDays(-1);
+                    List<List<int>> semanasArray = new List<List<int>>();
+                    semanasArray.Add(new List<int>());
+                    int currentWeek = 0;
+                    for (int i = 0; i < date2.Day; i++)
+                    {
+                        if (new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth), date1.Day + i).ToString("dddd", new CultureInfo("es-ES")).ToLower() == "domingo")
+                        {
+                            semanasArray[currentWeek].Add(i + 1);
+                            semanasArray.Add(new List<int>());
+                            currentWeek++;
+                        }
+                        else
+                        {
+                            semanasArray[currentWeek].Add(i + 1);
+                        }
+                    }
+                    if (semanasArray.Last().Count == 0)
+                    {
+                        semanasArray.Remove(semanasArray.Last());
+                    }
+                    int daymonth = 1;
+                    for (int s = 0; s < semanasArray.Count; s++)
+                    {
+                        semanasList.Add(new List<List<Egreso>>());
+                        for (int d = 0; d < semanasArray[s].Count; d++)
+                        {
+                            semanasList[s].Add(new List<Egreso>());
+                            foreach (Egreso fact in lista.Where(a => Convert.ToDateTime(a.FhRegistro).Day == daymonth))
+                            {
+                                semanasList[s][d].Add(fact);
+                            }
+                            daymonth++;
+
+                        }
+
+                    }
+
+                    /*int semanas = Convert.ToInt32(Math.Truncate((decimal)date2.Day / 7));
+                    for (int i = 0; i < semanas; i++)
+                    {
+                        semanasList.Add(new List<List<Factura>>());
+                        for (int d = i*7; d <((i + 1) * 7);d++)
+                        {
+                            semanasList[i].Add(new List<Factura>());
+                            foreach (Factura fact in lista.Where(a => Convert.ToDateTime(a.FhRegistro).Day == d+1))
+                            {
+                                semanasList[i][(((d+1)-(i*7))-1)].Add(fact);
+                            }
+                        }
+                       
+                    }*/
+
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return semanasList;
+        }
+
         public static bool insertEgreso(Egreso item, Useremp pUser)
         {
             bool result = true;

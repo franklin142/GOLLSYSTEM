@@ -84,7 +84,7 @@
             this.btnAnularEgreso.Location = new System.Drawing.Point(491, 422);
             this.btnAnularEgreso.Name = "btnAnularEgreso";
             this.btnAnularEgreso.Size = new System.Drawing.Size(83, 26);
-            this.btnAnularEgreso.TabIndex = 82;
+            this.btnAnularEgreso.TabIndex = 7;
             this.btnAnularEgreso.Text = "Anular";
             this.btnAnularEgreso.UseVisualStyleBackColor = false;
             this.btnAnularEgreso.Click += new System.EventHandler(this.btnAnularEgreso_Click);
@@ -128,7 +128,7 @@
             this.dgvEgresos.RowTemplate.Height = 30;
             this.dgvEgresos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvEgresos.Size = new System.Drawing.Size(677, 264);
-            this.dgvEgresos.TabIndex = 80;
+            this.dgvEgresos.TabIndex = 8;
             this.dgvEgresos.DoubleClick += new System.EventHandler(this.dgvEgresos_DoubleClick);
             // 
             // id
@@ -206,7 +206,7 @@
             this.txtBuscar.Location = new System.Drawing.Point(67, 68);
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(217, 24);
-            this.txtBuscar.TabIndex = 70;
+            this.txtBuscar.TabIndex = 1;
             // 
             // lblBuscar
             // 
@@ -225,7 +225,7 @@
             this.rdbMontYear.Location = new System.Drawing.Point(157, 3);
             this.rdbMontYear.Name = "rdbMontYear";
             this.rdbMontYear.Size = new System.Drawing.Size(134, 17);
-            this.rdbMontYear.TabIndex = 38;
+            this.rdbMontYear.TabIndex = 2;
             this.rdbMontYear.TabStop = true;
             this.rdbMontYear.Text = "Año y mes selecciondo";
             this.rdbMontYear.UseVisualStyleBackColor = true;
@@ -236,7 +236,7 @@
             this.rdbTodo.Location = new System.Drawing.Point(3, 3);
             this.rdbTodo.Name = "rdbTodo";
             this.rdbTodo.Size = new System.Drawing.Size(117, 17);
-            this.rdbTodo.TabIndex = 37;
+            this.rdbTodo.TabIndex = 1;
             this.rdbTodo.Text = "Todo los resultados";
             this.rdbTodo.UseVisualStyleBackColor = true;
             // 
@@ -247,7 +247,7 @@
             this.panel1.Location = new System.Drawing.Point(20, 97);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(294, 21);
-            this.panel1.TabIndex = 77;
+            this.panel1.TabIndex = 4;
             // 
             // lblTiltulo
             // 
@@ -280,7 +280,7 @@
             this.btnNuevoEgreso.Location = new System.Drawing.Point(580, 422);
             this.btnNuevoEgreso.Name = "btnNuevoEgreso";
             this.btnNuevoEgreso.Size = new System.Drawing.Size(116, 27);
-            this.btnNuevoEgreso.TabIndex = 87;
+            this.btnNuevoEgreso.TabIndex = 6;
             this.btnNuevoEgreso.Text = "Nuevo Egreso";
             this.btnNuevoEgreso.UseVisualStyleBackColor = false;
             this.btnNuevoEgreso.Click += new System.EventHandler(this.btnNuevoEgreso_Click);
@@ -295,7 +295,7 @@
             this.cbxYear.Location = new System.Drawing.Point(467, 69);
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
-            this.cbxYear.TabIndex = 98;
+            this.cbxYear.TabIndex = 2;
             // 
             // cbxMonth
             // 
@@ -307,7 +307,7 @@
             this.cbxMonth.Location = new System.Drawing.Point(619, 70);
             this.cbxMonth.Name = "cbxMonth";
             this.cbxMonth.Size = new System.Drawing.Size(77, 24);
-            this.cbxMonth.TabIndex = 99;
+            this.cbxMonth.TabIndex = 3;
             // 
             // flowLayoutPanel1
             // 
@@ -425,7 +425,7 @@
             this.pnlIndexer.Location = new System.Drawing.Point(537, 390);
             this.pnlIndexer.Name = "pnlIndexer";
             this.pnlIndexer.Size = new System.Drawing.Size(159, 26);
-            this.pnlIndexer.TabIndex = 104;
+            this.pnlIndexer.TabIndex = 5;
             // 
             // lknInicio
             // 
@@ -436,7 +436,7 @@
             this.lknInicio.Location = new System.Drawing.Point(7, 5);
             this.lknInicio.Name = "lknInicio";
             this.lknInicio.Size = new System.Drawing.Size(45, 18);
-            this.lknInicio.TabIndex = 67;
+            this.lknInicio.TabIndex = 4;
             this.lknInicio.TabStop = true;
             this.lknInicio.Text = "Inicio";
             this.lknInicio.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknInicio_LinkClicked);
@@ -463,7 +463,7 @@
             this.lknBack.Location = new System.Drawing.Point(49, 3);
             this.lknBack.Name = "lknBack";
             this.lknBack.Size = new System.Drawing.Size(18, 18);
-            this.lknBack.TabIndex = 70;
+            this.lknBack.TabIndex = 3;
             this.lknBack.TabStop = true;
             this.lknBack.Text = "<";
             this.lknBack.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknBack_LinkClicked);
@@ -477,7 +477,7 @@
             this.lknNext.Location = new System.Drawing.Point(104, 3);
             this.lknNext.Name = "lknNext";
             this.lknNext.Size = new System.Drawing.Size(18, 18);
-            this.lknNext.TabIndex = 69;
+            this.lknNext.TabIndex = 1;
             this.lknNext.TabStop = true;
             this.lknNext.Text = ">";
             this.lknNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknNext_LinkClicked);
@@ -491,7 +491,7 @@
             this.lknFin.Location = new System.Drawing.Point(126, 5);
             this.lknFin.Name = "lknFin";
             this.lknFin.Size = new System.Drawing.Size(29, 18);
-            this.lknFin.TabIndex = 68;
+            this.lknFin.TabIndex = 2;
             this.lknFin.TabStop = true;
             this.lknFin.Text = "Fin";
             this.lknFin.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknFin_LinkClicked);

@@ -61,9 +61,9 @@ namespace GOLLSYSTEM.Forms
         {
             bool result = true;
             NewObject = new Producto();
-            if (!Validation.Validation.Val_StringsLength(txtNombre.Text, 5))
+            if (!Validation.Validation.Val_StringsLength(txtNombre.Text, 4))
             {
-                errNombre.SetError(txtPrecio, "El nombre del producto esta vacio, este valor es obligatorio.");
+                errNombre.SetError(txtNombre, "El nombre del producto esta vacio o tiene menos de 4 caracteres, este valor es obligatorio.");
                 valNombre.BackColor = Color.Red;
                 result = false;
             }
