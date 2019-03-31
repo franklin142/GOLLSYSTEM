@@ -46,7 +46,7 @@
             this.lblBuscar = new System.Windows.Forms.Label();
             this.rdbMontYear = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlParametro = new System.Windows.Forms.Panel();
             this.lblTiltulo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -72,7 +72,7 @@
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.picExcel = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlParametro.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlIndexer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
@@ -157,14 +157,14 @@
             // 
             // fhregistro
             // 
-            this.fhregistro.FillWeight = 47.47208F;
+            this.fhregistro.FillWeight = 55F;
             this.fhregistro.HeaderText = "Fecha";
             this.fhregistro.Name = "fhregistro";
             this.fhregistro.ReadOnly = true;
             // 
             // persona
             // 
-            this.persona.FillWeight = 83.07614F;
+            this.persona.FillWeight = 78F;
             this.persona.HeaderText = "Cliente";
             this.persona.Name = "persona";
             this.persona.ReadOnly = true;
@@ -239,14 +239,14 @@
             this.rdbTodo.Text = "Todo los resultados";
             this.rdbTodo.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // pnlParametro
             // 
-            this.panel1.Controls.Add(this.rdbMontYear);
-            this.panel1.Controls.Add(this.rdbTodo);
-            this.panel1.Location = new System.Drawing.Point(20, 97);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 21);
-            this.panel1.TabIndex = 4;
+            this.pnlParametro.Controls.Add(this.rdbMontYear);
+            this.pnlParametro.Controls.Add(this.rdbTodo);
+            this.pnlParametro.Location = new System.Drawing.Point(20, 97);
+            this.pnlParametro.Name = "pnlParametro";
+            this.pnlParametro.Size = new System.Drawing.Size(294, 21);
+            this.pnlParametro.TabIndex = 4;
             // 
             // lblTiltulo
             // 
@@ -567,15 +567,15 @@
             this.Controls.Add(this.icUpdate);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlParametro);
             this.Controls.Add(this.lblTiltulo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ControlIngresos";
             this.Text = "ControlIngresos";
             this.Load += new System.EventHandler(this.ControlIngresos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlParametro.ResumeLayout(false);
+            this.pnlParametro.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.pnlIndexer.ResumeLayout(false);
@@ -597,7 +597,7 @@
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.RadioButton rdbMontYear;
         private System.Windows.Forms.RadioButton rdbTodo;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlParametro;
         private System.Windows.Forms.Label lblTiltulo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -619,6 +619,7 @@
         private System.Windows.Forms.LinkLabel lknBack;
         private System.Windows.Forms.LinkLabel lknNext;
         private System.Windows.Forms.LinkLabel lknFin;
+        private System.Windows.Forms.PictureBox picExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn nfactura;
         private System.Windows.Forms.DataGridViewTextBoxColumn fhregistro;
@@ -627,6 +628,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
-        private System.Windows.Forms.PictureBox picExcel;
     }
 }

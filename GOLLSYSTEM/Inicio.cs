@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GOLLSYSTEM.EntityLayer;
 using System.Reflection;
+using GOLLSYSTEM.DataAccess;
+using System.Globalization;
 
 namespace GOLLSYSTEM
 {
@@ -33,6 +35,8 @@ namespace GOLLSYSTEM
             {
                 OpenForm(new Controles.ControlMatriculas());
                 selectOpc(opc1);
+                usuarioToolStripMenuItem.Text = Inicio.CurrentUser.Contrato.Empleado.Persona.Nombre;
+                usuarioToolStripMenuItem.Text = Inicio.CurrentUser.Rol;
             }
             catch (Exception ex)
             {
@@ -129,6 +133,76 @@ namespace GOLLSYSTEM
             Configuraciones.Configuraciones configs = new Configuraciones.Configuraciones();
             configs.user = Inicio.CurrentUser;
             configs.ShowDialog();
+        }
+
+        private void exportarEgresosIngresosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor = Cursors.WaitCursor;
+                DateTime date = YearDAL.getServerDate();
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Contabilidad_" + Convert.ToInt32(date.ToString("yyyy")) + "_Goll";
+                string fileName = date.ToString("yyyy") + "_" + date.ToString("MMMM", new CultureInfo("es-ES")) + ".xlsx";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                if (frmManager.generateExcel(FacturaDAL.getFacturasSemanas(Convert.ToInt64(date.ToString("yyyy")), date.ToString("MM"), Validation.Validation.Val_Injection(""), Inicio.CurrentSucursal.Id)
+                    , EgresoDAL.getEgresosSemanas(Convert.ToInt64(date.ToString("yyyy")),date.ToString("MM"), Validation.Validation.Val_Injection(""), Inicio.CurrentSucursal.Id),
+                    folderName, fileName,
+                    Convert.ToInt32(date.ToString("yyyy")),
+                    date.Month))
+                {
+                    MessageBox.Show("La hoja de calculo ha sido generada en la carpeta " + "\"Contabilidad_" + (date.ToString("yyyy")) + "_Goll\"" + " en Documentos.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Cursor = Cursors.Arrow;
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Error al generar la salida de datos o el archivo excel esta siendo usado por otro programa.");
+                MessageBox.Show("Error al generar la salida de datos o el archivo excel esta siendo usado por otro programa.", "Error al generar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Cursor = Cursors.Arrow;
+
+            }
+        }
+
+        private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void minimizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        private void cerrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ingresosDelMesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Controles.ControlIngresos ingresos = new Controles.ControlIngresos();
+            ingresos.ingresoMes = 1;
+            ingresos.ShowDialog();
+        }
+
+        private void egresosDelMesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Controles.ControlEgresos egresos = new Controles.ControlEgresos();
+            egresos.egresoMes = 1;
+            egresos.ShowDialog();
+        }
+
+        private void backupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuraciones.Configuraciones configs= new Configuraciones.Configuraciones();
+            configs.currentForm = new Configuraciones.Backup();
+            configs.ShowDialog();
+            configs.Dispose();
         }
     }
 }

@@ -34,14 +34,14 @@ namespace GOLLSYSTEM.Configuraciones
                         opcDataBase.Enabled = true;
                         opcDataBase.Visible = true;
 
-                      // opcMisDatos.Enabled = true;
-                      // opcMisDatos.Visible = true;
+                        opcMisDatos.Enabled = true;
+                        opcMisDatos.Visible = true;
 
-                      // opcRespaldo.Enabled = true;
-                      // opcRespaldo.Visible = true;
+                        opcRespaldo.Enabled = true;
+                        opcRespaldo.Visible = true;
 
-                      // opcRestaurar.Enabled = true;
-                      // opcRestaurar.Visible = true;
+                        opcRestaurar.Enabled = true;
+                        opcRestaurar.Visible = true;
                         break;
                     case "Secretario/a":
                         opcMisDatos.Enabled = true;

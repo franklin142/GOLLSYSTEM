@@ -35,6 +35,8 @@
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.opcDataBase = new System.Windows.Forms.Panel();
             this.btnBaseDatos = new System.Windows.Forms.Button();
@@ -50,9 +52,9 @@
             this.pnlContent = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.opcDataBase.SuspendLayout();
             this.opcUsuarios.SuspendLayout();
@@ -60,8 +62,6 @@
             this.opcRespaldo.SuspendLayout();
             this.opcRestaurar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridViewTextBoxColumn1
@@ -112,6 +112,28 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(171, 534);
             this.panel2.TabIndex = 115;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
+            this.pictureBox2.Image = global::GOLLSYSTEM.Properties.Resources.settings;
+            this.pictureBox2.Location = new System.Drawing.Point(8, 2);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(160, 147);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 2;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
+            this.pictureBox3.Image = global::GOLLSYSTEM.Properties.Resources.Goll_Logo;
+            this.pictureBox3.Location = new System.Drawing.Point(3, 480);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(99, 51);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 2;
+            this.pictureBox3.TabStop = false;
             // 
             // flowLayoutPanel1
             // 
@@ -211,7 +233,7 @@
             this.btnMisDatos.ForeColor = System.Drawing.Color.White;
             this.btnMisDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnMisDatos.Image")));
             this.btnMisDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMisDatos.Location = new System.Drawing.Point(-10, -5);
+            this.btnMisDatos.Location = new System.Drawing.Point(-11, -5);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(183, 60);
             this.btnMisDatos.TabIndex = 8;
@@ -243,7 +265,7 @@
             this.btnRespaldo.ForeColor = System.Drawing.Color.White;
             this.btnRespaldo.Image = global::GOLLSYSTEM.Properties.Resources.database32x32;
             this.btnRespaldo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRespaldo.Location = new System.Drawing.Point(1, -5);
+            this.btnRespaldo.Location = new System.Drawing.Point(0, -5);
             this.btnRespaldo.Name = "btnRespaldo";
             this.btnRespaldo.Size = new System.Drawing.Size(172, 60);
             this.btnRespaldo.TabIndex = 8;
@@ -325,28 +347,6 @@
             this.lblTitle.TabIndex = 112;
             this.lblTitle.Text = "Configuraciones de Goll System";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
-            this.pictureBox2.Image = global::GOLLSYSTEM.Properties.Resources.settings;
-            this.pictureBox2.Location = new System.Drawing.Point(8, 2);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(160, 147);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 2;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
-            this.pictureBox3.Image = global::GOLLSYSTEM.Properties.Resources.Goll_Logo;
-            this.pictureBox3.Location = new System.Drawing.Point(3, 480);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(99, 51);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-            // 
             // Configuraciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -358,10 +358,15 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.lblTitle);
             this.ForeColor = System.Drawing.Color.DimGray;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Configuraciones";
             this.Text = "Configuraciones";
             this.Load += new System.EventHandler(this.ControlConfiguraciones_Load);
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.opcDataBase.ResumeLayout(false);
             this.opcUsuarios.ResumeLayout(false);
@@ -369,8 +374,6 @@
             this.opcRespaldo.ResumeLayout(false);
             this.opcRestaurar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -36,9 +36,6 @@ namespace GOLLSYSTEM
                 processId = proceso.Id;
                 
                 proceso.Kill();
-
-                    
-                
             }
             catch (Exception ex)
             {

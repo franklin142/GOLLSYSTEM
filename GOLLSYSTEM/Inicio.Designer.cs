@@ -44,13 +44,6 @@
             this.gestionarUsuariosDelSistemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.eliminarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.registrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.datosDeAlumnoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.datosDeEncargadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.horariosDeUnCursoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ingresosDelMesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,7 +125,6 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownArchivo,
-            this.toolStripDropDownButton1,
             this.toolStripDropDownButton2,
             this.toolStripDropDownButton3,
             this.toolStripDropDownButton5,
@@ -212,6 +204,7 @@
             this.exportarEgresosIngresosToolStripMenuItem.Name = "exportarEgresosIngresosToolStripMenuItem";
             this.exportarEgresosIngresosToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.exportarEgresosIngresosToolStripMenuItem.Text = "Exportar Egresos/Ingresos";
+            this.exportarEgresosIngresosToolStripMenuItem.Click += new System.EventHandler(this.exportarEgresosIngresosToolStripMenuItem_Click);
             // 
             // gestionarUsuariosDelSistemaToolStripMenuItem
             // 
@@ -229,59 +222,6 @@
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.salirToolStripMenuItem.Text = "Salir";
-            // 
-            // toolStripDropDownButton1
-            // 
-            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.eliminarToolStripMenuItem,
-            this.copiarToolStripMenuItem,
-            this.registrosToolStripMenuItem});
-            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
-            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(50, 22);
-            this.toolStripDropDownButton1.Text = "Editar";
-            // 
-            // eliminarToolStripMenuItem
-            // 
-            this.eliminarToolStripMenuItem.Name = "eliminarToolStripMenuItem";
-            this.eliminarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.eliminarToolStripMenuItem.Text = "Eliminar";
-            // 
-            // copiarToolStripMenuItem
-            // 
-            this.copiarToolStripMenuItem.Name = "copiarToolStripMenuItem";
-            this.copiarToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.copiarToolStripMenuItem.Text = "Copiar";
-            // 
-            // registrosToolStripMenuItem
-            // 
-            this.registrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.datosDeAlumnoToolStripMenuItem,
-            this.datosDeEncargadoToolStripMenuItem,
-            this.horariosDeUnCursoToolStripMenuItem});
-            this.registrosToolStripMenuItem.Name = "registrosToolStripMenuItem";
-            this.registrosToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.registrosToolStripMenuItem.Text = "Modificar registros";
-            // 
-            // datosDeAlumnoToolStripMenuItem
-            // 
-            this.datosDeAlumnoToolStripMenuItem.Name = "datosDeAlumnoToolStripMenuItem";
-            this.datosDeAlumnoToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.datosDeAlumnoToolStripMenuItem.Text = "Datos de alumno";
-            // 
-            // datosDeEncargadoToolStripMenuItem
-            // 
-            this.datosDeEncargadoToolStripMenuItem.Name = "datosDeEncargadoToolStripMenuItem";
-            this.datosDeEncargadoToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.datosDeEncargadoToolStripMenuItem.Text = "Datos de encargado";
-            // 
-            // horariosDeUnCursoToolStripMenuItem
-            // 
-            this.horariosDeUnCursoToolStripMenuItem.Name = "horariosDeUnCursoToolStripMenuItem";
-            this.horariosDeUnCursoToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.horariosDeUnCursoToolStripMenuItem.Text = "Horarios de un curso";
             // 
             // toolStripDropDownButton2
             // 
@@ -301,30 +241,32 @@
             // reportesToolStripMenuItem
             // 
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.reportesToolStripMenuItem.Text = "Reportes";
             // 
             // ingresosDelMesToolStripMenuItem
             // 
             this.ingresosDelMesToolStripMenuItem.Name = "ingresosDelMesToolStripMenuItem";
-            this.ingresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.ingresosDelMesToolStripMenuItem.Text = "Ingresos del mes";
+            this.ingresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.ingresosDelMesToolStripMenuItem.Text = "Ingresos del mes actual";
+            this.ingresosDelMesToolStripMenuItem.Click += new System.EventHandler(this.ingresosDelMesToolStripMenuItem_Click);
             // 
             // egresosDelMesToolStripMenuItem
             // 
             this.egresosDelMesToolStripMenuItem.Name = "egresosDelMesToolStripMenuItem";
-            this.egresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.egresosDelMesToolStripMenuItem.Text = "Egresos del mes";
+            this.egresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.egresosDelMesToolStripMenuItem.Text = "Egresos del mes actual";
+            this.egresosDelMesToolStripMenuItem.Click += new System.EventHandler(this.egresosDelMesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(194, 6);
             // 
             // estudiantesConMoraToolStripMenuItem
             // 
             this.estudiantesConMoraToolStripMenuItem.Name = "estudiantesConMoraToolStripMenuItem";
-            this.estudiantesConMoraToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.estudiantesConMoraToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.estudiantesConMoraToolStripMenuItem.Text = "Estudiantes con mora";
             // 
             // toolStripDropDownButton3
@@ -344,6 +286,7 @@
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
             this.backupToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.backupToolStripMenuItem.Text = "Backup";
+            this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
             // 
             // configuracionesToolStripMenuItem
             // 
@@ -373,18 +316,21 @@
             this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
             this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
+            this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStripMenuItem_Click);
             // 
             // minimizarToolStripMenuItem
             // 
             this.minimizarToolStripMenuItem.Name = "minimizarToolStripMenuItem";
             this.minimizarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.minimizarToolStripMenuItem.Text = "Minimizar";
+            this.minimizarToolStripMenuItem.Click += new System.EventHandler(this.minimizarToolStripMenuItem_Click);
             // 
             // cerrarToolStripMenuItem
             // 
             this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
             this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.cerrarToolStripMenuItem.Text = "Cerrar";
+            this.cerrarToolStripMenuItem.Click += new System.EventHandler(this.cerrarToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -759,6 +705,7 @@
             this.Controls.Add(this.pnlContent);
             this.Controls.Add(this.pnlMenu);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(950, 554);
             this.Name = "Inicio";
             this.Text = "Inicio";
@@ -803,7 +750,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownArchivo;
-        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton3;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton4;
@@ -815,7 +761,6 @@
         private System.Windows.Forms.ToolStripMenuItem reportesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem backupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem configuracionesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem eliminarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ingresosDelMesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem egresosDelMesToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
@@ -831,7 +776,6 @@
         private System.Windows.Forms.ToolStripMenuItem gestionarUsuariosDelSistemaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copiarToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton5;
         private System.Windows.Forms.ToolStripMenuItem maximizarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem minimizarToolStripMenuItem;
@@ -862,10 +806,6 @@
         private System.Windows.Forms.Label lblOpc6;
         private System.Windows.Forms.PictureBox picOpc6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ToolStripMenuItem registrosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem datosDeAlumnoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem datosDeEncargadoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem horariosDeUnCursoToolStripMenuItem;
         private System.Windows.Forms.Timer tmrGcCollector;
     }
 }

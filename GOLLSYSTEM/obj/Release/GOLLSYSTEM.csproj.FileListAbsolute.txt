@@ -50,3 +50,4 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Release\GOLLSYSTEM.Pro
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Release\GOLLSYSTEM.csproj.GenerateResource.Cache
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Release\GOLLSYSTEM.exe
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Release\GOLLSYSTEM.pdb
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Release\GOLLSYSTEM.csprojResolveAssemblyReference.cache

@@ -268,6 +268,41 @@ namespace GOLLSYSTEM.DataAccess
             }
             return result;
         }
+        public static bool UpdateUserEmp(Useremp item)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+                    MySqlCommand cmdUpdateUserEmp = new MySqlCommand("update useremp set Pass=md5(@Pass) where Id=@Id", _con, _trans);
+                    cmdUpdateUserEmp.Parameters.AddWithValue("@Pass", item.Pass);
+                    cmdUpdateUserEmp.Parameters.AddWithValue("@Id", item.Id);
+
+                    if (cmdUpdateUserEmp.ExecuteNonQuery() <= 0)
+                    {
+                        result = false;
+                    }
+                    if (result)
+                        _trans.Commit();
+
+                }
+                catch (Exception ex)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw ex;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
 
     }
 }

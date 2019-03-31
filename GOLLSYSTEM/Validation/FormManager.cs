@@ -233,7 +233,6 @@ namespace GOLLSYSTEM.Validation
                             }
                         }
                     }
-
                     for (int d = 0; d < SemanaIngresos.Count; d++)
                     {
                         sl.SetCellValue("B3", new DateTime(pYear, pMonth, 1).ToString("MMMM", new CultureInfo("es-ES")).ToUpper());
@@ -278,6 +277,8 @@ namespace GOLLSYSTEM.Validation
                             sl.SetCellStyle(5 + prod, 3, styleProducto);
 
                         }
+                        sl.SetCellValue("C" + 5, "$" + Decimal.Round(lastTotalIngresos, 2));
+
                         //MessageBox.Show(new DateTime(2019,3,1).DayOfWeek.ToString());
                         decimal ingresoDia = 0;
                         List<Factura> ingresoInDiaSub = new List<Factura>();
@@ -315,13 +316,11 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellStyle((productosTable.Count + 6), 2, styleIndexes);
                     sl.SetRowHeight(productosTable.Count + 6, 30);
                     sl.SetCellStyle((productosTable.Count + 6), 3, styleTotalIngresos);
-                    sl.SetCellValue("C" + 5, "$" + Decimal.Round(lastTotalIngresos, 2));
                     sl.SetCellStyle(5, 3, styleDates);
                     sl.SetCellStyle((productosTable.Count + 5), 3, styleDates);
 
                     sl.SetCellValue("C" + (productosTable.Count + 6), "$" + Decimal.Round(totalSemana, 2));
 
-                    lastTotalIngresos = totalSemana;
                     //procesando egresos
 
                     sl.MergeWorksheetCells(3 + productosTable.Count + 5, 2, 3 + productosTable.Count + 5, SemanaIngresos.Count + 3, BorderStyleValues.Thin);
@@ -427,7 +426,7 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 9), 3, styleTotalEgresos);
                     sl.SetRowHeight((3 + productosTable.Count + ConceptosEgresos.Count + 9), 30);
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 9), "$" + Decimal.Round(totalSemanaEgr, 2));
-                    lastTotalEgresos = totalSemanaEgr;
+                    //lastTotalIngresos -= lastTotalEgresos;
                     //resumen 
                     sl.MergeWorksheetCells((3 + productosTable.Count + ConceptosEgresos.Count + 11), 2, (3 + productosTable.Count + ConceptosEgresos.Count + 11), 3 + SemanaEgresos.Count, BorderStyleValues.Thin);
                     sl.MergeWorksheetCells((3 + productosTable.Count + ConceptosEgresos.Count + 12), 3, (3 + productosTable.Count + ConceptosEgresos.Count + 12), 3 + SemanaEgresos.Count, BorderStyleValues.Thin);
@@ -447,7 +446,7 @@ namespace GOLLSYSTEM.Validation
 
                     sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 12), 3, styleTotalIngresos);
                     sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 13), 3, styleTotalEgresos);
-                    sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 14), 3, (totalSemana - totalSemanaEgr) == 0 ? styleDates : (totalSemana - totalSemanaEgr) < 0 ? styleTotalEgresos : styleTotalIngresos);
+                    sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 14), 3, (Decimal.Round((totalSemana - totalSemanaEgr) + (lastTotalIngresos), 2)) == 0 ? styleDates : (Decimal.Round((totalSemana - totalSemanaEgr) + (lastTotalIngresos), 2)) < 0 ? styleTotalEgresos : styleTotalIngresos);
 
                     sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 11), "RESUMEN FINAL DE SEMANA ENTREGADO AL ADMINISTRADOR");
                     sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "GASTOS");
@@ -456,7 +455,13 @@ namespace GOLLSYSTEM.Validation
 
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "$" + Decimal.Round(totalSemana, 2));
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 13), "$" + Decimal.Round(totalSemanaEgr, 2));
-                    sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 14), "$" + Decimal.Round(totalSemana - totalSemanaEgr, 2));
+                    sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 14), "$" + Decimal.Round((totalSemana - totalSemanaEgr)+(lastTotalIngresos), 2));
+
+                    lastTotalEgresos = totalSemanaEgr;
+                    lastTotalIngresos = totalSemana==0? lastTotalIngresos: (totalSemana - totalSemanaEgr) + (lastTotalIngresos);
+
+                   // lastTotalIngresos = totalSemana == 0? lastTotalIngresos:(lastTotalIngresos -= lastTotalEgresos);
+                   // MessageBox.Show(lastTotalIngresos.ToString());
 
                 }
 

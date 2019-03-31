@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cmbRol = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkActivo = new System.Windows.Forms.CheckBox();
             this.btnActualizar = new System.Windows.Forms.Button();
@@ -42,13 +41,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.txtRol = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.cmbRol);
+            this.groupBox1.Controls.Add(this.txtRol);
             this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.checkActivo);
             this.groupBox1.Controls.Add(this.btnActualizar);
@@ -72,16 +72,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de Usuario";
             // 
-            // cmbRol
-            // 
-            this.cmbRol.Enabled = false;
-            this.cmbRol.FormattingEnabled = true;
-            this.cmbRol.Location = new System.Drawing.Point(241, 102);
-            this.cmbRol.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbRol.Name = "cmbRol";
-            this.cmbRol.Size = new System.Drawing.Size(152, 23);
-            this.cmbRol.TabIndex = 32;
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -97,6 +87,7 @@
             // checkActivo
             // 
             this.checkActivo.AutoSize = true;
+            this.checkActivo.Enabled = false;
             this.checkActivo.Location = new System.Drawing.Point(241, 210);
             this.checkActivo.Margin = new System.Windows.Forms.Padding(2);
             this.checkActivo.Name = "checkActivo";
@@ -115,6 +106,7 @@
             this.btnActualizar.TabIndex = 28;
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // label6
             // 
@@ -140,6 +132,7 @@
             this.txtLogin.Location = new System.Drawing.Point(28, 102);
             this.txtLogin.Margin = new System.Windows.Forms.Padding(2);
             this.txtLogin.Name = "txtLogin";
+            this.txtLogin.ReadOnly = true;
             this.txtLogin.Size = new System.Drawing.Size(163, 21);
             this.txtLogin.TabIndex = 8;
             // 
@@ -158,6 +151,7 @@
             this.txtEmpleado.Location = new System.Drawing.Point(28, 54);
             this.txtEmpleado.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmpleado.Name = "txtEmpleado";
+            this.txtEmpleado.ReadOnly = true;
             this.txtEmpleado.Size = new System.Drawing.Size(365, 21);
             this.txtEmpleado.TabIndex = 5;
             // 
@@ -201,6 +195,15 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Contraseña";
             // 
+            // txtRol
+            // 
+            this.txtRol.Location = new System.Drawing.Point(241, 102);
+            this.txtRol.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRol.Name = "txtRol";
+            this.txtRol.ReadOnly = true;
+            this.txtRol.Size = new System.Drawing.Size(152, 21);
+            this.txtRol.TabIndex = 32;
+            // 
             // EdtUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,6 +214,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "EdtUsuario";
             this.Text = "EdtUsuario";
+            this.Load += new System.EventHandler(this.EdtUsuario_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -221,7 +225,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cmbRol;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox checkActivo;
         private System.Windows.Forms.Button btnActualizar;
@@ -234,5 +237,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtRol;
     }
 }

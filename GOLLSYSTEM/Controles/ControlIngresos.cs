@@ -19,7 +19,7 @@ namespace GOLLSYSTEM.Controles
     public partial class ControlIngresos : Form
     {
         public int pLimit = 25;
-
+        public int ingresoMes = 0;
         public int currentPage = 1;
         public int numPages = 0;
         public List<List<Int64>> Pages = new List<List<Int64>>();
@@ -55,7 +55,15 @@ namespace GOLLSYSTEM.Controles
                 cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
                 cbxYear.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
                 rdbMontYear.CheckedChanged += cbxMonth_SelectedIndexChanged;
-
+                if (ingresoMes == 1)
+                {
+                    pnlParametro.Enabled = false;
+                    pnlParametro.Visible = false;
+                    cbxMonth.Enabled = false;
+                    cbxYear.Enabled = false;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    lblTiltulo.Text = "Ingresos del mes de " + DateTime.Now.ToString("MMMM",new CultureInfo("es-ES"));
+                }
             }
             catch (Exception ex)
             {

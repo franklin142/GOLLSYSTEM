@@ -45,7 +45,7 @@
             this.lblBuscar = new System.Windows.Forms.Label();
             this.rdbMontYear = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlParametro = new System.Windows.Forms.Panel();
             this.lblTiltulo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnNuevoEgreso = new System.Windows.Forms.Button();
@@ -69,7 +69,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEgresos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pnlParametro.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlIndexer.SuspendLayout();
             this.SuspendLayout();
@@ -140,7 +140,7 @@
             // 
             // fecha
             // 
-            this.fecha.FillWeight = 40F;
+            this.fecha.FillWeight = 45F;
             this.fecha.HeaderText = "Fecha Registro";
             this.fecha.Name = "fecha";
             this.fecha.ReadOnly = true;
@@ -148,7 +148,7 @@
             // tipo
             // 
             this.tipo.FillWeight = 60F;
-            this.tipo.HeaderText = "Tipo de egreso";
+            this.tipo.HeaderText = "Persona";
             this.tipo.Name = "tipo";
             this.tipo.ReadOnly = true;
             // 
@@ -240,14 +240,14 @@
             this.rdbTodo.Text = "Todo los resultados";
             this.rdbTodo.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // pnlParametro
             // 
-            this.panel1.Controls.Add(this.rdbMontYear);
-            this.panel1.Controls.Add(this.rdbTodo);
-            this.panel1.Location = new System.Drawing.Point(20, 97);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(294, 21);
-            this.panel1.TabIndex = 4;
+            this.pnlParametro.Controls.Add(this.rdbMontYear);
+            this.pnlParametro.Controls.Add(this.rdbTodo);
+            this.pnlParametro.Location = new System.Drawing.Point(20, 97);
+            this.pnlParametro.Name = "pnlParametro";
+            this.pnlParametro.Size = new System.Drawing.Size(294, 21);
+            this.pnlParametro.TabIndex = 4;
             // 
             // lblTiltulo
             // 
@@ -518,7 +518,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlParametro);
             this.Controls.Add(this.lblTiltulo);
             this.Controls.Add(this.icUpdate);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -528,8 +528,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvEgresos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlParametro.ResumeLayout(false);
+            this.pnlParametro.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.pnlIndexer.ResumeLayout(false);
@@ -549,14 +549,9 @@
         private System.Windows.Forms.Label lblBuscar;
         private System.Windows.Forms.RadioButton rdbMontYear;
         private System.Windows.Forms.RadioButton rdbTodo;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlParametro;
         private System.Windows.Forms.Label lblTiltulo;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn total;
         private System.Windows.Forms.Button btnNuevoEgreso;
         private System.Windows.Forms.ComboBox cbxYear;
         private System.Windows.Forms.ComboBox cbxMonth;
@@ -575,5 +570,10 @@
         private System.Windows.Forms.LinkLabel lknNext;
         private System.Windows.Forms.LinkLabel lknFin;
         private System.Windows.Forms.Timer tmrTaskDgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn total;
     }
 }

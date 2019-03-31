@@ -11,12 +11,14 @@ using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Controles
 {
     public partial class ControlEgresos : Form
     {
         public int pLimit = 25;
+        public int egresoMes = 0;
         public int currentPage = 1;
         public int numPages = 0;
         public List<List<Int64>> Pages = new List<List<Int64>>();
@@ -31,6 +33,7 @@ namespace GOLLSYSTEM.Controles
         {
             try
             {
+                
                 cbxYear.DataSource = YearDAL.getYears(10000);
                 cbxYear.DisplayMember = "Desde";
                 cbxYear.ValueMember = "Id";
@@ -43,15 +46,21 @@ namespace GOLLSYSTEM.Controles
 
                 cbxMonth.SelectedIndex = DateTime.Now.Month - 1;
                 cbxYear.SelectedIndex = 0;
-
-                //Pages = rdbMontYear.Checked ? EgresoDAL.getIdsEgresosByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : EgresoDAL.getIdsEgresosNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
-                //numPages = Pages.Count;
-                //SetCurrentPage();
                 tmrTaskDgv.Start();
 
                 cbxMonth.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
                 cbxYear.SelectedIndexChanged += cbxMonth_SelectedIndexChanged;
                 rdbMontYear.CheckedChanged += cbxMonth_SelectedIndexChanged;
+                if (egresoMes==1)
+                {
+                    pnlParametro.Enabled = false;
+                    pnlParametro.Visible = false;
+                    cbxMonth.Enabled = false;
+                    cbxYear.Enabled = false;
+                    this.FormBorderStyle = FormBorderStyle.Sizable;
+                    lblTiltulo.Text = "Egresos del mes de " + DateTime.Now.ToString("MMMM", new CultureInfo("es-ES"));
+
+                }
             }
             catch (Exception ex)
             {

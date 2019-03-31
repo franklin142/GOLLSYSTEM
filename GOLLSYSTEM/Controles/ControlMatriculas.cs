@@ -133,10 +133,32 @@ namespace GOLLSYSTEM.Controles
 
         private void btnNuevaMatricula_Click(object sender, EventArgs e)
         {
-            FrmMatricula frmmatricula = new FrmMatricula();
-            frmmatricula.opc = "newObject";
-            frmmatricula.ShowDialog();
-            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de cursos de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información cursos de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            List<Curso> cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id,Inicio.CurrentYear);
+            if (cursos.Count>0)
+            {
+                FrmMatricula frmmatricula = new FrmMatricula();
+                frmmatricula.opc = "newObject";
+                frmmatricula.ShowDialog();
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+
+            }
+            else
+            {
+                MessageBox.Show("No hay cursos registrados en el año seleccionado, para matricular estudiantes primero debe registrar un curso.", "Alerta de validación", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
         }
 
         private void btnEditarMatricula_Click(object sender, EventArgs e)
