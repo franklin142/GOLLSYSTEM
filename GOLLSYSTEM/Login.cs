@@ -19,29 +19,12 @@ namespace GOLLSYSTEM
     public partial class Login : Form
     {
         public static Inicio inicio;
-        public static ProcessStartInfo startInfo = new ProcessStartInfo("C:\\xampp\\mysql_start.bat");
-        int processId = 0;
         public Login()
         {
             InitializeComponent();
         }
         private void Login_Load(object sender, EventArgs e)
         {
-            try
-            {
-                startInfo.WindowStyle = ProcessWindowStyle.Hidden;
-                Process proceso = new Process();
-                proceso.StartInfo = startInfo;
-                proceso.Start();
-                processId = proceso.Id;
-                
-                proceso.Kill();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-
             if (UserempDAL.testConexion())
             {
                 if (!UserempDAL.verificarUseremp())
@@ -80,7 +63,6 @@ namespace GOLLSYSTEM
                     Inicio.CurrentSucursal = SucursalDAL.getSucursaloById(Inicio.CurrentUser.IdSucursal);
                     Inicio.CurrentYear = YearDAL.getCurrentYear();
                     Inicio.CurrentYear = YearDAL.getCurrentYear();
-                    inicio.processId = processId;
                     inicio.Show();
                     this.Hide();
                 }
@@ -110,14 +92,7 @@ namespace GOLLSYSTEM
         }
         private void Login_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (Process proceso in Process.GetProcesses())
-            {
-                if (proceso.Id == processId)
-                {
-                    proceso.Kill();
-
-                }
-            }
+            
         }
         private void linkConexiones_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

@@ -97,4 +97,3 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.pdb
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\DocumentFormat.OpenXml.dll
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\SpreadsheetLight.dll
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\SpreadsheetLight.xml
-C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csprojResolveAssemblyReference.cache

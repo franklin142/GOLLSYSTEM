@@ -456,7 +456,7 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "$" + Decimal.Round(totalSemana, 2));
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 13), "$" + Decimal.Round(totalSemanaEgr, 2));
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 14), "$" + Decimal.Round((totalSemana - totalSemanaEgr)+(lastTotalIngresos), 2));
-
+                    
                     lastTotalEgresos = totalSemanaEgr;
                     lastTotalIngresos = totalSemana==0? lastTotalIngresos: (totalSemana - totalSemanaEgr) + (lastTotalIngresos);
 

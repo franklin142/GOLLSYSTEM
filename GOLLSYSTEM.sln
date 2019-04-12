@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GOLLSYSTEM", "GOLLSYSTEM\GOLLSYSTEM.csproj", "{9688AE5E-EFE6-46EF-8D26-DDBD3DAA004F}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GollInstaler", "GollInstaler\GollInstaler.vdproj", "{1CE7975F-9CDC-4A0F-92B7-54786526ED8F}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "GollInstaller", "GollInstaller\GollInstaller.vdproj", "{9750C373-7F62-4016-99C6-61DD1CB734C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,8 +17,8 @@ Global
 		{9688AE5E-EFE6-46EF-8D26-DDBD3DAA004F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9688AE5E-EFE6-46EF-8D26-DDBD3DAA004F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9688AE5E-EFE6-46EF-8D26-DDBD3DAA004F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CE7975F-9CDC-4A0F-92B7-54786526ED8F}.Debug|Any CPU.ActiveCfg = Debug
-		{1CE7975F-9CDC-4A0F-92B7-54786526ED8F}.Release|Any CPU.ActiveCfg = Release
+		{9750C373-7F62-4016-99C6-61DD1CB734C2}.Debug|Any CPU.ActiveCfg = Debug
+		{9750C373-7F62-4016-99C6-61DD1CB734C2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

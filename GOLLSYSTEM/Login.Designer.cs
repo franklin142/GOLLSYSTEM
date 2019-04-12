@@ -182,7 +182,6 @@
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(200, 20);
             this.txtPass.TabIndex = 2;
-            this.txtPass.Text = "123123";
             this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             this.txtPass.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 

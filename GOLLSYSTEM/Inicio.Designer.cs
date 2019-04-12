@@ -166,31 +166,31 @@
             // estudianteToolStripMenuItem
             // 
             this.estudianteToolStripMenuItem.Name = "estudianteToolStripMenuItem";
-            this.estudianteToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.estudianteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.estudianteToolStripMenuItem.Text = "Estudiante";
             // 
             // cursoToolStripMenuItem
             // 
             this.cursoToolStripMenuItem.Name = "cursoToolStripMenuItem";
-            this.cursoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.cursoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cursoToolStripMenuItem.Text = "Curso";
             // 
             // ingresoToolStripMenuItem
             // 
             this.ingresoToolStripMenuItem.Name = "ingresoToolStripMenuItem";
-            this.ingresoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.ingresoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ingresoToolStripMenuItem.Text = "Ingreso";
             // 
             // egresoToolStripMenuItem
             // 
             this.egresoToolStripMenuItem.Name = "egresoToolStripMenuItem";
-            this.egresoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.egresoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.egresoToolStripMenuItem.Text = "Egreso";
             // 
             // empleadoToolStripMenuItem
             // 
             this.empleadoToolStripMenuItem.Name = "empleadoToolStripMenuItem";
-            this.empleadoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
+            this.empleadoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.empleadoToolStripMenuItem.Text = "Empleado";
             // 
             // abrirToolStripMenuItem
@@ -211,6 +211,7 @@
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Name = "gestionarUsuariosDelSistemaToolStripMenuItem";
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Text = "Gestionar Usuarios del sistema";
+            this.gestionarUsuariosDelSistemaToolStripMenuItem.Click += new System.EventHandler(this.gestionarUsuariosDelSistemaToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -365,6 +366,7 @@
             this.manualDeUsuarioToolStripMenuItem.Name = "manualDeUsuarioToolStripMenuItem";
             this.manualDeUsuarioToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
+            this.manualDeUsuarioToolStripMenuItem.Click += new System.EventHandler(this.manualDeUsuarioToolStripMenuItem_Click);
             // 
             // pnlMenu
             // 

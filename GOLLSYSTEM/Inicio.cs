@@ -137,35 +137,7 @@ namespace GOLLSYSTEM
 
         private void exportarEgresosIngresosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Cursor = Cursors.WaitCursor;
-                DateTime date = YearDAL.getServerDate();
-                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Contabilidad_" + Convert.ToInt32(date.ToString("yyyy")) + "_Goll";
-                string fileName = date.ToString("yyyy") + "_" + date.ToString("MMMM", new CultureInfo("es-ES")) + ".xlsx";
-
-                Validation.FormManager frmManager = new Validation.FormManager();
-                if (frmManager.generateExcel(FacturaDAL.getFacturasSemanas(Convert.ToInt64(date.ToString("yyyy")), date.ToString("MM"), Validation.Validation.Val_Injection(""), Inicio.CurrentSucursal.Id)
-                    , EgresoDAL.getEgresosSemanas(Convert.ToInt64(date.ToString("yyyy")),date.ToString("MM"), Validation.Validation.Val_Injection(""), Inicio.CurrentSucursal.Id),
-                    folderName, fileName,
-                    Convert.ToInt32(date.ToString("yyyy")),
-                    date.Month))
-                {
-                    MessageBox.Show("La hoja de calculo ha sido generada en la carpeta " + "\"Contabilidad_" + (date.ToString("yyyy")) + "_Goll\"" + " en Documentos.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Cursor = Cursors.Arrow;
-                }
-            }
-            catch (Exception ex)
-            {
-                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                string fileName = "Exeptions_" + Name + ".txt";
-
-                Validation.FormManager frmManager = new Validation.FormManager();
-                frmManager.writeException(folderName, fileName, ex, "Error al generar la salida de datos o el archivo excel esta siendo usado por otro programa.");
-                MessageBox.Show("Error al generar la salida de datos o el archivo excel esta siendo usado por otro programa.", "Error al generar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Cursor = Cursors.Arrow;
-
-            }
+            MessageBox.Show("Función no disponible","Alerta",MessageBoxButtons.OK,MessageBoxIcon.Warning);
         }
 
         private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -203,6 +175,17 @@ namespace GOLLSYSTEM
             configs.currentForm = new Configuraciones.Backup();
             configs.ShowDialog();
             configs.Dispose();
+        }
+
+        private void gestionarUsuariosDelSistemaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Función no disponible", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+        }
+
+        private void manualDeUsuarioToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Función no disponible", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
