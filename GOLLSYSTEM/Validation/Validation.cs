@@ -52,9 +52,11 @@ namespace GOLLSYSTEM.Validation
             }
             foreach (string word in words)
             {
-                if (word.Trim().Length>=3)
+                if (word.Trim().Length>=2)
                 {
-                    result = new Regex(@"\A([a-zA-Z]{3,30})\Z").IsMatch(word.Trim());
+                    //result = new Regex(@"\A([a-zA-Z]{3,30})\Z").IsMatch(word.Trim());
+                    result = new Regex(@"\A([a-zA-Z]{2,30})\Z").IsMatch(word.Trim());
+
                     if (!result)
                     {
                         return false;
@@ -64,6 +66,11 @@ namespace GOLLSYSTEM.Validation
                 {
                     return false;
                 }
+
+            }
+            if (text.Trim().Length<3)
+            {
+                return false;
 
             }
             return result;

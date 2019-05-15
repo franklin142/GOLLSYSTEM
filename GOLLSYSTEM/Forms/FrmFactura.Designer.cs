@@ -61,7 +61,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblSucursal = new System.Windows.Forms.Label();
-            this.lblFHRegistro = new System.Windows.Forms.Label();
             this.lblNFactura = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
@@ -72,6 +71,7 @@
             this.errDetalles = new System.Windows.Forms.ErrorProvider(this.components);
             this.btnRemoveDetalle = new System.Windows.Forms.Button();
             this.valDetalles = new System.Windows.Forms.Panel();
+            this.dtpFhRegistro = new System.Windows.Forms.DateTimePicker();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             this.gbxICliente.SuspendLayout();
@@ -403,7 +403,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(168, 104);
+            this.label5.Location = new System.Drawing.Point(180, 104);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(60, 16);
             this.label5.TabIndex = 25;
@@ -412,20 +412,11 @@
             // lblSucursal
             // 
             this.lblSucursal.AutoSize = true;
-            this.lblSucursal.Location = new System.Drawing.Point(234, 104);
+            this.lblSucursal.Location = new System.Drawing.Point(246, 104);
             this.lblSucursal.Name = "lblSucursal";
             this.lblSucursal.Size = new System.Drawing.Size(92, 16);
             this.lblSucursal.TabIndex = 105;
             this.lblSucursal.Text = "Chalatenango";
-            // 
-            // lblFHRegistro
-            // 
-            this.lblFHRegistro.AutoSize = true;
-            this.lblFHRegistro.Location = new System.Drawing.Point(71, 105);
-            this.lblFHRegistro.Name = "lblFHRegistro";
-            this.lblFHRegistro.Size = new System.Drawing.Size(72, 16);
-            this.lblFHRegistro.TabIndex = 106;
-            this.lblFHRegistro.Text = "02-03-2019";
             // 
             // lblNFactura
             // 
@@ -515,11 +506,21 @@
             this.valDetalles.Size = new System.Drawing.Size(610, 2);
             this.valDetalles.TabIndex = 113;
             // 
+            // dtpFhRegistro
+            // 
+            this.dtpFhRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFhRegistro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFhRegistro.Location = new System.Drawing.Point(71, 100);
+            this.dtpFhRegistro.Name = "dtpFhRegistro";
+            this.dtpFhRegistro.Size = new System.Drawing.Size(88, 22);
+            this.dtpFhRegistro.TabIndex = 60;
+            // 
             // FrmFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 508);
+            this.Controls.Add(this.dtpFhRegistro);
             this.Controls.Add(this.btnRemoveDetalle);
             this.Controls.Add(this.valDetalles);
             this.Controls.Add(this.label8);
@@ -528,7 +529,6 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblNFactura);
-            this.Controls.Add(this.lblFHRegistro);
             this.Controls.Add(this.lblSucursal);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
@@ -588,7 +588,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblSucursal;
-        private System.Windows.Forms.Label lblFHRegistro;
         private System.Windows.Forms.Label lblNFactura;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label6;
@@ -607,5 +606,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn idproducto;
+        private System.Windows.Forms.DateTimePicker dtpFhRegistro;
     }
 }

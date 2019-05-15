@@ -279,7 +279,7 @@ namespace GOLLSYSTEM.Controles
             {
                 Cursor = Cursors.WaitCursor;
 
-                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll";
+                string folderName = Properties.Settings.Default.DocumentsPath + "\\Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll";
                 string fileName = (cbxYear.SelectedItem as Year).Desde + "_" + cbxMonth.SelectedItem.ToString() + ".xlsx";
 
                 Validation.FormManager frmManager = new Validation.FormManager();
@@ -289,7 +289,7 @@ namespace GOLLSYSTEM.Controles
                     Convert.ToInt32((cbxYear.SelectedItem as Year).Desde),
                     Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2019").Month))
                 {
-                    MessageBox.Show("La hoja de calculo ha sido generada en la carpeta " + "\"Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll\"" + " en Documentos.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("La hoja de calculo ha sido generada en la carpeta \""+ Properties.Settings.Default.DocumentsPath + "\\Contabilidad_" + Convert.ToInt32((cbxYear.SelectedItem as Year).Desde) + "_Goll\"" + ".", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Cursor = Cursors.Arrow;
                 }
             }

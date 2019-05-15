@@ -427,7 +427,8 @@ namespace GOLLSYSTEM.DataAccess
                     MySqlCommand cmdCorrelativoNfactura = new MySqlCommand("select CONCAT(DATE_FORMAT(CURRENT_DATE(), '%Y%m'),lpad(coalesce(max(FORMAT(CONVERT(SUBSTRING(NFactura,7),int),'####')+1),1),4,'0'))from factura where SUBSTRING(NFactura,1,6)=CONVERT(DATE_FORMAT(now(), '%Y%m'),char)", _con, _trans);
                     item.NFactura = Convert.ToString(cmdCorrelativoNfactura.ExecuteScalar());
 
-                    MySqlCommand cmdInsertFactura = new MySqlCommand("Insert into factura (Nfactura,Observacion,Total,Estado,IdPersona,IdSucursal) values (@Nfactura,@Observacion,@Total,@Estado,@IdPersona,@IdSucursal)", _con, _trans);
+                    MySqlCommand cmdInsertFactura = new MySqlCommand("Insert into factura (FhRegistro,Nfactura,Observacion,Total,Estado,IdPersona,IdSucursal) values (@FhRegistro,@Nfactura,@Observacion,@Total,@Estado,@IdPersona,@IdSucursal)", _con, _trans);
+                    cmdInsertFactura.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
                     cmdInsertFactura.Parameters.AddWithValue("@Nfactura", item.NFactura);
                     cmdInsertFactura.Parameters.AddWithValue("@Observacion", item.Observacion);
                     cmdInsertFactura.Parameters.AddWithValue("@Total", item.Total);

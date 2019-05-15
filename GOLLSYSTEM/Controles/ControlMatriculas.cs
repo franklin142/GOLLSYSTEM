@@ -74,6 +74,7 @@ namespace GOLLSYSTEM.Controles
         {
             dgvMatriculas.Rows.Clear();
             DateTime serverDate = YearDAL.getServerDate();
+            int students =1;
             foreach (Matricula obj in lista)
             {
                 String aldia = "Si";
@@ -117,12 +118,13 @@ namespace GOLLSYSTEM.Controles
                 }
                 dgvMatriculas.Rows.Add(
                 obj.Id,
-                obj.Estudiante.Persona.Nombre,
+                students+"-"+obj.Estudiante.Persona.Nombre,
                 obj.Estudiante.Telefono,
                 aldia,
                 pendientes,
                 proxima
                 );
+                students++;
             }
         }
 
@@ -204,6 +206,45 @@ namespace GOLLSYSTEM.Controles
         {
             FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), cbxYear.Items.Count == 0 ? 0 : (Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
             tmrTaskDgv.Stop();
+        }
+
+        private void lknSync_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("¿Esta seguro que desea sincronizar las cuotas para este curso seleccionado? Si lo hace se crearan cuotas a partir de la fecha de matricula de cada estudiante si llegase a faltar algun registro.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (cbxCursos.Items.Count > 0 && cbxYear.Items.Count > 0)
+                    {
+                        dgvMatriculas.Enabled = false;
+                        Cursor = Cursors.WaitCursor;
+                        if (CuotaDAL.syncCuotas((cbxCursos.SelectedItem as Curso).Id, Inicio.CurrentUser.Id))
+                        {
+                            MessageBox.Show("Las cuotas del curso seleccionado han sido sincronizadas exitosamente!!!.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), cbxYear.Items.Count == 0 ? 0 : (Int64)cbxYear.SelectedValue, cbxCursos.Items.Count == 0 ? 0 : (Int64)cbxCursos.SelectedValue) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+                            tmrTaskDgv.Stop();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ocurrrió un error inesperado al intentar sincronizar las cuotas del curso seleccionado.", "Operación erronea", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        dgvMatriculas.Enabled = true;
+
+                        Cursor = Cursors.Arrow;
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ocurrio un error inesperado al intentar registrar el egreso");
+                MessageBox.Show("Ocurrio un error inesperado al intentar sincronizar las cuotas, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvMatriculas.Enabled = true;
+                Cursor = Cursors.Arrow;
+            }
         }
     }
 }

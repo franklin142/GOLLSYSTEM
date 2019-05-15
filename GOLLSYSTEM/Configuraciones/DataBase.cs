@@ -71,6 +71,7 @@ namespace GOLLSYSTEM.Configuraciones
                     {
                         Properties.Settings.Default.DBPassword = txtDBPass.Text;
                     }
+                    Properties.Settings.Default.Save();
                     MessageBox.Show("Los datos ingresados han sido guardados exitosamente.", "Conexión y actualización satisfactorios", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.Close();
                 }

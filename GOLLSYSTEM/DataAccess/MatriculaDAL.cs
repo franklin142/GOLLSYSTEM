@@ -327,7 +327,8 @@ namespace GOLLSYSTEM.DataAccess
                     if (result)
                     {
 
-                        MySqlCommand cmdInsertMatricula = new MySqlCommand("Insert into matricula (Becado,DiaLimite,IdCurso,IdEstudiante) values (@Becado,@DiaLimite,@IdCurso,@IdEstudiante)", _con, _trans);
+                        MySqlCommand cmdInsertMatricula = new MySqlCommand("Insert into matricula (FhRegistro,Becado,DiaLimite,IdCurso,IdEstudiante) values (@FhRegistro,@Becado,@DiaLimite,@IdCurso,@IdEstudiante)", _con, _trans);
+                        cmdInsertMatricula.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
                         cmdInsertMatricula.Parameters.AddWithValue("@Becado", item.Becado);
                         cmdInsertMatricula.Parameters.AddWithValue("@DiaLimite", item.DiaLimite);
                         cmdInsertMatricula.Parameters.AddWithValue("@IdCurso", item.IdCurso);
@@ -414,7 +415,7 @@ namespace GOLLSYSTEM.DataAccess
                     for (int i =0;i<nCuotas;i++)
                     {
                         MySqlCommand cmdInsertCuota = new MySqlCommand("Insert into cuota (FhRegistro,Precio,Total,IdMatricula) values (@FhRegistro,@Precio,@Total,@IdMatricula)", _con, _trans);
-                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy")+"/"+date.AddMonths(i).ToString("MM")+"/"+item.DiaLimite);
+                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(date.AddMonths(i).ToString("MM") == "2" ? Convert.ToInt32(item.DiaLimite)>28?"28": item.DiaLimite : item.DiaLimite));
                         cmdInsertCuota.Parameters.AddWithValue("@Precio", Properties.Settings.Default.PrecioCuota);
                         cmdInsertCuota.Parameters.AddWithValue("@Total", "0.00");
                         cmdInsertCuota.Parameters.AddWithValue("@IdMatricula", item.Id);
@@ -500,8 +501,9 @@ namespace GOLLSYSTEM.DataAccess
                         result = false;
                     }
 
-                    MySqlCommand cmdUpdateMatricula = new MySqlCommand("update matricula set Becado=@Becado,DiaLimite=@DiaLimite,IdCurso=@IdCurso where Id=@Id", _con, _trans);
+                    MySqlCommand cmdUpdateMatricula = new MySqlCommand("update matricula set FhRegistro=@FhRegistro,Becado=@Becado,DiaLimite=@DiaLimite,IdCurso=@IdCurso where Id=@Id", _con, _trans);
                     cmdUpdateMatricula.Parameters.AddWithValue("@Id", item.Id);
+                    cmdUpdateMatricula.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
                     cmdUpdateMatricula.Parameters.AddWithValue("@Becado", item.Becado);
                     cmdUpdateMatricula.Parameters.AddWithValue("@DiaLimite", item.DiaLimite);
                     cmdUpdateMatricula.Parameters.AddWithValue("@IdCurso", item.IdCurso);

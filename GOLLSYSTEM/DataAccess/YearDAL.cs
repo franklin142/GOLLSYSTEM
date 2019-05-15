@@ -52,11 +52,11 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand cmdGetItemById = new MySqlCommand("select Now() as currentServerDate", _con);
+                    MySqlCommand cmdGetItemById = new MySqlCommand("select YEAR(Now()),MONTH(Now()),DAY(Now())", _con);
                     MySqlDataReader _reader = cmdGetItemById.ExecuteReader();
                     while (_reader.Read())
                     {
-                        item = _reader.GetDateTime(0);
+                        item = new DateTime(_reader.GetInt32(0), _reader.GetInt32(1), _reader.GetInt32(2));
 
                     }
                     _reader.Close();

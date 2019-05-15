@@ -42,7 +42,7 @@ namespace GOLLSYSTEM.Forms
                         cbxCurso.SelectedIndex = 0;
 
                         List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, cbxCurso.Items.Count==0?0:(Int64)cbxCurso.SelectedValue);
-                        foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
+                        foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
                         cbxEstudiante.DataSource = matriculas;
 
                         if (matriculas.Count != 0)
@@ -341,16 +341,6 @@ namespace GOLLSYSTEM.Forms
         {
             this.Close();
         }
-        private void cbxEstudiante_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ready && cbxEstudiante.SelectedValue != null)
-            {
-                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                FillDgv_Mensualidades(cuotas);
-                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0?(Int64)cbxEstudiante.SelectedValue:0);
-                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-            }
-        }
         private void txtAporte_Leave(object sender, EventArgs e)
         {
             txtAporte.Text = txtAporte.Text == "" || txtAporte.Text == "." || txtAporte.Text == "-0" ? "0.00" : txtAporte.Text;
@@ -452,20 +442,56 @@ namespace GOLLSYSTEM.Forms
                 valDescuento.BackColor = Color.Red;
             }
         }
+        private void cbxEstudiante_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ready && cbxEstudiante.Items.Count >0)
+            {
+                dgvProductos.Rows.Clear();
+                lblPrecio.Text = "$0.00";
+                txtAporte.Text = "0.00";
+                txtDescuento.Text = "0.00";
+                checkBecado.Checked = false;
+
+                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
+                FillDgv_Mensualidades(cuotas);
+                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0?(Int64)cbxEstudiante.SelectedValue:0);
+                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
+            }
+        }
         private void cbxCurso_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ready && cbxCurso.Items.Count != 0)
             {
                 ready = false;
                 List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
-                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
+                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
                 cbxEstudiante.DataSource = matriculas;
 
                 cbxEstudiante.DisplayMember = "NombreEstudiante";
                 cbxEstudiante.ValueMember = "Id";
-                checkBecado.Checked = matriculas != null ? matriculas[0].Becado == 1 : checkBecado.Checked;
-                ready = true;
-                cbxEstudiante.SelectedIndex = 0;
+                checkBecado.Checked = matriculas.Count>0 ? matriculas[0].Becado == 1 : checkBecado.Checked;
+                if (matriculas.Count > 0)
+                {
+                    ready = true;
+                    if (ready && cbxEstudiante.Items.Count > 0)
+                    {
+                        dgvProductos.Rows.Clear();
+                        lblPrecio.Text = "$0.00";
+                        txtAporte.Text = "0.00";
+                        txtDescuento.Text = "0.00";
+                        checkBecado.Checked = false;
+                        List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
+                        FillDgv_Mensualidades(cuotas);
+                        Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0);
+                        checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
+                    }
+                }
+                else
+                {
+                    dgvProductos.Rows.Clear();
+                    ready = true;
+                }
+
 
             }
         }
@@ -473,13 +499,14 @@ namespace GOLLSYSTEM.Forms
         {
             if (ready && cbxYear.SelectedValue != null)
             {
+                dgvProductos.Rows.Clear();
                 cbxCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
                 cbxCurso.DisplayMember = "Nombre";
                 cbxCurso.ValueMember = "Id";
                 cbxCurso.SelectedIndex = 0;
 
                 List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
-                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre + " " + obj.Estudiante.ApPaterno + " " + obj.Estudiante.ApMaterno;
+                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
                 cbxEstudiante.DataSource = matriculas;
 
                 cbxEstudiante.DisplayMember = "NombreEstudiante";

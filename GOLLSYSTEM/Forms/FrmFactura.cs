@@ -40,7 +40,7 @@ namespace GOLLSYSTEM.Forms
                     btnRemoveDetalle.Enabled = false;
                     txtNombre.Text = PersonaDAL.getPersonaById(EditingObject.IdPersona).Nombre;
                     txtTelefono.Text = "No Disponible";
-                    lblFHRegistro.Text = Convert.ToDateTime(EditingObject.FhRegistro).ToString("dd/MM/yyyy");
+                    dtpFhRegistro.Value = Convert.ToDateTime(EditingObject.FhRegistro);
                     lblSucursal.Text = SucursalDAL.getSucursaloById(EditingObject.IdSucursal).Nombre;
                     lblNFactura.Text = EditingObject.NFactura;
                     foreach (Detfactura det in EditingObject.DetsFactura)
@@ -59,7 +59,7 @@ namespace GOLLSYSTEM.Forms
                 {
                     EditingObject = new Factura();
                     EditingObject.DetsFactura = new List<Detfactura>();
-                    lblFHRegistro.Text = DateTime.Now.ToShortDateString();
+                    dtpFhRegistro.Value = DateTime.Now;
                     lblSucursal.Text = Inicio.CurrentSucursal.Nombre;
                     lblNFactura.Text = "Automático";
                 }
@@ -192,7 +192,7 @@ namespace GOLLSYSTEM.Forms
             bool result = true;
             NewObject = new Factura();
             NewObject.DetsFactura = new List<Detfactura>();
-
+            NewObject.FhRegistro = dtpFhRegistro.Value.ToString("yyyy/MM/dd");
             if (EditingObject.IdPersona == 0)
             {
                 errNombre.SetError(txtNombre, "No ha seleccionado ningun cliente,\npor favor seleccione uno ya que este campo es obligatorio.");

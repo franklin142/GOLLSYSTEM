@@ -9,10 +9,10 @@
       <Value Profile="(Default)">3306</Value>
     </Setting>
     <Setting Name="DBUser" Type="System.String" Scope="User">
-      <Value Profile="(Default)">root</Value>
+      <Value Profile="(Default)">golluser</Value>
     </Setting>
     <Setting Name="DBPassword" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">123123</Value>
     </Setting>
     <Setting Name="DBName" Type="System.String" Scope="User">
       <Value Profile="(Default)">golldatabase</Value>
@@ -31,6 +31,9 @@
     </Setting>
     <Setting Name="developerEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">franklingranados2@yahoo.com</Value>
+    </Setting>
+    <Setting Name="DocumentsPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

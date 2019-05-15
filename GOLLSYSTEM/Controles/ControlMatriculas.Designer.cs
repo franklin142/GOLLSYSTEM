@@ -53,6 +53,7 @@
             this.cbxCursos = new System.Windows.Forms.ComboBox();
             this.cbxYear = new System.Windows.Forms.ComboBox();
             this.tmrTaskDgv = new System.Windows.Forms.Timer(this.components);
+            this.lknSync = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
@@ -318,11 +319,23 @@
             // 
             this.tmrTaskDgv.Tick += new System.EventHandler(this.tmrTaskDgv_Tick);
             // 
+            // lknSync
+            // 
+            this.lknSync.AutoSize = true;
+            this.lknSync.Location = new System.Drawing.Point(440, 100);
+            this.lknSync.Name = "lknSync";
+            this.lknSync.Size = new System.Drawing.Size(253, 13);
+            this.lknSync.TabIndex = 106;
+            this.lknSync.TabStop = true;
+            this.lknSync.Text = "Sincronizar cuotas para los parametro seleccionado.";
+            this.lknSync.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lknSync_LinkClicked);
+            // 
             // ControlMatriculas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 460);
+            this.Controls.Add(this.lknSync);
             this.Controls.Add(this.cbxCursos);
             this.Controls.Add(this.cbxYear);
             this.Controls.Add(this.btnEditarMatricula);
@@ -376,5 +389,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pendientes;
         private System.Windows.Forms.DataGridViewTextBoxColumn fhproxima;
         private System.Windows.Forms.Timer tmrTaskDgv;
+        private System.Windows.Forms.LinkLabel lknSync;
     }
 }

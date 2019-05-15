@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -145,8 +146,7 @@ namespace GOLLSYSTEM.Validation
 
                 int row6PosY = 72, row6Cell0PosX = 10;
                 string concepto = "";
-                foreach (Detfactura det in currentFactura.DetsFactura) concepto += det.Producto.Nombre + (currentFactura.DetsFactura.Count > 1 ? currentFactura.DetsFactura.Last().Id == det.Id ? "." : ", " : ".");
-
+                foreach (Detfactura det in currentFactura.DetsFactura) concepto = concepto+(det.Producto.Nombre + (det.Tipo=="M"?Convert.ToDateTime(CuotaDAL.getCuotaById(det.Matricdetfac.IdCuota).FhRegistro).ToString("MMMM", new CultureInfo("es-ES")):"") + (currentFactura.DetsFactura.Count > 1 ? currentFactura.DetsFactura.Last().Id == det.Id ? "." : ", " : ".")+"");
                 e.Graphics.DrawString("EN CONCEPTO DE:  " + concepto.ToUpper(), font, brocha, row6Cell0PosX, row6PosY);
                 point1 = new Point(row6Cell0PosX + 32, row6PosY + 4);
                 point2 = new Point(190, row6PosY + 4);

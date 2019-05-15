@@ -49,7 +49,7 @@ namespace GOLLSYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("root")]
+        [global::System.Configuration.DefaultSettingValueAttribute("golluser")]
         public string DBUser {
             get {
                 return ((string)(this["DBUser"]));
@@ -61,7 +61,7 @@ namespace GOLLSYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("123123")]
         public string DBPassword {
             get {
                 return ((string)(this["DBPassword"]));
@@ -140,6 +140,18 @@ namespace GOLLSYSTEM.Properties {
             }
             set {
                 this["developerEmail"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DocumentsPath {
+            get {
+                return ((string)(this["DocumentsPath"]));
+            }
+            set {
+                this["DocumentsPath"] = value;
             }
         }
     }

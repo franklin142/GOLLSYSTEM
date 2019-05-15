@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using GOLLSYSTEM.DataAccess;
 using GOLLSYSTEM.EntityLayer;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -19,6 +20,7 @@ namespace GOLLSYSTEM.Forms
         public Matricula EditingObject;
         public Matricula NewObject;
         public string opc;
+        public bool ready = false;
         public FrmMatricula()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace GOLLSYSTEM.Forms
                 cmbCurso.DisplayMember = "Nombre";
                 cmbCurso.ValueMember = "Id";
                 cmbCurso.SelectedIndex = 0;
+
                 numDiaPago.Maximum = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
                 numDiaPago.Value = DateTime.Now.Day;
 
@@ -49,6 +52,8 @@ namespace GOLLSYSTEM.Forms
                         txtTelEmergencia.Text = EditingObject.Estudiante.TelEmergencia;
                         txtParentescoEmergencia.Text = EditingObject.Estudiante.ParentEmergencia;
 
+                        dtpFhRegistro.Value = Convert.ToDateTime(EditingObject.FhRegistro);
+
                         Detmatricula padre = EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault();
                         txtNombrePadre.Text = padre == null ? "" : padre.encargado.Persona.Nombre;
                         txtLugarTrabajoPadre.Text = padre == null ? "" : padre.encargado.LugarTrabajo;
@@ -64,14 +69,42 @@ namespace GOLLSYSTEM.Forms
                         txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.Trabajo;
 
                         for (int i = 0; i < cmbCurso.Items.Count; i++) cmbCurso.SelectedIndex = (cmbCurso.Items[i] as Curso).Id == EditingObject.IdCurso ? i : cmbCurso.SelectedIndex;
+
+                        dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
+                        dtpFhRegistro.MaxDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Hasta);
+
                         numDiaPago.Value = Convert.ToInt32(EditingObject.DiaLimite);
                         checkBecado.Checked = EditingObject.Becado == 1;
 
                         btnBuscarAlumno.Enabled = false;
                         btnClearAlumno.Enabled = false;
                         break;
-
+                    case "newObject":
+                        dtpFhRegistro.Value = DateTime.Now;
+                        break;
                     default: break;
+                }
+                ready = true;
+                if (ready && cmbCurso.Items.Count > 0)
+                {
+                    Curso curso = CursoDAL.getCursoById((Int64)cmbCurso.SelectedValue);
+                    lblTeacher.Text = curso.Contrato.Empleado.Persona.Nombre;
+                    lblDuracion.Text = Convert.ToDateTime(curso.Desde).ToString("dd \"de\" MMMM", new CultureInfo("es-ES")) + " hasta el " + Convert.ToDateTime(curso.Hasta).ToString("dd \"de\" MMMM", new CultureInfo("es-ES"));
+                    flpHorario.Controls.Clear();
+                    foreach (Dia dia in curso.Horario)
+                    {
+                        string horario = (dia.HEntrada + " a " + dia.HSalida);
+
+                        flpHorario.Controls.Add(new Label()
+                        {
+                            Text = dia.Nombre + " " + horario,
+                            AutoSize = true,
+                            Name = "lbl" + dia.Nombre + curso.Id
+                        });
+                    }
+                    dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
+                    dtpFhRegistro.MaxDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Hasta);
+                    
                 }
             }
             catch (Exception ex)
@@ -354,6 +387,7 @@ namespace GOLLSYSTEM.Forms
 
                 NewObject.Becado = checkBecado.Checked ? 1 : 0;
                 NewObject.Estudiante.Persona.FechaNac = dtpFechaNacEst.Value.ToString("yyyy/MM/dd");
+                NewObject.FhRegistro = dtpFhRegistro.Value.ToString("yyyy/MM/dd");
 
                 if (EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().Id == 0)
                 {
@@ -555,6 +589,7 @@ namespace GOLLSYSTEM.Forms
                     NewObject.IdEstudiante = EditingObject.Estudiante.Id;
 
                 }
+
                 validation = cmbCurso.SelectedItem != null && MatriculaDAL.countMatriculasByCurso((Int64)cmbCurso.SelectedValue) == Properties.Settings.Default.MaxEstudentsIn ?
                    setErrorMessage("Este curso ya tiene el limite de " + Properties.Settings.Default.MaxEstudentsIn + " de estudiantes inscritos\nSeleccione otro curso para poder continuar con la inscripcion.", errCurso, cmbCurso, valCurso, Color.Red) :
                    setErrorMessage(null, errCurso, cmbCurso, valCurso, Color.FromArgb(0, 100, 182));
@@ -569,7 +604,7 @@ namespace GOLLSYSTEM.Forms
 
                 NewObject.Becado = checkBecado.Checked ? 1 : 0;
                 NewObject.Estudiante.Persona.FechaNac = dtpFechaNacEst.Value.ToString("yyyy/MM/dd");
-
+                NewObject.FhRegistro = dtpFhRegistro.Value.ToString("yyyy/MM/dd");
                 if (EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().Id == 0)
                 {
                     if (txtNombrePadre.Text.Trim() == "" && txtTelefonoPadre.Text.Trim() == "" && txtLugarTrabajoPadre.Text.Trim() == "" && txtTrabajoPadre.Text.Trim() == "" && txtDireccionPadre.Text.Trim() == "")
@@ -950,6 +985,31 @@ namespace GOLLSYSTEM.Forms
                 {
 
                 }
+            }
+        }
+
+        private void cmbCurso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ready&&cmbCurso.Items.Count>0)
+            {
+                Curso curso = CursoDAL.getCursoById((Int64)cmbCurso.SelectedValue);
+                lblTeacher.Text = curso.Contrato.Empleado.Persona.Nombre;
+                lblDuracion.Text = Convert.ToDateTime(curso.Desde).ToString("dd \"de\" MMMM", new CultureInfo("es-ES")) + " hasta el " + Convert.ToDateTime(curso.Hasta).ToString("dd \"de\" MMMM", new CultureInfo("es-ES"));
+                flpHorario.Controls.Clear();
+                foreach (Dia dia in curso.Horario)
+                {
+                    string horario = (dia.HEntrada + " a " + dia.HSalida);
+
+                    flpHorario.Controls.Add(new Label()
+                    {
+                        Text = dia.Nombre + " " + horario,
+                        AutoSize=true,
+                        Name = "lbl" + dia.Nombre + curso.Id
+                    });
+                }
+                dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
+                dtpFhRegistro.MaxDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Hasta);
+                dtpFhRegistro.Value = Convert.ToDateTime(EditingObject.FhRegistro) < dtpFhRegistro.MinDate || Convert.ToDateTime(EditingObject.FhRegistro) > dtpFhRegistro.MaxDate ? dtpFhRegistro.Value : Convert.ToDateTime(EditingObject.FhRegistro);
             }
         }
     }

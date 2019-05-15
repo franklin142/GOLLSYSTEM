@@ -32,22 +32,39 @@ namespace GOLLSYSTEM.Validation
         }
         public void writeException(string folderName, string fileName, Exception ex, string extra)
         {
-            if (!Directory.Exists(folderName))
+            try
             {
-                DirectoryInfo di = Directory.CreateDirectory(folderName);
-                if (!System.IO.File.Exists(folderName + "\\" + fileName))
+                if (!Directory.Exists(folderName))
                 {
-                    using (StreamWriter mylogs = File.AppendText(folderName + "\\" + fileName))         //se crea el archivo
+                    DirectoryInfo di = Directory.CreateDirectory(folderName);
+                    if (!System.IO.File.Exists(folderName + "\\" + fileName))
                     {
-                        string strDate = Convert.ToDateTime(DateTime.Now).ToString("dd MMMM yyyy");
-                        mylogs.WriteLine("///////////////////////////////////////////////////////////////");
-                        mylogs.WriteLine("//\t\t\t" + strDate + "\t\t\t    //");
-                        mylogs.WriteLine("/////////////////////////////////////////////////////////////");
-                        mylogs.WriteLine(ex.ToString());
-                        mylogs.WriteLine("Extra:");
-                        mylogs.WriteLine(extra);
-                        mylogs.WriteLine("");
-                        mylogs.Close();
+                        using (StreamWriter mylogs = File.AppendText(folderName + "\\" + fileName))         //se crea el archivo
+                        {
+                            string strDate = Convert.ToDateTime(DateTime.Now).ToString("dd MMMM yyyy");
+                            mylogs.WriteLine("///////////////////////////////////////////////////////////////");
+                            mylogs.WriteLine("//\t\t\t" + strDate + "\t\t\t    //");
+                            mylogs.WriteLine("/////////////////////////////////////////////////////////////");
+                            mylogs.WriteLine(ex.ToString());
+                            mylogs.WriteLine("Extra:");
+                            mylogs.WriteLine(extra);
+                            mylogs.WriteLine("");
+                            mylogs.Close();
+                        }
+                    }
+                    else
+                    {
+                        using (StreamWriter file = new StreamWriter(folderName + "\\" + fileName, true))
+                        {
+                            string strDate = Convert.ToDateTime(DateTime.Now).ToString("dd MMMM yyyy");
+                            file.WriteLine("///////////////////////////////////////////////////////////////");
+                            file.WriteLine("//\t\t\t" + strDate + "\t\t\t    //");
+                            file.WriteLine("/////////////////////////////////////////////////////////////");
+                            file.WriteLine(ex.ToString());
+                            file.WriteLine("Extra:");
+                            file.WriteLine(extra);
+                            file.WriteLine(""); file.Close();
+                        }
                     }
                 }
                 else
@@ -62,25 +79,16 @@ namespace GOLLSYSTEM.Validation
                         file.WriteLine("Extra:");
                         file.WriteLine(extra);
                         file.WriteLine(""); file.Close();
+
+                        file.Close();
                     }
                 }
             }
-            else
+            catch (Exception)
             {
-                using (StreamWriter file = new StreamWriter(folderName + "\\" + fileName, true))
-                {
-                    string strDate = Convert.ToDateTime(DateTime.Now).ToString("dd MMMM yyyy");
-                    file.WriteLine("///////////////////////////////////////////////////////////////");
-                    file.WriteLine("//\t\t\t" + strDate + "\t\t\t    //");
-                    file.WriteLine("/////////////////////////////////////////////////////////////");
-                    file.WriteLine(ex.ToString());
-                    file.WriteLine("Extra:");
-                    file.WriteLine(extra);
-                    file.WriteLine(""); file.Close();
 
-                    file.Close();
-                }
             }
+           
         }
         public bool generateExcel(List<List<List<Factura>>> IngresoSemanas, List<List<List<Egreso>>> EgresoSemanas, string folderpath, string fileName, int pYear, int pMonth)
         {
@@ -214,7 +222,7 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellStyle(3, 2, styleIndexes);
                     sl.SetCellStyle(4, 2, styleIndexes);
 
-                    sl.SetCellValue("C3", "INGRESOS DE LA SEMANA PASADA");
+                    sl.SetCellValue("C3", "GANANCIAS DE LA SEMANA PASADA");
                     sl.SetCellStyle(3, 3, styleDates);
                     foreach (List<Factura> Dia in SemanaIngresos)
                     {
@@ -387,13 +395,14 @@ namespace GOLLSYSTEM.Validation
                             foreach (Egreso fact in egresoInDia)
                             {
                                 EgresoDia += (fact.Total);
-                                TotalEgresoDia += EgresoDia;
+                                TotalEgresoDia += fact.Total;
                                 totalSemanaEgr += (fact.Total);
+
                             }
                             sl.SetCellValue((3 + productosTable.Count + 8) + egr, dayWeek + 3, EgresoDia == 0 ? "" : "$" + Decimal.Round(EgresoDia, 2).ToString());
                             sl.SetCellStyle((3 + productosTable.Count + 8) + egr, 3, styleDiaIngreso);
                             sl.SetCellStyle((3 + productosTable.Count + 8) + egr, dayWeek + 3, styleDiaIngreso);
-
+                            
 
                         }
                         for (int p = 0; p < ConceptosEgresos.Count; p++)
@@ -403,7 +412,6 @@ namespace GOLLSYSTEM.Validation
 
                             sl.SetRowHeight(((3 + productosTable.Count + 8) + p), 30);
                         }
-
                         sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 8), dayWeek + 3, styleSubTotalEgresos);
                         sl.SetCellValue((3 + productosTable.Count + ConceptosEgresos.Count + 8), dayWeek + 3, "$" + Decimal.Round(TotalEgresoDia, 2).ToString());
 
@@ -449,8 +457,8 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellStyle((3 + productosTable.Count + ConceptosEgresos.Count + 14), 3, (Decimal.Round((totalSemana - totalSemanaEgr) + (lastTotalIngresos), 2)) == 0 ? styleDates : (Decimal.Round((totalSemana - totalSemanaEgr) + (lastTotalIngresos), 2)) < 0 ? styleTotalEgresos : styleTotalIngresos);
 
                     sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 11), "RESUMEN FINAL DE SEMANA ENTREGADO AL ADMINISTRADOR");
-                    sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "GASTOS");
-                    sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 13), "INGRESOS");
+                    sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "INGRESOS");
+                    sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 13), "GASTOS");
                     sl.SetCellValue("B" + (3 + productosTable.Count + ConceptosEgresos.Count + 14), "TOTAL");
 
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 12), "$" + Decimal.Round(totalSemana, 2));
@@ -458,10 +466,11 @@ namespace GOLLSYSTEM.Validation
                     sl.SetCellValue("C" + (3 + productosTable.Count + ConceptosEgresos.Count + 14), "$" + Decimal.Round((totalSemana - totalSemanaEgr)+(lastTotalIngresos), 2));
                     
                     lastTotalEgresos = totalSemanaEgr;
-                    lastTotalIngresos = totalSemana==0? lastTotalIngresos: (totalSemana - totalSemanaEgr) + (lastTotalIngresos);
+                    lastTotalIngresos = lastTotalIngresos + (totalSemana - totalSemanaEgr);
+                    //lastTotalIngresos = totalSemana==0? lastTotalIngresos: (totalSemana - totalSemanaEgr) + (lastTotalIngresos);
 
-                   // lastTotalIngresos = totalSemana == 0? lastTotalIngresos:(lastTotalIngresos -= lastTotalEgresos);
-                   // MessageBox.Show(lastTotalIngresos.ToString());
+                    // lastTotalIngresos = totalSemana == 0? lastTotalIngresos:(lastTotalIngresos -= lastTotalEgresos);
+                    // MessageBox.Show(lastTotalIngresos.ToString());
 
                 }
 

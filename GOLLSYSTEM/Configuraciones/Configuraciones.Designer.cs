@@ -343,9 +343,9 @@
             this.lblTitle.Location = new System.Drawing.Point(185, 21);
             this.lblTitle.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(431, 31);
+            this.lblTitle.Size = new System.Drawing.Size(584, 31);
             this.lblTitle.TabIndex = 112;
-            this.lblTitle.Text = "Configuraciones de Goll System";
+            this.lblTitle.Text = "Configuraciones de usuario y base de datos";
             // 
             // Configuraciones
             // 

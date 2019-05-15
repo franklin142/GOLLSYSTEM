@@ -12,6 +12,7 @@ using GOLLSYSTEM.DataAccess;
 using System.Drawing.Printing;
 using GOLLSYSTEM.Validation;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Forms
 {
@@ -169,7 +170,9 @@ namespace GOLLSYSTEM.Forms
                 e.PageSettings.Margins = new Margins(0, 0, 0, 0);
 
                 Pen blackPen = new Pen(Color.Black, (float)0.2);
-                Font font = new Font("Arial", 9, FontStyle.Regular);
+                Font fontNormal = new Font("Arial", 9, FontStyle.Regular);
+                Font fontSmall = new Font("Arial", 8, FontStyle.Regular);
+
                 Font fontBold = new Font("Arial", 9, FontStyle.Bold);
 
                 Brush brocha = Brushes.Black;
@@ -197,7 +200,7 @@ namespace GOLLSYSTEM.Forms
                 int row1PosY = 12, row1Cell0PosX = 10, row1Cell1PosX = 79, row1Cell2PosX = 167;
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.Goll_Logo_Black, row1Cell0PosX, row1PosY, 60, 24);
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.Logo_goll_center, row1Cell1PosX, row1PosY, 60, 18);
-                e.Graphics.DrawString("TEL.: " + GOLLSYSTEM.Properties.Settings.Default.Tel, font, brocha, row1Cell1PosX + 18, row1PosY + 20);
+                e.Graphics.DrawString("TEL.: " + GOLLSYSTEM.Properties.Settings.Default.Tel, fontSmall, brocha, row1Cell1PosX + 18, row1PosY + 15);
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.box_bill, row1Cell2PosX, row1PosY - 5, 38, 16);
 
                 //   e.Graphics.DrawRectangle(new Pen(Brushes.Black, 1f), Rectangle.FromLTRB(row1Cell2PosX, row1PosY, 205, 25));
@@ -208,10 +211,10 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 int row2PosY = 36, row2Cell0PosX = 8, row2Cell1PosX = 147;
-                e.Graphics.DrawString("RECIBO DE INGRESO", font, brocha, row2Cell0PosX, row2PosY);
+                e.Graphics.DrawString("RECIBO DE INGRESO", fontNormal, brocha, row2Cell0PosX, row2PosY);
                 decimal total = 0;
                 foreach (Detfactura det in currentFactura.DetsFactura) total += det.Total - det.Descuento;
-                e.Graphics.DrawString("POR$ " + Decimal.Round(total, 2), font, brocha, row2Cell1PosX, row2PosY);
+                e.Graphics.DrawString("POR$ " + Decimal.Round(total, 2), fontNormal, brocha, row2Cell1PosX, row2PosY);
                 point1 = new Point(row2Cell1PosX + 10, row2PosY + 4);
                 point2 = new Point(190, row2PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -221,7 +224,7 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 int row3PosY = 48, row3Cell0PosX = 10;
-                e.Graphics.DrawString("RECIBI DEL SR(ES):  " + PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre.ToUpper(), font, brocha, row3Cell0PosX, row3PosY);
+                e.Graphics.DrawString("RECIBI DEL SR(ES):  " + PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre.ToUpper(), fontNormal, brocha, row3Cell0PosX, row3PosY);
                 point1 = new Point(row3Cell0PosX + 32, row3PosY + 4);
                 point2 = new Point(190, row3PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -231,18 +234,18 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 int row4PosY = 56, row4Cell0PosX = 10, row4Cell1PosX = 64, row4Cell2PosX = 121;
-                e.Graphics.DrawString("TEL.:", font, brocha, row4Cell0PosX, row4PosY);
+                e.Graphics.DrawString("TEL.:", fontNormal, brocha, row4Cell0PosX, row4PosY);
 
                 point1 = new Point(row4Cell0PosX + 9, row4PosY + 4);
                 point2 = new Point(60, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("CEL.:", font, brocha, row4Cell1PosX, row4PosY);
+                e.Graphics.DrawString("CEL.:", fontNormal, brocha, row4Cell1PosX, row4PosY);
                 point1 = new Point(row4Cell1PosX + 10, row4PosY + 4);
                 point2 = new Point(118, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("E-MAIL.:", font, brocha, row4Cell2PosX, row4PosY);
+                e.Graphics.DrawString("E-MAIL.:", fontNormal, brocha, row4Cell2PosX, row4PosY);
                 point1 = new Point(row4Cell2PosX + 14, row4PosY + 4);
                 point2 = new Point(190, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -256,7 +259,7 @@ namespace GOLLSYSTEM.Forms
                 string Dolares = Decimal.Round(total, 2).ToString().Substring(0, Decimal.Round(total, 2).ToString().Length - 3);
                 string Centavos = Decimal.Round(total, 2).ToString().Substring(Decimal.Round(total, 2).ToString().Length - 2, 2);
 
-                e.Graphics.DrawString("LA CANTIDAD DE:    " + moneda.Convertir(Dolares, true, "DOLARES").Substring(0, moneda.Convertir(Dolares, true, "DOLARES").Length - 6) + (Centavos == "00" ? "" : " CON " + moneda.Convertir(Centavos, true, "CENTAVOS").Substring(0, moneda.Convertir(Centavos, true, "CENTAVOS").Length - 6)), font, brocha, row5Cell0PosX, row5PosY);
+                e.Graphics.DrawString("LA CANTIDAD DE:    " + moneda.Convertir(Dolares, true, "DOLARES").Substring(0, moneda.Convertir(Dolares, true, "DOLARES").Length - 6) + (Centavos == "00" ? "" : " CON " + moneda.Convertir(Centavos, true, "CENTAVOS").Substring(0, moneda.Convertir(Centavos, true, "CENTAVOS").Length - 6)), fontNormal, brocha, row5Cell0PosX, row5PosY);
                 point1 = new Point(row5Cell0PosX + 32, row5PosY + 4);
                 point2 = new Point(190, row5PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -267,9 +270,9 @@ namespace GOLLSYSTEM.Forms
 
                 int row6PosY = 72, row6Cell0PosX = 10;
                 string concepto = "";
-                foreach (Detfactura det in currentFactura.DetsFactura) concepto += det.Producto.Nombre + (currentFactura.DetsFactura.Count > 1 ? currentFactura.DetsFactura.Last().Id == det.Id ? "." : ", " : ".");
+                foreach (Detfactura det in currentFactura.DetsFactura) concepto = concepto + (det.Producto.Nombre + (det.Tipo == "M" ? " \""+Convert.ToDateTime(CuotaDAL.getCuotaById(det.Matricdetfac.IdCuota).FhRegistro).ToString("MMMM", new CultureInfo("es-ES"))+"\"" : "") + (currentFactura.DetsFactura.Count > 1 ? currentFactura.DetsFactura.Last().Id == det.Id ? "." : ", " : ".") + "");
 
-                e.Graphics.DrawString("EN CONCEPTO DE:  " + concepto.ToUpper(), font, brocha, row6Cell0PosX, row6PosY);
+                e.Graphics.DrawString("EN CONCEPTO DE:  " + concepto.ToUpper(), fontNormal, brocha, row6Cell0PosX, row6PosY);
                 point1 = new Point(row6Cell0PosX + 32, row6PosY + 4);
                 point2 = new Point(190, row6PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -280,21 +283,21 @@ namespace GOLLSYSTEM.Forms
 
                 int row7PosY = 80, row7Cell0PosX = 10, row7Cell1PosX = 64, row7Cell2PosX = 121;
 
-                e.Graphics.DrawString("RESERVACION", font, brocha, row7Cell0PosX, row7PosY);
+                e.Graphics.DrawString("RESERVACION", fontNormal, brocha, row7Cell0PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell0PosX + 30, row7PosY, row7Cell0PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "R")
                         e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.marca_de_verificacion, row7Cell0PosX + 33, row7PosY, 5, 5);
 
 
-                e.Graphics.DrawString("MENSUALIDAD", font, brocha, row7Cell1PosX, row7PosY);
+                e.Graphics.DrawString("MENSUALIDAD", fontNormal, brocha, row7Cell1PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell1PosX + 30, row7PosY, row7Cell1PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "M")
                         e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.marca_de_verificacion, row7Cell1PosX + 33, row7PosY, 5, 5);
 
 
-                e.Graphics.DrawString("CANCELACION", font, brocha, row7Cell2PosX, row7PosY);
+                e.Graphics.DrawString("CANCELACION", fontNormal, brocha, row7Cell2PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell2PosX + 30, row7PosY, row7Cell2PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "C" || det.Tipo == "F")
@@ -321,21 +324,21 @@ namespace GOLLSYSTEM.Forms
                         if (Obs3.Length < 91)
                         Obs3 += letra;
                 }
-                e.Graphics.DrawString("OBSERVACION ", font, brocha, row8Cell0PosX, row8PosY);
+                e.Graphics.DrawString("OBSERVACION ", fontNormal, brocha, row8Cell0PosX, row8PosY);
                 point1 = new Point(row8Cell0PosX + 28, row8PosY + 4);
                 point2 = new Point(190, row8PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs1.ToUpper(), font, brocha, row8Cell0PosX + 28, row8PosY);
+                e.Graphics.DrawString(Obs1.ToUpper(), fontSmall, brocha, row8Cell0PosX + 28, row8PosY);
 
                 point1 = new Point(row8Cell0PosX, row8PosY + 4 + 7);
                 point2 = new Point(190, row8PosY + 4 + 7);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs2.ToUpper(), font, brocha, row8Cell0PosX, row8PosY + 7);
+                e.Graphics.DrawString(Obs2.ToUpper(), fontSmall, brocha, row8Cell0PosX, row8PosY + 7);
 
                 point1 = new Point(row8Cell0PosX, row8PosY + 4 + 7 + 7);
                 point2 = new Point(190, row8PosY + 4 + 7 + 7);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs3.ToUpper(), font, brocha, row8Cell0PosX, row8PosY + 7 + 7);
+                e.Graphics.DrawString(Obs3.ToUpper(), fontSmall, brocha, row8Cell0PosX, row8PosY + 7 + 7);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row9 mora                               //
@@ -343,7 +346,7 @@ namespace GOLLSYSTEM.Forms
 
                 int row9PosY = 110, row9Cell0PosX = 57;
 
-                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", font, brocha, row9Cell0PosX, row9PosY);
+                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row10 recibo, fwcha                     //
@@ -355,14 +358,14 @@ namespace GOLLSYSTEM.Forms
                 point2 = new Point(54, row10PosY);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("RECIBO", font, brocha, row10Cell0PosX + 13, row10PosY + 1);
+                e.Graphics.DrawString("RECIBO", fontNormal, brocha, row10Cell0PosX + 13, row10PosY + 1);
 
                 point1 = new Point(row10Cell1PosX, row10PosY);
                 point2 = new Point(190, row10PosY);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
                 e.Graphics.DrawString(YearDAL.getServerDate().ToString("dd/MM/yyyy"), fontBold, brocha, row10Cell1PosX + 11, row10PosY - 4);
-                e.Graphics.DrawString("FECHA", font, brocha, row10Cell1PosX + 14, row10PosY + 1);
+                e.Graphics.DrawString("FECHA", fontNormal, brocha, row10Cell1PosX + 14, row10PosY + 1);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  Duplicado                               //
@@ -378,7 +381,7 @@ namespace GOLLSYSTEM.Forms
                 row1PosY = 12 + duplicatedTop;
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.Goll_Logo_Black, row1Cell0PosX, row1PosY, 60, 24);
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.Logo_goll_center, row1Cell1PosX, row1PosY, 60, 18);
-                e.Graphics.DrawString("TEL.: " + GOLLSYSTEM.Properties.Settings.Default.Tel, font, brocha, row1Cell1PosX + 18, row1PosY + 20);
+                e.Graphics.DrawString("TEL.: " + GOLLSYSTEM.Properties.Settings.Default.Tel, fontNormal, brocha, row1Cell1PosX + 18, row1PosY + 15);
                 e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.box_bill, row1Cell2PosX, row1PosY - 5, 38, 16);
 
                 //   e.Graphics.DrawRectangle(new Pen(Brushes.Black, 1f), Rectangle.FromLTRB(row1Cell2PosX, row1PosY, 205, 25));
@@ -389,8 +392,8 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 row2PosY = 36 + duplicatedTop;
-                e.Graphics.DrawString("RECIBO DE INGRESO", font, brocha, row2Cell0PosX, row2PosY);
-                e.Graphics.DrawString("POR$ " + Decimal.Round(total, 2), font, brocha, row2Cell1PosX, row2PosY);
+                e.Graphics.DrawString("RECIBO DE INGRESO", fontNormal, brocha, row2Cell0PosX, row2PosY);
+                e.Graphics.DrawString("POR$ " + Decimal.Round(total, 2), fontNormal, brocha, row2Cell1PosX, row2PosY);
                 point1 = new Point(row2Cell1PosX + 10, row2PosY + 4);
                 point2 = new Point(190, row2PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -400,7 +403,7 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 row3PosY = 48 + duplicatedTop;
-                e.Graphics.DrawString("RECIBI DEL SR(ES):  " + PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre.ToUpper(), font, brocha, row3Cell0PosX, row3PosY);
+                e.Graphics.DrawString("RECIBI DEL SR(ES):  " + PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre.ToUpper(), fontNormal, brocha, row3Cell0PosX, row3PosY);
                 point1 = new Point(row3Cell0PosX + 32, row3PosY + 4);
                 point2 = new Point(190, row3PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -410,18 +413,18 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 row4PosY = 56 + duplicatedTop;
-                e.Graphics.DrawString("TEL.:", font, brocha, row4Cell0PosX, row4PosY);
+                e.Graphics.DrawString("TEL.:", fontNormal, brocha, row4Cell0PosX, row4PosY);
 
                 point1 = new Point(row4Cell0PosX + 9, row4PosY + 4);
                 point2 = new Point(60, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("CEL.:", font, brocha, row4Cell1PosX, row4PosY);
+                e.Graphics.DrawString("CEL.:", fontNormal, brocha, row4Cell1PosX, row4PosY);
                 point1 = new Point(row4Cell1PosX + 10, row4PosY + 4);
                 point2 = new Point(118, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("E-MAIL.:", font, brocha, row4Cell2PosX, row4PosY);
+                e.Graphics.DrawString("E-MAIL.:", fontNormal, brocha, row4Cell2PosX, row4PosY);
                 point1 = new Point(row4Cell2PosX + 14, row4PosY + 4);
                 point2 = new Point(190, row4PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -431,7 +434,7 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 row5PosY = 64 + duplicatedTop;
-                e.Graphics.DrawString("LA CANTIDAD DE:    " + moneda.Convertir(Dolares, true, "DOLARES").Substring(0, moneda.Convertir(Dolares, true, "DOLARES").Length - 6) + (Centavos == "00" ? "" : " CON " + moneda.Convertir(Centavos, true, "CENTAVOS").Substring(0, moneda.Convertir(Centavos, true, "CENTAVOS").Length - 6)), font, brocha, row5Cell0PosX, row5PosY);
+                e.Graphics.DrawString("LA CANTIDAD DE:    " + moneda.Convertir(Dolares, true, "DOLARES").Substring(0, moneda.Convertir(Dolares, true, "DOLARES").Length - 6) + (Centavos == "00" ? "" : " CON " + moneda.Convertir(Centavos, true, "CENTAVOS").Substring(0, moneda.Convertir(Centavos, true, "CENTAVOS").Length - 6)), fontNormal, brocha, row5Cell0PosX, row5PosY);
                 point1 = new Point(row5Cell0PosX + 32, row5PosY + 4);
                 point2 = new Point(190, row5PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -441,7 +444,7 @@ namespace GOLLSYSTEM.Forms
                 ////////////////////////////////////////////////////////////////
 
                 row6PosY = 72 + duplicatedTop;
-                e.Graphics.DrawString("EN CONCEPTO DE:  " + concepto.ToUpper(), font, brocha, row6Cell0PosX, row6PosY);
+                e.Graphics.DrawString("EN CONCEPTO DE:  " + concepto.ToUpper(), fontNormal, brocha, row6Cell0PosX, row6PosY);
                 point1 = new Point(row6Cell0PosX + 32, row6PosY + 4);
                 point2 = new Point(190, row6PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
@@ -452,21 +455,21 @@ namespace GOLLSYSTEM.Forms
 
                 row7PosY = 80 + duplicatedTop;
 
-                e.Graphics.DrawString("RESERVACION", font, brocha, row7Cell0PosX, row7PosY);
+                e.Graphics.DrawString("RESERVACION", fontNormal, brocha, row7Cell0PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell0PosX + 30, row7PosY, row7Cell0PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "R")
                         e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.marca_de_verificacion, row7Cell0PosX + 33, row7PosY, 5, 5);
 
 
-                e.Graphics.DrawString("MENSUALIDAD", font, brocha, row7Cell1PosX, row7PosY);
+                e.Graphics.DrawString("MENSUALIDAD", fontNormal, brocha, row7Cell1PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell1PosX + 30, row7PosY, row7Cell1PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "M")
                         e.Graphics.DrawImage(GOLLSYSTEM.Properties.Resources.marca_de_verificacion, row7Cell1PosX + 33, row7PosY, 5, 5);
 
 
-                e.Graphics.DrawString("CANCELACION", font, brocha, row7Cell2PosX, row7PosY);
+                e.Graphics.DrawString("CANCELACION", fontNormal, brocha, row7Cell2PosX, row7PosY);
                 e.Graphics.DrawRectangle(new Pen(Brushes.Black, 0.5f), Rectangle.FromLTRB(row7Cell2PosX + 30, row7PosY, row7Cell2PosX + 40, row7PosY + 5));
                 foreach (Detfactura det in currentFactura.DetsFactura)
                     if (det.Tipo == "C" || det.Tipo == "F")
@@ -479,21 +482,21 @@ namespace GOLLSYSTEM.Forms
 
                 row8PosY = 89 + duplicatedTop;
 
-                e.Graphics.DrawString("OBSERVACION ", font, brocha, row8Cell0PosX, row8PosY);
+                e.Graphics.DrawString("OBSERVACION ", fontNormal, brocha, row8Cell0PosX, row8PosY);
                 point1 = new Point(row8Cell0PosX + 28, row8PosY + 4);
                 point2 = new Point(190, row8PosY + 4);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs1.ToUpper(), font, brocha, row8Cell0PosX + 28, row8PosY);
+                e.Graphics.DrawString(Obs1.ToUpper(), fontSmall, brocha, row8Cell0PosX + 28, row8PosY);
 
                 point1 = new Point(row8Cell0PosX, row8PosY + 4 + 7);
                 point2 = new Point(190, row8PosY + 4 + 7);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs2.ToUpper(), font, brocha, row8Cell0PosX, row8PosY + 7);
+                e.Graphics.DrawString(Obs2.ToUpper(), fontSmall, brocha, row8Cell0PosX, row8PosY + 7);
 
                 point1 = new Point(row8Cell0PosX, row8PosY + 4 + 7 + 7);
                 point2 = new Point(190, row8PosY + 4 + 7 + 7);
                 e.Graphics.DrawLine(blackPen, point1, point2);
-                e.Graphics.DrawString(Obs3.ToUpper(), font, brocha, row8Cell0PosX, row8PosY + 7 + 7);
+                e.Graphics.DrawString(Obs3.ToUpper(), fontSmall, brocha, row8Cell0PosX, row8PosY + 7 + 7);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row9 mora                               //
@@ -501,7 +504,7 @@ namespace GOLLSYSTEM.Forms
 
                 row9PosY = 110 + duplicatedTop;
 
-                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", font, brocha, row9Cell0PosX, row9PosY);
+                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row10 recibo, fwcha                     //
@@ -513,14 +516,14 @@ namespace GOLLSYSTEM.Forms
                 point2 = new Point(54, row10PosY);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
-                e.Graphics.DrawString("RECIBO", font, brocha, row10Cell0PosX + 13, row10PosY + 1);
+                e.Graphics.DrawString("RECIBO", fontNormal, brocha, row10Cell0PosX + 13, row10PosY + 1);
 
                 point1 = new Point(row10Cell1PosX, row10PosY);
                 point2 = new Point(190, row10PosY);
                 e.Graphics.DrawLine(blackPen, point1, point2);
 
                 e.Graphics.DrawString(YearDAL.getServerDate().ToString("dd/MM/yyyy"), fontBold, brocha, row10Cell1PosX + 11, row10PosY - 4);
-                e.Graphics.DrawString("FECHA", font, brocha, row10Cell1PosX + 14, row10PosY + 1);
+                e.Graphics.DrawString("FECHA", fontNormal, brocha, row10Cell1PosX + 14, row10PosY + 1);
 
             }
             catch (Exception ex)

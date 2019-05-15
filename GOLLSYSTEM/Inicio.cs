@@ -187,5 +187,16 @@ namespace GOLLSYSTEM
         {
             MessageBox.Show("Función no disponible", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        private void rutaDeCarpetaDeContabilidadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Forms.ChosePath choose = new Forms.ChosePath();
+            choose.ShowDialog();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

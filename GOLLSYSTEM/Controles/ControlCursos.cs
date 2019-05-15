@@ -12,6 +12,7 @@ using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
 using System.IO;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -39,9 +40,9 @@ namespace GOLLSYSTEM.Controles
 
                 Validation.FormManager frmManager = new Validation.FormManager();
                 frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
-                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
         private void FillDgv(List<Curso> lista)
         {
@@ -54,11 +55,12 @@ namespace GOLLSYSTEM.Controles
                     horario += objDia.Nombre + ": " + objDia.HEntrada + " " + objDia.HSalida + "|- ";
                 }
                 dgvCursos.Rows.Add(obj.Id,
-                    obj.Nombre,
+                    // Convert.ToDateTime(obj.Desde).ToString("MMMM", new CultureInfo("es-ES"))+" "+obj.Nombre+" ("+ContratoDAL.getContratoById(obj.IdContrato).Empleado.Persona.Nombre+")",
+                    obj.Nombre + " - Encargado (" + ContratoDAL.getContratoById(obj.IdContrato).Empleado.Persona.Nombre + ")",
                     horario == "-|" ? "" : horario,
                     obj.Publico,
                     MatriculaDAL.countMatriculasByCurso(obj.Id),
-                    obj.Estado=="A"?"Activo":"Inactivo");
+                    obj.Estado == "A" ? "Activo" : "Inactivo");
 
             }
         }
@@ -87,7 +89,7 @@ namespace GOLLSYSTEM.Controles
 
         private void btnEditarCurso_Click(object sender, EventArgs e)
         {
-            if (dgvCursos.CurrentRow!=null)
+            if (dgvCursos.CurrentRow != null)
             {
                 FrmCurso frmcurso = new FrmCurso();
                 frmcurso.opc = "updObject";
@@ -124,11 +126,41 @@ namespace GOLLSYSTEM.Controles
                         MessageBox.Show("El curso seleccionado ha sido inhabilitado exitosamente.", "Operación realizada", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         txtBuscar.Text = "";
                         dgvCursos.Rows.Clear();
-                        FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id,(cbxYear.SelectedItem as Year)));
+                        FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, (cbxYear.SelectedItem as Year)));
                     }
                 }
             }
 
+        }
+
+        private void dgvCursos_CurrentCellChanged(object sender, EventArgs e)
+        {
+            if (dgvCursos.Rows.Count != 0 && dgvCursos.CurrentRow != null)
+            {
+                flpHorario.Controls.Clear();
+                Curso curso = CursoDAL.getCursoById((Int64)dgvCursos.CurrentRow.Cells[0].Value);
+                lblSeccion.Text = curso.Seccion;
+                lblDesde.Text = Convert.ToDateTime(curso.Desde).ToString("dd \"de\" MMMM", new CultureInfo("es-ES"));
+                lblHasta.Text = Convert.ToDateTime(curso.Hasta).ToString("dd \"de\" MMMM", new CultureInfo("es-ES"));
+
+                foreach (Dia dia in curso.Horario)
+                {
+
+                }
+
+                foreach (Dia dia in curso.Horario)
+                {
+                    string horario = (dia.HEntrada + " a " + dia.HSalida);
+
+                    flpHorario.Controls.Add(new Label()
+                    {
+                        Text = dia.Nombre + " " + horario,
+                        Width = flpHorario.Width - 10,
+                        Name = "lbl" + dia.Nombre + curso.Id
+                    });
+                }
+                chkEstado.Checked = curso.Estado == "A";
+            }
         }
     }
 }
