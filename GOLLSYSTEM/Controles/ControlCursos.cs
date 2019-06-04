@@ -162,5 +162,19 @@ namespace GOLLSYSTEM.Controles
                 chkEstado.Checked = curso.Estado == "A";
             }
         }
+
+        private void dgvCursos_DoubleClick(object sender, EventArgs e)
+        {
+            if (dgvCursos.CurrentRow != null)
+            {
+                FrmCurso frmcurso = new FrmCurso();
+                frmcurso.opc = "updObject";
+                frmcurso.CurrentObject = CursoDAL.getCursoById((Int64)dgvCursos.CurrentRow.Cells[0].Value);
+                frmcurso.EditingObject = CursoDAL.getCursoById((Int64)dgvCursos.CurrentRow.Cells[0].Value);
+                frmcurso.ShowDialog();
+                FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, (cbxYear.SelectedItem as Year)));
+
+            }
+        }
     }
 }

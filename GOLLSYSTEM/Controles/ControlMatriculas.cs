@@ -25,6 +25,8 @@ namespace GOLLSYSTEM.Controles
         {
             try
             {
+                List<Curso> cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+
                 cbxYear.Enabled = false;
                 cbxYear.DataSource = YearDAL.getYears(500);
                 cbxYear.ValueMember = "Id";
@@ -32,10 +34,12 @@ namespace GOLLSYSTEM.Controles
                 cbxYear.Enabled = true;
 
                 cbxCursos.Enabled = false;
-                cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+                cbxCursos.DataSource = cursos;
                 cbxCursos.ValueMember = "Id";
                 cbxCursos.DisplayMember = "Nombre";
                 cbxCursos.Enabled = true;
+                foreach (Curso curso in cursos)
+                    lblMatriculados.Text = (Convert.ToInt32(lblMatriculados.Text) +MatriculaDAL.countMatriculasByCurso(curso.Id)).ToString();
                 tmrTaskDgv.Start();
             }
             catch (Exception ex)

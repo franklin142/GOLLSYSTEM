@@ -159,7 +159,9 @@ namespace GOLLSYSTEM.DataAccess
                             {
                                 int val1 = (fechaIni.AddMonths(i)).Month;
                                 int val2 = (fechaIni.AddMonths(i)).Year;
-                                string fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (fechaIni.AddMonths(i).ToString("MM") == "02" ? Convert.ToInt32(matricula.DiaLimite) > 28 ? "28" : matricula.DiaLimite : matricula.DiaLimite);
+                               // string fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (fechaIni.AddMonths(i).ToString("MM") == "02" ? Convert.ToInt32(matricula.DiaLimite) > 28 ? "28" : matricula.DiaLimite : matricula.DiaLimite);
+                                string fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (DateTime.DaysInMonth(DateTime.Now.Year, fechaIni.AddMonths(i).Month)>Convert.ToInt32(matricula.DiaLimite) ? matricula.DiaLimite : DateTime.DaysInMonth(DateTime.Now.Year, fechaIni.AddMonths(i).Month).ToString());
+
                                 Cuota cuota = getCuotaByMonth(matricula.Id, (fechaIni.AddMonths(i)).Month, (fechaIni.AddMonths(i)).Year);
                                 if (cuota == null)
                                 {

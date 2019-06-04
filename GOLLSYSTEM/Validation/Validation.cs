@@ -121,6 +121,10 @@ namespace GOLLSYSTEM.Validation
             }
             return result;
         }
+        public static int getMaxDayMonth(int month)
+        {
+            return DateTime.DaysInMonth(DateTime.Now.Year, month);
+        }
 
     }
 }

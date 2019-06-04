@@ -627,9 +627,9 @@ namespace GOLLSYSTEM.DataAccess
                     _reader.Close();
                     foreach (Factura obj in facturas)
                     {
-                        MySqlCommand cmdUpdateContrato = new MySqlCommand("update factura set Estado='A' where Id=@pIdFactura ", _con, _trans);
-                        cmdUpdateContrato.Parameters.AddWithValue("@pIdFactura", obj.Id);
-                        if (cmdUpdateContrato.ExecuteNonQuery() <= 0)
+                        MySqlCommand cmdUpdateFactura = new MySqlCommand("update factura set Estado='A' where Id=@pIdFactura ", _con, _trans);
+                        cmdUpdateFactura.Parameters.AddWithValue("@pIdFactura", obj.Id);
+                        if (cmdUpdateFactura.ExecuteNonQuery() <= 0)
                         {
                             result = false;
                         }
@@ -637,7 +637,7 @@ namespace GOLLSYSTEM.DataAccess
                             if (det.Tipo == "M")
                             {
                                 MySqlCommand cmdUpdateCuota = new MySqlCommand("update cuota set Total=(Total-@pTotal) where Id=@pId ", _con, _trans);
-                                cmdUpdateCuota.Parameters.AddWithValue("@pTotal", det.Total - det.Descuento);
+                                cmdUpdateCuota.Parameters.AddWithValue("@pTotal", det.Total);
                                 cmdUpdateCuota.Parameters.AddWithValue("@pId", det.Matricdetfac.IdCuota);
 
                                 if (cmdUpdateCuota.ExecuteNonQuery() <= 0)

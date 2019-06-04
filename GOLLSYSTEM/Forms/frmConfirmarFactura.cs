@@ -62,7 +62,7 @@ namespace GOLLSYSTEM.Forms
             {
                 if (currentFactura.Id == 0)
                 {
-                    foreach (Detfactura det in currentFactura.DetsFactura) currentFactura.Observacion += det.Descuento > 0 ? "DESCUENTO DE $" + Decimal.Round(det.Descuento, 2) + " EN " + det.Producto.Nombre.ToUpper().Substring(0, 10) + "... " : "";
+                    foreach (Detfactura det in currentFactura.DetsFactura) currentFactura.Observacion += det.Descuento > 0 ? "DESCUENTO DE $" + Decimal.Round(det.Descuento, 2) + " EN " + det.Producto.Nombre + ". " : "";
                     currentFactura.Observacion += txtObservacion.Text;
 
                     Factura facturaInserted = FacturaDAL.insertFactura(currentFactura, Inicio.CurrentUser);

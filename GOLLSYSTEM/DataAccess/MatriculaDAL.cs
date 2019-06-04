@@ -415,7 +415,7 @@ namespace GOLLSYSTEM.DataAccess
                     for (int i =0;i<nCuotas;i++)
                     {
                         MySqlCommand cmdInsertCuota = new MySqlCommand("Insert into cuota (FhRegistro,Precio,Total,IdMatricula) values (@FhRegistro,@Precio,@Total,@IdMatricula)", _con, _trans);
-                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(date.AddMonths(i).ToString("MM") == "2" ? Convert.ToInt32(item.DiaLimite)>28?"28": item.DiaLimite : item.DiaLimite));
+                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM")))>Convert.ToInt32(item.DiaLimite)? item.DiaLimite:Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))).ToString()));
                         cmdInsertCuota.Parameters.AddWithValue("@Precio", Properties.Settings.Default.PrecioCuota);
                         cmdInsertCuota.Parameters.AddWithValue("@Total", "0.00");
                         cmdInsertCuota.Parameters.AddWithValue("@IdMatricula", item.Id);
@@ -521,7 +521,7 @@ namespace GOLLSYSTEM.DataAccess
                             {
                                 if (detMatricula.encargado.Id == 0)
                                 {
-                                    MySqlCommand cmdInsertPersona = new MySqlCommand("Insert into persona (Nombre,Dui,Nit,Direccion) values (@Nombre,@Dui,@Nit,@Direccion)", _con, _trans);
+                                    MySqlCommand cmdInsertPersona = new MySqlCommand("Insert into persona (Nombre,Dui,Nit,Direccion) values (@Nombre, @Dui, @Nit, @Direccion)", _con, _trans);
                                     cmdInsertPersona.Parameters.AddWithValue("@Nombre", detMatricula.encargado.Persona.Nombre);
                                     cmdInsertPersona.Parameters.AddWithValue("@Dui", "");
                                     cmdInsertPersona.Parameters.AddWithValue("@Nit", "");
@@ -621,10 +621,13 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         DateTime date = YearDAL.getServerDate();
                         Curso curso = CursoDAL.getCursoById(item.IdCurso);
+
                         foreach(Cuota cuota in item.Cuotas)
                         {
                             MySqlCommand cmdInsertCuota = new MySqlCommand("update cuota set FhRegistro=@FhRegistro where Id=@pId", _con, _trans);
-                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + item.DiaLimite);
+                           // cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Convert.ToDateTime(cuota.FhRegistro).ToString("MM") == "02" ? Convert.ToInt32(matricula.DiaLimite) > 28 ? "28" : matricula.DiaLimite : matricula.DiaLimite));
+                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite: Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month).ToString()));
+
                             cmdInsertCuota.Parameters.AddWithValue("@pId", cuota.Id);
                             
                             if (cmdInsertCuota.ExecuteNonQuery() <= 0)

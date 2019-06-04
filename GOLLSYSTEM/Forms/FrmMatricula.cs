@@ -52,6 +52,8 @@ namespace GOLLSYSTEM.Forms
                         txtTelEmergencia.Text = EditingObject.Estudiante.TelEmergencia;
                         txtParentescoEmergencia.Text = EditingObject.Estudiante.ParentEmergencia;
 
+                        numDiaPago.Maximum = 31;
+                        numDiaPago.Value = Convert.ToInt32(EditingObject.DiaLimite);
                         dtpFhRegistro.Value = Convert.ToDateTime(EditingObject.FhRegistro);
 
                         Detmatricula padre = EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault();
