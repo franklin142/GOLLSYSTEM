@@ -26,14 +26,17 @@
     <Setting Name="Tel" Type="System.String" Scope="User">
       <Value Profile="(Default)">2301-1304</Value>
     </Setting>
-    <Setting Name="Mora" Type="System.String" Scope="User">
-      <Value Profile="(Default)">2.5</Value>
+    <Setting Name="Mora" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
     <Setting Name="developerEmail" Type="System.String" Scope="User">
       <Value Profile="(Default)">franklingranados2@yahoo.com</Value>
     </Setting>
     <Setting Name="DocumentsPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DaysMora" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -30,18 +30,25 @@ namespace GOLLSYSTEM.Forms
                 switch (opc)
                 {
                     case "Mensualidad":
-                       
-                        cbxYear.DataSource = YearDAL.getYears(10000);
-                        cbxYear.DisplayMember = "Desde";
-                        cbxYear.ValueMember = "Id";
-                        cbxYear.SelectedIndex = 0;
+                        List<Matricula> result = MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 15);
+                        List<Matricula> matriculas = new List<Matricula>();
+                        foreach (Matricula obj in result)
+                        {
+                            bool added = false;
+                            foreach (Cuota cuota in obj.Cuotas)
+                            {
+                                if (cuota.Total < cuota.Precio)
+                                {
+                                    if (!added)
+                                    {
+                                        matriculas.Add(obj);
+                                        added = true;
+                                    }
 
-                        cbxCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
-                        cbxCurso.DisplayMember = "Nombre";
-                        cbxCurso.ValueMember = "Id";
-                        cbxCurso.SelectedIndex = 0;
+                                }
+                            }
 
-                        List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, cbxCurso.Items.Count==0?0:(Int64)cbxCurso.SelectedValue);
+                        }
                         foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
                         cbxEstudiante.DataSource = matriculas;
 
@@ -53,11 +60,16 @@ namespace GOLLSYSTEM.Forms
                             checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
                             List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                             FillDgv_Mensualidades(cuotas);
+                            if (cbxEstudiante.Items.Count != 0)
+                            {
+                                lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
+                            }
                         }
                         else
                             FillDgv_Mensualidades(new List<Cuota>());
                         btnRegistrarProducto.Visible = false;
                         btnRegistrarProducto.Enabled = false;
+                        lblTituloDgv.Text = "Mensualidades pendientes";
                         break;
                     case "Cancelacion":
                         pnlParamMensualidad.Visible = false;
@@ -75,6 +87,7 @@ namespace GOLLSYSTEM.Forms
                             Producto producto = ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value);
                             lblPrecio.Text = "$" + producto.Precio;
                             txtAporte.Text = (producto.Precio).ToString();
+
                         }
                         break;
                     default: break;
@@ -101,7 +114,7 @@ namespace GOLLSYSTEM.Forms
                 FillDgv_Productos(ProductoDAL.getProductos(1000));
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 string fileName = "Exeptions_" + Name + ".txt";
@@ -121,6 +134,7 @@ namespace GOLLSYSTEM.Forms
                 foreach (Cuota cuota in lista)
                 {
                     dgvProductos.Rows.Add(cuota.Id, prod.Nombre + " " + Convert.ToDateTime(cuota.FhRegistro).ToString("MMMM") + " " + Convert.ToDateTime(cuota.FhRegistro).ToString("yyyy"));
+                    
                 }
 
             }
@@ -444,7 +458,7 @@ namespace GOLLSYSTEM.Forms
         }
         private void cbxEstudiante_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ready && cbxEstudiante.Items.Count >0)
+            if (ready && cbxEstudiante.Items.Count > 0)
             {
                 dgvProductos.Rows.Clear();
                 lblPrecio.Text = "$0.00";
@@ -454,69 +468,12 @@ namespace GOLLSYSTEM.Forms
 
                 List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
                 FillDgv_Mensualidades(cuotas);
-                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0?(Int64)cbxEstudiante.SelectedValue:0);
+                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0);
                 checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-            }
-        }
-        private void cbxCurso_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ready && cbxCurso.Items.Count != 0)
-            {
-                ready = false;
-                List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
-                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
-                cbxEstudiante.DataSource = matriculas;
-
-                cbxEstudiante.DisplayMember = "NombreEstudiante";
-                cbxEstudiante.ValueMember = "Id";
-                checkBecado.Checked = matriculas.Count>0 ? matriculas[0].Becado == 1 : checkBecado.Checked;
-                if (matriculas.Count > 0)
+                if (cbxEstudiante.Items.Count != 0)
                 {
-                    ready = true;
-                    if (ready && cbxEstudiante.Items.Count > 0)
-                    {
-                        dgvProductos.Rows.Clear();
-                        lblPrecio.Text = "$0.00";
-                        txtAporte.Text = "0.00";
-                        txtDescuento.Text = "0.00";
-                        checkBecado.Checked = false;
-                        List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                        FillDgv_Mensualidades(cuotas);
-                        Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0);
-                        checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-                    }
+                    lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
                 }
-                else
-                {
-                    dgvProductos.Rows.Clear();
-                    ready = true;
-                }
-
-
-            }
-        }
-        private void cbxYear_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ready && cbxYear.SelectedValue != null)
-            {
-                dgvProductos.Rows.Clear();
-                cbxCurso.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
-                cbxCurso.DisplayMember = "Nombre";
-                cbxCurso.ValueMember = "Id";
-                cbxCurso.SelectedIndex = 0;
-
-                List<Matricula> matriculas = MatriculaDAL.searchMatriculasParametro("", (Int64)cbxYear.SelectedValue, (Int64)cbxCurso.SelectedValue);
-                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
-                cbxEstudiante.DataSource = matriculas;
-
-                cbxEstudiante.DisplayMember = "NombreEstudiante";
-                cbxEstudiante.ValueMember = "Id";
-                cbxEstudiante.SelectedIndex = 0;
-
-                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                FillDgv_Mensualidades(cuotas);
-                checkBecado.Checked = matriculas != null ? matriculas[0].Becado == 1 : checkBecado.Checked;
-
             }
         }
         private void txtAporte_Enter(object sender, EventArgs e)
@@ -528,6 +485,99 @@ namespace GOLLSYSTEM.Forms
                 txt.Text = "";
             }
 
+        }
+
+        private void icUpdate_Click(object sender, EventArgs e)
+        {
+            searchMatriculas();
+        }
+
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                e.Handled = true;
+                searchMatriculas();
+            }
+        }
+        private void searchMatriculas()
+        {
+            ready = false;
+            try
+            {
+                dgvProductos.Rows.Clear();
+                lblPrecio.Text = "$0.00";
+                txtAporte.Text = "0.00";
+                txtDescuento.Text = "0.00";
+                checkBecado.Checked = false;
+
+                List<Matricula> result = MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 15);
+                List<Matricula> matriculas = new List<Matricula>();
+                foreach (Matricula obj in result)
+                {
+                    bool added = false;
+                    foreach (Cuota cuota in obj.Cuotas)
+                    {
+                        if (cuota.Total < cuota.Precio)
+                        {
+                            if (!added)
+                            {
+                                matriculas.Add(obj);
+                                added = true;
+                            }
+
+                        }
+                    }
+
+                }
+                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
+                cbxEstudiante.DataSource = matriculas;
+
+                if (matriculas.Count != 0)
+                {
+                    cbxEstudiante.DisplayMember = "NombreEstudiante";
+                    cbxEstudiante.ValueMember = "Id";
+                    cbxEstudiante.SelectedIndex = 0;
+                    checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
+                    List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
+                    FillDgv_Mensualidades(cuotas);
+                    if (cbxEstudiante.Items.Count != 0)
+                    {
+                        lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
+                    }
+                }
+                else
+                    FillDgv_Mensualidades(new List<Cuota>());
+                if (dgvProductos.CurrentRow != null)
+                {
+                    switch (opc)
+                    {
+                        case "Mensualidad":
+                            changeDets(ProductoDAL.getProductoMensualidad());
+                            break;
+                        case "Cancelacion":
+                            changeDets(ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto));
+
+                            break;
+
+                        case "Contado":
+                            changeDets(ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value));
+
+                            break;
+                        default: break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string fileName = "Exeptions_" + Name + ".txt";
+
+                Validation.FormManager frmManager = new Validation.FormManager();
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
+                MessageBox.Show("Ha ocurrido un error al intentar buscar el estudiante, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            ready = true;
         }
     }
 }

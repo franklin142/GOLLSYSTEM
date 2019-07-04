@@ -121,10 +121,10 @@ namespace GOLLSYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2.5")]
-        public string Mora {
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public decimal Mora {
             get {
-                return ((string)(this["Mora"]));
+                return ((decimal)(this["Mora"]));
             }
             set {
                 this["Mora"] = value;
@@ -152,6 +152,18 @@ namespace GOLLSYSTEM.Properties {
             }
             set {
                 this["DocumentsPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        public int DaysMora {
+            get {
+                return ((int)(this["DaysMora"]));
+            }
+            set {
+                this["DaysMora"] = value;
             }
         }
     }

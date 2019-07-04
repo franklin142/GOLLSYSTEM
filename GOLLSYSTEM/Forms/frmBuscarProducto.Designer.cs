@@ -56,10 +56,13 @@
             this.errCantidad = new System.Windows.Forms.ErrorProvider(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlParamMensualidad = new System.Windows.Forms.Panel();
+            this.icUpdate = new System.Windows.Forms.PictureBox();
+            this.lblCurso = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.valNombre = new System.Windows.Forms.Panel();
+            this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cbxEstudiante = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.cbxYear = new System.Windows.Forms.ComboBox();
-            this.cbxCurso = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.checkBecado = new System.Windows.Forms.CheckBox();
@@ -74,6 +77,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.errCantidad)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.pnlParamMensualidad.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -324,15 +328,69 @@
             // 
             // pnlParamMensualidad
             // 
+            this.pnlParamMensualidad.Controls.Add(this.icUpdate);
+            this.pnlParamMensualidad.Controls.Add(this.lblCurso);
+            this.pnlParamMensualidad.Controls.Add(this.label7);
+            this.pnlParamMensualidad.Controls.Add(this.valNombre);
+            this.pnlParamMensualidad.Controls.Add(this.txtBuscar);
             this.pnlParamMensualidad.Controls.Add(this.cbxEstudiante);
             this.pnlParamMensualidad.Controls.Add(this.label4);
-            this.pnlParamMensualidad.Controls.Add(this.cbxYear);
-            this.pnlParamMensualidad.Controls.Add(this.cbxCurso);
             this.pnlParamMensualidad.Controls.Add(this.label1);
             this.pnlParamMensualidad.Location = new System.Drawing.Point(3, 3);
             this.pnlParamMensualidad.Name = "pnlParamMensualidad";
-            this.pnlParamMensualidad.Size = new System.Drawing.Size(293, 73);
+            this.pnlParamMensualidad.Size = new System.Drawing.Size(293, 96);
             this.pnlParamMensualidad.TabIndex = 0;
+            // 
+            // icUpdate
+            // 
+            this.icUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.icUpdate.Image = global::GOLLSYSTEM.Properties.Resources.search_1;
+            this.icUpdate.Location = new System.Drawing.Point(260, 8);
+            this.icUpdate.Name = "icUpdate";
+            this.icUpdate.Size = new System.Drawing.Size(30, 23);
+            this.icUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.icUpdate.TabIndex = 111;
+            this.icUpdate.TabStop = false;
+            this.icUpdate.Click += new System.EventHandler(this.icUpdate_Click);
+            // 
+            // lblCurso
+            // 
+            this.lblCurso.AutoSize = true;
+            this.lblCurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurso.ForeColor = System.Drawing.Color.SteelBlue;
+            this.lblCurso.Location = new System.Drawing.Point(90, 73);
+            this.lblCurso.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
+            this.lblCurso.Name = "lblCurso";
+            this.lblCurso.Size = new System.Drawing.Size(0, 15);
+            this.lblCurso.TabIndex = 110;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            this.label7.Location = new System.Drawing.Point(9, 74);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 18);
+            this.label7.TabIndex = 109;
+            this.label7.Text = "Curso:";
+            // 
+            // valNombre
+            // 
+            this.valNombre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
+            this.valNombre.Location = new System.Drawing.Point(92, 31);
+            this.valNombre.Name = "valNombre";
+            this.valNombre.Size = new System.Drawing.Size(165, 2);
+            this.valNombre.TabIndex = 108;
+            // 
+            // txtBuscar
+            // 
+            this.txtBuscar.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            this.txtBuscar.Location = new System.Drawing.Point(92, 7);
+            this.txtBuscar.Name = "txtBuscar";
+            this.txtBuscar.Size = new System.Drawing.Size(165, 24);
+            this.txtBuscar.TabIndex = 107;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // cbxEstudiante
             // 
@@ -358,42 +416,16 @@
             this.label4.TabIndex = 105;
             this.label4.Text = "Estudiante:";
             // 
-            // cbxYear
-            // 
-            this.cbxYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxYear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbxYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxYear.FormattingEnabled = true;
-            this.cbxYear.Location = new System.Drawing.Point(93, 9);
-            this.cbxYear.Name = "cbxYear";
-            this.cbxYear.Size = new System.Drawing.Size(56, 24);
-            this.cbxYear.TabIndex = 104;
-            this.cbxYear.SelectedIndexChanged += new System.EventHandler(this.cbxYear_SelectedIndexChanged);
-            // 
-            // cbxCurso
-            // 
-            this.cbxCurso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbxCurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxCurso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbxCurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxCurso.FormattingEnabled = true;
-            this.cbxCurso.Location = new System.Drawing.Point(155, 9);
-            this.cbxCurso.Name = "cbxCurso";
-            this.cbxCurso.Size = new System.Drawing.Size(135, 24);
-            this.cbxCurso.TabIndex = 103;
-            this.cbxCurso.SelectedIndexChanged += new System.EventHandler(this.cbxCurso_SelectedIndexChanged);
-            // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            this.label1.Location = new System.Drawing.Point(8, 13);
+            this.label1.Location = new System.Drawing.Point(8, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 18);
+            this.label1.Size = new System.Drawing.Size(51, 18);
             this.label1.TabIndex = 102;
-            this.label1.Text = "Curso:";
+            this.label1.Text = "Buscar:";
             // 
             // panel2
             // 
@@ -408,7 +440,7 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.valAporte);
             this.panel2.Controls.Add(this.lblTextTelefono);
-            this.panel2.Location = new System.Drawing.Point(3, 82);
+            this.panel2.Location = new System.Drawing.Point(3, 105);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(293, 114);
             this.panel2.TabIndex = 1;
@@ -474,6 +506,7 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.pnlParamMensualidad.ResumeLayout(false);
             this.pnlParamMensualidad.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -511,11 +544,14 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox cbxEstudiante;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbxYear;
-        private System.Windows.Forms.ComboBox cbxCurso;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBecado;
+        private System.Windows.Forms.Label lblCurso;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Panel valNombre;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.PictureBox icUpdate;
     }
 }

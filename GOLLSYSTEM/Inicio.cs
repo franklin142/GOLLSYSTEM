@@ -198,5 +198,15 @@ namespace GOLLSYSTEM
         {
             this.Close();
         }
+        
+        private void alumnosConMoraToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            Reports.Viewer viewer = new Reports.Viewer();
+            viewer.TituloReporte = "Alumnos con mora";
+            viewer.opcReporte = "Morosos";
+            viewer.BringToFront();
+            viewer.StartPosition = FormStartPosition.Manual;
+            viewer.ShowDialog();
+        }
     }
 }

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rdbParametros = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
@@ -56,6 +56,7 @@
             this.lknSync = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.lblMatriculados = new System.Windows.Forms.Label();
+            this.btnVerMorosos = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.icUpdate)).BeginInit();
@@ -154,6 +155,7 @@
             this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picHelp.TabIndex = 64;
             this.picHelp.TabStop = false;
+            this.picHelp.Visible = false;
             // 
             // icUpdate
             // 
@@ -192,14 +194,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMatriculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMatriculas.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvMatriculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMatriculas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -356,11 +358,27 @@
             this.lblMatriculados.TabIndex = 108;
             this.lblMatriculados.Text = "000";
             // 
+            // btnVerMorosos
+            // 
+            this.btnVerMorosos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnVerMorosos.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnVerMorosos.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnVerMorosos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVerMorosos.ForeColor = System.Drawing.Color.Black;
+            this.btnVerMorosos.Location = new System.Drawing.Point(369, 419);
+            this.btnVerMorosos.Name = "btnVerMorosos";
+            this.btnVerMorosos.Size = new System.Drawing.Size(115, 26);
+            this.btnVerMorosos.TabIndex = 109;
+            this.btnVerMorosos.Text = "Ver Pendientes";
+            this.btnVerMorosos.UseVisualStyleBackColor = false;
+            this.btnVerMorosos.Click += new System.EventHandler(this.btnVerMorosos_Click);
+            // 
             // ControlMatriculas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 460);
+            this.Controls.Add(this.btnVerMorosos);
             this.Controls.Add(this.lblMatriculados);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lknSync);
@@ -420,5 +438,6 @@
         private System.Windows.Forms.LinkLabel lknSync;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblMatriculados;
+        private System.Windows.Forms.Button btnVerMorosos;
     }
 }

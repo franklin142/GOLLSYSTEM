@@ -155,16 +155,19 @@ namespace GOLLSYSTEM.DataAccess
                         DateTime fechaIni = Convert.ToDateTime(matricula.FhRegistro);
                         if (matricula != null)
                         {
-                            for (int i = 0; i < ((fechaFin.Month - fechaIni.Month)+1); i++)
+                            for (int i = 0; i < (Math.Abs((fechaFin.Month - fechaIni.Month) + 12 * (fechaFin.Year - fechaIni.Year)) + 1); i++)
                             {
                                 int val1 = (fechaIni.AddMonths(i)).Month;
                                 int val2 = (fechaIni.AddMonths(i)).Year;
-                               // string fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (fechaIni.AddMonths(i).ToString("MM") == "02" ? Convert.ToInt32(matricula.DiaLimite) > 28 ? "28" : matricula.DiaLimite : matricula.DiaLimite);
-                                string fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (DateTime.DaysInMonth(DateTime.Now.Year, fechaIni.AddMonths(i).Month)>Convert.ToInt32(matricula.DiaLimite) ? matricula.DiaLimite : DateTime.DaysInMonth(DateTime.Now.Year, fechaIni.AddMonths(i).Month).ToString());
-
+                                string fecha = fechaIni.AddMonths(i).ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + (DateTime.DaysInMonth(fechaIni.AddMonths(i).Year, fechaIni.AddMonths(i).Month)>Convert.ToInt32(matricula.DiaLimite) ? matricula.DiaLimite : DateTime.DaysInMonth(fechaIni.AddMonths(i).Year, fechaIni.AddMonths(i).Month).ToString());
+                                if (Convert.ToInt32(matricula.DiaLimite)<Convert.ToDateTime(curso.Desde).Day&& Convert.ToDateTime(curso.Desde).AddMonths(i).ToString("MM")==Convert.ToDateTime(matricula.FhRegistro).ToString("MM"))
+                                {
+                                     fecha = fechaIni.ToString("yyyy") + "-" + fechaIni.AddMonths(i).ToString("MM") + "-" + Convert.ToDateTime(curso.Desde).Day;
+                                }
                                 Cuota cuota = getCuotaByMonth(matricula.Id, (fechaIni.AddMonths(i)).Month, (fechaIni.AddMonths(i)).Year);
                                 if (cuota == null)
                                 {
+
                                     MySqlCommand cmdInsertCuota = new MySqlCommand("Insert into cuota (FhRegistro,Precio,Total,IdMatricula) values ('"+fecha+"',@Precio,@Total,@IdMatricula)", _con, _trans);
                                     cmdInsertCuota.Parameters.AddWithValue("@Precio", Properties.Settings.Default.PrecioCuota);
                                     cmdInsertCuota.Parameters.AddWithValue("@Total", "0.00");
@@ -177,6 +180,38 @@ namespace GOLLSYSTEM.DataAccess
                                     else
                                     {
                                         registro = true;
+                                    }
+                                }
+                               
+                            }
+                            foreach (Cuota cuota in matricula.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro) < Convert.ToDateTime(curso.Desde) || Convert.ToDateTime(a.FhRegistro) > Convert.ToDateTime(curso.Hasta)).ToList())
+                            {
+                                if (Convert.ToDateTime(curso.Desde) > Convert.ToDateTime(cuota.FhRegistro))
+                                {
+                                    if (MatricdetfacDAL.getMatricdetfacByIdCuota(cuota.Id) == null)
+                                    {
+                                        MySqlCommand cmdInsertCuota = new MySqlCommand("delete from cuota where Id=@Id", _con, _trans);
+                                        cmdInsertCuota.Parameters.AddWithValue("@Id", cuota.Id);
+                                        if (cmdInsertCuota.ExecuteNonQuery() <= 0)
+                                        {
+                                            result = false;
+                                        }
+                                        else
+                                        {
+                                            registro = true;
+                                        }
+                                        if (result)
+                                        {
+                                            MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
+                                            cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Sincronizó cuotas en el sistema y se elimino permanentemente la cuota con Id "+cuota.Id+" de la matricula con Id "+matricula.Id+" ya que no habia sido cancelada ni anulada en ningun caso posible.");
+                                            cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Eliminar");
+                                            cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Cuotas");
+                                            cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUserId);
+                                            if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)
+                                            {
+                                                result = false;
+                                            }
+                                        }
                                     }
                                 }
                             }

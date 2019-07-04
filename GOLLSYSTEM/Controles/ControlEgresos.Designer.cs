@@ -176,6 +176,7 @@
             this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picHelp.TabIndex = 78;
             this.picHelp.TabStop = false;
+            this.picHelp.Visible = false;
             // 
             // label1
             // 

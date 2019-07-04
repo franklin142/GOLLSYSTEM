@@ -96,7 +96,7 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                    MySqlCommand comando = new MySqlCommand("select * from curso where IdSucursal=@pIdSucursal " + (pYear == null ? "" : " and IdYear=" + pYear.Id) + " order by Id desc", _con);
+                    MySqlCommand comando = new MySqlCommand("select * from curso where IdSucursal=@pIdSucursal " + (pYear == null ? "" : " and IdYear=" + pYear.Id) + " and Estado='A' order by Id desc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -146,7 +146,7 @@ namespace GOLLSYSTEM.DataAccess
                 {
                     _con.Open();
                     MySqlCommand comando = new MySqlCommand("select * from curso where IdSucursal=@pIdSucursal " + (pYear == null ? "" : " and IdYear=" + pYear.Id) + 
-                        " and Upper(Nombre) like'%"+pText.ToUpper()+"%' order by Id desc", _con);
+                        " and Upper(Nombre) like'%"+pText.ToUpper()+"%' and Estado ='A' order by Id desc", _con);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();

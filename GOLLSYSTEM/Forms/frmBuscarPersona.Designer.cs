@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmBuscarPersona));
             this.dgvBuscar = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -223,6 +224,7 @@
             this.Controls.Add(this.icUpdate);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(675, 375);
             this.MinimumSize = new System.Drawing.Size(675, 375);
             this.Name = "frmBuscarPersona";

@@ -413,7 +413,6 @@ namespace GOLLSYSTEM.DataAccess
             }
              return semanasList;
         }
-
         public static Factura insertFactura(Factura item, Useremp pUser)
         {
             bool result = true;

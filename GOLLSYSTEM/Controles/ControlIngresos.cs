@@ -85,7 +85,7 @@ namespace GOLLSYSTEM.Controles
             foreach (Factura obj in lista)
             {
                 string concepto = "";
-                foreach (Detfactura det in obj.DetsFactura) concepto += det.Concepto + (obj.DetsFactura.Count > 1 ? obj.DetsFactura.Last().Id == det.Id ? "." : ", " : ".");
+                foreach (Detfactura det in obj.DetsFactura) concepto += (det.Concepto=="Mensualidad"? "Cuota "+ CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Convert.ToDateTime(CuotaDAL.getCuotaById( det.Matricdetfac.IdCuota).FhRegistro).ToString("MMMM")):det.Concepto) + (obj.DetsFactura.Count > 1 ? obj.DetsFactura.Last().Id == det.Id ? "." : ", " : ".");
                 decimal total = 0;
                 decimal descuento = 0;
                 decimal subtotal = 0;
@@ -305,6 +305,27 @@ namespace GOLLSYSTEM.Controles
 
             }
 
+        }
+
+        private void picExcel_MouseMove(object sender, MouseEventArgs e)
+        {
+            picExcel.Size = new Size(42,42);
+        }
+
+        private void picExcel_MouseLeave(object sender, EventArgs e)
+        {
+            picExcel.Size = new Size(38, 38);
+        }
+        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+                numPages = Pages.Count;
+                SetCurrentPage();
+                tmrTaskDgv.Start();
+            }
+          
         }
     }
 }

@@ -206,6 +206,7 @@
             this.txtBuscar.Name = "txtBuscar";
             this.txtBuscar.Size = new System.Drawing.Size(217, 24);
             this.txtBuscar.TabIndex = 1;
+            this.txtBuscar.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscar_KeyPress);
             // 
             // lblBuscar
             // 
@@ -521,6 +522,7 @@
             this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picHelp.TabIndex = 78;
             this.picHelp.TabStop = false;
+            this.picHelp.Visible = false;
             // 
             // icUpdate
             // 
@@ -546,6 +548,8 @@
             this.picExcel.TabIndex = 104;
             this.picExcel.TabStop = false;
             this.picExcel.Click += new System.EventHandler(this.picExcel_Click);
+            this.picExcel.MouseLeave += new System.EventHandler(this.picExcel_MouseLeave);
+            this.picExcel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picExcel_MouseMove);
             // 
             // ControlIngresos
             // 

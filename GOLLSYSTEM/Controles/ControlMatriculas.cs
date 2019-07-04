@@ -11,6 +11,7 @@ using GOLLSYSTEM.Forms;
 using GOLLSYSTEM.EntityLayer;
 using GOLLSYSTEM.DataAccess;
 using System.Reflection;
+using System.Globalization;
 
 namespace GOLLSYSTEM.Controles
 {
@@ -84,42 +85,17 @@ namespace GOLLSYSTEM.Controles
                 String aldia = "Si";
                 string proxima = "";
                 string pendientes = "";
-                List<Cuota> cuotas = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro).Month <= serverDate.Month).ToList();
-                List<Cuota> cuotaspendientes = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro).Month <= serverDate.Month && a.Total < a.Precio).ToList();
+                List<Cuota> atrasadas = obj.Cuotas.Where(a=> (Convert.ToDateTime(a.FhRegistro)<serverDate|| Convert.ToDateTime(a.FhRegistro) == serverDate) && a.Total<a.Precio).ToList();
+                List<Cuota> proximas = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro) > serverDate && a.Total < a.Precio).ToList();
 
-                for (int i = 0; i < cuotas.Count; i++)
+                foreach (Cuota objCuota in atrasadas)
                 {
+                    pendientes += "("+Convert.ToDateTime(objCuota.FhRegistro).ToString("MMMM",new CultureInfo("ES-es"))+" $"+Decimal.Round((objCuota.Precio-objCuota.Total),2)+") ";
+                }
+                aldia = atrasadas.Count > 0 ? "No" : "Si";
+                DateTime dateProx = proximas.Count > 0 ?atrasadas.Where(a=>Convert.ToDateTime(a.FhRegistro).Month==serverDate.Month).FirstOrDefault()!=null? Convert.ToDateTime(atrasadas.Where(a => Convert.ToDateTime(a.FhRegistro).Month == serverDate.Month).FirstOrDefault().FhRegistro): Convert.ToDateTime((from cuota in proximas orderby Convert.ToDateTime(cuota.FhRegistro) ascending select cuota).FirstOrDefault().FhRegistro) : atrasadas.Count>0? new DateTime(DateTime.Now.Year,DateTime.Now.Month,Convert.ToInt32(obj.DiaLimite)):new DateTime();
+                proxima = proximas.Count > 0||atrasadas.Count>0 ? dateProx.ToString("dd \"de\" MMMM \"del\" yyyy", new CultureInfo("ES-es")) : "";
 
-                    if (aldia == "Si" && cuotas[i].Total < cuotas[i].Precio)
-                    {
-                        aldia = "No";
-                    }
-                    if (1 + i == cuotas.Count)
-                    {
-                        if (cuotas[i].Total == cuotas[i].Precio)
-                        {
-                            proxima = obj.DiaLimite + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("MMMM") + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("yyyy");
-                        }
-                        else
-                        {
-                            proxima = obj.DiaLimite + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).ToString("MMMM") + " de " + Convert.ToDateTime(cuotas[i].FhRegistro).AddMonths(1).ToString("yyyy");
-
-                        }
-                        if (obj.Cuotas.Count == cuotas.Count&& cuotas[i].Total == cuotas[i].Precio)
-                        {
-                            proxima = "";
-                        }
-                    }
-                }
-                for (int i = 0; i < cuotaspendientes.Count; i++)
-                {
-                    pendientes += ""+Convert.ToDateTime(cuotaspendientes[i].FhRegistro).ToString("MMMM") + " ($" + Decimal.Round(cuotaspendientes[i].Precio - cuotaspendientes[i].Total, 2)+") ";
-                }
-                if (obj.Estado=="D")
-                {
-                    pendientes = "Desertado";
-                    proxima = "Desertado";
-                }
                 dgvMatriculas.Rows.Add(
                 obj.Id,
                 students+"-"+obj.Estudiante.Persona.Nombre,
@@ -216,7 +192,7 @@ namespace GOLLSYSTEM.Controles
         {
             try
             {
-                if (MessageBox.Show("¿Esta seguro que desea sincronizar las cuotas para este curso seleccionado? Si lo hace se crearan cuotas a partir de la fecha de matricula de cada estudiante si llegase a faltar algun registro.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                if (MessageBox.Show("¿Esta seguro que desea sincronizar las cuotas para este curso seleccionado? Si lo hace se crearan o eliminaran cuotas a partir de la fecha de matricula de cada estudiante si llegase a faltar algun registro.", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     if (cbxCursos.Items.Count > 0 && cbxYear.Items.Count > 0)
                     {
@@ -249,6 +225,17 @@ namespace GOLLSYSTEM.Controles
                 dgvMatriculas.Enabled = true;
                 Cursor = Cursors.Arrow;
             }
+        }
+
+        private void btnVerMorosos_Click(object sender, EventArgs e)
+        {
+
+            Reports.Viewer viewer = new Reports.Viewer();
+            viewer.TituloReporte = "Alumnos con mora";
+            viewer.opcReporte = "Morosos";
+            viewer.BringToFront();
+            viewer.StartPosition = FormStartPosition.Manual;
+            viewer.ShowDialog();
         }
     }
 }

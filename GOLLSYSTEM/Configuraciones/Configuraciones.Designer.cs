@@ -358,6 +358,7 @@
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.lblTitle);
             this.ForeColor = System.Drawing.Color.DimGray;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -201,7 +201,6 @@ namespace GOLLSYSTEM.Forms
                     EditingObject = EditingObject != null ? EditingObject : new Matricula();
                     EditingObject.Estudiante = estudiante.currentObject.Estudiante;
                     EditingObject.Padres = estudiante.currentObject.Padres;
-
                     txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
                     txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
                     txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
@@ -310,14 +309,14 @@ namespace GOLLSYSTEM.Forms
                 if (EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
                     EditingObject.Padres.Add(new Detmatricula(0, "Madre", EditingObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
 
-                NewObject = NewObject != null ? NewObject : new Matricula();
+                NewObject = new Matricula();
                 NewObject.Estudiante = EditingObject.Estudiante != null ? EditingObject.Estudiante : new Estudiante();
                 NewObject.Estudiante.Persona = NewObject.Estudiante.Persona != null ? NewObject.Estudiante.Persona : new Persona();
                 NewObject.Padres = NewObject.Padres != null ? NewObject.Padres : new List<Detmatricula>();
 
-                if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
+                if (EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
                     NewObject.Padres.Add(new Detmatricula(0, "Padre", NewObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
-                if (NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
+                if (EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
                     NewObject.Padres.Add(new Detmatricula(0, "Madre", NewObject.Id, 0, new Encargado(0, "", "", "", 0, new Persona())));
 
 
@@ -438,7 +437,8 @@ namespace GOLLSYSTEM.Forms
                 }
                 else
                 {
-                    NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
+                   //if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
+                        NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
                 }
 
                 if (EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().Id == 0)
@@ -487,7 +487,9 @@ namespace GOLLSYSTEM.Forms
                 }
                 else
                 {
-                    NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
+                   //  if (NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
+                        NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
+                    
                 }
             }
             catch (Exception ex)
@@ -747,7 +749,9 @@ namespace GOLLSYSTEM.Forms
                         {
                             try
                             {
-
+                                ///MessageBox.Show(NewObject.Padres.Count.ToString());
+                            
+                               
                                 if (MatriculaDAL.insertMatricula(NewObject, Inicio.CurrentUser))
                                 {
                                     MessageBox.Show("El estudiante ha sido inscrito exitosamente.", "Registro satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -758,7 +762,7 @@ namespace GOLLSYSTEM.Forms
                                 {
                                     MessageBox.Show("Ocurrio un error inesperado al intentar inscribir el estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.", "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-
+                                
                             }
                             catch (Exception ex)
                             {

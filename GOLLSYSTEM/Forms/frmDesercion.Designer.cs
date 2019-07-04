@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDesercion));
             this.lblTextDireccion = new System.Windows.Forms.Label();
             this.txtNota = new System.Windows.Forms.TextBox();
             this.valNota = new System.Windows.Forms.Panel();
@@ -241,6 +242,7 @@
             this.Controls.Add(this.lblTextDireccion);
             this.Controls.Add(this.txtNota);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximumSize = new System.Drawing.Size(476, 381);
             this.MinimumSize = new System.Drawing.Size(476, 381);

@@ -160,7 +160,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
                     throw;
@@ -185,7 +185,7 @@ namespace GOLLSYSTEM.DataAccess
                         "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
                         "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() +
                         "%') and (c.IdSucursal=@pIdSucursal) and m.Estado='A' order by Id asc limit @pLimit", _con);
-                    comando.Parameters.AddWithValue("@pLimit", pLimit);
+                    comando.Parameters.AddWithValue("@pLimit", pLimit+900);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -409,13 +409,13 @@ namespace GOLLSYSTEM.DataAccess
 
                         }
                     }
-                    DateTime date = YearDAL.getServerDate();
+                    DateTime date = Convert.ToDateTime(item.FhRegistro);
                     Curso curso = CursoDAL.getCursoById(item.IdCurso);
-                    int nCuotas = Convert.ToDateTime(curso.Hasta).Month - date.Month;
+                    int nCuotas = Math.Abs((Convert.ToDateTime(curso.Hasta).Month - Convert.ToDateTime(item.FhRegistro).Month) + 12 * (Convert.ToDateTime(curso.Hasta).Year - Convert.ToDateTime(item.FhRegistro).Year))+1;
                     for (int i =0;i<nCuotas;i++)
                     {
                         MySqlCommand cmdInsertCuota = new MySqlCommand("Insert into cuota (FhRegistro,Precio,Total,IdMatricula) values (@FhRegistro,@Precio,@Total,@IdMatricula)", _con, _trans);
-                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM")))>Convert.ToInt32(item.DiaLimite)? item.DiaLimite:Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))).ToString()));
+                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.AddMonths(i).ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM")))>Convert.ToInt32(item.DiaLimite)? item.DiaLimite:Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))).ToString()));
                         cmdInsertCuota.Parameters.AddWithValue("@Precio", Properties.Settings.Default.PrecioCuota);
                         cmdInsertCuota.Parameters.AddWithValue("@Total", "0.00");
                         cmdInsertCuota.Parameters.AddWithValue("@IdMatricula", item.Id);
@@ -619,14 +619,13 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     if (result)
                     {
-                        DateTime date = YearDAL.getServerDate();
+                        DateTime date = Convert.ToDateTime(item.FhRegistro);
                         Curso curso = CursoDAL.getCursoById(item.IdCurso);
 
                         foreach(Cuota cuota in item.Cuotas)
                         {
                             MySqlCommand cmdInsertCuota = new MySqlCommand("update cuota set FhRegistro=@FhRegistro where Id=@pId", _con, _trans);
-                           // cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Convert.ToDateTime(cuota.FhRegistro).ToString("MM") == "02" ? Convert.ToInt32(matricula.DiaLimite) > 28 ? "28" : matricula.DiaLimite : matricula.DiaLimite));
-                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite: Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month).ToString()));
+                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", Convert.ToDateTime(cuota.FhRegistro).ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite: Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month).ToString()));
 
                             cmdInsertCuota.Parameters.AddWithValue("@pId", cuota.Id);
                             

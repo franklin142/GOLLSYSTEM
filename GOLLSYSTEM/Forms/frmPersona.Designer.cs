@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPersona));
             this.pblTitulo = new System.Windows.Forms.Panel();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.picLogoForm = new System.Windows.Forms.PictureBox();
@@ -143,6 +144,7 @@
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.pblTitulo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(476, 227);
             this.MinimumSize = new System.Drawing.Size(476, 227);
             this.Name = "frmPersona";
