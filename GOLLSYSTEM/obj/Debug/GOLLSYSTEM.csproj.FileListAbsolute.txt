@@ -104,4 +104,5 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.cspro
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.exe
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.pdb
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\Interop.AcroPDFLib.dll
-C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csprojResolveAssemblyReference.cache
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.RecuperarCursos.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.PassRequest.resources

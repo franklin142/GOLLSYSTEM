@@ -42,6 +42,20 @@ namespace GOLLSYSTEM.Forms
                     txtObservacion.Enabled = false; txtCash.Enabled = false;
 
                 }
+                lblfecha.Text = Convert.ToDateTime(currentFactura.FhRegistro).ToString("dd \"de\" MMMM \"del \" 2019".ToUpper(), new CultureInfo("ES-es"));
+                lblCliente.Text = PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre;
+                if (currentFactura.DetsFactura.Where(a=>a.Tipo=="M").FirstOrDefault()!=null)
+                {
+                    lblEstudiante.Text = MatriculaDAL.getMatriculaById(CuotaDAL.getCuotaById(currentFactura.DetsFactura.Where(a => a.Tipo == "M").FirstOrDefault().Matricdetfac.IdCuota).IdMatricula).Estudiante.Persona.Nombre;
+                    lblMensualidad.Text = Convert.ToDateTime(CuotaDAL.getCuotaById(currentFactura.DetsFactura.Where(a => a.Tipo == "M").FirstOrDefault().Matricdetfac.IdCuota).FhRegistro).ToString("MMMM".ToUpper(),new CultureInfo("ES-es"));
+                }
+                else
+                {
+                    lbltlEstudiante.Visible = false;
+                    lblTlMensualidad.Visible = false;
+                    lblMensualidad.Visible = false;
+                    lblEstudiante.Visible = false;
+                }
             }
             catch (Exception ex)
             {
@@ -346,7 +360,7 @@ namespace GOLLSYSTEM.Forms
 
                 int row9PosY = 110, row9Cell0PosX = 57;
 
-                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
+                e.Graphics.DrawString("NOTA: DESPUES DE "+Properties.Settings.Default.DaysMora+" DIAS SE COBRARA $" + Properties.Settings.Default.Mora + " POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row10 recibo, fwcha                     //
@@ -504,7 +518,7 @@ namespace GOLLSYSTEM.Forms
 
                 row9PosY = 110 + duplicatedTop;
 
-                e.Graphics.DrawString("NOTA: DESPUES DE 8 DIAS SE COBRARA EL " + Properties.Settings.Default.Mora + "% POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
+                e.Graphics.DrawString("NOTA: DESPUES DE " + Properties.Settings.Default.DaysMora + " DIAS SE COBRARA $" + Properties.Settings.Default.Mora + " POR MORA", fontNormal, brocha, row9Cell0PosX, row9PosY);
 
                 ////////////////////////////////////////////////////////////////
                 ////                  row10 recibo, fwcha                     //

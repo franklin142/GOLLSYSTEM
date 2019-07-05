@@ -18,6 +18,7 @@ namespace GOLLSYSTEM
 {
     public partial class Inicio : Form
     {
+        public bool holded = false;
         public Form CurrentForm;
         public static Useremp CurrentUser;
         public static Sucursal CurrentSucursal;
@@ -199,7 +200,15 @@ namespace GOLLSYSTEM
             this.Close();
         }
         
-        private void alumnosConMoraToolStripMenuItem_Click_1(object sender, EventArgs e)
+
+        private void recuperacionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Configuraciones.RecuperarCursos recuperacion = new Configuraciones.RecuperarCursos();
+            recuperacion.ShowDialog();
+
+        }
+
+        private void estudiantesPendientesDePagoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Reports.Viewer viewer = new Reports.Viewer();
             viewer.TituloReporte = "Alumnos con mora";
@@ -207,6 +216,41 @@ namespace GOLLSYSTEM
             viewer.BringToFront();
             viewer.StartPosition = FormStartPosition.Manual;
             viewer.ShowDialog();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            if (holded)
+            {
+                Forms.PassRequest pass = new Forms.PassRequest();
+                pass.usuario = "Administrador";
+                pass.ShowDialog();
+                if (pass.DialogResult==DialogResult.Yes)
+                {
+                    pnlContent.Enabled = true;
+                    flpMenu.Enabled = true;
+                    toolStripDropDownArchivo.Enabled = true;
+                    toolStripDropDownButton2.Enabled = true;
+                    toolStripDropDownButton1.Enabled = true;
+                    toolStripDropDownButton3.Enabled = true;
+                    toolStripDropDownButton5.Enabled = true;
+                    toolStripDropDownButton4.Enabled = true;
+                    holded = false;
+
+                }
+            }
+            else
+            {
+                holded = true;
+                pnlContent.Enabled = false;
+                flpMenu.Enabled = false;
+                toolStripDropDownArchivo.Enabled = false;
+                toolStripDropDownButton2.Enabled = false;
+                toolStripDropDownButton1.Enabled = false;
+                toolStripDropDownButton3.Enabled = false;
+                toolStripDropDownButton5.Enabled = false;
+                toolStripDropDownButton4.Enabled = false;
+            }
         }
     }
 }

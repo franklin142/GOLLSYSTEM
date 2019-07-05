@@ -109,9 +109,16 @@ namespace GOLLSYSTEM.Forms
         {
             try
             {
-                FrmProducto producto = new FrmProducto();
-                producto.ShowDialog();
-                FillDgv_Productos(ProductoDAL.getProductos(1000));
+                PassRequest pasreq = new PassRequest();
+                pasreq.usuario = "Administrador";
+                pasreq.ShowDialog();
+                if (pasreq.DialogResult==DialogResult.Yes)
+                {
+                    FrmProducto producto = new FrmProducto();
+                    producto.ShowDialog();
+                    FillDgv_Productos(ProductoDAL.getProductos(1000));
+                }
+
 
             }
             catch (Exception ex)

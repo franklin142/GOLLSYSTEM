@@ -33,6 +33,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.pnlMorosos = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.valNota = new System.Windows.Forms.Panel();
             this.flpHorario = new System.Windows.Forms.FlowLayoutPanel();
             this.label22 = new System.Windows.Forms.Label();
             this.lblDuracion = new System.Windows.Forms.Label();
@@ -50,9 +53,6 @@
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.valNota = new System.Windows.Forms.Panel();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.panel6 = new System.Windows.Forms.Panel();
             this.pnlContent.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pnlMorosos.SuspendLayout();
@@ -119,6 +119,33 @@
             this.pnlMorosos.TabIndex = 1;
             this.pnlMorosos.Visible = false;
             // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.panel6.Location = new System.Drawing.Point(9, 63);
+            this.panel6.Margin = new System.Windows.Forms.Padding(4);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(229, 2);
+            this.panel6.TabIndex = 63;
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.panel5.Location = new System.Drawing.Point(8, 118);
+            this.panel5.Margin = new System.Windows.Forms.Padding(4);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(229, 2);
+            this.panel5.TabIndex = 62;
+            // 
+            // valNota
+            // 
+            this.valNota.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.valNota.Location = new System.Drawing.Point(7, 174);
+            this.valNota.Margin = new System.Windows.Forms.Padding(4);
+            this.valNota.Name = "valNota";
+            this.valNota.Size = new System.Drawing.Size(229, 2);
+            this.valNota.TabIndex = 61;
+            // 
             // flpHorario
             // 
             this.flpHorario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -142,9 +169,9 @@
             this.lblDuracion.AutoSize = true;
             this.lblDuracion.Location = new System.Drawing.Point(4, 154);
             this.lblDuracion.Name = "lblDuracion";
-            this.lblDuracion.Size = new System.Drawing.Size(213, 16);
+            this.lblDuracion.Size = new System.Drawing.Size(11, 16);
             this.lblDuracion.TabIndex = 58;
-            this.lblDuracion.Text = "05 de enero hasta el 05 de octubre";
+            this.lblDuracion.Text = "|";
             // 
             // label21
             // 
@@ -160,9 +187,9 @@
             this.lblTeacher.AutoSize = true;
             this.lblTeacher.Location = new System.Drawing.Point(6, 98);
             this.lblTeacher.Name = "lblTeacher";
-            this.lblTeacher.Size = new System.Drawing.Size(235, 16);
+            this.lblTeacher.Size = new System.Drawing.Size(11, 16);
             this.lblTeacher.TabIndex = 56;
-            this.lblTeacher.Text = "nombre1 nombre2 apellido1 apellido2";
+            this.lblTeacher.Text = "|";
             // 
             // label19
             // 
@@ -283,33 +310,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(2, 18);
             this.panel4.TabIndex = 13;
-            // 
-            // valNota
-            // 
-            this.valNota.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.valNota.Location = new System.Drawing.Point(7, 174);
-            this.valNota.Margin = new System.Windows.Forms.Padding(4);
-            this.valNota.Name = "valNota";
-            this.valNota.Size = new System.Drawing.Size(229, 2);
-            this.valNota.TabIndex = 61;
-            // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.panel5.Location = new System.Drawing.Point(8, 118);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(229, 2);
-            this.panel5.TabIndex = 62;
-            // 
-            // panel6
-            // 
-            this.panel6.BackColor = System.Drawing.Color.DeepSkyBlue;
-            this.panel6.Location = new System.Drawing.Point(9, 63);
-            this.panel6.Margin = new System.Windows.Forms.Padding(4);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(229, 2);
-            this.panel6.TabIndex = 63;
             // 
             // Viewer
             // 

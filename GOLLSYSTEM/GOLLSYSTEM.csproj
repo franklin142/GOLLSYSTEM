@@ -140,6 +140,12 @@
     <Compile Include="Configuraciones\EdtUsuario.Designer.cs">
       <DependentUpon>EdtUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuraciones\RecuperarCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuraciones\RecuperarCursos.Designer.cs">
+      <DependentUpon>RecuperarCursos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuraciones\Restore.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +353,12 @@
     <Compile Include="Forms\frmWelcome.Designer.cs">
       <DependentUpon>frmWelcome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PassRequest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PassRequest.Designer.cs">
+      <DependentUpon>PassRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -388,6 +400,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configuraciones\EdtUsuario.resx">
       <DependentUpon>EdtUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuraciones\RecuperarCursos.resx">
+      <DependentUpon>RecuperarCursos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuraciones\Restore.resx">
       <DependentUpon>Restore.cs</DependentUpon>
@@ -463,6 +478,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmWelcome.resx">
       <DependentUpon>frmWelcome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PassRequest.resx">
+      <DependentUpon>PassRequest.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.cs</DependentUpon>

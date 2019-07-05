@@ -137,6 +137,56 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
+        public static List<Curso> getCursosEliminados(Int64 pIdSucursal, Year pYear)
+        {
+            List<Curso> lista = new List<Curso>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand comando = new MySqlCommand("select * from curso where IdSucursal=@pIdSucursal " + (pYear == null ? "" : " and IdYear=" + pYear.Id) + " and Estado='I' order by Id desc", _con);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Curso item = new Curso(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetString(4),
+                            _reader.GetString(5),
+                            _reader.GetString(6),
+                            _reader.GetString(7),
+                            _reader.GetInt64(8),
+                            _reader.GetInt64(9),
+                            _reader.GetInt64(10),
+                            ContratoDAL.getContratoById(_reader.GetInt64(8)),
+                            YearDAL.getYearById(_reader.GetInt64(10)),
+                            DiasDAL.getDiasByIdCurso(_reader.GetInt64(0)),
+                            DetCursoDAL.getDetscursoByIdCurso(_reader.GetInt64(0))
+                            );
+
+                        lista.Add(item);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+
         public static List<Curso> searchCursos(Int64 pIdSucursal,string pText, Year pYear)
         {
             List<Curso> lista = new List<Curso>();
@@ -442,6 +492,56 @@ namespace GOLLSYSTEM.DataAccess
                         MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
                         cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Inhabilito el curso \"" + item.Nombre + "\" con un total de " + item.Libros + " libros con \"" + item.Contrato.Empleado.Persona.Nombre + "\" como encargado.");
                         cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Inhabilitar");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Curso");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
+                        if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)
+                        {
+                            result = false;
+                        }
+                    }
+
+                    if (result)
+                    {
+                        _trans.Commit();
+                    }
+
+                }
+                catch (Exception)
+                {
+                    result = false;
+                    _trans.Rollback();
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return result;
+        }
+        public static bool habilitarCurso(Curso item, Useremp pUser)
+        {
+            bool result = true;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                _con.Open();
+                MySqlTransaction _trans = _con.BeginTransaction();
+                try
+                {
+                    MySqlCommand cmdUpdateCurso = new MySqlCommand("Update curso set Estado='A' where Id=@Id;", _con, _trans);
+                    cmdUpdateCurso.Parameters.AddWithValue("@Id", item.Id);
+
+
+                    if (cmdUpdateCurso.ExecuteNonQuery() <= 0)
+                    {
+                        result = false;
+                    }
+                    if (result)
+                    {
+                        MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "habilito el curso \"" + item.Nombre + "\" con un total de " + item.Libros + " libros con \"" + item.Contrato.Empleado.Persona.Nombre + "\" como encargado.");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "habilitar");
                         cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Curso");
                         cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
                         if (cmdInsertAuditoria.ExecuteNonQuery() <= 0)

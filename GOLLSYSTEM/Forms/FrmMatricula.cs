@@ -1013,9 +1013,10 @@ namespace GOLLSYSTEM.Forms
                         Name = "lbl" + dia.Nombre + curso.Id
                     });
                 }
-                dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
                 dtpFhRegistro.MaxDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Hasta);
+                dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
                 dtpFhRegistro.Value = Convert.ToDateTime(EditingObject.FhRegistro) < dtpFhRegistro.MinDate || Convert.ToDateTime(EditingObject.FhRegistro) > dtpFhRegistro.MaxDate ? dtpFhRegistro.Value : Convert.ToDateTime(EditingObject.FhRegistro);
+
             }
         }
     }

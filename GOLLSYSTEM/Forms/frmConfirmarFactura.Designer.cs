@@ -56,22 +56,34 @@
             this.errCash = new System.Windows.Forms.ErrorProvider(this.components);
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lblfecha = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblCliente = new System.Windows.Forms.Label();
+            this.label = new System.Windows.Forms.Label();
+            this.lblEstudiante = new System.Windows.Forms.Label();
+            this.lbltlEstudiante = new System.Windows.Forms.Label();
+            this.lblMensualidad = new System.Windows.Forms.Label();
+            this.lblTlMensualidad = new System.Windows.Forms.Label();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errCash)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // pblTitulo
             // 
+            this.pblTitulo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pblTitulo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(100)))), ((int)(((byte)(182)))));
             this.pblTitulo.Controls.Add(this.lblTitulo);
             this.pblTitulo.Controls.Add(this.picLogoForm);
             this.pblTitulo.Location = new System.Drawing.Point(0, 1);
             this.pblTitulo.Name = "pblTitulo";
-            this.pblTitulo.Size = new System.Drawing.Size(470, 60);
+            this.pblTitulo.Size = new System.Drawing.Size(916, 60);
             this.pblTitulo.TabIndex = 106;
             // 
             // lblTitulo
@@ -87,8 +99,9 @@
             // 
             // picLogoForm
             // 
+            this.picLogoForm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picLogoForm.Image = global::GOLLSYSTEM.Properties.Resources.goll_Logo_png;
-            this.picLogoForm.Location = new System.Drawing.Point(394, 3);
+            this.picLogoForm.Location = new System.Drawing.Point(843, 3);
             this.picLogoForm.Name = "picLogoForm";
             this.picLogoForm.Size = new System.Drawing.Size(73, 54);
             this.picLogoForm.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -97,11 +110,12 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelar.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.Black;
-            this.btnCancelar.Location = new System.Drawing.Point(231, 384);
+            this.btnCancelar.Location = new System.Drawing.Point(678, 384);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(81, 27);
             this.btnCancelar.TabIndex = 110;
@@ -111,11 +125,12 @@
             // 
             // btnRegistrar
             // 
+            this.btnRegistrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRegistrar.BackColor = System.Drawing.Color.LightSkyBlue;
             this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnRegistrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegistrar.ForeColor = System.Drawing.Color.Black;
-            this.btnRegistrar.Location = new System.Drawing.Point(318, 384);
+            this.btnRegistrar.Location = new System.Drawing.Point(765, 384);
             this.btnRegistrar.Name = "btnRegistrar";
             this.btnRegistrar.Size = new System.Drawing.Size(139, 26);
             this.btnRegistrar.TabIndex = 109;
@@ -130,10 +145,10 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(17, 216);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(440, 71);
+            this.groupBox3.Size = new System.Drawing.Size(387, 71);
             this.groupBox3.TabIndex = 114;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Resultado:";
+            this.groupBox3.Text = "$$$";
             // 
             // lblCambio
             // 
@@ -163,7 +178,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(17, 103);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.Size = new System.Drawing.Size(168, 100);
             this.groupBox2.TabIndex = 113;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Cobro al Instante";
@@ -205,7 +220,7 @@
             this.groupBox1.Controls.Add(this.lblTotal);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(257, 104);
+            this.groupBox1.Location = new System.Drawing.Point(204, 103);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(200, 100);
             this.groupBox1.TabIndex = 112;
@@ -300,7 +315,7 @@
             this.valObservacion.BackColor = System.Drawing.Color.Gray;
             this.valObservacion.Location = new System.Drawing.Point(25, 371);
             this.valObservacion.Name = "valObservacion";
-            this.valObservacion.Size = new System.Drawing.Size(432, 2);
+            this.valObservacion.Size = new System.Drawing.Size(379, 2);
             this.valObservacion.TabIndex = 116;
             // 
             // txtObservacion
@@ -312,7 +327,7 @@
             this.txtObservacion.Location = new System.Drawing.Point(24, 313);
             this.txtObservacion.Multiline = true;
             this.txtObservacion.Name = "txtObservacion";
-            this.txtObservacion.Size = new System.Drawing.Size(433, 58);
+            this.txtObservacion.Size = new System.Drawing.Size(380, 58);
             this.txtObservacion.TabIndex = 115;
             // 
             // errCash
@@ -333,11 +348,113 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.lblMensualidad);
+            this.groupBox4.Controls.Add(this.lblTlMensualidad);
+            this.groupBox4.Controls.Add(this.lblEstudiante);
+            this.groupBox4.Controls.Add(this.lbltlEstudiante);
+            this.groupBox4.Controls.Add(this.lblCliente);
+            this.groupBox4.Controls.Add(this.label);
+            this.groupBox4.Controls.Add(this.lblfecha);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(410, 103);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(494, 270);
+            this.groupBox4.TabIndex = 118;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Resumen";
+            // 
+            // lblfecha
+            // 
+            this.lblfecha.AutoSize = true;
+            this.lblfecha.Font = new System.Drawing.Font("Microsoft Tai Le", 25F);
+            this.lblfecha.Location = new System.Drawing.Point(78, 18);
+            this.lblfecha.Name = "lblfecha";
+            this.lblfecha.Size = new System.Drawing.Size(190, 44);
+            this.lblfecha.TabIndex = 36;
+            this.lblfecha.Text = "00/00/0000";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.label5.Location = new System.Drawing.Point(6, 29);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 25);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "Fecha:";
+            // 
+            // lblCliente
+            // 
+            this.lblCliente.AutoSize = true;
+            this.lblCliente.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.lblCliente.Location = new System.Drawing.Point(81, 68);
+            this.lblCliente.Name = "lblCliente";
+            this.lblCliente.Size = new System.Drawing.Size(298, 25);
+            this.lblCliente.TabIndex = 38;
+            this.lblCliente.Text = "asdfasd asdf asdf adsf asdf asdf a";
+            // 
+            // label
+            // 
+            this.label.AutoSize = true;
+            this.label.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.label.Location = new System.Drawing.Point(6, 67);
+            this.label.Name = "label";
+            this.label.Size = new System.Drawing.Size(76, 25);
+            this.label.TabIndex = 37;
+            this.label.Text = "Cliente:";
+            // 
+            // lblEstudiante
+            // 
+            this.lblEstudiante.AutoSize = true;
+            this.lblEstudiante.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.lblEstudiante.Location = new System.Drawing.Point(110, 112);
+            this.lblEstudiante.Name = "lblEstudiante";
+            this.lblEstudiante.Size = new System.Drawing.Size(298, 25);
+            this.lblEstudiante.TabIndex = 40;
+            this.lblEstudiante.Text = "asdfasd asdf asdf adsf asdf asdf a";
+            // 
+            // lbltlEstudiante
+            // 
+            this.lbltlEstudiante.AutoSize = true;
+            this.lbltlEstudiante.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.lbltlEstudiante.Location = new System.Drawing.Point(6, 112);
+            this.lbltlEstudiante.Name = "lbltlEstudiante";
+            this.lbltlEstudiante.Size = new System.Drawing.Size(107, 25);
+            this.lbltlEstudiante.TabIndex = 39;
+            this.lbltlEstudiante.Text = "Estudiante:";
+            // 
+            // lblMensualidad
+            // 
+            this.lblMensualidad.AutoSize = true;
+            this.lblMensualidad.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.lblMensualidad.Location = new System.Drawing.Point(136, 154);
+            this.lblMensualidad.Name = "lblMensualidad";
+            this.lblMensualidad.Size = new System.Drawing.Size(83, 25);
+            this.lblMensualidad.TabIndex = 42;
+            this.lblMensualidad.Text = "asdfasd ";
+            // 
+            // lblTlMensualidad
+            // 
+            this.lblTlMensualidad.AutoSize = true;
+            this.lblTlMensualidad.Font = new System.Drawing.Font("Microsoft Tai Le", 15F);
+            this.lblTlMensualidad.Location = new System.Drawing.Point(6, 154);
+            this.lblTlMensualidad.Name = "lblTlMensualidad";
+            this.lblTlMensualidad.Size = new System.Drawing.Size(128, 25);
+            this.lblTlMensualidad.TabIndex = 41;
+            this.lblTlMensualidad.Text = "Mensualidad:";
+            // 
             // frmConfirmarFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 422);
+            this.ClientSize = new System.Drawing.Size(916, 422);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.lblTextDireccion);
             this.Controls.Add(this.valObservacion);
             this.Controls.Add(this.txtObservacion);
@@ -349,8 +466,8 @@
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.pblTitulo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(488, 461);
-            this.MinimumSize = new System.Drawing.Size(488, 461);
+            this.MaximumSize = new System.Drawing.Size(932, 461);
+            this.MinimumSize = new System.Drawing.Size(700, 461);
             this.Name = "frmConfirmarFactura";
             this.Text = "Confirmar Factura";
             this.Load += new System.EventHandler(this.frmConfirmarFactura_Load);
@@ -364,6 +481,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errCash)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -397,5 +516,14 @@
         private System.Windows.Forms.ErrorProvider errCash;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label lblEstudiante;
+        private System.Windows.Forms.Label lbltlEstudiante;
+        private System.Windows.Forms.Label lblCliente;
+        private System.Windows.Forms.Label label;
+        private System.Windows.Forms.Label lblfecha;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblMensualidad;
+        private System.Windows.Forms.Label lblTlMensualidad;
     }
 }

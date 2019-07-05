@@ -48,11 +48,13 @@
             this.ingresosDelMesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.egresosDelMesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.alumnosConMoraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.estudiantesPendientesDePagoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.backupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuracionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recuperacionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton5 = new System.Windows.Forms.ToolStripDropDownButton();
             this.maximizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.minimizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -90,6 +92,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.tmrGcCollector = new System.Windows.Forms.Timer(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlMenu.SuspendLayout();
@@ -127,9 +130,11 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownArchivo,
             this.toolStripDropDownButton2,
+            this.toolStripDropDownButton1,
             this.toolStripDropDownButton3,
             this.toolStripDropDownButton5,
-            this.toolStripDropDownButton4});
+            this.toolStripDropDownButton4,
+            this.toolStripButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(934, 26);
@@ -232,8 +237,7 @@
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ingresosDelMesToolStripMenuItem,
             this.egresosDelMesToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.alumnosConMoraToolStripMenuItem});
+            this.toolStripMenuItem1});
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
@@ -259,12 +263,23 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(218, 6);
             // 
-            // alumnosConMoraToolStripMenuItem
+            // toolStripDropDownButton1
             // 
-            this.alumnosConMoraToolStripMenuItem.Name = "alumnosConMoraToolStripMenuItem";
-            this.alumnosConMoraToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
-            this.alumnosConMoraToolStripMenuItem.Text = "Estudiantes con mora";
-            this.alumnosConMoraToolStripMenuItem.Click += new System.EventHandler(this.alumnosConMoraToolStripMenuItem_Click_1);
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.estudiantesPendientesDePagoToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(76, 23);
+            this.toolStripDropDownButton1.Text = "Reportes";
+            // 
+            // estudiantesPendientesDePagoToolStripMenuItem
+            // 
+            this.estudiantesPendientesDePagoToolStripMenuItem.Name = "estudiantesPendientesDePagoToolStripMenuItem";
+            this.estudiantesPendientesDePagoToolStripMenuItem.Size = new System.Drawing.Size(273, 24);
+            this.estudiantesPendientesDePagoToolStripMenuItem.Text = "Estudiantes pendientes de pago";
+            this.estudiantesPendientesDePagoToolStripMenuItem.Click += new System.EventHandler(this.estudiantesPendientesDePagoToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton3
             // 
@@ -272,7 +287,8 @@
             this.toolStripDropDownButton3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backupToolStripMenuItem,
             this.configuracionesToolStripMenuItem,
-            this.rutaDeCarpetaDeContabilidadToolStripMenuItem});
+            this.rutaDeCarpetaDeContabilidadToolStripMenuItem,
+            this.recuperacionToolStripMenuItem});
             this.toolStripDropDownButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton3.Image")));
             this.toolStripDropDownButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton3.Name = "toolStripDropDownButton3";
@@ -300,6 +316,13 @@
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Text = "Ruta de carpeta de contabilidad";
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Click += new System.EventHandler(this.rutaDeCarpetaDeContabilidadToolStripMenuItem_Click);
             // 
+            // recuperacionToolStripMenuItem
+            // 
+            this.recuperacionToolStripMenuItem.Name = "recuperacionToolStripMenuItem";
+            this.recuperacionToolStripMenuItem.Size = new System.Drawing.Size(333, 24);
+            this.recuperacionToolStripMenuItem.Text = "Recuperación de cursos";
+            this.recuperacionToolStripMenuItem.Click += new System.EventHandler(this.recuperacionToolStripMenuItem_Click);
+            // 
             // toolStripDropDownButton5
             // 
             this.toolStripDropDownButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -319,39 +342,39 @@
             // maximizarToolStripMenuItem
             // 
             this.maximizarToolStripMenuItem.Name = "maximizarToolStripMenuItem";
-            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.maximizarToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.maximizarToolStripMenuItem.Text = "Maximizar";
             this.maximizarToolStripMenuItem.Click += new System.EventHandler(this.maximizarToolStripMenuItem_Click);
             // 
             // minimizarToolStripMenuItem
             // 
             this.minimizarToolStripMenuItem.Name = "minimizarToolStripMenuItem";
-            this.minimizarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.minimizarToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.minimizarToolStripMenuItem.Text = "Minimizar";
             this.minimizarToolStripMenuItem.Click += new System.EventHandler(this.minimizarToolStripMenuItem_Click);
             // 
             // cerrarToolStripMenuItem
             // 
             this.cerrarToolStripMenuItem.Name = "cerrarToolStripMenuItem";
-            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.cerrarToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.cerrarToolStripMenuItem.Text = "Cerrar";
             this.cerrarToolStripMenuItem.Click += new System.EventHandler(this.cerrarToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(137, 6);
             // 
             // usuarioToolStripMenuItem
             // 
             this.usuarioToolStripMenuItem.Name = "usuarioToolStripMenuItem";
-            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.usuarioToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.usuarioToolStripMenuItem.Text = "Usuario";
             // 
             // rolToolStripMenuItem
             // 
             this.rolToolStripMenuItem.Name = "rolToolStripMenuItem";
-            this.rolToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.rolToolStripMenuItem.Size = new System.Drawing.Size(140, 24);
             this.rolToolStripMenuItem.Text = "Rol";
             // 
             // toolStripDropDownButton4
@@ -702,6 +725,16 @@
             this.tmrGcCollector.Interval = 15600;
             this.tmrGcCollector.Tick += new System.EventHandler(this.tmrGcCollector_Tick);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::GOLLSYSTEM.Properties.Resources.llave_de_una_casa;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // Inicio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -812,6 +845,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Timer tmrGcCollector;
         private System.Windows.Forms.ToolStripMenuItem rutaDeCarpetaDeContabilidadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem alumnosConMoraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recuperacionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem estudiantesPendientesDePagoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }
