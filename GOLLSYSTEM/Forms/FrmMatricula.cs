@@ -106,7 +106,7 @@ namespace GOLLSYSTEM.Forms
                     }
                     dtpFhRegistro.MinDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Desde);
                     dtpFhRegistro.MaxDate = Convert.ToDateTime((cmbCurso.SelectedItem as Curso).Hasta);
-                    
+
                 }
             }
             catch (Exception ex)
@@ -326,6 +326,14 @@ namespace GOLLSYSTEM.Forms
                     setErrorMessage(null, errNombreEst, txtNombreEst, valNombreEst, Color.FromArgb(0, 100, 182));
                 NewObject.Estudiante.Persona.Nombre = txtNombreEst.Text;
                 result = validation == false ? false : result;
+
+                Estudiante Vestudiante = EstudianteDAL.getEstudent(txtNombreEst.Text);
+                validation = Vestudiante!=null&&EditingObject.Estudiante!=null&&EditingObject.Estudiante.Id==0 ?
+                    setErrorMessage("Ya existe un estudiante registrado con estos datos, por favor verificar y asegurarse que el nombre este correctamente escrito.", errNombreEst, txtNombreEst, valNombreEst, Color.Red) :
+                    setErrorMessage(null, errNombreEst, txtNombreEst, valNombreEst, Color.FromArgb(0, 100, 182));
+                NewObject.Estudiante.Persona.Nombre = txtNombreEst.Text;
+                result = validation == false ? false : result;
+
                 validation = txtApPaternoEst.Text.Length > 0 && (!Validation.Validation.Val_StringsLength(txtApPaternoEst.Text, 4) || !Validation.Validation.Val_LetterFormat(txtApPaternoEst.Text)) ?
                     setErrorMessage("El apellido paterno del estudiante no tiene un formato valido, por favor digite un \napellido valido con un minimo de 4 caracteres", errApPaternoEst, txtApPaternoEst, valApPaternoEst, Color.Red) :
                     setErrorMessage(null, errApPaternoEst, txtApPaternoEst, valApPaternoEst, Color.FromArgb(0, 100, 182));
@@ -433,12 +441,13 @@ namespace GOLLSYSTEM.Forms
                             setErrorMessage(null, errDireccionPadre, txtDireccionPadre, valDireccionPadre, Color.FromArgb(0, 100, 182));
                         NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Persona.Direccion = txtDireccionPadre.Text;
                         result = validation == false ? false : result;
+                        
                     }
                 }
                 else
                 {
-                   //if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
-                        NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
+                    //if (NewObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null)
+                    NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault());
                 }
 
                 if (EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().Id == 0)
@@ -487,9 +496,9 @@ namespace GOLLSYSTEM.Forms
                 }
                 else
                 {
-                   //  if (NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
-                        NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
-                    
+                    //  if (NewObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null)
+                    NewObject.Padres.Add(EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault());
+
                 }
             }
             catch (Exception ex)
@@ -750,8 +759,8 @@ namespace GOLLSYSTEM.Forms
                             try
                             {
                                 ///MessageBox.Show(NewObject.Padres.Count.ToString());
-                            
-                               
+
+
                                 if (MatriculaDAL.insertMatricula(NewObject, Inicio.CurrentUser))
                                 {
                                     MessageBox.Show("El estudiante ha sido inscrito exitosamente.", "Registro satisfactorio", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -762,7 +771,7 @@ namespace GOLLSYSTEM.Forms
                                 {
                                     MessageBox.Show("Ocurrio un error inesperado al intentar inscribir el estudiante, por favor cierre el formulario y vuelva a intentarlo. Si el problema persiste contacte con el desarrollador al correo franklingranados2@yahoo.com.", "Registro interrumpido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                                
+
                             }
                             catch (Exception ex)
                             {
@@ -955,6 +964,47 @@ namespace GOLLSYSTEM.Forms
                     setErrorMessage("La direccion de la madre del estudiante no cumple la longitud de 20 caracetes, por favor digite una \ndireccion valida con un minimo de 20 caracteres", errDireccionMadre, txtDireccionMadre, valDireccionMadre, Color.Red) :
                     setErrorMessage(null, errDireccionMadre, txtDireccionMadre, valDireccionMadre, txtDireccionMadre.Text.Length > 0 ? Color.FromArgb(0, 100, 182) : Color.Gray) : true;
                 EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Persona.Direccion = validation && name == "txtDireccionMadre" ? txtDireccionMadre.Text : EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Persona.Direccion;
+                Estudiante Vestudiante = EstudianteDAL.getEstudent(txtNombreEst.Text);
+                if (Vestudiante != null&&opc=="newObject"&&Vestudiante.Id!=EditingObject.Estudiante.Id)
+                {
+                    if (MessageBox.Show("Este estudiante ya existe en el sistema, ¿Desea cargar su información?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Matricula matricula = MatriculaDAL.searchMatriculas(Validation.Validation.Val_Injection(txtNombreEst.Text), Inicio.CurrentSucursal.Id)[0];
+                        EditingObject = EditingObject != null ? EditingObject : new Matricula();
+                        EditingObject.Estudiante = matricula.Estudiante;
+                        EditingObject.Padres = matricula.Padres;
+                        
+                        txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
+                        txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
+                        txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
+                        txtEnfermedadEst.Text = EditingObject.Estudiante.Enfermedad;
+                        dtpFechaNacEst.Value = Convert.ToDateTime(EditingObject.Estudiante.Persona.FechaNac);
+                        txtDireccionEst.Text = EditingObject.Estudiante.Persona.Direccion;
+                        txtCorreoEst.Text = EditingObject.Estudiante.Correo;
+                        txtTelEstudiante.Text = EditingObject.Estudiante.Telefono;
+                        txtTelEmergencia.Text = EditingObject.Estudiante.TelEmergencia;
+                        txtParentescoEmergencia.Text = EditingObject.Estudiante.ParentEmergencia;
+
+                        Detmatricula padre = EditingObject.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault();
+                        txtNombrePadre.Text = padre == null ? "" : padre.encargado.Persona.Nombre;
+                        txtLugarTrabajoPadre.Text = padre == null ? "" : padre.encargado.LugarTrabajo;
+                        txtTelefonoPadre.Text = padre == null ? "" : padre.encargado.Telefono;
+                        txtDireccionPadre.Text = padre == null ? "" : padre.encargado.Persona.Direccion;
+                        txtTrabajoPadre.Text = padre == null ? "" : padre.encargado.Trabajo;
+
+                        Detmatricula madre = EditingObject.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault();
+                        txtNombreMadre.Text = madre == null ? "" : madre.encargado.Persona.Nombre;
+                        txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.LugarTrabajo;
+                        txtTelefonoMadre.Text = madre == null ? "" : madre.encargado.Telefono;
+                        txtDireccionMadre.Text = madre == null ? "" : madre.encargado.Persona.Direccion;
+                        txtLugarTrabajoMadre.Text = madre == null ? "" : madre.encargado.Trabajo;
+
+                    }
+                    else
+                    {
+                        txtNombreEst.Text = "";
+                    }
+                }
 
             }
             catch (Exception ex)
@@ -996,7 +1046,7 @@ namespace GOLLSYSTEM.Forms
 
         private void cmbCurso_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ready&&cmbCurso.Items.Count>0)
+            if (ready && cmbCurso.Items.Count > 0)
             {
                 Curso curso = CursoDAL.getCursoById((Int64)cmbCurso.SelectedValue);
                 lblTeacher.Text = curso.Contrato.Empleado.Persona.Nombre;
@@ -1009,7 +1059,7 @@ namespace GOLLSYSTEM.Forms
                     flpHorario.Controls.Add(new Label()
                     {
                         Text = dia.Nombre + " " + horario,
-                        AutoSize=true,
+                        AutoSize = true,
                         Name = "lbl" + dia.Nombre + curso.Id
                     });
                 }

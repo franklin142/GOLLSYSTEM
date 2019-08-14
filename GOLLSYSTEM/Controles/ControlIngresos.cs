@@ -136,6 +136,8 @@ namespace GOLLSYSTEM.Controles
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
+            txtCurrentIndex.Text = 1.ToString();
+            currentPage = 1;
             Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
             numPages = Pages.Count;
             SetCurrentPage();

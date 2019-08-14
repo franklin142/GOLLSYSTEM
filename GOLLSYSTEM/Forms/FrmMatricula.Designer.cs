@@ -95,6 +95,9 @@
             this.ValNombrePadre = new System.Windows.Forms.Panel();
             this.txtNombrePadre = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dtpFhRegistro = new System.Windows.Forms.DateTimePicker();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
             this.flpHorario = new System.Windows.Forms.FlowLayoutPanel();
             this.label22 = new System.Windows.Forms.Label();
             this.lblDuracion = new System.Windows.Forms.Label();
@@ -146,9 +149,6 @@
             this.errDireccionPadre = new System.Windows.Forms.ErrorProvider(this.components);
             this.errPadre = new System.Windows.Forms.ErrorProvider(this.components);
             this.errMadre = new System.Windows.Forms.ErrorProvider(this.components);
-            this.dtpFhRegistro = new System.Windows.Forms.DateTimePicker();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label20 = new System.Windows.Forms.Label();
             this.pblTitulo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogoForm)).BeginInit();
             this.gbxInformacion.SuspendLayout();
@@ -945,6 +945,34 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Detalle de inscripcion";
             // 
+            // dtpFhRegistro
+            // 
+            this.dtpFhRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFhRegistro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFhRegistro.Location = new System.Drawing.Point(595, 32);
+            this.dtpFhRegistro.Name = "dtpFhRegistro";
+            this.dtpFhRegistro.Size = new System.Drawing.Size(112, 22);
+            this.dtpFhRegistro.TabIndex = 57;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Gray;
+            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(594, 56);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(113, 2);
+            this.panel1.TabIndex = 58;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(543, 34);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(43, 16);
+            this.label20.TabIndex = 59;
+            this.label20.Text = "FH. M";
+            // 
             // flpHorario
             // 
             this.flpHorario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
@@ -1326,34 +1354,6 @@
             // errMadre
             // 
             this.errMadre.ContainerControl = this;
-            // 
-            // dtpFhRegistro
-            // 
-            this.dtpFhRegistro.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFhRegistro.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFhRegistro.Location = new System.Drawing.Point(595, 32);
-            this.dtpFhRegistro.Name = "dtpFhRegistro";
-            this.dtpFhRegistro.Size = new System.Drawing.Size(112, 22);
-            this.dtpFhRegistro.TabIndex = 57;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(594, 56);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(113, 2);
-            this.panel1.TabIndex = 58;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(543, 34);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(43, 16);
-            this.label20.TabIndex = 59;
-            this.label20.Text = "FH. M";
             // 
             // FrmMatricula
             // 

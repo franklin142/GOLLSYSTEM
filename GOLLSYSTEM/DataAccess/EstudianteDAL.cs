@@ -52,6 +52,48 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static Estudiante getEstudent(string pNombre)
+        {
+            Estudiante item = null;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand cmdGetItemById = new MySqlCommand("select e.* from persona as p inner join estudiante as e on e.IdPersona=p.Id where Upper(Nombre)=Upper(@pNombre)", _con);
+                    cmdGetItemById.Parameters.AddWithValue("@pNombre", pNombre);
+
+                    MySqlDataReader _reader = cmdGetItemById.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = new Estudiante(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetString(3),
+                            _reader.GetString(4),
+                             _reader.GetString(5),
+                            _reader.GetString(6),
+                            _reader.GetString(7),
+                            _reader.GetString(8),
+                            _reader.GetInt64(9),
+                            PersonaDAL.getPersonaById(_reader.GetInt64(9))
+                            );
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
+        }
 
     }
 }
