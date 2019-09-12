@@ -140,6 +140,12 @@
     <Compile Include="Configuraciones\EdtUsuario.Designer.cs">
       <DependentUpon>EdtUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Configuraciones\Permisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configuraciones\Permisos.Designer.cs">
+      <DependentUpon>Permisos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuraciones\RecuperarCursos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +194,7 @@
     <Compile Include="Controles\ControlMatriculas.Designer.cs">
       <DependentUpon>ControlMatriculas.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataAccess\AcsSucursalDAL.cs" />
     <Compile Include="DataAccess\CalificacionDAL.cs" />
     <Compile Include="DataAccess\CargoDAL.cs" />
     <Compile Include="DataAccess\Conexion.cs" />
@@ -207,16 +214,21 @@
     <Compile Include="DataAccess\EvaluacionDAL.cs" />
     <Compile Include="DataAccess\FacturaDAL.cs" />
     <Compile Include="DataAccess\LibroDAL.cs" />
+    <Compile Include="DataAccess\LstPermisoDAL.cs" />
+    <Compile Include="DataAccess\LstPermisoRolDAL.cs" />
     <Compile Include="DataAccess\MatricdetfacDAL.cs" />
     <Compile Include="DataAccess\MatriculaDAL.cs" />
+    <Compile Include="DataAccess\PermisoDAL.cs" />
     <Compile Include="DataAccess\PersonaDAL.cs" />
     <Compile Include="DataAccess\ProductoDAL.cs" />
     <Compile Include="DataAccess\RegemphistDAL.cs" />
     <Compile Include="DataAccess\RegesthistDAL.cs" />
+    <Compile Include="DataAccess\RolDAL.cs" />
     <Compile Include="DataAccess\SucursalDAL.cs" />
     <Compile Include="DataAccess\UserempDAL.cs" />
     <Compile Include="DataAccess\UserEstDAL.cs" />
     <Compile Include="DataAccess\YearDAL.cs" />
+    <Compile Include="EntityLayer\AcsSucursal.cs" />
     <Compile Include="EntityLayer\Calificacion.cs" />
     <Compile Include="EntityLayer\Cargo.cs" />
     <Compile Include="EntityLayer\Contrato.cs" />
@@ -235,12 +247,16 @@
     <Compile Include="EntityLayer\Evaluacion.cs" />
     <Compile Include="EntityLayer\Factura.cs" />
     <Compile Include="EntityLayer\Libro.cs" />
+    <Compile Include="EntityLayer\LstPermiso.cs" />
+    <Compile Include="EntityLayer\LstPermisoRol.cs" />
     <Compile Include="EntityLayer\Matricdetfac.cs" />
     <Compile Include="EntityLayer\Matricula.cs" />
+    <Compile Include="EntityLayer\Permiso.cs" />
     <Compile Include="EntityLayer\Persona.cs" />
     <Compile Include="EntityLayer\Producto.cs" />
     <Compile Include="EntityLayer\Regemphist.cs" />
     <Compile Include="EntityLayer\Regesthist.cs" />
+    <Compile Include="EntityLayer\Rol.cs" />
     <Compile Include="EntityLayer\Sucursal.cs" />
     <Compile Include="EntityLayer\Useremp.cs" />
     <Compile Include="EntityLayer\Userest.cs" />
@@ -400,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Configuraciones\EdtUsuario.resx">
       <DependentUpon>EdtUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configuraciones\Permisos.resx">
+      <DependentUpon>Permisos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Configuraciones\RecuperarCursos.resx">
       <DependentUpon>RecuperarCursos.cs</DependentUpon>
@@ -678,6 +697,10 @@
     <Content Include="DLL\MySqlBackup.dll" />
     <Content Include="DLL\netstandard.dll" />
     <Content Include="goll_Logo_png.ico" />
+    <None Include="Resources\ocultar.png" />
+    <None Include="Resources\ocultar black.png" />
+    <None Include="Resources\ver.png" />
+    <None Include="Resources\ojo.png" />
     <None Include="Resources\microsoft-excel-48.png" />
     <None Include="Resources\Logo_goll_center.png" />
   </ItemGroup>

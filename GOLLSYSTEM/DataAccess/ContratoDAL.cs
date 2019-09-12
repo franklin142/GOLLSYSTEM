@@ -31,6 +31,7 @@ namespace GOLLSYSTEM.DataAccess
                         _reader.GetString(4),
                         _reader.GetInt64(5),
                         _reader.GetInt64(6),
+                        _reader.GetInt64(7),
                         CargoDAL.getCargoById(_reader.GetInt64(5)),
                         EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
 
@@ -66,15 +67,17 @@ namespace GOLLSYSTEM.DataAccess
                     while (_reader.Read())
                     {
                         Contrato item = new Contrato(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                           _reader.IsDBNull(3) ? null : _reader.GetString(3),
-                            _reader.GetString(4),
-                            _reader.GetInt64(5),
-                            _reader.GetInt64(6),
-                            CargoDAL.getCargoById(_reader.GetInt64(5)),
-                            EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+                        _reader.GetInt64(0),
+                        _reader.GetString(1),
+                        _reader.GetString(2),
+                        _reader.IsDBNull(3) ? null : _reader.GetString(3),
+                        _reader.GetString(4),
+                        _reader.GetInt64(5),
+                        _reader.GetInt64(6),
+                        _reader.GetInt64(7),
+                        CargoDAL.getCargoById(_reader.GetInt64(5)),
+                        EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+
 
                             );
 
@@ -114,15 +117,17 @@ namespace GOLLSYSTEM.DataAccess
                     while (_reader.Read())
                     {
                         Contrato item = new Contrato(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                           _reader.IsDBNull(3) ? null : _reader.GetString(3),
-                            _reader.GetString(4),
-                            _reader.GetInt64(5),
-                            _reader.GetInt64(6),
-                            CargoDAL.getCargoById(_reader.GetInt64(5)),
-                            EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+                        _reader.GetInt64(0),
+                        _reader.GetString(1),
+                        _reader.GetString(2),
+                        _reader.IsDBNull(3) ? null : _reader.GetString(3),
+                        _reader.GetString(4),
+                        _reader.GetInt64(5),
+                        _reader.GetInt64(6),
+                        _reader.GetInt64(7),
+                        CargoDAL.getCargoById(_reader.GetInt64(5)),
+                        EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+
 
                             );
 
@@ -162,15 +167,17 @@ namespace GOLLSYSTEM.DataAccess
                     while (_reader.Read())
                     {
                         Contrato item = new Contrato(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                           _reader.IsDBNull(3) ? null : _reader.GetString(3),
-                            _reader.GetString(4),
-                            _reader.GetInt64(5),
-                            _reader.GetInt64(6),
-                            CargoDAL.getCargoById(_reader.GetInt64(5)),
-                            EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+                        _reader.GetInt64(0),
+                        _reader.GetString(1),
+                        _reader.GetString(2),
+                        _reader.IsDBNull(3) ? null : _reader.GetString(3),
+                        _reader.GetString(4),
+                        _reader.GetInt64(5),
+                        _reader.GetInt64(6),
+                        _reader.GetInt64(7),
+                        CargoDAL.getCargoById(_reader.GetInt64(5)),
+                        EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+
 
                             );
 
@@ -206,17 +213,17 @@ namespace GOLLSYSTEM.DataAccess
                     while (_reader.Read())
                     {
                         Contrato item = new Contrato(
-                            _reader.GetInt64(0),
-                            _reader.GetString(1),
-                            _reader.GetString(2),
-                           _reader.IsDBNull(3) ? null : _reader.GetString(3),
-                            _reader.GetString(4),
-                            _reader.GetInt64(5),
-                            _reader.GetInt64(6),
-                            CargoDAL.getCargoById(_reader.GetInt64(5)),
-                            EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
-
-                            );
+                        _reader.GetInt64(0),
+                        _reader.GetString(1),
+                        _reader.GetString(2),
+                        _reader.IsDBNull(3) ? null : _reader.GetString(3),
+                        _reader.GetString(4),
+                        _reader.GetInt64(5),
+                        _reader.GetInt64(6),
+                        _reader.GetInt64(7),
+                        CargoDAL.getCargoById(_reader.GetInt64(5)),
+                        EmpleadoDAL.getEmpleadoById(_reader.GetInt64(6))
+                        );
 
                         lista.Add(item);
 
@@ -298,12 +305,13 @@ namespace GOLLSYSTEM.DataAccess
                             item.Empleado.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
                         }
                         
-                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
+                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado,IdSucursal) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado,@IdSucursal)", _con, _trans);
                         cmdInsertContrato.Parameters.AddWithValue("@FhInicio", DateTime.Now.ToString("yyyy-MM-dd"));
                         cmdInsertContrato.Parameters.AddWithValue("@FhFin", item.FhFin);
                         cmdInsertContrato.Parameters.AddWithValue("@Estado", "A");
                         cmdInsertContrato.Parameters.AddWithValue("@IdCargo", item.IdCargo);
                         cmdInsertContrato.Parameters.AddWithValue("@IdEmpleado", item.Empleado.Id);
+                        cmdInsertContrato.Parameters.AddWithValue("@IdSucursal", item.IdSucursal);
 
                         if (cmdInsertContrato.ExecuteNonQuery() <= 0)
                         {
@@ -355,12 +363,13 @@ namespace GOLLSYSTEM.DataAccess
 
                         item.Empleado.Persona.Id = empleado.IdPersona;
                         item.Empleado.Id = empleado.Id;
-                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhRegistro,FhInicio,IdCargo,IdEmpleado) values (@FhRegistro,@FhInicio,@IdCargo,@IdEmpleado)", _con, _trans);
+                        MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhRegistro,FhInicio,IdCargo,IdEmpleado,IdSucursal) values (@FhRegistro,@FhInicio,@IdCargo,@IdEmpleado,@IdSucursal)", _con, _trans);
                         cmdInsertContrato.Parameters.AddWithValue("@FhRegistro", item.FhRegistro);
                         cmdInsertContrato.Parameters.AddWithValue("@FhInicio", item.FhInicio);
                         cmdInsertContrato.Parameters.AddWithValue("@IdEmpleado", item.Empleado.Id);
+                        cmdInsertContrato.Parameters.AddWithValue("@IdSucursal", item.IdSucursal);
                         cmdInsertContrato.Parameters.AddWithValue("@IdCargo", item.Cargo.Id);
-
+                       
                         if (cmdInsertContrato.ExecuteNonQuery() <= 0)
                         {
                             result = false;
@@ -415,12 +424,13 @@ namespace GOLLSYSTEM.DataAccess
                 MySqlTransaction _trans = _con.BeginTransaction();
                 try
                 {
-                    MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado)", _con, _trans);
+                    MySqlCommand cmdInsertContrato = new MySqlCommand("Insert into contrato (FhInicio,FhFin,Estado,IdCargo,IdEmpleado,IdSucursal) values (@FhInicio,@FhFin,@Estado,@IdCargo,@IdEmpleado,@IdSucursal)", _con, _trans);
                     cmdInsertContrato.Parameters.AddWithValue("@FhInicio", item.FhInicio);
                     cmdInsertContrato.Parameters.AddWithValue("@FhFin", null);
                     cmdInsertContrato.Parameters.AddWithValue("@Estado", "A");
                     cmdInsertContrato.Parameters.AddWithValue("@IdCargo", item.IdCargo);
                     cmdInsertContrato.Parameters.AddWithValue("@IdEmpleado", item.Empleado.Id);
+                    cmdInsertContrato.Parameters.AddWithValue("@IdSucursal", item.IdSucursal);
 
                     if (cmdInsertContrato.ExecuteNonQuery() <= 0)
                     {

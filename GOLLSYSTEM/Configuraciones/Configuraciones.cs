@@ -25,39 +25,41 @@ namespace GOLLSYSTEM.Configuraciones
         {
             if (user != null)
             {
-                switch (user.Rol)
+                if (Inicio.CurrentUser.Login=="Administrador")
                 {
-                    case "Administrador":
-                       // opcUsuarios.Enabled = true;
-                       // opcUsuarios.Visible = true;
-
-                        opcDataBase.Enabled = true;
-                        opcDataBase.Visible = true;
-
-                        opcMisDatos.Enabled = true;
-                        opcMisDatos.Visible = true;
-
-                        opcRespaldo.Enabled = true;
-                        opcRespaldo.Visible = true;
-
-                        opcRestaurar.Enabled = true;
-                        opcRestaurar.Visible = true;
-                        break;
-                    case "Secretario/a":
-                        opcMisDatos.Enabled = true;
-                        opcMisDatos.Visible = true;
-
-                        opcDataBase.Enabled = true;
-                        opcDataBase.Visible = true;
-                        break;
-                    case "Docente":
-                        opcMisDatos.Enabled = true;
-                        opcMisDatos.Visible = true;
-
-                        opcDataBase.Enabled = true;
-                        opcDataBase.Visible = true;
-                        break;
-                    default: break;
+                    opcUsuarios.Enabled = true;
+                    opcUsuarios.Visible = true;
+                }
+                opcMisDatos.Enabled = true;
+                opcMisDatos.Visible = true;
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Configurar Conexión de base de datos":
+                            if (obj.Otorgado)
+                            {
+                                opcDataBase.Enabled = true;
+                                opcDataBase.Visible = true;
+                            }
+                            break;
+                        case "Importar base de datos":
+                            if (obj.Otorgado)
+                            {
+                                opcRestaurar.Enabled = true;
+                                opcRestaurar.Visible = true;
+                            }
+                            break;
+                        case "Exportar base de datos":
+                            if (obj.Otorgado)
+                            {
+                                opcRespaldo.Enabled = true;
+                                opcRespaldo.Visible = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             else

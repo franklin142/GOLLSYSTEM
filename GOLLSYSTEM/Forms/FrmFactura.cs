@@ -18,7 +18,8 @@ namespace GOLLSYSTEM.Forms
         public bool cancelacion = false;
         public bool mensualidad = false;
         public bool reservacion = false;
-
+        public bool IngresoInterno = true;
+        public Int64 idMatricula = 0;
         public Factura NewObject;
         public Factura EditingObject;
         public FrmFactura()
@@ -30,6 +31,11 @@ namespace GOLLSYSTEM.Forms
         {
             try
             {
+                if (!IngresoInterno)
+                {
+                    btnMesualidad.Enabled = false;
+
+                }
                 if (EditingObject != null)
                 {
                     btnBuscarCliente.Enabled = false;
@@ -82,18 +88,27 @@ namespace GOLLSYSTEM.Forms
             {
                 if (EditingObject.DetsFactura.Where(a => a.Tipo == "M").FirstOrDefault() == null)
                 {
-                    frmBuscarProducto buscarproducto = new frmBuscarProducto();
-                    buscarproducto.opc = "Mensualidad";
-                    buscarproducto.ShowDialog();
-                    if (buscarproducto.currentDetFactura != null)
+                    if (EditingObject.IdPersona != 0)
                     {
-                        EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
-                        dgvCursos.Rows.Add(0, "Pago de mensualidad", "Mensualidad",
-                            buscarproducto.currentDetFactura.Producto.Precio,
-                            buscarproducto.currentDetFactura.Descuento,
-                            buscarproducto.currentDetFactura.Total,
-                            buscarproducto.currentDetFactura.IdProducto);
-                        CalucularTotales();
+                        frmBuscarProducto buscarproducto = new frmBuscarProducto();
+                        buscarproducto.Matricula = MatriculaDAL.getMatriculaById(idMatricula);
+                        buscarproducto.opc = "Mensualidad";
+                        buscarproducto.ShowDialog();
+                        if (buscarproducto.currentDetFactura != null)
+                        {
+                            EditingObject.DetsFactura.Add(buscarproducto.currentDetFactura);
+                            dgvCursos.Rows.Add(0, "Pago de mensualidad", "Mensualidad",
+                                buscarproducto.currentDetFactura.Producto.Precio,
+                                buscarproducto.currentDetFactura.Descuento,
+                                buscarproducto.currentDetFactura.Total,
+                                buscarproducto.currentDetFactura.IdProducto);
+                            CalucularTotales();
+
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Debe seleccionar el estudiante para visualizar las cuotas pendientes.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     }
                 }
@@ -118,15 +133,34 @@ namespace GOLLSYSTEM.Forms
         {
             try
             {
-                frmBuscarPersona buscarPersona = new frmBuscarPersona();
-                buscarPersona.ShowDialog();
-                if (buscarPersona.currentObject != null)
+                if (IngresoInterno)
                 {
-                    EditingObject.IdPersona = buscarPersona.currentObject.Id;
-                    txtNombre.Text = buscarPersona.currentObject.Nombre;
-                    txtTelefono.Text = "No disponible";
-                    valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                    frmBuscarEstudiante buscarPersona = new frmBuscarEstudiante();
+                    buscarPersona.opc = "ingreso";
+                    buscarPersona.ShowDialog();
+                    if (buscarPersona.currentObject != null)
+                    {
+                        EditingObject.IdPersona = buscarPersona.currentObject.Estudiante.Persona.Id;
+                        idMatricula = buscarPersona.currentObject.Id;
+                        txtNombre.Text = buscarPersona.currentObject.Estudiante.Persona.Nombre;
+                        txtTelefono.Text = buscarPersona.currentObject.Estudiante.Telefono;
+                        valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                    }
                 }
+                else
+                {
+                    frmBuscarPersona buscarPersona = new frmBuscarPersona();
+                    buscarPersona.ShowDialog();
+                    if (buscarPersona.currentObject != null)
+                    {
+                        EditingObject.IdPersona = buscarPersona.currentObject.Id;
+                        idMatricula = buscarPersona.currentObject.Id;
+                        txtNombre.Text = buscarPersona.currentObject.Nombre;
+                        txtTelefono.Text = "No Disponible";
+                        valNombre.BackColor = Color.FromArgb(0, 100, 182);
+                    }
+                }
+                
             }
             catch (Exception ex)
             {

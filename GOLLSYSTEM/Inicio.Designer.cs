@@ -64,6 +64,7 @@
             this.rolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton4 = new System.Windows.Forms.ToolStripDropDownButton();
             this.manualDeUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.flpMenu = new System.Windows.Forms.FlowLayoutPanel();
             this.opc1 = new System.Windows.Forms.Panel();
@@ -92,7 +93,6 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.tmrGcCollector = new System.Windows.Forms.Timer(this.components);
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlMenu.SuspendLayout();
@@ -207,6 +207,7 @@
             // 
             // exportarEgresosIngresosToolStripMenuItem
             // 
+            this.exportarEgresosIngresosToolStripMenuItem.Enabled = false;
             this.exportarEgresosIngresosToolStripMenuItem.Name = "exportarEgresosIngresosToolStripMenuItem";
             this.exportarEgresosIngresosToolStripMenuItem.Size = new System.Drawing.Size(266, 24);
             this.exportarEgresosIngresosToolStripMenuItem.Text = "Exportar Egresos/Ingresos";
@@ -214,6 +215,7 @@
             // 
             // gestionarUsuariosDelSistemaToolStripMenuItem
             // 
+            this.gestionarUsuariosDelSistemaToolStripMenuItem.Enabled = false;
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Name = "gestionarUsuariosDelSistemaToolStripMenuItem";
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Size = new System.Drawing.Size(266, 24);
             this.gestionarUsuariosDelSistemaToolStripMenuItem.Text = "Gestionar Usuarios del sistema";
@@ -246,6 +248,7 @@
             // 
             // ingresosDelMesToolStripMenuItem
             // 
+            this.ingresosDelMesToolStripMenuItem.Enabled = false;
             this.ingresosDelMesToolStripMenuItem.Name = "ingresosDelMesToolStripMenuItem";
             this.ingresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.ingresosDelMesToolStripMenuItem.Text = "Ingresos del mes actual";
@@ -253,6 +256,7 @@
             // 
             // egresosDelMesToolStripMenuItem
             // 
+            this.egresosDelMesToolStripMenuItem.Enabled = false;
             this.egresosDelMesToolStripMenuItem.Name = "egresosDelMesToolStripMenuItem";
             this.egresosDelMesToolStripMenuItem.Size = new System.Drawing.Size(221, 24);
             this.egresosDelMesToolStripMenuItem.Text = "Egresos del mes actual";
@@ -297,30 +301,33 @@
             // 
             // backupToolStripMenuItem
             // 
+            this.backupToolStripMenuItem.Enabled = false;
             this.backupToolStripMenuItem.Name = "backupToolStripMenuItem";
-            this.backupToolStripMenuItem.Size = new System.Drawing.Size(333, 24);
+            this.backupToolStripMenuItem.Size = new System.Drawing.Size(287, 24);
             this.backupToolStripMenuItem.Text = "Backup";
             this.backupToolStripMenuItem.Click += new System.EventHandler(this.backupToolStripMenuItem_Click);
             // 
             // configuracionesToolStripMenuItem
             // 
+            this.configuracionesToolStripMenuItem.Enabled = false;
             this.configuracionesToolStripMenuItem.Name = "configuracionesToolStripMenuItem";
-            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(333, 24);
-            this.configuracionesToolStripMenuItem.Text = "Configuraciones Usuarios y Base de datos";
+            this.configuracionesToolStripMenuItem.Size = new System.Drawing.Size(287, 24);
+            this.configuracionesToolStripMenuItem.Text = "Configuraciones de GOLL SYSTEM";
             this.configuracionesToolStripMenuItem.Click += new System.EventHandler(this.configuracionesToolStripMenuItem_Click);
             // 
             // rutaDeCarpetaDeContabilidadToolStripMenuItem
             // 
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Name = "rutaDeCarpetaDeContabilidadToolStripMenuItem";
-            this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Size = new System.Drawing.Size(333, 24);
+            this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Size = new System.Drawing.Size(287, 24);
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Text = "Ruta de carpeta de contabilidad";
             this.rutaDeCarpetaDeContabilidadToolStripMenuItem.Click += new System.EventHandler(this.rutaDeCarpetaDeContabilidadToolStripMenuItem_Click);
             // 
             // recuperacionToolStripMenuItem
             // 
+            this.recuperacionToolStripMenuItem.Enabled = false;
             this.recuperacionToolStripMenuItem.Name = "recuperacionToolStripMenuItem";
-            this.recuperacionToolStripMenuItem.Size = new System.Drawing.Size(333, 24);
-            this.recuperacionToolStripMenuItem.Text = "Recuperación de cursos";
+            this.recuperacionToolStripMenuItem.Size = new System.Drawing.Size(287, 24);
+            this.recuperacionToolStripMenuItem.Text = "Restaurar cursos eliminados";
             this.recuperacionToolStripMenuItem.Click += new System.EventHandler(this.recuperacionToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton5
@@ -395,6 +402,16 @@
             this.manualDeUsuarioToolStripMenuItem.Text = "Manual de Usuario";
             this.manualDeUsuarioToolStripMenuItem.Click += new System.EventHandler(this.manualDeUsuarioToolStripMenuItem_Click);
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = global::GOLLSYSTEM.Properties.Resources.llave_de_una_casa;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // pnlMenu
             // 
             this.pnlMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -432,6 +449,7 @@
             this.opc1.Name = "opc1";
             this.opc1.Size = new System.Drawing.Size(223, 43);
             this.opc1.TabIndex = 1;
+            this.opc1.Visible = false;
             this.opc1.Click += new System.EventHandler(this.lblOpc1_Click);
             // 
             // lblOpc1
@@ -464,11 +482,13 @@
             this.opc2.Controls.Add(this.lblOpc2);
             this.opc2.Controls.Add(this.picOpc2);
             this.opc2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.opc2.Enabled = false;
             this.opc2.Location = new System.Drawing.Point(1, 46);
             this.opc2.Margin = new System.Windows.Forms.Padding(1);
             this.opc2.Name = "opc2";
             this.opc2.Size = new System.Drawing.Size(223, 43);
             this.opc2.TabIndex = 2;
+            this.opc2.Visible = false;
             this.opc2.Click += new System.EventHandler(this.lblOpc2_Click);
             // 
             // lblOpc2
@@ -501,6 +521,7 @@
             this.opc3.Controls.Add(this.lblOpc3);
             this.opc3.Controls.Add(this.picOpc3);
             this.opc3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.opc3.Enabled = false;
             this.opc3.Location = new System.Drawing.Point(1, 91);
             this.opc3.Margin = new System.Windows.Forms.Padding(1);
             this.opc3.Name = "opc3";
@@ -536,11 +557,13 @@
             this.opc4.Controls.Add(this.lblOpc4);
             this.opc4.Controls.Add(this.picOpc4);
             this.opc4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.opc4.Enabled = false;
             this.opc4.Location = new System.Drawing.Point(1, 136);
             this.opc4.Margin = new System.Windows.Forms.Padding(1);
             this.opc4.Name = "opc4";
             this.opc4.Size = new System.Drawing.Size(223, 43);
             this.opc4.TabIndex = 4;
+            this.opc4.Visible = false;
             this.opc4.Click += new System.EventHandler(this.lblOpc4_Click);
             // 
             // lblOpc4
@@ -573,11 +596,13 @@
             this.opc5.Controls.Add(this.lblOpc5);
             this.opc5.Controls.Add(this.picOpc5);
             this.opc5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.opc5.Enabled = false;
             this.opc5.Location = new System.Drawing.Point(1, 181);
             this.opc5.Margin = new System.Windows.Forms.Padding(1);
             this.opc5.Name = "opc5";
             this.opc5.Size = new System.Drawing.Size(223, 43);
             this.opc5.TabIndex = 5;
+            this.opc5.Visible = false;
             this.opc5.Click += new System.EventHandler(this.lblOpc5_Click);
             // 
             // lblOpc5
@@ -610,11 +635,13 @@
             this.opc6.Controls.Add(this.lblOpc6);
             this.opc6.Controls.Add(this.picOpc6);
             this.opc6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.opc6.Enabled = false;
             this.opc6.Location = new System.Drawing.Point(1, 226);
             this.opc6.Margin = new System.Windows.Forms.Padding(1);
             this.opc6.Name = "opc6";
             this.opc6.Size = new System.Drawing.Size(223, 43);
             this.opc6.TabIndex = 6;
+            this.opc6.Visible = false;
             this.opc6.Click += new System.EventHandler(this.lblOpc6_Click);
             // 
             // lblOpc6
@@ -714,6 +741,8 @@
             this.pnlContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlContent.BackgroundImage = global::GOLLSYSTEM.Properties.Resources.goll_Logo_png;
+            this.pnlContent.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pnlContent.Location = new System.Drawing.Point(222, 28);
             this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(714, 460);
@@ -724,16 +753,6 @@
             this.tmrGcCollector.Enabled = true;
             this.tmrGcCollector.Interval = 15600;
             this.tmrGcCollector.Tick += new System.EventHandler(this.tmrGcCollector_Tick);
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::GOLLSYSTEM.Properties.Resources.llave_de_una_casa;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // Inicio
             // 

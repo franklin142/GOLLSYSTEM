@@ -61,6 +61,32 @@ namespace GOLLSYSTEM.Controles
                         (objInContratos.FhFin == null ? "Activo" : "Finalizado"));
                     }
                 }
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Crear Empleados":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevoEmpleado.Enabled = true;
+                            }
+                            break;
+                        case "Crear Contratos":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevoContrato.Enabled = true;
+                            }
+                            break;
+                        case "Terminar Contratos":
+                            if (obj.Otorgado)
+                            {
+                                btnFinalizar.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {

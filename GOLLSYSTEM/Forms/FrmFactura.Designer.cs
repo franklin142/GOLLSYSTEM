@@ -130,7 +130,7 @@
             this.gbxICliente.Size = new System.Drawing.Size(621, 61);
             this.gbxICliente.TabIndex = 1;
             this.gbxICliente.TabStop = false;
-            this.gbxICliente.Text = "Cliente";
+            this.gbxICliente.Text = "Estudiante";
             // 
             // lblTextTelefono
             // 

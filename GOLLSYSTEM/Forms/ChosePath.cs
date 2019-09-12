@@ -67,5 +67,10 @@ namespace GOLLSYSTEM.Forms
         {
            txtRuta.Text = Properties.Settings.Default.DocumentsPath;
         }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

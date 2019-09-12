@@ -22,5 +22,12 @@ namespace GOLLSYSTEM.EntityLayer
 			Direccion = pDireccion;
             Cursos = pCursos;
 		}
-	}
+        public Sucursal(Int64 pId, string pFhRegistro, string pNombre, string pDireccion)
+        {
+            Id = pId;
+            FhRegistro = pFhRegistro;
+            Nombre = pNombre;
+            Direccion = pDireccion;
+        }
+    }
 }

@@ -163,7 +163,7 @@ namespace GOLLSYSTEM.DataAccess
                 catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -269,6 +269,58 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
+        public static List<Matricula> searchMatriculas(string Text, Int64 pIdSucursal, int pLimit,string opc)
+        {
+            List<Matricula> lista = new List<Matricula>();
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                   
+                    MySqlCommand comando = new MySqlCommand("select m.* from matricula as m inner join curso as c on c.Id =m.IdCurso " +
+                       "inner join year as y on y.Id=c.IdYear inner join estudiante as e on e.Id=m.IdEstudiante inner join persona as p " +
+                       "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
+                       "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() +
+                       "%') and (c.IdSucursal=@pIdSucursal) "+(opc!="ingreso"? " and m.Estado='A' " : "")+ " order by Id asc limit @pLimit", _con);
+
+                    comando.Parameters.AddWithValue("@pLimit", pLimit);
+                    comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
+
+                    MySqlDataReader _reader = comando.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        Matricula item = new Matricula(
+                            _reader.GetInt64(0),
+                            _reader.GetString(1),
+                            _reader.GetString(2),
+                            _reader.GetInt32(3),
+                            _reader.GetString(4),
+                            _reader.GetInt64(5),
+                            _reader.GetInt64(6),
+                            EstudianteDAL.getEstudianteById(_reader.GetInt64(6)),
+                            CuotaDAL.getCuotasByIdMatricula(_reader.GetInt64(0), 50),
+                            DetMatriculaDAL.getDetsmatriculaByIdMatricula(_reader.GetInt64(0), 2)
+                            );
+
+                        lista.Add(item);
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return lista;
+        }
+
         public static bool insertMatricula(Matricula item, Useremp pUser)
         {
             bool result = true;

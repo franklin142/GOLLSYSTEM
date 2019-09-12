@@ -29,6 +29,9 @@ namespace GOLLSYSTEM.Forms
             {
                 if (EditingObject != null)
                 {
+                    LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Editar Egresos").FirstOrDefault();
+                    btnGuardar.Enabled = !(permiso == null || permiso.Otorgado == false);
+
                     List<string> EgresosName = EgresoDAL.getNameEgresos(Inicio.CurrentSucursal.Id);
                     AutoCompleteStringCollection collection = new AutoCompleteStringCollection();
                     foreach (string name in EgresosName)
@@ -45,6 +48,8 @@ namespace GOLLSYSTEM.Forms
                 }
                 else
                 {
+                    LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Registrar Egresos").FirstOrDefault();
+                    btnGuardar.Enabled = !(permiso == null || permiso.Otorgado == false);
                     EditingObject = new Egreso();
 
                     List<string> EgresosName = EgresoDAL.getNameEgresos(Inicio.CurrentSucursal.Id);

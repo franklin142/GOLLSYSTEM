@@ -66,6 +66,7 @@
             // 
             this.btnAnularCurso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnAnularCurso.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnAnularCurso.Enabled = false;
             this.btnAnularCurso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAnularCurso.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
             this.btnAnularCurso.ForeColor = System.Drawing.Color.White;
@@ -197,7 +198,7 @@
             this.btnEditarCurso.Name = "btnEditarCurso";
             this.btnEditarCurso.Size = new System.Drawing.Size(81, 27);
             this.btnEditarCurso.TabIndex = 4;
-            this.btnEditarCurso.Text = "Editar";
+            this.btnEditarCurso.Text = "Ver";
             this.btnEditarCurso.UseVisualStyleBackColor = false;
             this.btnEditarCurso.Click += new System.EventHandler(this.btnEditarCurso_Click);
             // 
@@ -205,6 +206,7 @@
             // 
             this.btnNuevoCurso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevoCurso.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevoCurso.Enabled = false;
             this.btnNuevoCurso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNuevoCurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoCurso.ForeColor = System.Drawing.Color.Black;

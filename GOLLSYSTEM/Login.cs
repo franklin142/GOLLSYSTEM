@@ -32,6 +32,10 @@ namespace GOLLSYSTEM
                     Forms.frmWelcome welcome = new Forms.frmWelcome();
                     welcome.ShowDialog();
                 }
+                else
+                {
+                    txtLogin.Text = Properties.Settings.Default.LastUser;
+                }
             }
             else
             {
@@ -56,19 +60,35 @@ namespace GOLLSYSTEM
         {
             try
             {
-                if (UserempDAL.getUseremp(txtLogin.Text, txtPass.Text) != null)
+                Useremp user = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
+                if (user != null)
                 {
-                    Inicio inicio = new Inicio();
-                    Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
-                    Inicio.CurrentSucursal = SucursalDAL.getSucursaloById(Inicio.CurrentUser.IdSucursal);
-                    Inicio.CurrentYear = YearDAL.getCurrentYear();
-                    Inicio.CurrentYear = YearDAL.getCurrentYear();
-                    inicio.Show();
-                    this.Hide();
+                    if (user.Estado == "A")
+                    {
+
+
+                        Inicio inicio = new Inicio();
+                        Inicio.CurrentUser = UserempDAL.getUseremp(txtLogin.Text, txtPass.Text);
+                        Inicio.CurrentSucursal = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Properties.Settings.Default.Sucursal).FirstOrDefault().Sucursal;
+                        Inicio.CurrentYear = YearDAL.getCurrentYear();
+                        Inicio.CurrentYear = YearDAL.getCurrentYear();
+                        Properties.Settings.Default.LastUser = txtLogin.Text;
+                        Properties.Settings.Default.Save();
+
+                        inicio.Show();
+                        this.Hide();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Su cuenta de usuario ha expirado o se encuentra desactivada, si desea acceder al sistema comuniquese con el administrador para reactivar su cuenta de usuario. Sentimos el inconveniente", "Usuario Inhabilitado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
                 }
                 else
                 {
                     MessageBox.Show("El usuario o la contraseña es incorrecto", "Datos de usuario incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    picLook.Visible = true;
+                    picLook.Enabled = true;
                 }
             }
             catch (Exception ex)
@@ -133,6 +153,26 @@ namespace GOLLSYSTEM
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
             {
                 e.Handled = true;
+
+            }
+        }
+
+        private void picLook_Click(object sender, EventArgs e)
+        {
+            
+            string text = txtPass.Text;
+            if (txtPass.UseSystemPasswordChar)
+            {
+                txtPass.UseSystemPasswordChar = false;
+                txtPass.Text= text;
+                picLook.Image = Properties.Resources.ocultar_black;
+
+            }
+            else
+            {
+                txtPass.UseSystemPasswordChar = true;
+                txtPass.Text = text;
+                picLook.Image = Properties.Resources.ojo;
 
             }
         }

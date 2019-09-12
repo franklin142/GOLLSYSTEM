@@ -61,6 +61,26 @@ namespace GOLLSYSTEM.Controles
                     lblTiltulo.Text = "Egresos del mes de " + DateTime.Now.ToString("MMMM", new CultureInfo("es-ES"));
 
                 }
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Registrar Egresos":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevoEgreso.Enabled = true;
+                            }
+                            break;
+                        case "Anular Egresos":
+                            if (obj.Otorgado)
+                            {
+                                btnAnularEgreso.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {

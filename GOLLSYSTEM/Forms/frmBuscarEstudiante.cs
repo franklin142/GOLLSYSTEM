@@ -17,7 +17,7 @@ namespace GOLLSYSTEM.Forms
     {
         public Matricula currentObject;
         private string lastParam;
-
+        public string opc = "matricula";
         public frmBuscarEstudiante()
         {
             InitializeComponent();
@@ -27,7 +27,7 @@ namespace GOLLSYSTEM.Forms
         {
             try
             {
-                FillDgv(MatriculaDAL.searchMatriculas(txtBuscar.Text, Inicio.CurrentSucursal.Id));
+                FillDgv(MatriculaDAL.searchMatriculas(txtBuscar.Text, Inicio.CurrentSucursal.Id,25,opc));
 
             }
             catch (Exception ex)
@@ -44,19 +44,25 @@ namespace GOLLSYSTEM.Forms
 
         private void icUpdate_Click(object sender, EventArgs e)
         {
-            FillDgv(MatriculaDAL.searchMatriculas(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id));
+            FillDgv(MatriculaDAL.searchMatriculas(txtBuscar.Text, Inicio.CurrentSucursal.Id, 50,opc));
         }
         private void FillDgv(List<Matricula> lista)
         {
             dgvBuscar.Rows.Clear();
+            List<Curso> cursos = new List<Curso>();
             foreach (Matricula obj in lista)
             {
+                if (cursos.Where(a=>a.Id==obj.IdCurso).ToList().Count==0)
+                {
+                    cursos.Add(CursoDAL.getCursoById(obj.IdCurso));
+                }
                 dgvBuscar.Rows.Add(
                     obj.Id,
                     obj.Estudiante.Persona.Nombre,
-                    obj.Estudiante.Telefono,
-                    obj.Estudiante.TelEmergencia,
-                    obj.Estudiante.ParentEmergencia);
+                    cursos.Where(a => a.Id == obj.IdCurso).FirstOrDefault().Nombre +
+                    " " + cursos.Where(a => a.Id == obj.IdCurso).FirstOrDefault().Contrato.Empleado.Persona.Nombre,
+                    obj.Estudiante.Telefono
+                    );
             }
             lblNoResults.Visible = dgvBuscar.RowCount == 0;
             lastParam = txtBuscar.Text;
@@ -131,7 +137,7 @@ namespace GOLLSYSTEM.Forms
                 e.Handled = true;
                 if (txtBuscar.Text != lastParam)
                 {
-                    FillDgv(MatriculaDAL.searchMatriculas(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id));
+                    FillDgv(MatriculaDAL.searchMatriculas(txtBuscar.Text, Inicio.CurrentSucursal.Id, 50,opc));
                 }
                 else
                 {

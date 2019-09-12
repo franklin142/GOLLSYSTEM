@@ -14,11 +14,12 @@ namespace GOLLSYSTEM.EntityLayer
         public string Estado { get; set; }
         public Int64 IdCargo { get; set; }
 		public Int64 IdEmpleado { get; set; }
+        public Int64 IdSucursal { get; set; }
         public Cargo Cargo { get; set; }
         public Empleado Empleado { get; set; }
 
         public Contrato(){}
-		public Contrato(Int64 pId, string pFhRegistro, string pFhInicio, string pFhFin, string pEstado, Int64 pIdCargo, Int64 pIdEmpleado, Cargo pCargo, Empleado pEmpleado)
+		public Contrato(Int64 pId, string pFhRegistro, string pFhInicio, string pFhFin, string pEstado, Int64 pIdCargo, Int64 pIdEmpleado,Int64 pIdSucursal, Cargo pCargo, Empleado pEmpleado)
 		{
 			Id = pId;
 			FhRegistro = pFhRegistro;
@@ -27,6 +28,7 @@ namespace GOLLSYSTEM.EntityLayer
             Estado = pEstado;
 			IdCargo = pIdCargo;
 			IdEmpleado = pIdEmpleado;
+            IdSucursal = pIdSucursal;
             Cargo = pCargo;
             Empleado = pEmpleado;
         }

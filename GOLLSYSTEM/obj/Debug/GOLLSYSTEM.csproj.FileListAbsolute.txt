@@ -61,6 +61,7 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\MySql.Data.Entit
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\MySqlBackup.dll
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\netstandard.dll
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\SpreadsheetLight.dll
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\Interop.AcroPDFLib.dll
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\EntityFramework.xml
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\Google.Protobuf.xml
@@ -71,6 +72,8 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Confi
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Configuraciones.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.DataBase.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.EdtUsuario.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Permisos.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.RecuperarCursos.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Restore.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.Usuarios.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Controles.ControlCursos.resources
@@ -96,6 +99,7 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmPersona.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.FrmProducto.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.frmWelcome.resources
+C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.PassRequest.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Inicio.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Login.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Properties.Resources.resources
@@ -103,7 +107,4 @@ C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Repor
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csproj.GenerateResource.Cache
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.exe
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.pdb
-C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\bin\Debug\Interop.AcroPDFLib.dll
-C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Configuraciones.RecuperarCursos.resources
-C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.Forms.PassRequest.resources
 C:\Users\Franklin\Documents\git\GOLLSYSTEM\GOLLSYSTEM\obj\Debug\GOLLSYSTEM.csprojResolveAssemblyReference.cache

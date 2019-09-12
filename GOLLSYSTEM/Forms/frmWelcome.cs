@@ -318,12 +318,16 @@ namespace GOLLSYSTEM.Forms
 
             try
             {
+                List<AcsSucursal> sucursales = new List<AcsSucursal>();
+                sucursales.Add(new AcsSucursal(0,null,0,0,0,
+                    new Rol(0,"Main User"),
+                    new Sucursal(0,null,txtNombreSucursal.Text,txtDireccionSucursal.Text),
+                    new List<LstPermiso>()));
+
                 Useremp usuario = new Useremp(0,
                   "Administrador",
                    txtPass.Text,
-                  "Administrador",
                   "A",
-                  0,
                   0,
                   new Contrato(
                       0,
@@ -331,6 +335,7 @@ namespace GOLLSYSTEM.Forms
                       "",
                       "A",
                       1,
+                      0,
                       0,
                       new Cargo(
                           0,
@@ -351,7 +356,8 @@ namespace GOLLSYSTEM.Forms
                               "",
                               dtpFechaNac.Value.ToString("yyyy/MM/dd")
                               ))
-                      )
+                      ),
+                  sucursales
                  );
 
                 if (UserempDAL.InsertUserEmpConf(usuario, new Sucursal(0, "", txtNombreSucursal.Text, txtDireccionSucursal.Text, null)))

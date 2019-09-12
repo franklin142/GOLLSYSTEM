@@ -48,6 +48,9 @@ namespace GOLLSYSTEM.Forms
 
                 if (opc == "updObject")
                 {
+                    LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Editar Cursos").FirstOrDefault();
+                    btnGuardar.Enabled = !(permiso == null || permiso.Otorgado == false);
+                    
                     txtNombre.Text = CurrentObject.Nombre;
                     btnAddLibro.Enabled = false;
                     btnRemoveLibro.Enabled = false;
@@ -85,6 +88,11 @@ namespace GOLLSYSTEM.Forms
                     foreach (Detcurso libro in CurrentObject.Libros) dgvDeCurso.Rows.Add(libro.Id, libro.Libro.Nombre, libro.Libro.Edicion, libro.Libro.Nivel, libro.Libro.NActividades, libro.Libro.Id);
 
 
+                }
+                else
+                {
+                    LstPermiso permiso2 = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Crear Cursos").FirstOrDefault();
+                    btnGuardar.Enabled = !(permiso2 == null || permiso2.Otorgado == false);
                 }
             }
             catch (Exception ex)
@@ -530,6 +538,7 @@ namespace GOLLSYSTEM.Forms
                     }
                     break;
                 case "updObject":
+
                     if (val_UpdObject())
                     {
                         try

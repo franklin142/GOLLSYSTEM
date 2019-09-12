@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +46,7 @@
             this.lblTitle = new System.Windows.Forms.Label();
             this.errLogin = new System.Windows.Forms.ErrorProvider(this.components);
             this.lblCerrar = new System.Windows.Forms.Label();
+            this.picLook = new System.Windows.Forms.PictureBox();
             this.picPass = new System.Windows.Forms.PictureBox();
             this.picLogin = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1.SuspendLayout();
@@ -52,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errLogin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLook)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPass)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogin)).BeginInit();
             this.SuspendLayout();
@@ -179,9 +182,9 @@
             this.txtPass.ForeColor = System.Drawing.SystemColors.MenuText;
             this.txtPass.Location = new System.Drawing.Point(354, 216);
             this.txtPass.Name = "txtPass";
-            this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(200, 20);
             this.txtPass.TabIndex = 2;
+            this.txtPass.UseSystemPasswordChar = true;
             this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLogin_KeyPress);
             this.txtPass.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
@@ -242,6 +245,21 @@
             this.lblCerrar.Click += new System.EventHandler(this.lblCerrar_Click);
             this.lblCerrar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Login_MouseMove);
             // 
+            // picLook
+            // 
+            this.picLook.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.picLook.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picLook.Enabled = false;
+            this.picLook.Image = global::GOLLSYSTEM.Properties.Resources.ojo;
+            this.picLook.Location = new System.Drawing.Point(569, 215);
+            this.picLook.Name = "picLook";
+            this.picLook.Size = new System.Drawing.Size(30, 26);
+            this.picLook.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picLook.TabIndex = 21;
+            this.picLook.TabStop = false;
+            this.picLook.Visible = false;
+            this.picLook.Click += new System.EventHandler(this.picLook_Click);
+            // 
             // picPass
             // 
             this.picPass.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -271,6 +289,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(606, 357);
+            this.Controls.Add(this.picLook);
             this.Controls.Add(this.linkConexiones);
             this.Controls.Add(this.lblCerrar);
             this.Controls.Add(this.pnlLogo);
@@ -283,6 +302,7 @@
             this.Controls.Add(this.picPass);
             this.Controls.Add(this.picLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Login";
@@ -296,6 +316,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picHelp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errLogin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picLook)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picPass)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogin)).EndInit();
             this.ResumeLayout(false);
@@ -322,5 +343,6 @@
         private System.Windows.Forms.ErrorProvider errLogin;
         private System.Windows.Forms.Label lblCerrar;
         private System.Windows.Forms.PictureBox picHelp;
+        private System.Windows.Forms.PictureBox picLook;
     }
 }

@@ -42,7 +42,7 @@ namespace GOLLSYSTEM.Forms
                     txtObservacion.Enabled = false; txtCash.Enabled = false;
 
                 }
-                lblfecha.Text = Convert.ToDateTime(currentFactura.FhRegistro).ToString("dd \"de\" MMMM \"del \" 2019".ToUpper(), new CultureInfo("ES-es"));
+                lblfecha.Text = Convert.ToDateTime(currentFactura.FhRegistro).ToString("dd \"de\" MMMM \"del \" yyyy".ToUpper(), new CultureInfo("ES-es"));
                 lblCliente.Text = PersonaDAL.getPersonaById(currentFactura.IdPersona).Nombre;
                 if (currentFactura.DetsFactura.Where(a=>a.Tipo=="M").FirstOrDefault()!=null)
                 {
@@ -76,6 +76,10 @@ namespace GOLLSYSTEM.Forms
             {
                 if (currentFactura.Id == 0)
                 {
+                    
+                    LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Registrar Ingresos").FirstOrDefault();
+                    btnRegistrar.Enabled = !(permiso == null || permiso.Otorgado == false);
+
                     foreach (Detfactura det in currentFactura.DetsFactura) currentFactura.Observacion += det.Descuento > 0 ? "DESCUENTO DE $" + Decimal.Round(det.Descuento, 2) + " EN " + det.Producto.Nombre + ". " : "";
                     currentFactura.Observacion += txtObservacion.Text;
 

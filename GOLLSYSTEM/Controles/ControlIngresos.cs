@@ -64,6 +64,33 @@ namespace GOLLSYSTEM.Controles
                     this.FormBorderStyle = FormBorderStyle.Sizable;
                     lblTiltulo.Text = "Ingresos del mes de " + DateTime.Now.ToString("MMMM",new CultureInfo("es-ES"));
                 }
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Registrar Ingresos":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevoIngreso.Enabled = true;
+                                btnIngresoExterno.Enabled = true;
+                            }
+                            break;
+                        case "Anular Ingresos":
+                            if (obj.Otorgado)
+                            {
+                                btnAnular.Enabled = true;
+                            }
+                            break;
+                        case "Exportar Ingresos y Egresos del mes":
+                            if (obj.Otorgado)
+                            {
+                               picExcel.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -328,6 +355,18 @@ namespace GOLLSYSTEM.Controles
                 tmrTaskDgv.Start();
             }
           
+        }
+
+        private void btnIngresoExterno_Click(object sender, EventArgs e)
+        {
+            FrmFactura factura = new FrmFactura();
+            factura.IngresoInterno = false;
+            factura.ShowDialog();
+            Pages = rdbMontYear.Checked ? FacturaDAL.getIdsFacturasByParametro(Convert.ToInt64((cbxYear.SelectedItem as Year).Desde), Convert.ToDateTime("20-" + cbxMonth.SelectedItem.ToString() + "-2010").ToString("MM"), Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit) : FacturaDAL.getIdsFacturasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, pLimit);
+            numPages = Pages.Count;
+            SetCurrentPage();
+
+            tmrTaskDgv.Start();
         }
     }
 }

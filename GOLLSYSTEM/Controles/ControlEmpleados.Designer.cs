@@ -67,6 +67,7 @@
             // 
             this.btnFinalizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnFinalizar.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnFinalizar.Enabled = false;
             this.btnFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnFinalizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnFinalizar.ForeColor = System.Drawing.Color.White;
@@ -199,6 +200,7 @@
             // 
             this.btnNuevoEmpleado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnNuevoEmpleado.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevoEmpleado.Enabled = false;
             this.btnNuevoEmpleado.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNuevoEmpleado.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoEmpleado.ForeColor = System.Drawing.Color.Black;
@@ -277,6 +279,7 @@
             // 
             this.btnNuevoContrato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevoContrato.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevoContrato.Enabled = false;
             this.btnNuevoContrato.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNuevoContrato.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoContrato.ForeColor = System.Drawing.Color.Black;

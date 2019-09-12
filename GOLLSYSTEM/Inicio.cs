@@ -34,10 +34,84 @@ namespace GOLLSYSTEM
         {
             try
             {
-                OpenForm(new Controles.ControlMatriculas());
-                selectOpc(opc1);
                 usuarioToolStripMenuItem.Text = Inicio.CurrentUser.Contrato.Empleado.Persona.Nombre;
-                usuarioToolStripMenuItem.Text = Inicio.CurrentUser.Rol;
+                rolToolStripMenuItem.Text = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == CurrentSucursal.Id).FirstOrDefault().Rol.Nombre;
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Gestionar Matriculas":
+                            if (obj.Otorgado)
+                            {
+                                opc1.Visible = true;
+                                opc1.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Empleados":
+                            if (obj.Otorgado)
+                            {
+                                opc2.Visible = true;
+                                opc2.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Notas":
+                            if (obj.Otorgado)
+                            {
+                                opc3.Visible = true;
+                                opc3.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Cursos":
+                            if (obj.Otorgado)
+                            {
+                                opc4.Visible = true;
+                                opc4.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Ingresos":
+                            if (obj.Otorgado)
+                            {
+                                opc5.Visible = true;
+                                opc5.Enabled = true;
+                                ingresosDelMesToolStripMenuItem.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Egresos":
+                            if (obj.Otorgado)
+                            {
+                                egresosDelMesToolStripMenuItem.Enabled = true;
+                                opc6.Visible = true;
+                                opc6.Enabled = true;
+                            }
+                            break;
+                        case "Exportar Ingresos y Egresos del mes":
+                            if (obj.Otorgado)
+                            {
+                                exportarEgresosIngresosToolStripMenuItem.Enabled = true;
+                            }
+                            break;
+                        case "Gestionar Ajustes del Sistema":
+                            if (obj.Otorgado)
+                            {
+                                configuracionesToolStripMenuItem.Enabled = true;
+                            }
+                            break;
+                           
+                        case "Exportar base de datos":
+                            if (obj.Otorgado)
+                            {
+                                backupToolStripMenuItem.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                if (Inicio.CurrentUser.Login=="Administrador")
+                {
+                    gestionarUsuariosDelSistemaToolStripMenuItem.Enabled = true;
+                    recuperacionToolStripMenuItem.Enabled = true;
+                }
             }
             catch (Exception ex)
             {
@@ -89,7 +163,7 @@ namespace GOLLSYSTEM
         private void Inicio_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
-            
+
         }
 
         private void lblOpc1_Click(object sender, EventArgs e)
@@ -138,7 +212,7 @@ namespace GOLLSYSTEM
 
         private void exportarEgresosIngresosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Función no disponible","Alerta",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            MessageBox.Show("Función no disponible", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void maximizarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -172,7 +246,7 @@ namespace GOLLSYSTEM
 
         private void backupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Configuraciones.Configuraciones configs= new Configuraciones.Configuraciones();
+            Configuraciones.Configuraciones configs = new Configuraciones.Configuraciones();
             configs.currentForm = new Configuraciones.Backup();
             configs.ShowDialog();
             configs.Dispose();
@@ -199,7 +273,7 @@ namespace GOLLSYSTEM
         {
             this.Close();
         }
-        
+
 
         private void recuperacionToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -223,9 +297,9 @@ namespace GOLLSYSTEM
             if (holded)
             {
                 Forms.PassRequest pass = new Forms.PassRequest();
-                pass.usuario = "Administrador";
+                pass.usuario = CurrentUser.Login;
                 pass.ShowDialog();
-                if (pass.DialogResult==DialogResult.Yes)
+                if (pass.DialogResult == DialogResult.Yes)
                 {
                     pnlContent.Enabled = true;
                     flpMenu.Enabled = true;

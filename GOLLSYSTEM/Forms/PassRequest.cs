@@ -22,6 +22,7 @@ namespace GOLLSYSTEM.Forms
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
             if (UserempDAL.getUseremp(usuario, txtPass.Text) != null)
             {
                 this.DialogResult = DialogResult.Yes;

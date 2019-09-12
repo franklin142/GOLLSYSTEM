@@ -25,7 +25,7 @@ namespace GOLLSYSTEM.Configuraciones
         {
             txtEmpleado.Text = user.Contrato.Empleado.Persona.Nombre;
             txtLogin.Text = user.Login;
-            txtRol.Text = user.Rol;
+            txtRol.Text = "";
             checkActivo.Checked = user.Estado == "A";
         }
 
@@ -33,10 +33,10 @@ namespace GOLLSYSTEM.Configuraciones
         {
             try
             {
-                Useremp NewObject = new Useremp(user.Id,null,txtPass.Text,null,null,0,0,new Contrato());
+                Useremp NewObject = new Useremp(user.Id,null,txtPass.Text,null,0,new Contrato(),null);
                 if (valUPDUsuario(NewObject))
                 {
-                    if (UserempDAL.UpdateUserEmp(NewObject))
+                    if (UserempDAL.UpdateUserEmp(NewObject,"pwd",Inicio.CurrentUser))
                     {
                         MessageBox.Show("Contraseña actualizada exitosamente.", "Actualizacion satisfactoria", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.Close();

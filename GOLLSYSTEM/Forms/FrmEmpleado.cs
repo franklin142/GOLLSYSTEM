@@ -32,9 +32,13 @@ namespace GOLLSYSTEM.Forms
                 cmbCargo.DataSource = CargoDAL.getCargos(100);
                 cmbCargo.ValueMember = "Id";
                 cmbCargo.DisplayMember = "Nombre";
+
                 switch (opc)
                 {
                     case "newContrato":
+                        LstPermiso permiso1 = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Crear Contratos").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso1 == null || permiso1.Otorgado == false);
+
                         txtNombre.Text = CurrentObject.Empleado.Persona.Nombre;
                         txtTelefono.Text = CurrentObject.Empleado.Telefono;
                         txtDui.Text = CurrentObject.Empleado.Persona.Dui;
@@ -51,6 +55,8 @@ namespace GOLLSYSTEM.Forms
                         txtDireccion.Enabled = false;
                         break;
                     case "updContrato":
+                        LstPermiso permiso2 = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Editar Contratos").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso2 == null || permiso2.Otorgado == false);
                         txtNombre.Text = CurrentObject.Empleado.Persona.Nombre;
                         txtTelefono.Text = CurrentObject.Empleado.Telefono;
                         txtDui.Text = CurrentObject.Empleado.Persona.Dui;
@@ -68,6 +74,8 @@ namespace GOLLSYSTEM.Forms
                         txtDireccion.Enabled = false;
                         break;
                     case "updEmpleado":
+                        LstPermiso permiso3 = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Editar Empleados").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso3 == null || permiso3.Otorgado == false);
                         txtNombre.Text = CurrentObject.Empleado.Persona.Nombre;
                         txtTelefono.Text = CurrentObject.Empleado.Telefono;
                         txtDui.Text = CurrentObject.Empleado.Persona.Dui;
@@ -76,6 +84,10 @@ namespace GOLLSYSTEM.Forms
                         dtpFechaNac.Value = Convert.ToDateTime(CurrentObject.Empleado.Persona.FechaNac);
                         txtDireccion.Text = CurrentObject.Empleado.Persona.Direccion;
                         cmbCargo.Enabled = false;
+                        break;
+                    case "newEmpleado":
+                        LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Crear Empleados").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso == null || permiso.Otorgado == false);
                         break;
                     default: break;
 
@@ -115,6 +127,7 @@ namespace GOLLSYSTEM.Forms
                           "A",
                           (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
                           EditingObject != null ? EditingObject.IdEmpleado : 0,
+                          Inicio.CurrentSucursal.Id,
                           new Cargo(
                               (cmbCargo.SelectedValue == null) ? 0 : Convert.ToInt32(cmbCargo.SelectedValue),
                               null,

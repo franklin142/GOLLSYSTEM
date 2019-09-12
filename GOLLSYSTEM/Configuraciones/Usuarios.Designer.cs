@@ -40,6 +40,7 @@
             this.login = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxUser = new System.Windows.Forms.GroupBox();
+            this.btnEditarPermisos = new System.Windows.Forms.Button();
             this.txtRepetir = new System.Windows.Forms.TextBox();
             this.txtPass = new System.Windows.Forms.TextBox();
             this.cmbRol = new System.Windows.Forms.ComboBox();
@@ -68,18 +69,20 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Visible = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnNuevo
             // 
             this.btnNuevo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
             this.btnNuevo.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnNuevo.Location = new System.Drawing.Point(24, 345);
+            this.btnNuevo.Location = new System.Drawing.Point(130, 316);
             this.btnNuevo.Name = "btnNuevo";
-            this.btnNuevo.Size = new System.Drawing.Size(190, 29);
+            this.btnNuevo.Size = new System.Drawing.Size(80, 29);
             this.btnNuevo.TabIndex = 118;
-            this.btnNuevo.Text = "Nuevo";
+            this.btnNuevo.Text = "+Nuevo";
             this.btnNuevo.UseVisualStyleBackColor = true;
+            this.btnNuevo.Click += new System.EventHandler(this.btnNuevo_Click);
             // 
             // btnRegistrar
             // 
@@ -92,6 +95,7 @@
             this.btnRegistrar.TabIndex = 116;
             this.btnRegistrar.Text = "Editar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // dgvUsuarios
             // 
@@ -106,7 +110,7 @@
             this.dgvUsuarios.BackgroundColor = System.Drawing.Color.LightSlateGray;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -117,23 +121,24 @@
             this.id,
             this.login,
             this.rol});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsuarios.DefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUsuarios.Location = new System.Drawing.Point(23, 56);
             this.dgvUsuarios.Margin = new System.Windows.Forms.Padding(2);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.ReadOnly = true;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsuarios.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUsuarios.RowHeadersVisible = false;
             this.dgvUsuarios.RowTemplate.Height = 30;
             this.dgvUsuarios.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsuarios.Size = new System.Drawing.Size(192, 289);
+            this.dgvUsuarios.Size = new System.Drawing.Size(187, 255);
             this.dgvUsuarios.TabIndex = 117;
+            this.dgvUsuarios.CurrentCellChanged += new System.EventHandler(this.dgvUsuarios_CurrentCellChanged);
             // 
             // id
             // 
@@ -144,23 +149,30 @@
             // 
             // login
             // 
+            this.login.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
             this.login.DefaultCellStyle = dataGridViewCellStyle2;
             this.login.HeaderText = "Login";
             this.login.Name = "login";
             this.login.ReadOnly = true;
+            this.login.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.login.Width = 82;
             // 
             // rol
             // 
+            this.rol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
             this.rol.DefaultCellStyle = dataGridViewCellStyle3;
             this.rol.FillWeight = 80F;
             this.rol.HeaderText = "Rol";
             this.rol.Name = "rol";
             this.rol.ReadOnly = true;
+            this.rol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.rol.Width = 102;
             // 
             // gbxUser
             // 
+            this.gbxUser.Controls.Add(this.btnEditarPermisos);
             this.gbxUser.Controls.Add(this.txtRepetir);
             this.gbxUser.Controls.Add(this.txtPass);
             this.gbxUser.Controls.Add(this.cmbRol);
@@ -181,6 +193,19 @@
             this.gbxUser.TabIndex = 115;
             this.gbxUser.TabStop = false;
             this.gbxUser.Text = "Datos del usuario";
+            // 
+            // btnEditarPermisos
+            // 
+            this.btnEditarPermisos.Enabled = false;
+            this.btnEditarPermisos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditarPermisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.btnEditarPermisos.Location = new System.Drawing.Point(215, 238);
+            this.btnEditarPermisos.Name = "btnEditarPermisos";
+            this.btnEditarPermisos.Size = new System.Drawing.Size(153, 25);
+            this.btnEditarPermisos.TabIndex = 21;
+            this.btnEditarPermisos.Text = "Editar Permisos";
+            this.btnEditarPermisos.UseVisualStyleBackColor = true;
+            this.btnEditarPermisos.Click += new System.EventHandler(this.btnEditarPermisos_Click);
             // 
             // txtRepetir
             // 
@@ -213,6 +238,7 @@
             this.cmbRol.Name = "cmbRol";
             this.cmbRol.Size = new System.Drawing.Size(153, 23);
             this.cmbRol.TabIndex = 20;
+            this.cmbRol.SelectedIndexChanged += new System.EventHandler(this.cmbRol_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -255,6 +281,7 @@
             this.btnBuscarEmpleado.TabIndex = 13;
             this.btnBuscarEmpleado.Text = "Buscar Empleado";
             this.btnBuscarEmpleado.UseVisualStyleBackColor = true;
+            this.btnBuscarEmpleado.Click += new System.EventHandler(this.btnBuscarEmpleado_Click);
             // 
             // txtEmpleado
             // 
@@ -312,15 +339,16 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(57)))), ((int)(((byte)(80)))));
-            this.ClientSize = new System.Drawing.Size(645, 437);
+            this.ClientSize = new System.Drawing.Size(640, 435);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnNuevo);
             this.Controls.Add(this.btnRegistrar);
             this.Controls.Add(this.dgvUsuarios);
             this.Controls.Add(this.gbxUser);
+            this.Controls.Add(this.btnNuevo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Usuarios";
             this.Text = "Usuarios";
+            this.Load += new System.EventHandler(this.Usuarios_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).EndInit();
             this.gbxUser.ResumeLayout(false);
             this.gbxUser.PerformLayout();
@@ -334,9 +362,6 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button btnRegistrar;
         private System.Windows.Forms.DataGridView dgvUsuarios;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn login;
-        private System.Windows.Forms.DataGridViewTextBoxColumn rol;
         private System.Windows.Forms.GroupBox gbxUser;
         private System.Windows.Forms.TextBox txtRepetir;
         private System.Windows.Forms.TextBox txtPass;
@@ -350,5 +375,9 @@
         private System.Windows.Forms.CheckBox checkEstado;
         private System.Windows.Forms.TextBox txtLogin;
         private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.Button btnEditarPermisos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn login;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rol;
     }
 }

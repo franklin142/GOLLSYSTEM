@@ -173,6 +173,7 @@
             // 
             this.btnDesertarAlumno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDesertarAlumno.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnDesertarAlumno.Enabled = false;
             this.btnDesertarAlumno.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDesertarAlumno.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
             this.btnDesertarAlumno.ForeColor = System.Drawing.Color.White;
@@ -267,6 +268,7 @@
             // 
             this.btnNuevaMatricula.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevaMatricula.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevaMatricula.Enabled = false;
             this.btnNuevaMatricula.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNuevaMatricula.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaMatricula.ForeColor = System.Drawing.Color.Black;
@@ -289,7 +291,7 @@
             this.btnEditarMatricula.Name = "btnEditarMatricula";
             this.btnEditarMatricula.Size = new System.Drawing.Size(81, 26);
             this.btnEditarMatricula.TabIndex = 6;
-            this.btnEditarMatricula.Text = "Editar";
+            this.btnEditarMatricula.Text = "Ver";
             this.btnEditarMatricula.UseVisualStyleBackColor = false;
             this.btnEditarMatricula.Click += new System.EventHandler(this.btnEditarMatricula_Click);
             // 

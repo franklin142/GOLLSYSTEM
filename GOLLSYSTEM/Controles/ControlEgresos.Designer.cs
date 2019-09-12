@@ -78,6 +78,7 @@
             // 
             this.btnAnularEgreso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnularEgreso.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnAnularEgreso.Enabled = false;
             this.btnAnularEgreso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAnularEgreso.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
             this.btnAnularEgreso.ForeColor = System.Drawing.Color.White;
@@ -275,6 +276,7 @@
             // 
             this.btnNuevoEgreso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnNuevoEgreso.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevoEgreso.Enabled = false;
             this.btnNuevoEgreso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnNuevoEgreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoEgreso.ForeColor = System.Drawing.Color.Black;

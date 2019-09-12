@@ -32,6 +32,26 @@ namespace GOLLSYSTEM.Controles
                 cbxYear.DisplayMember = "Desde";
                 FillDgv(CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, new Year((Int64)cbxYear.SelectedValue, "", "")));
                 cbxYear.SelectedIndexChanged += new EventHandler(cbxYear_SelectedIndexChanged);
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Crear Cursos":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevoCurso.Enabled = true;
+                            }
+                            break;
+                        case "Anular Cursos":
+                            if (obj.Otorgado)
+                            {
+                                btnAnularCurso.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -165,6 +185,7 @@ namespace GOLLSYSTEM.Controles
 
         private void dgvCursos_DoubleClick(object sender, EventArgs e)
         {
+            
             if (dgvCursos.CurrentRow != null)
             {
                 FrmCurso frmcurso = new FrmCurso();

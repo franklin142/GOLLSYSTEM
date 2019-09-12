@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnAnular = new System.Windows.Forms.Button();
             this.dgvIngresos = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,7 +57,7 @@
             this.lblTotalEgresos = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.lblTotalGanancia = new System.Windows.Forms.Label();
-            this.btnNuevoEgreso = new System.Windows.Forms.Button();
+            this.btnNuevoIngreso = new System.Windows.Forms.Button();
             this.cbxMonth = new System.Windows.Forms.ComboBox();
             this.cbxYear = new System.Windows.Forms.ComboBox();
             this.tmrTaskDgv = new System.Windows.Forms.Timer(this.components);
@@ -71,6 +71,7 @@
             this.picHelp = new System.Windows.Forms.PictureBox();
             this.icUpdate = new System.Windows.Forms.PictureBox();
             this.picExcel = new System.Windows.Forms.PictureBox();
+            this.btnIngresoExterno = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIngresos)).BeginInit();
             this.pnlParametro.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -84,12 +85,13 @@
             // 
             this.btnAnular.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAnular.BackColor = System.Drawing.Color.OrangeRed;
+            this.btnAnular.Enabled = false;
             this.btnAnular.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAnular.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
             this.btnAnular.ForeColor = System.Drawing.Color.White;
-            this.btnAnular.Location = new System.Drawing.Point(491, 421);
+            this.btnAnular.Location = new System.Drawing.Point(491, 415);
             this.btnAnular.Name = "btnAnular";
-            this.btnAnular.Size = new System.Drawing.Size(83, 26);
+            this.btnAnular.Size = new System.Drawing.Size(59, 42);
             this.btnAnular.TabIndex = 7;
             this.btnAnular.Text = "Anular";
             this.btnAnular.UseVisualStyleBackColor = false;
@@ -105,14 +107,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvIngresos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvIngresos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(233)))), ((int)(((byte)(165)))));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvIngresos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvIngresos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvIngresos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -128,13 +130,13 @@
             this.dgvIngresos.Name = "dgvIngresos";
             this.dgvIngresos.ReadOnly = true;
             this.dgvIngresos.RowHeadersVisible = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.DarkSeaGreen;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(3);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.DarkGray;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvIngresos.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.DarkSeaGreen;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(3);
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.DarkGray;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvIngresos.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvIngresos.RowTemplate.Height = 30;
             this.dgvIngresos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvIngresos.Size = new System.Drawing.Size(677, 262);
@@ -192,8 +194,8 @@
             // 
             // total
             // 
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
-            this.total.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.total.DefaultCellStyle = dataGridViewCellStyle11;
             this.total.FillWeight = 35F;
             this.total.HeaderText = "Total";
             this.total.Name = "total";
@@ -374,20 +376,21 @@
             this.lblTotalGanancia.TabIndex = 90;
             this.lblTotalGanancia.Text = "160.50";
             // 
-            // btnNuevoEgreso
+            // btnNuevoIngreso
             // 
-            this.btnNuevoEgreso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnNuevoEgreso.BackColor = System.Drawing.Color.LightSkyBlue;
-            this.btnNuevoEgreso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnNuevoEgreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNuevoEgreso.ForeColor = System.Drawing.Color.Black;
-            this.btnNuevoEgreso.Location = new System.Drawing.Point(580, 421);
-            this.btnNuevoEgreso.Name = "btnNuevoEgreso";
-            this.btnNuevoEgreso.Size = new System.Drawing.Size(116, 27);
-            this.btnNuevoEgreso.TabIndex = 6;
-            this.btnNuevoEgreso.Text = "Nuevo Ingreso";
-            this.btnNuevoEgreso.UseVisualStyleBackColor = false;
-            this.btnNuevoEgreso.Click += new System.EventHandler(this.btnNuevoEgreso_Click);
+            this.btnNuevoIngreso.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNuevoIngreso.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btnNuevoIngreso.Enabled = false;
+            this.btnNuevoIngreso.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnNuevoIngreso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevoIngreso.ForeColor = System.Drawing.Color.Black;
+            this.btnNuevoIngreso.Location = new System.Drawing.Point(629, 415);
+            this.btnNuevoIngreso.Name = "btnNuevoIngreso";
+            this.btnNuevoIngreso.Size = new System.Drawing.Size(67, 42);
+            this.btnNuevoIngreso.TabIndex = 6;
+            this.btnNuevoIngreso.Text = "Ingreso GOLL";
+            this.btnNuevoIngreso.UseVisualStyleBackColor = false;
+            this.btnNuevoIngreso.Click += new System.EventHandler(this.btnNuevoEgreso_Click);
             // 
             // cbxMonth
             // 
@@ -540,6 +543,7 @@
             // 
             this.picExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picExcel.Enabled = false;
             this.picExcel.Image = global::GOLLSYSTEM.Properties.Resources.microsoft_excel_48;
             this.picExcel.Location = new System.Drawing.Point(629, 7);
             this.picExcel.Name = "picExcel";
@@ -551,17 +555,34 @@
             this.picExcel.MouseLeave += new System.EventHandler(this.picExcel_MouseLeave);
             this.picExcel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picExcel_MouseMove);
             // 
+            // btnIngresoExterno
+            // 
+            this.btnIngresoExterno.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIngresoExterno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(233)))), ((int)(((byte)(165)))));
+            this.btnIngresoExterno.Enabled = false;
+            this.btnIngresoExterno.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnIngresoExterno.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIngresoExterno.ForeColor = System.Drawing.Color.Black;
+            this.btnIngresoExterno.Location = new System.Drawing.Point(556, 415);
+            this.btnIngresoExterno.Name = "btnIngresoExterno";
+            this.btnIngresoExterno.Size = new System.Drawing.Size(67, 42);
+            this.btnIngresoExterno.TabIndex = 105;
+            this.btnIngresoExterno.Text = "Ingreso Externo";
+            this.btnIngresoExterno.UseVisualStyleBackColor = false;
+            this.btnIngresoExterno.Click += new System.EventHandler(this.btnIngresoExterno_Click);
+            // 
             // ControlIngresos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(714, 460);
+            this.Controls.Add(this.btnIngresoExterno);
             this.Controls.Add(this.picExcel);
             this.Controls.Add(this.lblPages);
             this.Controls.Add(this.pnlIndexer);
             this.Controls.Add(this.cbxMonth);
             this.Controls.Add(this.cbxYear);
-            this.Controls.Add(this.btnNuevoEgreso);
+            this.Controls.Add(this.btnNuevoIngreso);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -612,7 +633,7 @@
         private System.Windows.Forms.Label lblTotalEgresos;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblTotalGanancia;
-        private System.Windows.Forms.Button btnNuevoEgreso;
+        private System.Windows.Forms.Button btnNuevoIngreso;
         private System.Windows.Forms.ComboBox cbxMonth;
         private System.Windows.Forms.ComboBox cbxYear;
         private System.Windows.Forms.Timer tmrTaskDgv;
@@ -632,5 +653,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn subtotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn descuento;
         private System.Windows.Forms.DataGridViewTextBoxColumn total;
+        private System.Windows.Forms.Button btnIngresoExterno;
     }
 }

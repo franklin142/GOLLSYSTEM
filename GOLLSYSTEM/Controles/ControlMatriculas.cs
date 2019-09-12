@@ -41,6 +41,26 @@ namespace GOLLSYSTEM.Controles
                 cbxCursos.Enabled = true;
                 foreach (Curso curso in cursos)
                     lblMatriculados.Text = (Convert.ToInt32(lblMatriculados.Text) +MatriculaDAL.countMatriculasByCurso(curso.Id)).ToString();
+                foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
+                {
+                    switch (obj.Permiso.Nombre)
+                    {
+                        case "Matricular Estudiantes":
+                            if (obj.Otorgado)
+                            {
+                                btnNuevaMatricula.Enabled = true;
+                            }
+                            break;
+                        case "Desertar Estudiantes":
+                            if (obj.Otorgado)
+                            {
+                                btnDesertarAlumno.Enabled = true;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 tmrTaskDgv.Start();
             }
             catch (Exception ex)

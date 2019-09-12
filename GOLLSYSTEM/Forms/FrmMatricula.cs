@@ -41,6 +41,9 @@ namespace GOLLSYSTEM.Forms
                 switch (opc)
                 {
                     case "updObject":
+                        LstPermiso permiso = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Editar Matriculas").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso == null || permiso.Otorgado == false);
+
                         txtNombreEst.Text = EditingObject.Estudiante.Persona.Nombre;
                         txtApPaternoEst.Text = EditingObject.Estudiante.ApPaterno;
                         txtApMaternoEst.Text = EditingObject.Estudiante.ApMaterno;
@@ -83,6 +86,8 @@ namespace GOLLSYSTEM.Forms
                         break;
                     case "newObject":
                         dtpFhRegistro.Value = DateTime.Now;
+                        LstPermiso permiso2 = Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos.Where(a => a.Permiso.Nombre == "Matricular Estudiantes").FirstOrDefault();
+                        btnGuardar.Enabled = !(permiso2 == null || permiso2.Otorgado == false);
                         break;
                     default: break;
                 }

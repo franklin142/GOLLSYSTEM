@@ -17,6 +17,7 @@ namespace GOLLSYSTEM.Forms
     {
         public string opc = "Mensualidad";
         public Int64 IdPersona = 0;
+        public Matricula Matricula { get; set; }
         public Detfactura currentDetFactura;
         public bool ready = false;
         public frmBuscarProducto()
@@ -30,43 +31,12 @@ namespace GOLLSYSTEM.Forms
                 switch (opc)
                 {
                     case "Mensualidad":
-                        List<Matricula> result = MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 15);
-                        List<Matricula> matriculas = new List<Matricula>();
-                        foreach (Matricula obj in result)
-                        {
-                            bool added = false;
-                            foreach (Cuota cuota in obj.Cuotas)
-                            {
-                                if (cuota.Total < cuota.Precio)
-                                {
-                                    if (!added)
-                                    {
-                                        matriculas.Add(obj);
-                                        added = true;
-                                    }
-
-                                }
-                            }
-
-                        }
-                        foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
-                        cbxEstudiante.DataSource = matriculas;
-
-                        if (matriculas.Count != 0)
-                        {
-                            cbxEstudiante.DisplayMember = "NombreEstudiante";
-                            cbxEstudiante.ValueMember = "Id";
-                            cbxEstudiante.SelectedIndex = 0;
-                            checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-                            List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                            FillDgv_Mensualidades(cuotas);
-                            if (cbxEstudiante.Items.Count != 0)
-                            {
-                                lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
-                            }
-                        }
-                        else
-                            FillDgv_Mensualidades(new List<Cuota>());
+                        checkBecado.Checked = Matricula.Becado==1;
+                        Curso curso = CursoDAL.getCursoById(Matricula.IdCurso);
+                        FillDgv_Mensualidades(CuotaDAL.getCuotasByIdMatricula(Matricula.Id, 1000));
+                        lblEstudiante.Text = Matricula.Estudiante.Persona.Nombre;
+                        lblCurso.Text = curso.Nombre;
+                        lblDocente.Text = curso.Contrato.Empleado.Persona.Nombre;
                         btnRegistrarProducto.Visible = false;
                         btnRegistrarProducto.Enabled = false;
                         lblTituloDgv.Text = "Mensualidades pendientes";
@@ -463,26 +433,7 @@ namespace GOLLSYSTEM.Forms
                 valDescuento.BackColor = Color.Red;
             }
         }
-        private void cbxEstudiante_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ready && cbxEstudiante.Items.Count > 0)
-            {
-                dgvProductos.Rows.Clear();
-                lblPrecio.Text = "$0.00";
-                txtAporte.Text = "0.00";
-                txtDescuento.Text = "0.00";
-                checkBecado.Checked = false;
-
-                List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                FillDgv_Mensualidades(cuotas);
-                Matricula matric = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0);
-                checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-                if (cbxEstudiante.Items.Count != 0)
-                {
-                    lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
-                }
-            }
-        }
+        
         private void txtAporte_Enter(object sender, EventArgs e)
         {
             Control txt = sender as Control;
@@ -492,99 +443,6 @@ namespace GOLLSYSTEM.Forms
                 txt.Text = "";
             }
 
-        }
-
-        private void icUpdate_Click(object sender, EventArgs e)
-        {
-            searchMatriculas();
-        }
-
-        private void txtBuscar_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Enter))
-            {
-                e.Handled = true;
-                searchMatriculas();
-            }
-        }
-        private void searchMatriculas()
-        {
-            ready = false;
-            try
-            {
-                dgvProductos.Rows.Clear();
-                lblPrecio.Text = "$0.00";
-                txtAporte.Text = "0.00";
-                txtDescuento.Text = "0.00";
-                checkBecado.Checked = false;
-
-                List<Matricula> result = MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 15);
-                List<Matricula> matriculas = new List<Matricula>();
-                foreach (Matricula obj in result)
-                {
-                    bool added = false;
-                    foreach (Cuota cuota in obj.Cuotas)
-                    {
-                        if (cuota.Total < cuota.Precio)
-                        {
-                            if (!added)
-                            {
-                                matriculas.Add(obj);
-                                added = true;
-                            }
-
-                        }
-                    }
-
-                }
-                foreach (Matricula obj in matriculas) obj.NombreEstudiante = obj.Estudiante.Persona.Nombre;
-                cbxEstudiante.DataSource = matriculas;
-
-                if (matriculas.Count != 0)
-                {
-                    cbxEstudiante.DisplayMember = "NombreEstudiante";
-                    cbxEstudiante.ValueMember = "Id";
-                    cbxEstudiante.SelectedIndex = 0;
-                    checkBecado.Checked = MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0) != null ? MatriculaDAL.getMatriculaById(cbxEstudiante.SelectedValue != null ? (Int64)cbxEstudiante.SelectedValue : 0).Becado == 1 : false;
-                    List<Cuota> cuotas = CuotaDAL.getCuotasByIdMatricula(cbxEstudiante.Items.Count != 0 ? (Int64)cbxEstudiante.SelectedValue : 0, 1000);
-                    FillDgv_Mensualidades(cuotas);
-                    if (cbxEstudiante.Items.Count != 0)
-                    {
-                        lblCurso.Text = CursoDAL.getCursoById((cbxEstudiante.SelectedItem as Matricula).IdCurso).Nombre;
-                    }
-                }
-                else
-                    FillDgv_Mensualidades(new List<Cuota>());
-                if (dgvProductos.CurrentRow != null)
-                {
-                    switch (opc)
-                    {
-                        case "Mensualidad":
-                            changeDets(ProductoDAL.getProductoMensualidad());
-                            break;
-                        case "Cancelacion":
-                            changeDets(ProductoDAL.getProductoById(DetFacturaDAL.getDetfacturaById((Int64)dgvProductos.CurrentRow.Cells[0].Value).IdProducto));
-
-                            break;
-
-                        case "Contado":
-                            changeDets(ProductoDAL.getProductoById((Int64)dgvProductos.CurrentRow.Cells[0].Value));
-
-                            break;
-                        default: break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string folderName = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Errores_" + Assembly.GetExecutingAssembly().GetName().Name + "_V_" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                string fileName = "Exeptions_" + Name + ".txt";
-
-                Validation.FormManager frmManager = new Validation.FormManager();
-                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
-                MessageBox.Show("Ha ocurrido un error al intentar buscar el estudiante, por favor comuniquese con el desarrollador al correo " + Properties.Settings.Default.developerEmail, "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            ready = true;
         }
     }
 }
