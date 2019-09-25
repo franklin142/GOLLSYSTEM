@@ -30,9 +30,10 @@ namespace GOLLSYSTEM.DataAccess
                     _conn.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
+                throw ex;
             }
             return result;
         }
@@ -74,10 +75,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
-                throw;
+                throw ex;
 
             }
             finally
@@ -106,10 +107,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
-                throw;
+                throw ex;
 
             }
             finally

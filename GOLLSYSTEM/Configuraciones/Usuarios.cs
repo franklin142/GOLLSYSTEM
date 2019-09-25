@@ -48,7 +48,7 @@ namespace GOLLSYSTEM.Configuraciones
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
             ready = true;
         }

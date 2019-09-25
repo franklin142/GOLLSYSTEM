@@ -32,10 +32,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -66,10 +66,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -101,10 +101,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
