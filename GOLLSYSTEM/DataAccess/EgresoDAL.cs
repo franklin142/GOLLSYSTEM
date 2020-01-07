@@ -359,7 +359,7 @@ namespace GOLLSYSTEM.DataAccess
                     }
 
                     DateTime date1 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth), 1);
-                    DateTime date2 = new DateTime((Convert.ToInt32(pMonth) < 12 ? Convert.ToInt32(pYear) : Convert.ToInt32(pYear) + 1), (Convert.ToInt32(pMonth) < 12 ? Convert.ToInt32(pMonth) + 1 : 1), 1).AddDays(-1);
+                    DateTime date2 = new DateTime(Convert.ToInt32(pYear), Convert.ToInt32(pMonth) + 1, 1).AddDays(-1);
                     List<List<int>> semanasArray = new List<List<int>>();
                     semanasArray.Add(new List<int>());
                     int currentWeek = 0;
@@ -414,10 +414,10 @@ namespace GOLLSYSTEM.DataAccess
 
                     _reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     _con.Close();
-                    throw ex;
+                    throw;
                 }
                 finally
                 {
