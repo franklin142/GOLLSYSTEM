@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.rdbParametros = new System.Windows.Forms.RadioButton();
             this.rdbTodo = new System.Windows.Forms.RadioButton();
@@ -110,7 +110,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            this.label1.Location = new System.Drawing.Point(390, 34);
+            this.label1.Location = new System.Drawing.Point(390, 40);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(36, 18);
             this.label1.TabIndex = 60;
@@ -149,7 +149,7 @@
             this.picHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picHelp.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picHelp.Image = global::GOLLSYSTEM.Properties.Resources._008_help;
-            this.picHelp.Location = new System.Drawing.Point(669, 11);
+            this.picHelp.Location = new System.Drawing.Point(669, 7);
             this.picHelp.Name = "picHelp";
             this.picHelp.Size = new System.Drawing.Size(28, 28);
             this.picHelp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -195,14 +195,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMatriculas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvMatriculas.BackgroundColor = System.Drawing.SystemColors.InactiveCaption;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvMatriculas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvMatriculas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMatriculas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -315,7 +315,7 @@
             this.cbxYear.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cbxYear.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxYear.FormattingEnabled = true;
-            this.cbxYear.Location = new System.Drawing.Point(443, 33);
+            this.cbxYear.Location = new System.Drawing.Point(443, 39);
             this.cbxYear.Name = "cbxYear";
             this.cbxYear.Size = new System.Drawing.Size(77, 24);
             this.cbxYear.TabIndex = 3;
@@ -342,23 +342,25 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 10F);
-            this.label3.Location = new System.Drawing.Point(532, 35);
+            this.label3.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(526, 40);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 18);
+            this.label3.Size = new System.Drawing.Size(127, 18);
             this.label3.TabIndex = 107;
-            this.label3.Text = "Matriculados:";
+            this.label3.Text = "Activos en cursos:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // lblMatriculados
             // 
             this.lblMatriculados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMatriculados.AutoSize = true;
-            this.lblMatriculados.Font = new System.Drawing.Font("Microsoft Tai Le", 14F);
-            this.lblMatriculados.Location = new System.Drawing.Point(620, 30);
+            this.lblMatriculados.Font = new System.Drawing.Font("Microsoft Tai Le", 12F);
+            this.lblMatriculados.Location = new System.Drawing.Point(652, 39);
             this.lblMatriculados.Name = "lblMatriculados";
-            this.lblMatriculados.Size = new System.Drawing.Size(40, 23);
+            this.lblMatriculados.Size = new System.Drawing.Size(37, 21);
             this.lblMatriculados.TabIndex = 108;
             this.lblMatriculados.Text = "000";
+            this.lblMatriculados.Click += new System.EventHandler(this.lblMatriculados_Click);
             // 
             // btnVerMorosos
             // 

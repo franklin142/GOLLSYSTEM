@@ -124,6 +124,36 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
+        public static int countMatriculasActivasByCurso(Int64 pId)
+        {
+            int item = 0;
+            using (MySqlConnection _con = new Conexion().Conectar())
+            {
+                try
+                {
+                    _con.Open();
+                    MySqlCommand cmdBuscarPersona = new MySqlCommand("select count(m.Id) as MatriculasCount from matricula m inner join curso c on c.Id=m.IdCurso where m.IdCurso=@pId and m.Estado='A' and c.Hasta>=CURRENT_DATE;", _con);
+                    cmdBuscarPersona.Parameters.AddWithValue("@pId", pId);
+                    MySqlDataReader _reader = cmdBuscarPersona.ExecuteReader();
+                    while (_reader.Read())
+                    {
+                        item = _reader.GetInt32("MatriculasCount");
+
+                    }
+                    _reader.Close();
+                }
+                catch (Exception)
+                {
+                    _con.Close();
+                    throw;
+                }
+                finally
+                {
+                    _con.Close();
+                }
+            }
+            return item;
+        }
         public static List<Matricula> searchMatriculasParametro(string Text, Int64 pIdYear, Int64 pIdCurso)
         {
             List<Matricula> lista = new List<Matricula>();

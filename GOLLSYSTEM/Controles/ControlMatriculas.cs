@@ -17,6 +17,7 @@ namespace GOLLSYSTEM.Controles
 {
     public partial class ControlMatriculas : Form
     {
+        List<Curso> cursos = new List<Curso>();
         public ControlMatriculas()
         {
             InitializeComponent();
@@ -26,21 +27,24 @@ namespace GOLLSYSTEM.Controles
         {
             try
             {
-                List<Curso> cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+                
 
                 cbxYear.Enabled = false;
-                cbxYear.DataSource = YearDAL.getYears(500);
+                cbxYear.DataSource = YearDAL.getYears(999999999);
                 cbxYear.ValueMember = "Id";
                 cbxYear.DisplayMember = "Desde";
                 cbxYear.Enabled = true;
 
+                cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
                 cbxCursos.Enabled = false;
                 cbxCursos.DataSource = cursos;
                 cbxCursos.ValueMember = "Id";
                 cbxCursos.DisplayMember = "Nombre";
                 cbxCursos.Enabled = true;
+                lblMatriculados.Text = "0";
+
                 foreach (Curso curso in cursos)
-                    lblMatriculados.Text = (Convert.ToInt32(lblMatriculados.Text) +MatriculaDAL.countMatriculasByCurso(curso.Id)).ToString();
+                    lblMatriculados.Text = (Convert.ToInt32(lblMatriculados.Text) + MatriculaDAL.countMatriculasActivasByCurso(curso.Id)).ToString();
                 foreach (LstPermiso obj in Inicio.CurrentUser.Sucursales.Where(a => a.IdSucursal == Inicio.CurrentSucursal.Id).FirstOrDefault().Permisos)
                 {
                     switch (obj.Permiso.Nombre)
@@ -69,7 +73,7 @@ namespace GOLLSYSTEM.Controles
                 string fileName = "Exeptions_" + Name + ".txt";
 
                 Validation.FormManager frmManager = new Validation.FormManager();
-                frmManager.writeException(folderName, fileName, ex,"Ha ocurrido un error al intentar cargar la información de este control");
+                frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de este control");
                 MessageBox.Show("Ha ocurrido un error al intentar cargar la información de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -78,12 +82,21 @@ namespace GOLLSYSTEM.Controles
         {
             if (cbxYear.Enabled)
             {
+                cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
                 cbxCursos.Enabled = false;
-                cbxCursos.DataSource = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, cbxYear.SelectedItem as Year);
+                cbxCursos.DataSource = cursos;
                 cbxCursos.ValueMember = "Id";
                 cbxCursos.DisplayMember = "Nombre";
+                if (cursos.Count>0)
+                {
+                    cbxCursos.SelectedIndex = 0;
+                }
                 cbxCursos.Enabled = true;
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cursos.Count>0? (cbxYear.SelectedItem as Year).Id:0, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, Inicio.CurrentSucursal.Id, 500));
+                lblMatriculados.Text = "0";
+                foreach (Curso curso in cursos)
+                    lblMatriculados.Text = (Convert.ToInt32(lblMatriculados.Text) + MatriculaDAL.countMatriculasActivasByCurso(curso.Id)).ToString();
 
             }
         }
@@ -92,33 +105,33 @@ namespace GOLLSYSTEM.Controles
         {
             if (cbxCursos.Enabled)
             {
-                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentYear.Id, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(Validation.Validation.Val_Injection(txtBuscar.Text), Inicio.CurrentSucursal.Id, 100));
+                FillDgv(rdbParametros.Checked ? MatriculaDAL.searchMatriculasParametro(txtBuscar.Text, cursos.Count > 0 ? (cbxYear.SelectedItem as Year).Id : 0, cbxCursos.Items.Count == 0 ? 0 : (cbxCursos.SelectedItem as Curso).Id) : MatriculaDAL.searchMatriculasNoParametro(txtBuscar.Text, cursos.Count > 0 ? (cbxYear.SelectedItem as Year).Id : 0, 100));
             }
         }
         private void FillDgv(List<Matricula> lista)
         {
             dgvMatriculas.Rows.Clear();
             DateTime serverDate = YearDAL.getServerDate();
-            int students =1;
+            int students = 1;
             foreach (Matricula obj in lista)
             {
                 String aldia = "Si";
                 string proxima = "";
                 string pendientes = "";
-                List<Cuota> atrasadas = obj.Cuotas.Where(a=> (Convert.ToDateTime(a.FhRegistro)<serverDate|| Convert.ToDateTime(a.FhRegistro) == serverDate) && a.Total<a.Precio).ToList();
+                List<Cuota> atrasadas = obj.Cuotas.Where(a => (Convert.ToDateTime(a.FhRegistro) < serverDate || Convert.ToDateTime(a.FhRegistro) == serverDate) && a.Total < a.Precio).ToList();
                 List<Cuota> proximas = obj.Cuotas.Where(a => Convert.ToDateTime(a.FhRegistro) > serverDate && a.Total < a.Precio).ToList();
 
                 foreach (Cuota objCuota in atrasadas)
                 {
-                    pendientes += "("+Convert.ToDateTime(objCuota.FhRegistro).ToString("MMMM",new CultureInfo("ES-es"))+" $"+Decimal.Round((objCuota.Precio-objCuota.Total),2)+") ";
+                    pendientes += "(" + Convert.ToDateTime(objCuota.FhRegistro).ToString("MMMM", new CultureInfo("ES-es")) + " $" + Decimal.Round((objCuota.Precio - objCuota.Total), 2) + ") ";
                 }
                 aldia = atrasadas.Count > 0 ? "No" : "Si";
-                DateTime dateProx = proximas.Count > 0 ?atrasadas.Where(a=>Convert.ToDateTime(a.FhRegistro).Month==serverDate.Month).FirstOrDefault()!=null? Convert.ToDateTime(atrasadas.Where(a => Convert.ToDateTime(a.FhRegistro).Month == serverDate.Month).FirstOrDefault().FhRegistro): Convert.ToDateTime((from cuota in proximas orderby Convert.ToDateTime(cuota.FhRegistro) ascending select cuota).FirstOrDefault().FhRegistro) : atrasadas.Count>0? new DateTime(DateTime.Now.Year,DateTime.Now.Month,Convert.ToInt32(obj.DiaLimite)):new DateTime();
-                proxima = proximas.Count > 0||atrasadas.Count>0 ? dateProx.ToString("dd \"de\" MMMM \"del\" yyyy", new CultureInfo("ES-es")) : "";
+                DateTime dateProx = proximas.Count > 0 ? atrasadas.Where(a => Convert.ToDateTime(a.FhRegistro).Month == serverDate.Month).FirstOrDefault() != null ? Convert.ToDateTime(atrasadas.Where(a => Convert.ToDateTime(a.FhRegistro).Month == serverDate.Month).FirstOrDefault().FhRegistro) : Convert.ToDateTime((from cuota in proximas orderby Convert.ToDateTime(cuota.FhRegistro) ascending select cuota).FirstOrDefault().FhRegistro) : atrasadas.Count > 0 ? new DateTime(DateTime.Now.Year, DateTime.Now.Month, Convert.ToInt32(obj.DiaLimite)) : new DateTime();
+                proxima = proximas.Count > 0 || atrasadas.Count > 0 ? dateProx.ToString("dd \"de\" MMMM \"del\" yyyy", new CultureInfo("ES-es")) : "";
 
                 dgvMatriculas.Rows.Add(
                 obj.Id,
-                students+"-"+obj.Estudiante.Persona.Nombre,
+                students + "-" + obj.Estudiante.Persona.Nombre,
                 obj.Estudiante.Telefono,
                 aldia,
                 pendientes,
@@ -148,8 +161,8 @@ namespace GOLLSYSTEM.Controles
                 frmManager.writeException(folderName, fileName, ex, "Ha ocurrido un error al intentar cargar la información de cursos de este control");
                 MessageBox.Show("Ha ocurrido un error al intentar cargar la información cursos de este control, por favor comuniquese con el desarrollador al correo franklingranados2@yahoo.com", "Error fatal", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            List<Curso> cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id,Inicio.CurrentYear);
-            if (cursos.Count>0)
+            List<Curso> cursos = CursoDAL.getCursosByIdSucursal(Inicio.CurrentSucursal.Id, Inicio.CurrentYear);
+            if (cursos.Count > 0)
             {
                 FrmMatricula frmmatricula = new FrmMatricula();
                 frmmatricula.opc = "newObject";
@@ -159,7 +172,7 @@ namespace GOLLSYSTEM.Controles
             }
             else
             {
-                MessageBox.Show("No hay cursos registrados en el año seleccionado, para matricular estudiantes primero debe registrar un curso.", "Alerta de validación", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("No hay cursos registrados en el año seleccionado, para matricular estudiantes primero debe registrar un curso.", "Alerta de validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -191,7 +204,7 @@ namespace GOLLSYSTEM.Controles
 
         private void btnDesertarAlumno_Click(object sender, EventArgs e)
         {
-            if (dgvMatriculas.CurrentRow!=null)
+            if (dgvMatriculas.CurrentRow != null)
             {
                 frmDesercion desersion = new frmDesercion();
                 desersion.CurrentMatricula = MatriculaDAL.getMatriculaById((Int64)dgvMatriculas.CurrentRow.Cells[0].Value);
@@ -256,6 +269,16 @@ namespace GOLLSYSTEM.Controles
             viewer.BringToFront();
             viewer.StartPosition = FormStartPosition.Manual;
             viewer.ShowDialog();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblMatriculados_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
