@@ -39,10 +39,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -51,7 +51,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-        public static Matricula verificarMatriculado(Int64 pIdCurso,Int64 IdEstudiante)
+        public static Matricula verificarMatriculado(Int64 pIdCurso, Int64 IdEstudiante)
         {
             Matricula item = null;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -82,10 +82,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -112,10 +112,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -185,7 +185,7 @@ namespace GOLLSYSTEM.DataAccess
                         "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
                         "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() +
                         "%') and (c.IdSucursal=@pIdSucursal) and m.Estado='A' order by Id asc limit @pLimit", _con);
-                    comando.Parameters.AddWithValue("@pLimit", pLimit+900);
+                    comando.Parameters.AddWithValue("@pLimit", pLimit + 900);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
 
                     MySqlDataReader _reader = comando.ExecuteReader();
@@ -209,10 +209,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -269,7 +269,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return lista;
         }
-        public static List<Matricula> searchMatriculas(string Text, Int64 pIdSucursal, int pLimit,string opc)
+        public static List<Matricula> searchMatriculas(string Text, Int64 pIdSucursal, int pLimit, string opc)
         {
             List<Matricula> lista = new List<Matricula>();
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -277,12 +277,12 @@ namespace GOLLSYSTEM.DataAccess
                 try
                 {
                     _con.Open();
-                   
+
                     MySqlCommand comando = new MySqlCommand("select m.* from matricula as m inner join curso as c on c.Id =m.IdCurso " +
                        "inner join year as y on y.Id=c.IdYear inner join estudiante as e on e.Id=m.IdEstudiante inner join persona as p " +
                        "on p.Id=e.IdPersona where( Upper(p.Nombre) like '%" + Text.ToUpper() + "%' or Upper(e.Telefono) like '%" + Text.ToUpper() +
                        "%' or Upper(e.TelEmergencia) like '%" + Text.ToUpper() + "%' or Upper(e.ParentEmergencia) like '%" + Text.ToUpper() +
-                       "%') and (c.IdSucursal=@pIdSucursal) "+(opc!="ingreso"? " and m.Estado='A' " : "")+ " order by Id asc limit @pLimit", _con);
+                       "%') and (c.IdSucursal=@pIdSucursal) " + (opc != "ingreso" ? " and m.Estado='A' " : "") + " order by Id asc limit @pLimit", _con);
 
                     comando.Parameters.AddWithValue("@pLimit", pLimit);
                     comando.Parameters.AddWithValue("@pIdSucursal", pIdSucursal);
@@ -308,10 +308,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -463,11 +463,11 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     DateTime date = Convert.ToDateTime(item.FhRegistro);
                     Curso curso = CursoDAL.getCursoById(item.IdCurso);
-                    int nCuotas = Math.Abs((Convert.ToDateTime(curso.Hasta).Month - Convert.ToDateTime(item.FhRegistro).Month) + 12 * (Convert.ToDateTime(curso.Hasta).Year - Convert.ToDateTime(item.FhRegistro).Year))+1;
-                    for (int i =0;i<nCuotas;i++)
+                    int nCuotas = Math.Abs((Convert.ToDateTime(curso.Hasta).Month - Convert.ToDateTime(item.FhRegistro).Month) + 12 * (Convert.ToDateTime(curso.Hasta).Year - Convert.ToDateTime(item.FhRegistro).Year)) + 1;
+                    for (int i = 0; i < nCuotas; i++)
                     {
                         MySqlCommand cmdInsertCuota = new MySqlCommand("Insert into cuota (FhRegistro,Precio,Total,IdMatricula) values (@FhRegistro,@Precio,@Total,@IdMatricula)", _con, _trans);
-                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.AddMonths(i).ToString("yyyy")+"/"+ date.AddMonths(i).ToString("MM")+"/"+(Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM")))>Convert.ToInt32(item.DiaLimite)? item.DiaLimite:Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))).ToString()));
+                        cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", date.AddMonths(i).ToString("yyyy") + "/" + date.AddMonths(i).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite : Validation.Validation.getMaxDayMonth(Convert.ToInt32(date.AddMonths(i).ToString("MM"))).ToString()));
                         cmdInsertCuota.Parameters.AddWithValue("@Precio", Properties.Settings.Default.PrecioCuota);
                         cmdInsertCuota.Parameters.AddWithValue("@Total", "0.00");
                         cmdInsertCuota.Parameters.AddWithValue("@IdMatricula", item.Id);
@@ -496,14 +496,13 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         _trans.Commit();
                     }
+                    else { _trans.Rollback(); }
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    result = false;
-                    _trans.Rollback();
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -674,13 +673,13 @@ namespace GOLLSYSTEM.DataAccess
                         DateTime date = Convert.ToDateTime(item.FhRegistro);
                         Curso curso = CursoDAL.getCursoById(item.IdCurso);
 
-                        foreach(Cuota cuota in item.Cuotas)
+                        foreach (Cuota cuota in item.Cuotas)
                         {
                             MySqlCommand cmdInsertCuota = new MySqlCommand("update cuota set FhRegistro=@FhRegistro where Id=@pId", _con, _trans);
-                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", Convert.ToDateTime(cuota.FhRegistro).ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite: Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month).ToString()));
+                            cmdInsertCuota.Parameters.AddWithValue("@FhRegistro", Convert.ToDateTime(cuota.FhRegistro).ToString("yyyy") + "/" + Convert.ToDateTime(cuota.FhRegistro).ToString("MM") + "/" + (Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month) > Convert.ToInt32(item.DiaLimite) ? item.DiaLimite : Validation.Validation.getMaxDayMonth(Convert.ToDateTime(cuota.FhRegistro).Month).ToString()));
 
                             cmdInsertCuota.Parameters.AddWithValue("@pId", cuota.Id);
-                            
+
                             if (cmdInsertCuota.ExecuteNonQuery() <= 0)
                             {
                                 result = false;
@@ -691,7 +690,7 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         foreach (Detmatricula detMatricula in matricula.Padres)
                         {
-                            if (item.Padres.Where(a=>a.Id==detMatricula.Id).FirstOrDefault()==null)
+                            if (item.Padres.Where(a => a.Id == detMatricula.Id).FirstOrDefault() == null)
                             {
                                 MySqlCommand cmdDeleteDetMatricula = new MySqlCommand("Delete from detmatricula where Id=@pId;", _con, _trans);
                                 cmdDeleteDetMatricula.Parameters.AddWithValue("@pId", detMatricula.Id);
@@ -707,13 +706,13 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         Estudiante est = matricula.Estudiante;
                         MySqlCommand cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Actualizó la información de inscripción del alumno \""+est.Persona.Nombre+"\" valores antiguos: \n"+
-                            "Nombre: "+est.Persona.Nombre+", Apellido Paterno: "+est.ApPaterno+", Apellido Materno: "+est.ApMaterno+", Fecha de Nacimiento: "+est.Persona.FechaNac+", "+
-                            "Enfermedad: "+est.Enfermedad+ ", Dirección: "+est.Persona.Direccion+", Correo: "+est.Correo+ ", Teléfono: "+est.Telefono+ ", Teléfono de emergencias: "+
-                            est.TelEmergencia+", Parentesco o nombre: "+est.ParentEmergencia+", Curso: "+CursoDAL.getCursoById(matricula.IdCurso).Nombre+", Dia limite de pago: "+
-                            matricula.DiaLimite+", Becado: "+(matricula.Becado==0?"No":"Si")+(matricula.Padres.Where(a=>a.Parentesco=="Padre").FirstOrDefault()== null?"": ", Padre:"+matricula.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Persona.Nombre)+
-                           (matricula.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null ? ".\n" : ", Madre: "+matricula.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Persona.Nombre)+
-                            "Datos Nuevos: \n"+
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Actualizó la información de inscripción del alumno \"" + est.Persona.Nombre + "\" valores antiguos: \n" +
+                            "Nombre: " + est.Persona.Nombre + ", Apellido Paterno: " + est.ApPaterno + ", Apellido Materno: " + est.ApMaterno + ", Fecha de Nacimiento: " + est.Persona.FechaNac + ", " +
+                            "Enfermedad: " + est.Enfermedad + ", Dirección: " + est.Persona.Direccion + ", Correo: " + est.Correo + ", Teléfono: " + est.Telefono + ", Teléfono de emergencias: " +
+                            est.TelEmergencia + ", Parentesco o nombre: " + est.ParentEmergencia + ", Curso: " + CursoDAL.getCursoById(matricula.IdCurso).Nombre + ", Dia limite de pago: " +
+                            matricula.DiaLimite + ", Becado: " + (matricula.Becado == 0 ? "No" : "Si") + (matricula.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault() == null ? "" : ", Padre:" + matricula.Padres.Where(a => a.Parentesco == "Padre").FirstOrDefault().encargado.Persona.Nombre) +
+                           (matricula.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault() == null ? ".\n" : ", Madre: " + matricula.Padres.Where(a => a.Parentesco == "Madre").FirstOrDefault().encargado.Persona.Nombre) +
+                            "Datos Nuevos: \n" +
                             "Nombre: " + item.Estudiante.Persona.Nombre + ", Apellido Paterno: " + item.Estudiante.ApPaterno + ", Apellido Materno: " + item.Estudiante.ApMaterno + ", Fecha de Nacimiento: " + item.Estudiante.Persona.FechaNac + ", " +
                             "Enfermedad: " + item.Estudiante.Enfermedad + ", Dirección: " + item.Estudiante.Persona.Direccion + ", Correo: " + item.Estudiante.Correo + ", Teléfono: " + item.Estudiante.Telefono + ", Teléfono de emergencias: " +
                             item.Estudiante.TelEmergencia + ", Parentesco o nombre: " + item.Estudiante.ParentEmergencia + ", Curso: " + CursoDAL.getCursoById(item.IdCurso).Nombre + ", Dia limite de pago: " +
@@ -733,14 +732,16 @@ namespace GOLLSYSTEM.DataAccess
                     {
                         _trans.Commit();
                     }
+                    else
+                    {
+                        _trans.Rollback();
+                    }
 
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    result = false;
-                    _trans.Rollback();
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {

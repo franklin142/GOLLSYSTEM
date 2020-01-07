@@ -36,10 +36,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -48,7 +48,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return item;
         }
-        public static Useremp getUseremp(string pLogin,string pPass)
+        public static Useremp getUseremp(string pLogin, string pPass)
         {
             Useremp item = null;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -77,10 +77,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -117,10 +117,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -157,10 +157,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -188,10 +188,10 @@ namespace GOLLSYSTEM.DataAccess
                     }
                     _reader.Close();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     _con.Close();
-                    throw;
+                    throw ex;
                 }
                 finally
                 {
@@ -211,13 +211,14 @@ namespace GOLLSYSTEM.DataAccess
                     _conn.Close();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 result = false;
+                throw ex;
             }
             return result;
         }
-        public static bool InsertUserEmp(Useremp item,Useremp pUser)
+        public static bool InsertUserEmp(Useremp item, Useremp pUser)
         {
             bool result = true;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -265,7 +266,7 @@ namespace GOLLSYSTEM.DataAccess
                     foreach (LstPermiso obj in item.Sucursales[0].Permisos)
                     {
                         cmdInsert = new MySqlCommand("Insert into lstpermiso values (null,null,@Otorgado,@IdPermiso,@IdAcsSucursal)", _con, _trans);
-                        cmdInsert.Parameters.AddWithValue("@Otorgado", obj.Otorgado?1:0);
+                        cmdInsert.Parameters.AddWithValue("@Otorgado", obj.Otorgado ? 1 : 0);
                         cmdInsert.Parameters.AddWithValue("@IdPermiso", obj.IdPermiso);
                         cmdInsert.Parameters.AddWithValue("@IdAcsSucursal", item.Sucursales[0].Id);
 
@@ -283,7 +284,7 @@ namespace GOLLSYSTEM.DataAccess
                     if (result)
                     {
                         cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Registró el usuario con Id \"" + item.Id + "\", Login \"" + item.Login + "\", Id de Contrato \""+item.IdContrato+"\", Empleado \""+item.Contrato.Empleado.Persona.Nombre+"\".");
+                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Registró el usuario con Id \"" + item.Id + "\", Login \"" + item.Login + "\", Id de Contrato \"" + item.IdContrato + "\", Empleado \"" + item.Contrato.Empleado.Persona.Nombre + "\".");
                         cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Inserción");
                         cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Usuario");
                         cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
@@ -292,14 +293,14 @@ namespace GOLLSYSTEM.DataAccess
                             result = false;
                         }
                     }
-                    
+
                     if (result)
                         _trans.Commit();
+                    else
+                        _trans.Rollback();
                 }
                 catch (Exception ex)
                 {
-                    result = false;
-                    _trans.Rollback();
                     _con.Close();
                     throw ex;
                 }
@@ -310,7 +311,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return result;
         }
-        public static bool InsertUserEmpConf(Useremp item,Sucursal itemSucursal)
+        public static bool InsertUserEmpConf(Useremp item, Sucursal itemSucursal)
         {
             bool result = true;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -355,7 +356,7 @@ namespace GOLLSYSTEM.DataAccess
                         item.Sucursales[0].Sucursal.Id = item.Sucursales[0].IdSucursal;
                     }
 
-                    
+
                     MySqlCommand cmdInsertPersona = new MySqlCommand("Insert into persona (Nombre,Dui,Nit,FechaNac,Direccion) values (@Nombre,@Dui,@Nit,@FechaNac,@Direccion)", _con, _trans);
                     cmdInsertPersona.Parameters.AddWithValue("@Nombre", item.Contrato.Empleado.Persona.Nombre);
                     cmdInsertPersona.Parameters.AddWithValue("@Dui", item.Contrato.Empleado.Persona.Dui);
@@ -426,7 +427,7 @@ namespace GOLLSYSTEM.DataAccess
                         item.Contrato.Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
 
                     }
-                    MySqlCommand cmdInsertUsuarioEmp = new MySqlCommand("Insert into useremp(Login,Pass,IdContrato)"+
+                    MySqlCommand cmdInsertUsuarioEmp = new MySqlCommand("Insert into useremp(Login,Pass,IdContrato)" +
                         " values (@Login,md5(@Pass),@IdContrato)", _con, _trans);
                     cmdInsertUsuarioEmp.Parameters.AddWithValue("@Login", item.Login);
                     cmdInsertUsuarioEmp.Parameters.AddWithValue("@Pass", item.Pass);
@@ -458,9 +459,9 @@ namespace GOLLSYSTEM.DataAccess
                         item.Sucursales[0].Id = Convert.ToInt32(cmdUltimoId.ExecuteScalar());
                     }
                     // asignacion de permisos al acceso de sucursal
-                    MySqlCommand cmdInsertPermisos = new MySqlCommand("Insert into permiso values"+
-                        "(1,'Gestionar Matriculas','Gestionar Matriculas'),"+
-                        "(2,'Matricular Estudiantes','Gestionar Matriculas'),"+
+                    MySqlCommand cmdInsertPermisos = new MySqlCommand("Insert into permiso values" +
+                        "(1,'Gestionar Matriculas','Gestionar Matriculas')," +
+                        "(2,'Matricular Estudiantes','Gestionar Matriculas')," +
                         "(3,'Editar Matriculas','Gestionar Matriculas')," +
                         "(4,'Desertar Estudiantes','Gestionar Matriculas')," +
                         "(5,'Gestionar Empleados','Gestionar Empleados')," +
@@ -492,7 +493,7 @@ namespace GOLLSYSTEM.DataAccess
                         result = false;
                     }
                     List<Permiso> permisos = PermisoDAL.getPermisos();
-                    foreach(Permiso obj in permisos)
+                    foreach (Permiso obj in permisos)
                     {
                         MySqlCommand cmdInsertLstPermiso = new MySqlCommand("Insert into lstpermiso values (null,CURRENT_TIMESTAMP,1,@Permiso,@AcsSucursal)", _con, _trans);
                         cmdInsertContrato.Parameters.AddWithValue("@Permiso", obj.Id);
@@ -528,13 +529,13 @@ namespace GOLLSYSTEM.DataAccess
                         "(null,CURRENT_TIMESTAMP,1,23)," +
                         "(null,CURRENT_TIMESTAMP,1,24)," +
                         "(null,CURRENT_TIMESTAMP,1,25)," +
-                        "(null,CURRENT_TIMESTAMP,1,26)" 
+                        "(null,CURRENT_TIMESTAMP,1,26)"
                         , _con, _trans);
                     if (cmdInsertLstPermisoRol1.ExecuteNonQuery() <= 0)
                     {
                         result = false;
                     }
-                    MySqlCommand cmdInsertLstPermisoRol2 = new MySqlCommand("Insert into lstpermisorol values "+
+                    MySqlCommand cmdInsertLstPermisoRol2 = new MySqlCommand("Insert into lstpermisorol values " +
                         "(null,CURRENT_TIMESTAMP,2,1)," +
                         "(null,CURRENT_TIMESTAMP,2,2)," +
                         "(null,CURRENT_TIMESTAMP,2,3)," +
@@ -563,11 +564,11 @@ namespace GOLLSYSTEM.DataAccess
 
                     if (result)
                         _trans.Commit();
+                    else
+                        _trans.Rollback();
                 }
                 catch (Exception ex)
                 {
-                    result = false;
-                    _trans.Rollback();
                     _con.Close();
                     throw ex;
                 }
@@ -578,7 +579,7 @@ namespace GOLLSYSTEM.DataAccess
             }
             return result;
         }
-        public static bool UpdateUserEmp(Useremp item,string opc,Useremp pUser)
+        public static bool UpdateUserEmp(Useremp item, string opc, Useremp pUser)
         {
             bool result = true;
             using (MySqlConnection _con = new Conexion().Conectar())
@@ -600,7 +601,7 @@ namespace GOLLSYSTEM.DataAccess
                                 result = false;
                             }
                             cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                            cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Actualizó la contraseña para el usuario con Id \""+item.Id+"\", Login \""+item.Login+"\".");
+                            cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Actualizó la contraseña para el usuario con Id \"" + item.Id + "\", Login \"" + item.Login + "\".");
                             cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Actualización de contraseña");
                             cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Usuario");
                             cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
@@ -610,7 +611,7 @@ namespace GOLLSYSTEM.DataAccess
                             }
                             break;
                         case "all":
-                            if (item.Pass=="")
+                            if (item.Pass == "")
                             {
                                 cmdUpdateUserEmp = new MySqlCommand("update useremp set Login=@Login,Estado=@Estado,IdContrato=@IdContrato where Id=@Id;", _con, _trans);
                                 cmdUpdateUserEmp.Parameters.AddWithValue("@Login", item.Login);
@@ -653,14 +654,14 @@ namespace GOLLSYSTEM.DataAccess
                                     result = false;
                                 }
                             }
-                            foreach(AcsSucursal suc in item.Sucursales)
+                            foreach (AcsSucursal suc in item.Sucursales)
                             {
                                 foreach (LstPermiso obj in suc.Permisos)
                                 {
-                                    if (obj.Id==0)
+                                    if (obj.Id == 0)
                                     {
                                         cmdUpdateUserEmp = new MySqlCommand("insert into lstpermiso(null,null,@Otorgado,@IdPermiso,@IdAcsSucursal);", _con, _trans);
-                                        cmdUpdateUserEmp.Parameters.AddWithValue("@Otorgado", obj.Otorgado?1:0);
+                                        cmdUpdateUserEmp.Parameters.AddWithValue("@Otorgado", obj.Otorgado ? 1 : 0);
                                         cmdUpdateUserEmp.Parameters.AddWithValue("@IdPermiso", obj.IdPermiso);
                                         cmdUpdateUserEmp.Parameters.AddWithValue("@IdAcsSucursal", suc.Id);
                                         if (cmdUpdateUserEmp.ExecuteNonQuery() <= 0)
@@ -668,7 +669,7 @@ namespace GOLLSYSTEM.DataAccess
                                             result = false;
                                         }
                                         cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
-                                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Se inserto un permiso con Id \"" + obj.Id + "\" descripción \""+obj.Permiso.Nombre+"\" al Login \"" + item.Login + "\".");
+                                        cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Se inserto un permiso con Id \"" + obj.Id + "\" descripción \"" + obj.Permiso.Nombre + "\" al Login \"" + item.Login + "\".");
                                         cmdInsertAuditoria.Parameters.AddWithValue("@Accion", "Inserción de Permiso");
                                         cmdInsertAuditoria.Parameters.AddWithValue("@TipoRegistro", "Permiso");
                                         cmdInsertAuditoria.Parameters.AddWithValue("@IdUserEmp", pUser.Id);
@@ -680,13 +681,13 @@ namespace GOLLSYSTEM.DataAccess
                                     else
                                     {
                                         cmdUpdateUserEmp = new MySqlCommand("update lstpermiso set Otorgado=@Otorgado where Id=@Id;", _con, _trans);
-                                        cmdUpdateUserEmp.Parameters.AddWithValue("@Otorgado", obj.Otorgado?1:0);
+                                        cmdUpdateUserEmp.Parameters.AddWithValue("@Otorgado", obj.Otorgado ? 1 : 0);
                                         cmdUpdateUserEmp.Parameters.AddWithValue("@Id", obj.Id);
                                         if (cmdUpdateUserEmp.ExecuteNonQuery() <= 0)
                                         {
                                             result = false;
                                         }
-                                        if (LstPermisoDAL.getLstPermisoById(obj.Id).Otorgado!=obj.Otorgado)
+                                        if (LstPermisoDAL.getLstPermisoById(obj.Id).Otorgado != obj.Otorgado)
                                         {
                                             cmdInsertAuditoria = new MySqlCommand("Insert into regemphist (Detalle,Accion,TipoRegistro,IdUserEmp) values (@Detalle,@Accion,@TipoRegistro,@IdUserEmp)", _con, _trans);
                                             cmdInsertAuditoria.Parameters.AddWithValue("@Detalle", "Se actualizó el registro de lstpermiso con Id \"" + obj.Id + "\" del permiso con descripción \"" + obj.Permiso.Nombre + "\" al Login \"" + item.Login + "\" .");
@@ -698,7 +699,7 @@ namespace GOLLSYSTEM.DataAccess
                                                 result = false;
                                             }
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -710,16 +711,15 @@ namespace GOLLSYSTEM.DataAccess
                         default:
                             break;
                     }
-                   
+
 
                     if (result)
                         _trans.Commit();
-
+                    else
+                        _trans.Rollback();
                 }
                 catch (Exception ex)
                 {
-                    result = false;
-                    _trans.Rollback();
                     _con.Close();
                     throw ex;
                 }
